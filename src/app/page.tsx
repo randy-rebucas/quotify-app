@@ -1,39 +1,56 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import QuotifyLogo from '@/app/ui/quotify-logo';
+import { Metadata } from 'next';
+
+import ContentWrapper, { Content, ContextValue } from './ui/content';
+import QuotifyLogo from './ui/quotify-logo';
+import Intro from './ui/intro';
 import { Video } from './ui/video';
-import WrapperAnimation from './ui/wrapper-animation';
 import Tooltip from './ui/tooltip';
 import { lato } from '@/app/ui/fonts';
+import ColorAnimation from './ui/color-animation';
+
+export const metadata: Metadata = {
+  title: 'Welcome'
+};
 
 export default function Page() {
 
+  const contextItems: ContextValue[] = [
+    {
+      context: 'Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.'
+    },
+    {
+      context: 'Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.'
+    },
+    {
+      context: 'Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.'
+    }
+  ]
+
+  const colors: string[] = ['bg-gray1', 'bg-gray2A', 'bg-gray3A', 'bg-gray4A', 'bg-gray5A']
+
   return (
     <div className="wrapper lg:bg-transparent bg-black">
-      <div className="wrapper__logo animate fade-in delay-last">
-        <Image
-          src="/images/icon-search.png"
-          width={37}
-          height={37}
-          alt="Search Icon"
-        />
-      </div>
+      <QuotifyLogo />
 
       <div className="wrapper__content animate fade-in delay-last grid">
-        <QuotifyLogo />
+        <div className={`${lato.className} lg:col-span-1 col-span-12 p-30 flex flex-col justify-end pb-[100px] h-full`} >
+          <Intro />
+        </div>
 
         <div className="lg:col-start-2 lg:col-span-3 col-span-12">
-          <Video />
+          <div className="grid lg:grid-cols-3 lg:grid-flow-col p-30">
+            <Video />
+          </div>
           <div className="grid lg:grid-cols-3 lg:grid-flow-col">
-            <p className={`${lato.className} p-30 lg:text-black text-white`}>Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.</p>
-            <p className={`${lato.className} p-30 lg:text-black text-white`}>Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.</p>
-            <p className={`${lato.className} p-30 lg:text-black text-white`}>Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.</p>
+            <ContentWrapper contexts={contextItems} />
           </div>
         </div>
+
         <div className="wrapper__next">
           <Tooltip />
-
-          <Link href="/file-management">
+          <Link href="/management">
             <Image
               src="/images/icon-submit.png"
               width={0}
@@ -46,7 +63,7 @@ export default function Page() {
         </div>
       </div>
 
-      <WrapperAnimation />
+      <ColorAnimation colors={colors} target={null}/>
     </div>
   );
 }

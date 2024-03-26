@@ -9571,10 +9571,10 @@ p {
 .wrapper.wrapper-signup .wrapper__cover::before {
   background-image: url(../c97f9134812b1d263127.png);
 }
-
+ */
 .wrapper.wrapper-estimation .wrapper__cover::before {
   background-image: url(../87b9f42fb3d0a1130d1b.png);
-} */
+}
 
 .wrapper__logo {
   position: absolute;
@@ -9709,7 +9709,7 @@ p {
 }
 
 .border-left-dashed::before {
-  /* background: url(../c5100520006050511981.svg) no-repeat; */
+  background: url(../c5100520006050511981.svg) no-repeat;
   content: "";
   height: 100%;
   position: absolute;

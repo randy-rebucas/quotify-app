@@ -6,7 +6,7 @@ export function Video() {
     };
 
     return (
-        <div className="grid lg:grid-cols-3 lg:grid-flow-col p-30">
+        <>
             <div className="video-wrapper col-span-3 relative flex items-center justify-center bg-cover"
                 style={videoThumbnail}>
                 <a href="#" id="video-wrapper-play" className="video-wrapper__thumb flex justify-center lg:w-[200px] w-4/12">
@@ -25,6 +25,6 @@ export function Video() {
                 <source src="https://quotify.mmoser.app/src/videos/flowbite.mp4" type="video/mp4" />
                 Your browser does not support the video tag.
             </video>
-        </div>
+        </>
     )
 }
