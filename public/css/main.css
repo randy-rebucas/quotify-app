@@ -8463,72 +8463,78 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
-
 /* Typography */
-/* @font-face {
+/* 
+@font-face {
   font-family: "Lato-BoldItalic";
-  src: url(../d1c547b44c8f15f586db.woff) format("woff");
+  src: url(../fd32b4dea61508c37b78.ttf);
+  src: url(../0d4218f5b907f4ee35db.eot?#iefix) format("embedded-opentype"), url(../d1c547b44c8f15f586db.woff) format("woff"), url(../fd32b4dea61508c37b78.ttf) format("truetype"), url(../c420373a16336bc39774.svg#Lato-BoldItalic) format("svg");
   font-weight: normal;
   font-style: normal;
-} */
-/* @font-face {
+}
+@font-face {
   font-family: "Lato-LightItalic";
-  src: url(../5ab837cecfd0c4ac88a8.woff) format("woff");
+  src: url(../4310bbed01b37dfcee98.ttf);
+  src: url(../7547fcb403ed639fdcbc.eot?#iefix) format("embedded-opentype"), url(../5ab837cecfd0c4ac88a8.woff) format("woff"), url(../4310bbed01b37dfcee98.ttf) format("truetype"), url(../c68b63ccd1f2b64ceaad.svg#Lato-LightItalic) format("svg");
   font-weight: normal;
   font-style: normal;
-} */
-/* @font-face {
+}
+@font-face {
   font-family: "Lato-ThinItalic";
-  src: url(../7caf5ecd104c2121d0d3.woff) format("woff");
+  src: url(../42a616fcfc8a08caef71.ttf);
+  src: url(../6fc70fc4a18de67e8d5d.eot?#iefix) format("embedded-opentype"), url(../7caf5ecd104c2121d0d3.woff) format("woff"), url(../42a616fcfc8a08caef71.ttf) format("truetype"), url(../4647d8b4f3ef850af645.svg#Lato-ThinItalic) format("svg");
   font-weight: normal;
   font-style: normal;
-} */
-/* @font-face {
+}
+@font-face {
   font-family: "Lato-Thin";
-  src: url(../b7ba3bc5bb8abc2c098c.woff) format("woff");
+  src: url(../5a60dde25d817751d590.ttf);
+  src: url(../c49fe7a04bf4a359e8f2.eot?#iefix) format("embedded-opentype"), url(../b7ba3bc5bb8abc2c098c.woff) format("woff"), url(../5a60dde25d817751d590.ttf) format("truetype"), url(../ca48242cd910efec619d.svg#Lato-Thin) format("svg");
   font-weight: normal;
   font-style: normal;
-} */
+}
 @font-face {
   font-family: "Lato-Light";
-  /* src: url(../c7400fcad9e48ca9043f.ttf); */
-  src: url(../34ab51643e766ddb3d77.woff) format("woff");
+  src: url(../c7400fcad9e48ca9043f.ttf);
+  src: url(../a18abdcdb3069d971815.eot?#iefix) format("embedded-opentype"), url(../34ab51643e766ddb3d77.woff) format("woff"), url(../c7400fcad9e48ca9043f.ttf) format("truetype"), url(../33c94782a32f2f3fb0d9.svg#Lato-Light) format("svg");
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
   font-family: "Lato-Regular";
-  /* src: url(../9d883d540ee2b4de8024.ttf); */
-  src: url(../9025a1446c4ebb06a881.woff) format("woff");
+  src: url(../9d883d540ee2b4de8024.ttf);
+  src: url(../71031454e107e1cdf8d2.eot?#iefix) format("embedded-opentype"), url(../9025a1446c4ebb06a881.woff) format("woff"), url(../9d883d540ee2b4de8024.ttf) format("truetype"), url(../5d4a2a6867ba9e2ccc4d.svg#Lato-Regular) format("svg");
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
   font-family: "Lato-Bold";
-  /* src: url(../636be8de934918e38ed9.ttf); */
-  src: url(../7ba3c4f3e3c2fe02836b.woff) format("woff");
+  src: url(../636be8de934918e38ed9.ttf);
+  src: url(../4099c12f713628776e2c.eot?#iefix) format("embedded-opentype"), url(../7ba3c4f3e3c2fe02836b.woff) format("woff"), url(../636be8de934918e38ed9.ttf) format("truetype"), url(../74eb2e803a31598ee5db.svg#Lato-Bold) format("svg");
   font-weight: normal;
   font-style: normal;
 }
-/* @font-face {
+@font-face {
   font-family: "Lato-Italic";
-  src: url(../8c9eb6dc9096bc15a41b.woff) format("woff");
+  src: url(../a9f3ee269217f44df65f.ttf);
+  src: url(../ec19a622400656aa15e4.eot?#iefix) format("embedded-opentype"), url(../8c9eb6dc9096bc15a41b.woff) format("woff"), url(../a9f3ee269217f44df65f.ttf) format("truetype"), url(../d9fa42957ec2b1cdde03.svg#Lato-Italic) format("svg");
   font-weight: normal;
   font-style: normal;
-} */
-/* @font-face {
+}
+@font-face {
   font-family: "Lato-BlackItalic";
-  src: url(../3ee40c5f9e986b5bc29b.woff) format("woff");
+  src: url(../09fc285661e54addb1fd.ttf);
+  src: url(../fc219d157a40f2b95a0e.eot?#iefix) format("embedded-opentype"), url(../3ee40c5f9e986b5bc29b.woff) format("woff"), url(../09fc285661e54addb1fd.ttf) format("truetype"), url(../e4cba51a0b2aa93692d7.svg#Lato-BlackItalic) format("svg");
   font-weight: normal;
   font-style: normal;
-} */
+}
 @font-face {
   font-family: "Lato-Black";
-  /* src: url(../57dee8aface5572f9101.ttf); */
-  src: url(../9aa4f5189c4ef1befd85.woff) format("woff");
+  src: url(../57dee8aface5572f9101.ttf);
+  src: url(../f604ebd2b4fccf11b335.eot?#iefix) format("embedded-opentype"), url(../9aa4f5189c4ef1befd85.woff) format("woff"), url(../57dee8aface5572f9101.ttf) format("truetype"), url(../20b3a6064cb1f4cca179.svg#Lato-Black) format("svg");
   font-weight: normal;
   font-style: normal;
-}
+} */
 .theme .custom-upload {
   display: flex;
   width: 100%;
@@ -9558,17 +9564,17 @@ p {
   overflow-x: hidden;
 }
 
-.wrapper.wrapper-signin .wrapper__cover::before {
-  /* background-image: url(../883e8f6a97fdfbf7f0d1.png); */
+/* .wrapper.wrapper-signin .wrapper__cover::before {
+  background-image: url(../883e8f6a97fdfbf7f0d1.png);
 }
 
 .wrapper.wrapper-signup .wrapper__cover::before {
-  /* background-image: url(../c97f9134812b1d263127.png); */
+  background-image: url(../c97f9134812b1d263127.png);
 }
 
 .wrapper.wrapper-estimation .wrapper__cover::before {
-  /* background-image: url(../87b9f42fb3d0a1130d1b.png); */
-}
+  background-image: url(../87b9f42fb3d0a1130d1b.png);
+} */
 
 .wrapper__logo {
   position: absolute;

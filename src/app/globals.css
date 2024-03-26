@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url('/css/main.css');
+
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
@@ -32,4 +34,3 @@ body {
   }
 }
 
-@import url('../../public/css/main.css');
