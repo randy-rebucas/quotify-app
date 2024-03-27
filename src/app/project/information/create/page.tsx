@@ -62,6 +62,7 @@ export default function Page() {
 
     function onSubmit(e: FormEvent) {
         e.preventDefault()
+        console.log('next');
         if (!isLastStep) return next()
         alert("Successful Account Creation")
     }
@@ -159,7 +160,7 @@ export default function Page() {
                             </div>
                         )}
 
-                        <InformationNav />
+                        <InformationNav currentIndex={currentStepIndex}/>
                     </div>
                 </div>
 
@@ -168,7 +169,7 @@ export default function Page() {
                 /*  This block contains all the steps in the Area Breakdown form            
                 /--> */}
                 <form onSubmit={onSubmit} className="lg:col-span-4 col-span-12 h-full w-full overflow-y-scroll overflow-x-hidden">
-
+                    
                     {step}
 
                 </form>

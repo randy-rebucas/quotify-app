@@ -1,4 +1,8 @@
+'use client';
+
 import { ReactNode } from "react";
+import DropzoneUploadedFile from "../dropzone-uploaded-file";
+import Address from "../address";
 
 type FormWrapperProps = {
     title: string;
@@ -8,10 +12,10 @@ type FormWrapperProps = {
 export default function Wrapper({ title, children }: FormWrapperProps) {
     return (
         <div className="js-step step active">
+
             {children}
 
-            <div
-                className="lg:col-start-3 lg:col-span-2 col-span-12 flex flex-col justify-between items-start w-full h-full">
+            <div className="lg:col-start-3 lg:col-span-2 col-span-12 flex flex-col justify-between items-start w-full h-full">
                 <div className="absolute top-0 right-0 pulsate flex flex-col items-end w-full p-30">
                     <button data-tooltip-target="tooltip-step-1" data-tooltip-trigger="click" type="button"
                         className="outline-none">
@@ -37,19 +41,16 @@ export default function Wrapper({ title, children }: FormWrapperProps) {
                     </div>
                 </div>
                 <div className="flex flex-col justify-start items-end w-full h-full">
-                    <div className="mt-[30.833vh] px-30 w-full">
-                        <div className="dropzone-uploads hidden">
-                            <p className="text-darkblue font-latobold">my floorplans</p>
-                            <div className="dropzone-content mt-10 flex flex-wrap">
-                                {/* <!-- Uploaded files will automatically be shown here --> */}
-                                <span></span>
-                            </div>
-                        </div>
-                    </div>
+                    {/* only show if there is an uploaded file */}
+                    {/* and only on first step  */}
+                    {/* <DropzoneUploadedFile /> */}
+
+                    {/* only show if there is an address selected */}
+                    {/* and only show on second step  */}
+                    {/* <Address /> */}
                 </div>
-                
                 <div className="p-30 w-full flex items-end justify-end">
-                    <button className="js-nextbtn focus:shadow-outline focus:outline-none" type="button">
+                    <button className="focus:shadow-outline focus:outline-none" type="submit">
                         <svg xmlns="http://www.w3.org/2000/svg" width="78" height="63" viewBox="0 0 78 63"
                             fill="none">
                             <path

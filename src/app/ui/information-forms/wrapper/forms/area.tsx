@@ -74,8 +74,7 @@ export default function Area({
                 </div>
             </div>
 
-            <div
-                className="lg:col-start-3 lg:col-span-2 col-span-12 flex flex-col justify-between items-start w-full h-full">
+            <div className="lg:col-start-3 lg:col-span-2 col-span-12 flex flex-col justify-between items-start w-full h-full">
                 <div className="absolute top-0 right-0 pulsate flex flex-col items-end w-full p-30">
                     <button data-tooltip-target="tooltip-step-3" data-tooltip-trigger="click" type="button"
                         className="outline-none">
@@ -124,16 +123,6 @@ export default function Area({
                         </div>
                     </div>
                 </div>
-                {/* <div className="p-30 w-full flex items-end justify-end">
-                    <button className="js-nextbtn focus:shadow-outline focus:outline-none" type="button">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="78" height="63" viewBox="0 0 78 63"
-                            fill="none">
-                            <path
-                                d="M46.4 0L44.3 2.1L71.9 29.8H0V32.8H71.5L44.1 60.2L46.2 62.4L77.5 31.1L46.4 0Z"
-                                fill="#003855" />
-                        </svg>
-                    </button>
-                </div> */}
             </div>
 
         </Wrapper>

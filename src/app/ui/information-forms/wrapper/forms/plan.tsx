@@ -2,7 +2,7 @@ import Wrapper from "../wrapper";
 
 type PlanData = {
     spaceName: string
-    hasFloorPlan: boolean
+    hasFloorPlan: boolean,
 }
 
 type PlanFormProps = PlanData & {
@@ -77,8 +77,6 @@ export default function Plan({
                     </div>
                 </div>
             </div>
-
-            
         </Wrapper>
     )
 }
