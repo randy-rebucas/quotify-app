@@ -1,8 +1,9 @@
 import { Metadata } from "next";
 import Image from "next/image";
-import Popup from "../../ui/popup";
+import Popup from "../ui/popup";
 import { lato } from '@/app/ui/fonts';
 import Link from "next/link";
+import ColorAnimation from "../ui/color-animation";
 
 export const metadata: Metadata = {
     title: 'Estimation'
@@ -10,12 +11,14 @@ export const metadata: Metadata = {
 
 export default function Page() {
     
+    const colors: string[] = ['bg-gray1', 'bg-gray2', 'bg-gray3', 'bg-gray4', 'bg-gray5']
+
     const estimationNav = {
         zIndex: 99999
     };
 
     return (
-        <>
+        <div className="js-wrapper wrapper wrapper-estimation bg-fixed bg-cover">
             <Link href="/project/information" id="js-enable-estimation-nav" style={estimationNav} className="js-autoplay-show enable-estimation-nav hidden">
                 <Image
                     src="/images/icon-enable.png"
@@ -177,6 +180,7 @@ export default function Page() {
                     </div>
                 </div>
             </div>
-        </>
+            <ColorAnimation colors={colors} target={2} className={null} isLinear={false}/>
+        </div>
     )
 }

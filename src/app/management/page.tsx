@@ -26,7 +26,7 @@ export default function Page() {
                         />
                         <span className="font-latoblack">settings</span>
                     </Link>
-                    <Link href="/estimation">
+                    <Link href="/project">
                         <Image
                             src="/images/icon-create.svg"
                             width={50}
@@ -41,7 +41,7 @@ export default function Page() {
                 </div>
             </div>
 
-            <ColorAnimation colors={colors} target={null}/>
+            <ColorAnimation colors={colors} target={null} className="opacity-1" isLinear={false}/>
         </div>
     )
 }

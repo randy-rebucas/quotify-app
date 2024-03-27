@@ -3,11 +3,12 @@
 import { usePathname } from "next/navigation";
 import Buttons from "./buttons";
 
-export default function Column({ step, stepInWord, section, navigation, children }: {
+export default function Column({ step, stepInWord, section, navigation, next, children }: {
     step: number;
     stepInWord: string;
     section: string;
     navigation: string;
+    next: string;
     children: React.ReactNode
 }) {
     const pathname = usePathname();
@@ -23,7 +24,7 @@ export default function Column({ step, stepInWord, section, navigation, children
                         {children}
                     </div>
                 </div>
-                <Buttons navigation={navigation} completed={false} />
+                <Buttons path={navigation} next={next} completed={false} />
             </div>
         </div>
     );

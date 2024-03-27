@@ -1,16 +1,12 @@
-export default function ColorAnimation({ colors, target }: { colors: string[]; target: number | null }) {
+export default function ColorAnimation({ colors, target, className, isLinear }: { 
+    colors: string[]; 
+    target: number | null; 
+    className: string | null;
+    isLinear: boolean;
+}) {
     return (
-        // <div className="js-wrapper__cover wrapper__cover main hidden">
-        //     <div className="js-staggering-anim staggering-anim">
-        //         <div className="js-el el bg-blue"></div>
-        //         <div className="js-el el bg-gray2"></div>
-        //         <div className="js-el el bg-gray3 border-left-dashed relative"></div>
-        //         <div className="js-el el bg-gray4"></div>
-        //         <div className="js-el el bg-gray5"></div>
-        //     </div>
-        // </div>
-        <div className="js-wrapper__cover wrapper__cover opacity-1">
-            <div className="js-staggering-anim staggering-anim">
+        <div className={`js-wrapper__cover wrapper__cover ${className}`}>
+            <div className={`${isLinear ? 'js-linear-anim linear-anim el' : 'js-staggering-anim staggering-anim'}`}>
                 {colors.map((color, index) => (
                     <Color color={color} index={index} target={target} key={index} />
                 ))}
