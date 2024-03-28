@@ -17,7 +17,7 @@ export default function HeadCount({
     updateFields
 }: HeadCountFormProps) {
     return (
-        <Wrapper title="Headcount & Staffing">
+        <>
             <div className="lg:col-span-3 col-span-12 flex flex-col justify-start items-start w-full">
                 <div className="h-full w-full">
                     <div className="flex flex-col justify-between h-full p-30">
@@ -31,8 +31,7 @@ export default function HeadCount({
                 </div>
             </div>
 
-            <div
-                className="lg:col-span-1 col-span-12 row-start-2 flex flex-col justify-start items-start w-full h-full">
+            <div className="lg:col-span-1 col-span-12 row-start-2 flex flex-col justify-start items-start w-full h-full">
                 <div className="h-full w-full">
                     <div className="p-30">
                         <div className="flex flex-col justify-between h-full">
@@ -53,8 +52,7 @@ export default function HeadCount({
                 </div>
             </div>
 
-            <div
-                className="lg:col-span-1 lg:col-start-2 col-span-12 row-start-2 flex flex-col justify-start items-start w-full h-full">
+            <div className="lg:col-span-1 lg:col-start-2 col-span-12 row-start-2 flex flex-col justify-start items-start w-full h-full">
                 <div className="h-full w-full">
                     <div className="p-30">
                         <div className="flex flex-col justify-between h-full">
@@ -64,8 +62,8 @@ export default function HeadCount({
                                     <p>for the remaning headcount, what is the average attendance per week?</p>
 
                                     <div className="custom-input flex flex-col items-start justify-start mt-[5.556vh]">
-                                        <input className="bg-transparent focus:outline-none border-b-2 border-blue" type="text" name="" 
-                                        value={averageAttendance} onChange={e => updateFields({ averageAttendance: e.target.value })} />
+                                        <input className="bg-transparent focus:outline-none border-b-2 border-blue" type="text" name=""
+                                            value={averageAttendance} onChange={e => updateFields({ averageAttendance: e.target.value })} />
                                         <div className="mt-[20px] font-latobold text-[30px]">people</div>
                                     </div>
                                 </div>
@@ -75,8 +73,7 @@ export default function HeadCount({
                 </div>
             </div>
 
-            <div
-                className="lg:col-start-3 lg:col-span-1 col-span-12 row-start-2 flex flex-col justify-start items-start w-full h-full">
+            <div className="lg:col-start-3 lg:col-span-1 col-span-12 row-start-2 flex flex-col justify-start items-start w-full h-full">
                 <div className="h-full w-full">
                     <div className="p-30">
                         <div className="flex flex-col justify-between h-full">
@@ -103,6 +100,6 @@ export default function HeadCount({
                     </div>
                 </div>
             </div>
-        </Wrapper>
+        </>
     )
 }

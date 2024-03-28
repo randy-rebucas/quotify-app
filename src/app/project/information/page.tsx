@@ -33,7 +33,7 @@ export default function Page() {
                             stepInWord='one'
                             section='Project information'
                             navigation="/project/information"
-                            next="/project/information/upload-plan" >
+                            next="/project/information/create" >
                             <p className="text-white pb-3">Here is where you will add ingot to start shaping your project and letting the system know what you have in mind so we can come up with a cost together.</p>
                             <p className="text-white">system know what you have in mind so we can come up with a cost together.
                                 cost together.</p>

@@ -1,36 +1,13 @@
 import clsx from "clsx";
+import { menus } from "./menu";
 
-type MenuData = {
-    num: number
-    title: string
-}
-
-export default function InformationNav({ currentIndex }: { currentIndex: number }) {
-    const menus: MenuData[] = [
-        {
-            num: 1,
-            title: 'plan upload'
-        },
-        {
-            num: 2,
-            title: 'address'
-        },
-        {
-            num: 3,
-            title: 'space size & rentable area'
-        },
-        {
-            num: 4,
-            title: 'headcount & staffing'
-        }
-    ];
-
+export default function InfoMenu({ currentIndex }: { currentIndex: number }) {
     return (
         <div className="p-30 lg:pt-col1">
             <div className="flex flex-col justify-between h-full">
                 <div>
                     <h1 className="font-latobold text-white">
-                        01:
+                        01.{currentIndex + 1}:
                     </h1>
                     <h4 className="font-latolight mt-3 text-white">
                         Project information

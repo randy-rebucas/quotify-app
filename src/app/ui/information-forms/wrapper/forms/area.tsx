@@ -17,7 +17,7 @@ export default function Area({
     updateFields
 }: AreaFormProps) {
     return (
-        <Wrapper title="Space size & Rentable area">
+        <>
             <div className="lg:col-span-2 col-span-12 flex flex-col justify-start items-start w-full h-full">
                 <div className="h-full w-full">
                     <div className="p-30 pt-[6.852vh]">
@@ -124,7 +124,6 @@ export default function Area({
                     </div>
                 </div>
             </div>
-
-        </Wrapper>
+        </>
     )
 }

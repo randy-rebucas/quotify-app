@@ -3,19 +3,26 @@
 import { ReactNode } from "react";
 import DropzoneUploadedFile from "../dropzone-uploaded-file";
 import Address from "../address";
+import clsx from "clsx";
 
 type FormWrapperProps = {
-    title: string;
+    stepIndex: number;
     children: ReactNode
 }
 
-export default function Wrapper({ title, children }: FormWrapperProps) {
+export default function Wrapper({ stepIndex, children }: FormWrapperProps) {
     return (
         <div className="js-step step active">
 
             {children}
 
-            <div className="lg:col-start-3 lg:col-span-2 col-span-12 flex flex-col justify-between items-start w-full h-full">
+            <div className={clsx(
+                'lg:col-span-2 col-span-12 flex flex-col justify-between items-start w-full h-full',
+                {
+                    'lg:col-start-3': (stepIndex + 1) != 4,
+                    'lg:col-start-4 row-span-3 relative': (stepIndex + 1) === 4,
+                },
+            )}>
                 <div className="absolute top-0 right-0 pulsate flex flex-col items-end w-full p-30">
                     <button data-tooltip-target="tooltip-step-1" data-tooltip-trigger="click" type="button"
                         className="outline-none">
@@ -43,11 +50,13 @@ export default function Wrapper({ title, children }: FormWrapperProps) {
                 <div className="flex flex-col justify-start items-end w-full h-full">
                     {/* only show if there is an uploaded file */}
                     {/* and only on first step  */}
-                    {/* <DropzoneUploadedFile /> */}
+                    {(stepIndex + 1) === 1 && <DropzoneUploadedFile />}
+
 
                     {/* only show if there is an address selected */}
                     {/* and only show on second step  */}
-                    {/* <Address /> */}
+                    {(stepIndex + 1) === 2 && <Address />}
+
                 </div>
                 <div className="p-30 w-full flex items-end justify-end">
                     <button className="focus:shadow-outline focus:outline-none" type="submit">
