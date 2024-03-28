@@ -26,10 +26,8 @@ export default function Buttons({ path, next, completed }: {
             <Link href="/" className={`${!completed ? 'hidden' : ''}`}>
                 <Image
                     src="/images/icon-check.svg"
-                    width={0}
-                    height={0}
-                    sizes="100vw"
-                    className="tooltip__icon w-full h-auto"
+                    width={70}
+                    height={70}
                     alt="next-check"
                 />
             </Link>

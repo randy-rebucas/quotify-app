@@ -1,21 +1,28 @@
-import { Metadata } from "next";
-import Image from "next/image";
-import ColorAnimation from "../../ui/color-animation";
-import Popup from "../../ui/popup";
+import ColorAnimation from "@/app/ui/color-animation";
 import Column from "@/app/ui/column";
-
-export const metadata: Metadata = {
-    title: 'Information'
-};
+import Popup from "@/app/ui/popup";
+import Image from "next/image";
 
 export default function Page() {
 
-    const introductionColors: string[] = ['bg-gray1', 'bg-gray2', 'bg-gray3', 'bg-gray4', 'bg-gray5'];
-    
-    const mainColors: string[] = ['bg-blue', 'bg-gray2', 'bg-gray3', 'bg-gray4', 'bg-gray5'];
+    const introductionColors: string[] = [
+        "bg-gray1",
+        "bg-gray2",
+        "bg-gray3",
+        "bg-gray4",
+        "bg-gray5",
+    ];
+
+    const mainColors: string[] = [
+        "bg-gray1",
+        "bg-gray2",
+        "bg-gray3",
+        "bg-gray4",
+        "bg-gray5",
+    ];
 
     return (
-        <div className="wrapper theme theme-darkblue">
+        <div className="wrapper theme theme-blue">
             <Popup />
 
             <div className="js-autoplay-show wrapper__content animate fade-in delay-last grid">
@@ -34,7 +41,7 @@ export default function Page() {
                             section='Project information'
                             navigation="/project/information"
                             next="/project/information/create"
-                            isCompleted={false} >
+                            isCompleted={true} >
                             <p className="text-white pb-3">Here is where you will add ingot to start shaping your project and letting the system know what you have in mind so we can come up with a cost together.</p>
                             <p className="text-white">system know what you have in mind so we can come up with a cost together.
                                 cost together.</p>
@@ -44,8 +51,8 @@ export default function Page() {
                             step={2}
                             stepInWord='two'
                             section='Area breakdown'
-                            navigation="/project/area-breakdown"
-                            next=""
+                            navigation="/project/breakdown"
+                            next="/project/breakdown/create"
                             isCompleted={false} >
                             <p className="text-white pb-3">Here is where you will add ingot to start shaping your project and letting the system know what you have in mind so we can come up with a cost together</p>
                         </Column>
@@ -58,7 +65,6 @@ export default function Page() {
                         <h1 className="font-bold font-latoblack xl:text-6xl md:text-5xl text-4xl text-white opacity-10">
                             project estimation</h1>
                     </div>
-
 
                     <div className="close-btn opacity-0 absolute top-0 right-0 flex flex-col items-end p-30 z-30">
                         <a href="#" className="js-close-project">
@@ -79,7 +85,7 @@ export default function Page() {
                             section='Requirements'
                             navigation="/project/requirements"
                             next=""
-                            isCompleted={false} >
+                            isCompleted={false}>
                             <p className="text-white pb-3">Here is where you will add ingot to start shaping your project
                                 and letting the system know what you have in mind so we can come up with a cost together.</p>
                             <p className="text-white">system know what you have in mind so we can come up with a cost together.</p>
@@ -91,7 +97,7 @@ export default function Page() {
                             section='Refinements'
                             navigation="/project/refinements"
                             next=""
-                            isCompleted={false} >
+                            isCompleted={false}>
                             <p className="text-white pb-3">Here is where you will add ingot to start shaping your
                                 project and letting the system know what you have in mind so we can come up with a cost together.</p>
                             <p className="text-white">system know what you have in mind so we can come up with a cost together.</p>
@@ -110,10 +116,10 @@ export default function Page() {
                     </div>
                 </div>
             </div>
-            
-            <ColorAnimation colors={introductionColors} target={2} className='introduction' isLinear={true}/>
 
-            <ColorAnimation colors={mainColors} target={2} className='main hidden' isLinear={false}/>
+            <ColorAnimation colors={introductionColors} target={2} className='introduction' isLinear={true} />
+
+            <ColorAnimation colors={mainColors} target={2} className='main hidden' isLinear={false} />
         </div>
     )
 }

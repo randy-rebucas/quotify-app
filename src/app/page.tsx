@@ -63,7 +63,7 @@ export default function Page() {
         </div>
       </div>
 
-      <ColorAnimation colors={colors} target={null} className="opacity-1"/>
+      <ColorAnimation colors={colors} target={null} className="opacity-1" isLinear={false}/>
     </div>
   );
 }

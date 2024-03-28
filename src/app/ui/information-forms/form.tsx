@@ -9,7 +9,6 @@ import { useMultistepForm } from "../../../../useMultistepForm";
 import InfoMenu from "./info-menu";
 import { FormData, INITIAL_DATA } from "./entities";
 import Wrapper from "./wrapper/wrapper";
-import { redirect } from "next/navigation";
 
 export default function Form() {
     const [data, setData] = useState(INITIAL_DATA)
@@ -28,13 +27,15 @@ export default function Form() {
             <HeadCount {...data} updateFields={updateFields} key={4} />
         ])
 
+        // update this to action and implement dispatch
     function onSubmit(e: FormEvent) {
         e.preventDefault()
         console.log('next');
         if (!isLastStep) return next()
         alert("Successful Account Creation")
 
-        // redirect('/login')
+        // revalidatePath('/project') // Update cached posts
+        // redirect(`/project/breakdown`) 
     }
 
     return (
