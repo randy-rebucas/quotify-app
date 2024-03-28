@@ -9,12 +9,16 @@ import { Video } from './ui/video';
 import Tooltip from './ui/tooltip';
 import { lato } from '@/app/ui/fonts';
 import ColorAnimation from './ui/color-animation';
+import UserList from './client/user';
+import User, { IUser } from './models/User';
+import { connect } from 'mongoose';
+
 
 export const metadata: Metadata = {
   title: 'Welcome'
 };
 
-export default function Page() {
+export default async function Page() {
 
   const contextItems: ContextValue[] = [
     {
@@ -30,6 +34,16 @@ export default function Page() {
 
   const colors: string[] = ['bg-gray1', 'bg-gray2A', 'bg-gray3A', 'bg-gray4A', 'bg-gray5A']
 
+  // const user: IUser = await User.findById("66052a81a791634f499bb5aa").exec();
+  // const user: IUser = await User.findOne({ email: 'bill@microsoft.com' });
+  // const user: IUser = await User.findOne({ email: 'bill@microsoft.com' });
+  connect(`${process.env.MONGODB_URI}`).then(async () => {
+    // const users: Array<IUser> = await new User();
+    // console.log(users);
+    const user: IUser = await User.findById("66052a81a791634f499bb5aa").exec();
+    console.log(user);
+  })
+
   return (
     <div className="wrapper lg:bg-transparent bg-black">
       <QuotifyLogo />
@@ -42,6 +56,7 @@ export default function Page() {
         <div className="lg:col-start-2 lg:col-span-3 col-span-12">
           <div className="grid lg:grid-cols-3 lg:grid-flow-col p-30">
             <Video />
+            {/* <UserList /> */}
           </div>
           <div className="grid lg:grid-cols-3 lg:grid-flow-col">
             <ContentWrapper contexts={contextItems} />
@@ -63,7 +78,7 @@ export default function Page() {
         </div>
       </div>
 
-      <ColorAnimation colors={colors} target={null} className="opacity-1" isLinear={false}/>
+      <ColorAnimation colors={colors} target={null} className="opacity-1" isLinear={false} />
     </div>
   );
 }
