@@ -1,8 +1,9 @@
 import { Metadata } from "next";
 import Image from "next/image";
-import ColorAnimation from "../../ui/color-animation";
 import Popup from "../../ui/popup";
-import Column from "@/app/ui/column";
+import Column from "@/app/project/information/ui/column";
+import BackgroundAnimation from "@/app/shared/background-animation";
+import Title from "./ui/title";
 
 export const metadata: Metadata = {
     title: 'Information'
@@ -20,17 +21,14 @@ export default function Page() {
 
             <div className="js-autoplay-show wrapper__content animate fade-in delay-last grid">
                 <div className="col-span-2 col-start-1 flex flex-col justify-start items-start w-full h-full">
-                    <div
-                        className="js-autoplay-true1 absolute col-span-2 col-start-1 row-span-3 p-30 flex flex-col justify-start items-start">
-                        <h1 className="font-bold font-latoblack xl:text-6xl md:text-5xl text-4xl text-white opacity-10">
-                            project definition</h1>
-                    </div>
+
+                    <Title title="project definition"/>
 
                     <div className="js-estimation-col estimation-col grid grid-cols-2 grid-flow-col h-full">
                         {/* This block shows the first column (01: Project) */}
                         <Column
                             step={1}
-                            stepInWord='one'
+                            cursor='one'
                             section='Project information'
                             navigation="/project/information"
                             next="/project/information/create"
@@ -42,7 +40,7 @@ export default function Page() {
                         {/* This block shows the second column (02: Area breakdown) */}
                         <Column
                             step={2}
-                            stepInWord='two'
+                            cursor='two'
                             section='Area breakdown'
                             navigation="/project/area-breakdown"
                             next=""
@@ -53,29 +51,14 @@ export default function Page() {
                 </div>
 
                 <div className="col-span-3 col-start-3 flex flex-col justify-start items-start w-full h-full">
-                    <div
-                        className="js-autoplay-true1 absolute col-span-2 col-start-3 row-span-3 p-30 flex flex-col justify-start items-start">
-                        <h1 className="font-bold font-latoblack xl:text-6xl md:text-5xl text-4xl text-white opacity-10">
-                            project estimation</h1>
-                    </div>
-
-
-                    <div className="close-btn opacity-0 absolute top-0 right-0 flex flex-col items-end p-30 z-30">
-                        <a href="#" className="js-close-project">
-                            <Image
-                                src="/images/icon-close.svg"
-                                width={50}
-                                height={50}
-                                alt="close"
-                            />
-                        </a>
-                    </div>
+                    
+                    <Title title="project estimation"/>
 
                     <div className="js-estimation-col estimation-col grid grid-cols-3 grid-flow-col h-full">
                         {/* This block shows the third column (03: Requirements) */}
                         <Column
                             step={3}
-                            stepInWord='three'
+                            cursor='three'
                             section='Requirements'
                             navigation="/project/requirements"
                             next=""
@@ -87,7 +70,7 @@ export default function Page() {
                         {/* This block shows the fourth column (04: Refinements) */}
                         <Column
                             step={4}
-                            stepInWord='four'
+                            cursor='four'
                             section='Refinements'
                             navigation="/project/refinements"
                             next=""
@@ -99,7 +82,7 @@ export default function Page() {
                         {/* This block shows the fifth column (05: Estimate Summary) */}
                         <Column
                             step={5}
-                            stepInWord='five'
+                            cursor='five'
                             section='Estimate summary'
                             navigation="/project/estimate-summary"
                             next=""
@@ -110,10 +93,9 @@ export default function Page() {
                     </div>
                 </div>
             </div>
-            
-            <ColorAnimation colors={introductionColors} target={2} className='introduction' isLinear={true}/>
+            <BackgroundAnimation colors={introductionColors} target={2} className="introduction" isLinear={false} />
 
-            <ColorAnimation colors={mainColors} target={2} className='main hidden' isLinear={false}/>
+            <BackgroundAnimation colors={mainColors} target={2} className="main hidden" isLinear={false} />
         </div>
     )
 }

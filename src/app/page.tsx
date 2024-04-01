@@ -5,13 +5,13 @@ import { Metadata } from 'next';
 import ContentWrapper, { Content, ContextValue } from './ui/content';
 import QuotifyLogo from './ui/quotify-logo';
 import Intro from './ui/intro';
+import BackgroundAnimation from './shared/background-animation';
 import { Video } from './ui/video';
 import Tooltip from './ui/tooltip';
-import { lato } from '@/app/ui/fonts';
-import ColorAnimation from './ui/color-animation';
-import UserList from './client/user';
+import { lato } from '@/app/shared/fonts';
 import User, { IUser } from './models/User';
 import { connect } from 'mongoose';
+import NavButton from './ui/nav-button';
 
 
 export const metadata: Metadata = {
@@ -22,7 +22,7 @@ export default async function Page() {
 
   const contextItems: ContextValue[] = [
     {
-      context: 'Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.'
+      context: 'Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.',
     },
     {
       context: 'Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.'
@@ -47,8 +47,8 @@ export default async function Page() {
   return (
     <div className="wrapper lg:bg-transparent bg-black">
       <QuotifyLogo />
-
-      <div className="wrapper__content animate fade-in delay-last grid">
+            {/* <UserList /> */}
+      <div className="wrapper__content grid">
         <div className={`${lato.className} lg:col-span-1 col-span-12 p-30 flex flex-col justify-end pb-[100px] h-full`} >
           <Intro />
         </div>
@@ -56,7 +56,7 @@ export default async function Page() {
         <div className="lg:col-start-2 lg:col-span-3 col-span-12">
           <div className="grid lg:grid-cols-3 lg:grid-flow-col p-30">
             <Video />
-            {/* <UserList /> */}
+
           </div>
           <div className="grid lg:grid-cols-3 lg:grid-flow-col">
             <ContentWrapper contexts={contextItems} />
@@ -65,20 +65,12 @@ export default async function Page() {
 
         <div className="wrapper__next">
           <Tooltip />
-          <Link href="/management">
-            <Image
-              src="/images/icon-submit.png"
-              width={0}
-              height={0}
-              sizes="100vw"
-              className="brightness-0 w-full h-auto"
-              alt="next"
-            />
-          </Link>
+
+          <NavButton/>
         </div>
       </div>
 
-      <ColorAnimation colors={colors} target={null} className="opacity-1" isLinear={false} />
+      <BackgroundAnimation colors={colors} target={null} className="opacity-1" isLinear={false} />
     </div>
   );
 }

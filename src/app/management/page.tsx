@@ -1,8 +1,8 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import  { Content } from "../ui/content";
-import ColorAnimation from "../ui/color-animation";
+import { Content } from "../ui/content";
+import BackgroundAnimation from "../shared/background-animation";
 
 export const metadata: Metadata = {
     title: 'Create New'
@@ -14,7 +14,7 @@ export default function Page() {
 
     return (
         <div className="wrapper lg:bg-transparent bg-black">
-            <div className="wrapper__content animate fade-in delay-last grid">
+            <div className="wrapper__content grid">
                 <div className="lg:col-span-1 col-span-12 p-30 flex flex-col justify-between w-full h-full">
                     <Link href="/settings" className="flex wrapper__settings">
                         <Image
@@ -37,11 +37,11 @@ export default function Page() {
                 </div>
 
                 <div className="lg:col-start-3 lg:col-span-1 col-span-12 flex flex-col items-center justify-center">
-                    <Content context='Once you create a project, it will show here.' />
+                    <Content context='Once you create a project, it will show here.' index={1}/>
                 </div>
             </div>
 
-            <ColorAnimation colors={colors} target={null} className="opacity-1" isLinear={false}/>
+            <BackgroundAnimation colors={colors} target={null} className="opacity-1" isLinear={false} />
         </div>
     )
 }

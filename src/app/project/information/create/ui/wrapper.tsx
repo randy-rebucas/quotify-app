@@ -1,9 +1,9 @@
 'use client';
 
 import { ReactNode } from "react";
-import DropzoneUploadedFile from "../dropzone-uploaded-file";
-import Address from "../address";
 import clsx from "clsx";
+import DropzoneUploadedFile from "./results/dropzone-uploaded-file";
+import Address from "./results/address";
 
 type FormWrapperProps = {
     stepIndex: number;

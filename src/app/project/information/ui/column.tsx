@@ -3,9 +3,9 @@
 import { usePathname } from "next/navigation";
 import Buttons from "./buttons";
 
-export default function Column({ step, stepInWord, section, navigation, next, isCompleted, children }: {
+export default function Column({ step, cursor, section, navigation, next, isCompleted, children }: {
     step: number;
-    stepInWord: string;
+    cursor: string;
     section: string;
     navigation: string;
     next: string;
@@ -15,7 +15,7 @@ export default function Column({ step, stepInWord, section, navigation, next, is
     const pathname = usePathname();
 
     return (
-        <div className={`js-estimation-col__${stepInWord} estimation-col__${stepInWord} p-30 lg:pt-col${step} hover-state ${pathname == navigation ? 'highlight' : ''}`}>
+        <div className={`js-estimation-col__${cursor} estimation-col__${cursor} p-30 lg:pt-col${step} hover-state ${pathname == navigation ? 'highlight' : ''}`}>
             <div className="flex flex-col justify-between h-full">
                 <div>
                     <h2 className="font-bold font-latobold xl:text-7xl md:text-6xl text-5xl text-white">{`0${step}`}:</h2>

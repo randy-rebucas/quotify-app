@@ -19,12 +19,12 @@ jQuery(function (e) {
 
     /*animation for accordion bg*/
     if (jQuery('.js-staggering-anim')[0]) {
-        anime({
-            targets: '.js-staggering-anim .js-el',
-            translateX: '100%',
-            delay: anime.stagger(300, { direction: 'reverse' }),
-            easing: 'spring(1, 80, 10, 0)'
-        });
+        // anime({
+        //     targets: '.js-staggering-anim .js-el',
+        //     translateX: '100%',
+        //     delay: anime.stagger(300, { direction: 'reverse' }),
+        //     easing: 'spring(1, 80, 10, 0)'
+        // });
     }
 
     /*navigation*/
@@ -76,7 +76,7 @@ jQuery(function (e) {
         setTimeout(function () {
             jQuery('.js-autoplay-show').removeClass('hidden');
             jQuery('.js-wrapper').removeClass('wrapper-estimation');
-            jQuery('.js-wrapper__cover').removeClass('opacity-75').addClass('opacity-85');
+            // jQuery('.js-wrapper__cover').removeClass('opacity-1').addClass('opacity-85');
         }, 4000);
     }
 

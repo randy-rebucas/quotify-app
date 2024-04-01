@@ -1,4 +1,4 @@
-import { lato } from '@/app/ui/fonts';
+import { lato } from '@/app/shared/fonts';
 
 export default function Intro() {
     return (

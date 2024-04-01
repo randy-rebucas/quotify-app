@@ -1,5 +1,3 @@
-import Wrapper from "../wrapper";
-
 type HeadCountData = {
     targetHeadCount: string
     averageAttendance: string

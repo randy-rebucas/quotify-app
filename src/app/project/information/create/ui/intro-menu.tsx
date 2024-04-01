@@ -1,7 +1,11 @@
+'use client';
+import { motion } from "framer-motion"
+
 
 export default function IntroMenu() {
     return (
-        <div className="intro-menu">
+        <motion.div
+            className="intro-menu">
             <div className="h-full">
                 <div className="p-30 lg:pt-col1">
                     <div className="flex flex-col justify-between h-full">
@@ -35,6 +39,6 @@ export default function IntroMenu() {
                     </div>
                 </div>
             </div>
-        </div>
+        </motion.div>
     )
 }

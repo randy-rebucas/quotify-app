@@ -1,8 +1,14 @@
-import Image from "next/image";
+'use client';
+
+import { motion } from "framer-motion";
 
 export default function Tooltip() {
     return (
-        <div className="absolute top-0 right-0 pulsate flex flex-col items-end w-full p-30">
+        <motion.div
+            initial={{ visibility: 'hidden' }}
+            animate={{ visibility: 'visible' }}
+            transition={{ delay: 3 }}
+            className="absolute top-0 right-0 pulsate flex flex-col items-end w-full p-30">
             <button data-tooltip-target="tooltip-step-1" data-tooltip-trigger="click" type="button"
                 className="outline-none">
                 <div className="tooltip pulsate flex flex-col items-end">
@@ -25,6 +31,6 @@ export default function Tooltip() {
                 Throughout your experience, you can toggle the tips to help guide you through each
                 section.
             </div>
-        </div>
+        </motion.div>
     );
 }

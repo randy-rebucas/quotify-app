@@ -1,5 +1,3 @@
-import Wrapper from "../wrapper";
-
 type PlanData = {
     spaceName: string
     hasFloorPlan: boolean,

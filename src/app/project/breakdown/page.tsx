@@ -1,5 +1,5 @@
 import ColorAnimation from "@/app/ui/color-animation";
-import Column from "@/app/ui/column";
+import Column from "@/app/project/information/ui/column";
 import Popup from "@/app/ui/popup";
 import Image from "next/image";
 

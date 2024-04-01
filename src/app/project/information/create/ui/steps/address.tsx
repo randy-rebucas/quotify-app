@@ -1,5 +1,3 @@
-import Wrapper from "../wrapper";
-
 type AddressData = {
     address: string
     hasAddress: boolean

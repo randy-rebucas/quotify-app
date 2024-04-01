@@ -1,6 +1,6 @@
-import '@/app/ui/global.css';
+import '@/app/shared/global.css';
 import "/public/css/main.css";
-import { lato } from '@/app/ui/fonts';
+import { lato } from '@/app/shared/fonts';
 import { Metadata } from 'next';
 import Script from 'next/script';
 
@@ -20,12 +20,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${lato.className} antialiased root`}>{children}</body>
+      <body className={`${lato.className} antialiased`}>{children}</body>
       <Script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js" />
-      {/* <Script src="/lib/flowbite.min.js" /> */}
       <Script src="/lib/anime.min.js" />
       <Script src="/js/main.js" />
-      <Script src="/js/animations.js" />
     </html>
   );
 }

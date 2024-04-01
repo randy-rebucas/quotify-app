@@ -1,14 +1,16 @@
 'use client';
 
 import { FormEvent, useState } from "react";
-import Plan from "./wrapper/forms/plan";
-import Address from "./wrapper/forms/address";
-import Area from "./wrapper/forms/area";
-import HeadCount from "./wrapper/forms/head-count";
-import { useMultistepForm } from "../../../../useMultistepForm";
 import InfoMenu from "./info-menu";
 import { FormData, INITIAL_DATA } from "./entities";
-import Wrapper from "./wrapper/wrapper";
+import { motion } from "framer-motion"
+import { useMultistepForm } from "@/app/custom-hooks/useMultistepForm";
+import Plan from "./steps/plan";
+import Address from "./steps/address";
+import Area from "./steps/area";
+import HeadCount from "./steps/head-count";
+import Wrapper from "./wrapper";
+
 
 export default function Form() {
     const [data, setData] = useState(INITIAL_DATA)
@@ -27,7 +29,7 @@ export default function Form() {
             <HeadCount {...data} updateFields={updateFields} key={4} />
         ])
 
-        // update this to action and implement dispatch
+    // update this to action and implement dispatch
     function onSubmit(e: FormEvent) {
         e.preventDefault()
         console.log('next');
@@ -39,7 +41,10 @@ export default function Form() {
     }
 
     return (
-        <div className="js-hide-on-load wrapper__content navigation md:grid hidden">
+        <motion.div
+            initial={{ display: 'none' }}
+            animate={{ display: 'grid' }}
+            transition={{ delay: 2 }} className="wrapper__content navigation" >
             {/* <!--
                 /*  Menu Main
                 /*  This block is hidden on page load.
@@ -77,6 +82,6 @@ export default function Form() {
                 </Wrapper>
 
             </form>
-        </div>
+        </motion.div>
     )
 }

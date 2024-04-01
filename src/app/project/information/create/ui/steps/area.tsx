@@ -1,5 +1,3 @@
-import Wrapper from "../wrapper";
-
 type AreaData = {
     approximateSize: string
     rentableArea: string
