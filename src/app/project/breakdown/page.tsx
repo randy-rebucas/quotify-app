@@ -1,5 +1,5 @@
-import ColorAnimation from "@/app/ui/color-animation";
 import Column from "@/app/project/information/ui/column";
+import BackgroundAnimation from "@/app/shared/background-animation";
 import Popup from "@/app/ui/popup";
 import Image from "next/image";
 
@@ -37,7 +37,7 @@ export default function Page() {
                         {/* This block shows the first column (01: Project) */}
                         <Column
                             step={1}
-                            stepInWord='one'
+                            cursor='one'
                             section='Project information'
                             navigation="/project/information"
                             next="/project/information/create"
@@ -49,7 +49,7 @@ export default function Page() {
                         {/* This block shows the second column (02: Area breakdown) */}
                         <Column
                             step={2}
-                            stepInWord='two'
+                            cursor='two'
                             section='Area breakdown'
                             navigation="/project/breakdown"
                             next="/project/breakdown/create"
@@ -81,7 +81,7 @@ export default function Page() {
                         {/* This block shows the third column (03: Requirements) */}
                         <Column
                             step={3}
-                            stepInWord='three'
+                            cursor='three'
                             section='Requirements'
                             navigation="/project/requirements"
                             next=""
@@ -93,7 +93,7 @@ export default function Page() {
                         {/* This block shows the fourth column (04: Refinements) */}
                         <Column
                             step={4}
-                            stepInWord='four'
+                            cursor='four'
                             section='Refinements'
                             navigation="/project/refinements"
                             next=""
@@ -105,7 +105,7 @@ export default function Page() {
                         {/* This block shows the fifth column (05: Estimate Summary) */}
                         <Column
                             step={5}
-                            stepInWord='five'
+                            cursor='five'
                             section='Estimate summary'
                             navigation="/project/estimate-summary"
                             next=""
@@ -117,9 +117,9 @@ export default function Page() {
                 </div>
             </div>
 
-            <ColorAnimation colors={introductionColors} target={2} className='introduction' isLinear={true} />
+            <BackgroundAnimation colors={introductionColors} target={2} className='introduction' isLinear={true} />
 
-            <ColorAnimation colors={mainColors} target={2} className='main hidden' isLinear={false} />
+            <BackgroundAnimation colors={mainColors} target={2} className='main' isLinear={false} />
         </div>
     )
 }
