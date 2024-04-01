@@ -25,7 +25,7 @@ export default function Page() {
         <div className="wrapper theme theme-blue">
             <Popup />
 
-            <div className="js-autoplay-show wrapper__content animate fade-in delay-last grid">
+            <div className="js-autoplay-show wrapper__content grid">
                 <div className="col-span-2 col-start-1 flex flex-col justify-start items-start w-full h-full">
                     <div
                         className="js-autoplay-true1 absolute col-span-2 col-start-1 row-span-3 p-30 flex flex-col justify-start items-start">
@@ -64,17 +64,6 @@ export default function Page() {
                         className="js-autoplay-true1 absolute col-span-2 col-start-3 row-span-3 p-30 flex flex-col justify-start items-start">
                         <h1 className="font-bold font-latoblack xl:text-6xl md:text-5xl text-4xl text-white opacity-10">
                             project estimation</h1>
-                    </div>
-
-                    <div className="close-btn opacity-0 absolute top-0 right-0 flex flex-col items-end p-30 z-30">
-                        <a href="#" className="js-close-project">
-                            <Image
-                                src="/images/icon-close.svg"
-                                width={50}
-                                height={50}
-                                alt="close"
-                            />
-                        </a>
                     </div>
 
                     <div className="js-estimation-col estimation-col grid grid-cols-3 grid-flow-col h-full">

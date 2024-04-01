@@ -22,7 +22,7 @@ export default function Column({ index, cursor, title, children }: ColumnProps) 
                     <h2 className="font-bold font-latobold xl:text-7xl md:text-6xl text-5xl text-white">0{index}:</h2>
                     <h4 className="font-latolight mt-3 xl:text-4xl md:text-3xl text-2xl text-white">{title}</h4>
                     <div className="estimation-col__bar mt-6 mb-6"></div>
-                    <div className="estimation-col__content animate fade-in delay-0">
+                    <div className="estimation-col__content">
                         {children}
                     </div>
                 </div>

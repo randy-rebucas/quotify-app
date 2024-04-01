@@ -49,12 +49,10 @@ export default function Page() {
                 </div>
 
                 <div className="col-span-3 col-start-3 flex flex-col justify-start items-start w-full h-full">
-                    
+
                     <Title title='project estimation' />
 
                     <Tooltip />
-
-                    <Close />
 
                     <div className="js-estimation-col estimation-col js-autoplay-show grid grid-cols-3 grid-flow-col h-full">
                         <Column index={3} cursor='three' title='Requirements'>

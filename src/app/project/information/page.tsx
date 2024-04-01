@@ -19,7 +19,7 @@ export default function Page() {
         <div className="wrapper theme theme-darkblue">
             <Popup />
 
-            <div className="js-autoplay-show wrapper__content animate fade-in delay-last grid">
+            <div className="js-autoplay-show wrapper__content grid">
                 <div className="col-span-2 col-start-1 flex flex-col justify-start items-start w-full h-full">
 
                     <Title title="project definition"/>

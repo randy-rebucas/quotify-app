@@ -22,7 +22,6 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${lato.className} antialiased`}>{children}</body>
       <Script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js" />
-      <Script src="/lib/anime.min.js" />
       <Script src="/js/main.js" />
     </html>
   );

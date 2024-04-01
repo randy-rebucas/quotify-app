@@ -1,8 +1,20 @@
+'use client'
+
+import { useState } from "react";
+import Close from "../project/ui/close";
+import Link from "next/link";
+
 export default function Popup() {
+    const [close, setClose] = useState<boolean>(true);
+
+    const handleClick = () => {
+        setClose(!close);
+    }
+
     return (
-        <div className="wrapper__close hidden">
-            <div className=" flex">
-                <div className="flex">
+        <>
+            {!close &&
+                <div className="wrapper__close flex">
                     <div className="bg-white h-[211px] grid grid-cols-3">
                         <div className="relative p-30 bg-gray2A w-[286px] flex flex-col items-center justify-center">
                             <h5 className="opacity-1 font-normal">close project
@@ -11,16 +23,16 @@ export default function Popup() {
                             </h5>
                         </div>
                         <div className="relative p-30 bg-gray3A w-[286px] flex flex-col items-center justify-center">
-                            <a href="#" id="js-cancel-popup" className="absolute cover w-full h-full z-30"></a>
+                            <a href="#" onClick={handleClick} className="absolute cover w-full h-full z-30"></a>
                             <h5 className="opacity-20">cancel</h5>
                         </div>
                         <div className="relative p-30 bg-gray4A w-[286px] flex flex-col items-center justify-center">
-                            <a href="file-management1.html" className="absolute cover w-full h-full z-30"></a>
+                            <Link href="/" className="absolute cover w-full h-full z-30"></Link>
                             <h5 className="opacity-50">close</h5>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
+                </div>}
+            <Close onClick={handleClick} />
+        </>
     )
 }
