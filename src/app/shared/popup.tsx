@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from "react";
-import Close from "../project/ui/close";
+import Close from "./close";
 import Link from "next/link";
 
 export default function Popup() {

@@ -7,7 +7,7 @@ import QuotifyLogo from './ui/quotify-logo';
 import Intro from './ui/intro';
 import BackgroundAnimation from './shared/background-animation';
 import { Video } from './ui/video';
-import Tooltip from './ui/tooltip';
+import Tooltip from './shared/tooltip';
 import { lato } from '@/app/shared/fonts';
 import User, { IUser } from './models/User';
 import { connect } from 'mongoose';

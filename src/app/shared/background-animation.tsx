@@ -13,8 +13,6 @@ export default function BackgroundAnimation({ colors, target, className, isLinea
         <AnimatePresence>
             <div className={`js-wrapper__cover wrapper__cover ${className}`}>
                 <motion.div
-                    initial="hidden"
-                    animate="show"
                     className={`${isLinear ? 'js-linear-anim linear-anim el' : 'js-staggering-anim staggering-anim'}`}>
                     {colors.map((color, index) => (
                         <Color color={color} index={index} target={target} key={index} isLinear={isLinear} />

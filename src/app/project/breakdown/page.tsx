@@ -1,7 +1,7 @@
 import Column from "@/app/project/information/ui/column";
 import BackgroundAnimation from "@/app/shared/background-animation";
-import Popup from "@/app/ui/popup";
-import Image from "next/image";
+import Popup from "@/app/shared/popup";
+import Title from "../ui/title";
 
 export default function Page() {
 
@@ -27,11 +27,8 @@ export default function Page() {
 
             <div className="js-autoplay-show wrapper__content grid">
                 <div className="col-span-2 col-start-1 flex flex-col justify-start items-start w-full h-full">
-                    <div
-                        className="js-autoplay-true1 absolute col-span-2 col-start-1 row-span-3 p-30 flex flex-col justify-start items-start">
-                        <h1 className="font-bold font-latoblack xl:text-6xl md:text-5xl text-4xl text-white opacity-10">
-                            project definition</h1>
-                    </div>
+                    
+                    <Title title="project definition"/>
 
                     <div className="js-estimation-col estimation-col grid grid-cols-2 grid-flow-col h-full">
                         {/* This block shows the first column (01: Project) */}
@@ -60,11 +57,7 @@ export default function Page() {
                 </div>
 
                 <div className="col-span-3 col-start-3 flex flex-col justify-start items-start w-full h-full">
-                    <div
-                        className="js-autoplay-true1 absolute col-span-2 col-start-3 row-span-3 p-30 flex flex-col justify-start items-start">
-                        <h1 className="font-bold font-latoblack xl:text-6xl md:text-5xl text-4xl text-white opacity-10">
-                            project estimation</h1>
-                    </div>
+                    <Title title="project estimation"/>
 
                     <div className="js-estimation-col estimation-col grid grid-cols-3 grid-flow-col h-full">
                         {/* This block shows the third column (03: Requirements) */}

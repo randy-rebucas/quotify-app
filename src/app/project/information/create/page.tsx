@@ -1,4 +1,4 @@
-import Popup from "@/app/ui/popup";
+import Popup from "@/app/shared/popup";
 import BackgroundAnimation from "@/app/shared/background-animation";
 import PageWrapper from "./ui/page-wrapper";
 import Form from "./ui/form";

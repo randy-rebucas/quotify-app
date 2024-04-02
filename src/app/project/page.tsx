@@ -1,10 +1,10 @@
 import { Metadata } from "next";
-import Popup from "../ui/popup";
+import Popup from "../shared/popup";
 import { lato } from '@/app/shared/fonts';
 import BackgroundAnimation from "../shared/background-animation";
 import NavButton from "./ui/nav-button";
 import PageWrapper from "./ui/page-wrapper";
-import Close from "./ui/close";
+import Close from "../shared/close";
 import Tooltip from "./ui/tooltip";
 import Column from "./ui/column";
 import Title from "./ui/title";

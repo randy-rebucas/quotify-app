@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import Image from "next/image";
-import Popup from "../../ui/popup";
+import Popup from "../../shared/popup";
 import Column from "@/app/project/information/ui/column";
 import BackgroundAnimation from "@/app/shared/background-animation";
 import Title from "./ui/title";
@@ -95,7 +95,7 @@ export default function Page() {
             </div>
             <BackgroundAnimation colors={introductionColors} target={2} className="introduction" isLinear={false} />
 
-            <BackgroundAnimation colors={mainColors} target={2} className="main hidden" isLinear={false} />
+            <BackgroundAnimation colors={mainColors} target={2} className="main" isLinear={false} />
         </div>
     )
 }

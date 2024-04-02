@@ -1,15 +1,12 @@
-'use client';
-
-import { ReactNode } from "react";
-import clsx from "clsx";
-import DropzoneUploadedFile from "./results/dropzone-uploaded-file";
-import Address from "./results/address";
 import Tooltip from "@/app/shared/tooltip";
+import clsx from "clsx";
+import { ReactNode } from "react";
 
 type FormWrapperProps = {
     stepIndex: number;
     children: ReactNode
 }
+
 
 export default function Wrapper({ stepIndex, children }: FormWrapperProps) {
     return (
@@ -26,17 +23,7 @@ export default function Wrapper({ stepIndex, children }: FormWrapperProps) {
             )}>
                 <Tooltip />
 
-                <div className="flex flex-col justify-start items-end w-full h-full">
-                    {/* only show if there is an uploaded file */}
-                    {/* and only on first step  */}
-                    {(stepIndex + 1) === 1 && <DropzoneUploadedFile />}
-
-
-                    {/* only show if there is an address selected */}
-                    {/* and only show on second step  */}
-                    {(stepIndex + 1) === 2 && <Address />}
-
-                </div>
+                <div className="flex flex-col justify-start items-end w-full h-full"></div>
                 
                 <div className="p-30 w-full flex items-end justify-end">
                     <button className="focus:shadow-outline focus:outline-none" type="submit">
