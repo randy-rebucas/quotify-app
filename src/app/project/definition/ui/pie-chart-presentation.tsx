@@ -27,7 +27,7 @@ export const PieChartPresentation = ({ data, width, height, colors }: PieChartPr
     return (
         <svg width={width} height={height} style={{ display: "inline-block" }}>
             <g transform={`translate(${width / 2}, ${height / 2})`}>
-                {arcs.map((arc, i) => {
+                {arcs.map((arc: any, i: any) => {
                     return <path key={i} d={arc} fill={colors[i]} />;
                 })}
             </g>
