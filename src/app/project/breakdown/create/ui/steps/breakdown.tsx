@@ -45,8 +45,8 @@ export default function Breakdown({
                 <div className="flex flex-col justify-start items-end w-full h-full">
                     <div className="pt-[100px] px-30 w-full flex items-center justify-center">
                         {/* <!--pie chart--> */}
-                        <div id="pie-example-1" className="w-[500px] flex items-center justify-center">
-                            <PieChartPresentation data={pieData} width={680} height={680} colors={pieColors} />
+                        <div id="pie-example-1" className="py-[60px] w-[500px] flex items-center justify-center">
+                            <PieChartPresentation data={pieData} width={480} height={480} colors={pieColors} />
                         </div>
                     </div>
                 </div>

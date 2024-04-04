@@ -2,9 +2,7 @@
 
 import Tooltip from "@/app/shared/tooltip"
 import { Amenities, amenities } from "../entities"
-import { ChangeEvent, MouseEventHandler, useState } from "react";
-import clsx from "clsx";
-import { v4 as uuidv4 } from 'uuid';
+import { ChangeEvent, useState } from "react";
 
 type AreaData = {
     selectedIds: number[]
@@ -13,24 +11,56 @@ type AreaData = {
 type AreaFormProps = AreaData & {
     updateFields: (fields: Partial<AreaData>) => void
 }
-
-type InputProps = {
-    space?: string,
-    quantity?: number
-}
-
 type ItemProps = {
-    id: string;
     name: string;
     extra: string | null
 };
 
 type OptionProps = {
-    id: string;
     name: string;
     items: ItemProps[]
 };
 
+const options: OptionProps[] = [
+    {
+        name: "conference rooms",
+        items: [
+            {
+                name: 'phone',
+                extra: 'capacity: 1 - 2'
+            },
+            {
+                name: 'huddle',
+                extra: 'capacity: 2 - 3'
+            },
+            {
+                name: 'small',
+                extra: 'capacity: 4 - 6'
+            },
+            {
+                name: 'medium',
+                extra: 'capacity: 6 - 8'
+            },
+            {
+                name: 'large',
+                extra: 'capacity: 10 - 12'
+            }
+        ],
+    },
+    {
+        name: "special spaces",
+        items: [
+            {
+                name: 'reception + waiting area',
+                extra: null
+            },
+            {
+                name: 'lounge spaces',
+                extra: null
+            },
+        ]
+    }
+];
 
 export default function BreakdownArea({
     selectedIds,
@@ -87,56 +117,6 @@ export default function BreakdownArea({
         setInputFields(data)
     }
 
-    const options: OptionProps[] = [
-        {
-            id: uuidv4(),
-            name: "conference rooms",
-            items: [
-                {
-                    id: uuidv4(),
-                    name: 'phone',
-                    extra: 'capacity: 1 - 2'
-                },
-                {
-                    id: uuidv4(),
-                    name: 'huddle',
-                    extra: 'capacity: 2 - 3'
-                },
-                {
-                    id: uuidv4(),
-                    name: 'small',
-                    extra: 'capacity: 4 - 6'
-                },
-                {
-                    id: uuidv4(),
-                    name: 'medium',
-                    extra: 'capacity: 6 - 8'
-                },
-                {
-                    id: uuidv4(),
-                    name: 'large',
-                    extra: 'capacity: 10 - 12'
-                }
-            ],
-        },
-        {
-            id: uuidv4(),
-            name: "special spaces",
-            items: [
-                {
-                    id: uuidv4(),
-                    name: 'reception + waiting area',
-                    extra: null
-                },
-                {
-                    id: uuidv4(),
-                    name: 'lounge spaces',
-                    extra: null
-                },
-            ]
-        }
-    ];
-
     return (
         <>
             <div className="lg:col-span-2 col-span-12 flex flex-col justify-start items-start w-full h-full">
@@ -190,15 +170,7 @@ export default function BreakdownArea({
                                 <div className="flex gap-5 items-center js-more-space justify-start mt-[3.704vh]" key={index}>
                                     <div className="js-more-space__block flex items-center justify-start gap-5">
                                         <select name="space" value={input.space} id='spaceSelect' className="border-[#005A92] border-b-[1px] border-solid focus:outline-none inline-flex items-center justify-end min-w-[263px] mr-[50px] px-0 py-1 text-black text-left" onChange={e => handleFormChange(index, e)}>
-                                            {options.map((group: any) => (
-                                                <optgroup className="py-3 text-gray-700 dark:text-gray-200" label={group.name} key={group.id}>
-                                                    {group.items.map((item: any) => (
-                                                        <option value={item.name} key={item.id} className="py-3 text-[#005A92] hover:bg-[#D0D0D0]">{item.name}
-                                                            {item.extra && (item.extra)}
-                                                        </option>
-                                                    ))}
-                                                </optgroup>
-                                            ))}
+                                            <SelectOptionGroup groups={options} />
                                         </select>
                                         <div className="flex items-center justify-start">
                                             <label htmlFor="counter-input" className="text-[14px] text-[#005A92] text-opacity-60">quantity</label>
@@ -233,9 +205,6 @@ export default function BreakdownArea({
                                                 </div>
                                             </div>
                                         </div>
-                                        {/* <Dropdown {...input} updateInput={updateInput} />
-
-                                    <Quantity /> */}
                                     </div>
                                     {index > 0 && <button type="button" className="bg-red/40 px-3 py-3 shadow text-white" onClick={() => removeFields(index)}>
                                         Remove
@@ -259,173 +228,26 @@ export default function BreakdownArea({
     );
 }
 
-export function Quantity() {
-
-    const MAX_COUNTER = 10;
-
-    const [counter, setCounter] = useState<number>(0);
-
-    const increment = () => {
-        setCounter(prev => (prev == MAX_COUNTER) ? prev : prev + 1);
-    }
-
-    const decrement = () => {
-        setCounter(prev => (prev == 0) ? 0 : prev - 1);
-    }
-
+export function SelectOptionGroup({ groups }: { groups: OptionProps[] }) {
     return (
         <>
-            <div className="flex items-center justify-start">
-                <label htmlFor="counter-input" className="text-[14px] text-[#005A92] text-opacity-60">quantity</label>
-                <div className="relative flex items-center border-b-[1px] border-solid border-[#005A92] min-w-[78px] justify-between">
-                    <input type="text" id="counter-input"
-                        value={counter}
-                        className="flex-shrink-0 text-gray-900 dark:text-white bg-transparent text-[24px] focus:outline-none focus:ring-0 max-w-[2.5rem] text-center placeholder:text-opacity-60"
-                        required />
-
-                    <div className="flex flex-col">
-                        <button
-                            type="button"
-                            id="increment-button"
-                            onClick={increment}
-                            className="py-[2px] flex-shrink-0 bg-transparent focus:outline-none">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="6" viewBox="0 0 12 6" fill="none">
-                                <path d="M11 5L6 1L1 5" stroke="#005A92"></path>
-                            </svg>
-                        </button>
-                        <button
-                            type="button"
-                            id="decrement-button"
-                            onClick={decrement}
-                            className="py-[2px] flex-shrink-0 bg-transparent focus:outline-none">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="6" viewBox="0 0 12 6" fill="none">
-                                <path d="M1 1L6 5L11 1" stroke="#005A92"></path>
-                            </svg>
-                        </button>
-                    </div>
-                </div>
-            </div>
+            {groups.map((group: any, index: any) => (
+                <optgroup key={index} className="py-3 text-gray-700 dark:text-gray-200" label={group.name}>
+                    <SelectOption items={group.items} />
+                </optgroup>
+            ))}
         </>
     )
 }
 
-type DropdownData = {
-    selected: string
-}
-
-type DropDownProps = InputProps & {
-    updateInput: (fields: Partial<InputProps>) => void
-}
-
-export function Dropdown({ space, updateInput }: DropDownProps) {
-    // const [selectedItem, setSelectedItem] = useState<string | null>('');
-    const [openOption, setOpenOption] = useState<boolean>(false);
-
-    const handleItemClick = () => {
-        setOpenOption(!openOption);
-    };
-
-    const handleOptionClick = (item?: any) => {
-        console.log(item);
-        // setSelectedItem(item);
-        setOpenOption(!openOption);
-        updateInput({ space: item });
-    };
-
-    { space }
-
+export function SelectOption({ items }: { items: ItemProps[] }) {
     return (
-        <div className="relative">
-            <button onClick={handleItemClick} className="text-black mr-[50px] border-b-[1px] border-solid border-[#005A92] min-w-[263px] focus:outline-none px-0 py-2.5 text-left inline-flex items-center justify-between" type="button">
-                <span className="px-3">{space}</span>
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="10" viewBox="0 0 18 10" fill="none" className={clsx(
-                    '',
-                    {
-                        'rotate-180': openOption
-                    },
-                )}>
-                    <path d="M1 1L9 9L17 1" stroke="#005A92"></path>
-                </svg>
-            </button>
-
-            <DropdownOption open={openOption} onClick={handleOptionClick} />
-        </div>
-    )
-}
-
-export function DropdownOption({ open, onClick }: { open: boolean, onClick: MouseEventHandler<HTMLLIElement> }) {
-
-    type ItemProps = {
-        name: string;
-        extra: string | null
-    };
-
-    type OptionProps = {
-        name: string;
-        items: ItemProps[]
-    };
-
-    const options: OptionProps[] = [
-        {
-            name: "conference rooms",
-            items: [
-                {
-                    name: 'phone',
-                    extra: 'capacity: 1 - 2'
-                },
-                {
-                    name: 'huddle',
-                    extra: 'capacity: 2 - 3'
-                },
-                {
-                    name: 'small',
-                    extra: 'capacity: 4 - 6'
-                },
-                {
-                    name: 'medium',
-                    extra: 'capacity: 6 - 8'
-                },
-                {
-                    name: 'large',
-                    extra: 'capacity: 10 - 12'
-                }
-            ],
-        },
-        {
-            name: "special spaces",
-            items: [
-                {
-                    name: 'reception + waiting area',
-                    extra: null
-                },
-                {
-                    name: 'lounge spaces',
-                    extra: null
-                },
-            ]
-        }
-    ];
-
-    return (
-        <div id="dropdownDivider"
-            className={clsx(
-                'z-10 bg-[#f2f7fa] rounded-0 divide-y divide-gray-100 shadow w-60',
-                {
-                    'block': open,
-                    'hidden': !open
-                },
-            )}
-            style={{ position: 'absolute', inset: '0px auto auto 0px', margin: 0, transform: `translate(0px, 32px)` }}>
-            {options.map((group: any, index: any) => (
-                <ul className="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDividerButton" key={index}>
-                    <li className="bg-[#186a9c] text-white px-4 py-2">{group.name}</li>
-                    {group.items.map((option: any, index: any) => (
-                        <li onClick={() => onClick(option.name)} className="cursor-pointer block px-6 py-2 text-[#005A92] hover:bg-[#D0D0D0]" key={index}>{option.name}
-                            {option.extra && <span className="font-latolight">({option.extra})</span>}
-                        </li>
-                    ))}
-                </ul>
+        <>
+            {items.map((item: any, index: any) => (
+                <option value={item.name} key={index} className="py-3 text-[#005A92] hover:bg-[#D0D0D0]">{item.name}
+                    {item.extra && (item.extra)}
+                </option>
             ))}
-        </div>
+        </>
     )
 }
