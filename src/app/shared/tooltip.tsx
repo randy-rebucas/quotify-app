@@ -1,15 +1,18 @@
 'use client';
 
 import { motion } from "framer-motion";
+import { useState } from "react";
 
 export default function Tooltip() {
+    const [toggle, setToggle] = useState<boolean>(false);
+
     return (
         <motion.div
             initial={{ visibility: 'hidden' }}
             animate={{ visibility: 'visible' }}
             transition={{ delay: 3 }}
             className="absolute top-0 right-0 pulsate flex flex-col items-end w-full p-30">
-            <button data-tooltip-target="tooltip-step-1" data-tooltip-trigger="click" type="button"
+            <button type="button" onClick={() => setToggle(!toggle)}
                 className="outline-none">
                 <div className="tooltip pulsate flex flex-col items-end">
                     <svg className="tooltip__icon" xmlns="http://www.w3.org/2000/svg" width="41" height="35" viewBox="0 0 41 35"
@@ -26,11 +29,10 @@ export default function Tooltip() {
                 </div>
             </button>
 
-            <div id="tooltip-step-1" role="tooltip"
-                className="tooltip__content pl-30 pr-10 py-2 z-10 invisible opacity-0 w-full">
+            {toggle && <div className="tooltip__content pl-30 pr-10 py-2 z-10 invisible opacity-0 w-full">
                 Throughout your experience, you can toggle the tips to help guide you through each
                 section.
-            </div>
+            </div>}
         </motion.div>
     );
 }

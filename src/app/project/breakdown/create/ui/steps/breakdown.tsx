@@ -1,7 +1,8 @@
 import Tooltip from "@/app/shared/tooltip"
-import Chart from "react-google-charts"
 import AccordionContainer from "../breakdown"
 import { FormData } from "../entities"
+import { PieChartPresentation } from "@/app/project/definition/ui/pie-chart-presentation"
+import { pieColors, pieData } from "@/app/project/definition/ui/data"
 
 type AreaFormProps = FormData & {
     updateFields: (fields: Partial<FormData>) => void
@@ -10,28 +11,6 @@ type AreaFormProps = FormData & {
 export default function Breakdown({
     updateFields
 }: AreaFormProps) {
-
-    const data = [
-        ["Space Area", "Percentage"],
-        ["Individual spaces", 60],
-        ["Conference rooms", 20],
-        ["Food", 10],
-        ["Special spaces", 8],
-        ["Support", 2],
-    ];
-
-    const options = {
-        legend: "none",
-        pieSliceText: "label",
-        // title: "Proportions breakdown",
-        chartArea: {
-            backgroundColor: {
-                fill: '#FF0000',
-                fillOpacity: 0.1
-            },
-        },
-        colors: ['#005A92', '#3179A6', '#6298BA', '#93B7CD', '#C4D6E1']
-    };
 
     return (
         <>
@@ -67,13 +46,7 @@ export default function Breakdown({
                     <div className="pt-[100px] px-30 w-full flex items-center justify-center">
                         {/* <!--pie chart--> */}
                         <div id="pie-example-1" className="w-[500px] flex items-center justify-center">
-                            <Chart
-                                chartType="PieChart"
-                                data={data}
-                                options={options}
-                                width={680}
-                                height={680}
-                            />
+                            <PieChartPresentation data={pieData} width={680} height={680} colors={pieColors} />
                         </div>
                     </div>
                 </div>
