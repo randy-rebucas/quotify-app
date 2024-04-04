@@ -8464,7 +8464,7 @@ table {
   border-spacing: 0;
 }
 /* Typography */
-/* 
+
 @font-face {
   font-family: "Lato-BoldItalic";
   src: url(../fd32b4dea61508c37b78.ttf);
@@ -8534,7 +8534,7 @@ table {
   src: url(../f604ebd2b4fccf11b335.eot?#iefix) format("embedded-opentype"), url(../9aa4f5189c4ef1befd85.woff) format("woff"), url(../57dee8aface5572f9101.ttf) format("truetype"), url(../20b3a6064cb1f4cca179.svg#Lato-Black) format("svg");
   font-weight: normal;
   font-style: normal;
-} */
+}
 .theme .custom-upload {
   display: flex;
   width: 100%;
@@ -9394,7 +9394,7 @@ body {
   background: #555;
 }
 
-@layer focus:shadow-outline focus:outline-none;
+@layer focus:shadow-outline, focus:outline-none;
 h1 {
   font-family: Lato-Black, sans-serif;
   font-size: 3rem;
