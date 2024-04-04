@@ -4,10 +4,11 @@ import { motion } from "framer-motion"
 import { FormEvent, useState } from "react";
 import { FormData, INITIAL_DATA } from "./entities";
 import { useMultistepForm } from "@/app/custom-hooks/useMultistepForm";
-import Area from "./steps/area";
 import Breakdown from "./steps/breakdown";
 import InfoMenu from "./info-menu";
 import Wrapper from "./wrapper";
+import BreakdownArea from "./steps/breakdown-area";
+import { v4 as uuidv4 } from 'uuid';
 
 export default function Form() {
     const [data, setData] = useState(INITIAL_DATA)
@@ -20,7 +21,7 @@ export default function Form() {
 
     const { steps, currentStepIndex, step, isFirstStep, isLastStep, back, next } =
         useMultistepForm([
-            <Area {...data} updateFields={updateFields} key={1} />,
+            <BreakdownArea {...data} updateFields={updateFields} key={1} />,
             <Breakdown {...data} updateFields={updateFields} key={2} />
         ])
 

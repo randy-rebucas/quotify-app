@@ -1,25 +1,47 @@
 export type FormData = {
-    spaceName: string
-    hasFloorPlan: boolean
-    address: string
-    hasAddress: boolean
-    approximateSize: string
-    rentableArea: string
-    isBaseOnHeadCount: boolean
-    targetHeadCount: string
-    averageAttendance: string
-    assignedSeat: string
-}
+  selectedIds: number[];
+};
 
 export const INITIAL_DATA: FormData = {
-    spaceName: "",
-    hasFloorPlan: false,
-    address: "",
-    hasAddress: false,
-    approximateSize: '3000',
-    rentableArea: '3000',
-    isBaseOnHeadCount: false,
-    targetHeadCount: "",
-    averageAttendance: "",
-    assignedSeat: "30"
-}
+  selectedIds: []
+};
+
+export type Amenities = {
+  id: number;
+  amenityName: string;
+};
+
+export const amenities: Amenities[] = [
+  {
+    id: 1,
+    amenityName: "reception",
+  },
+  {
+    id: 2,
+    amenityName: "focus rooms",
+  },
+  {
+    id: 3,
+    amenityName: "pantry",
+  },
+  {
+    id: 4,
+    amenityName: "kitchen",
+  },
+  {
+    id: 5,
+    amenityName: "library",
+  },
+  {
+    id: 6,
+    amenityName: "training room",
+  },
+  {
+    id: 7,
+    amenityName: "workstations",
+  },
+  {
+    id: 8,
+    amenityName: "coffee point",
+  },
+];
