@@ -8,7 +8,6 @@ import Breakdown from "./steps/breakdown";
 import InfoMenu from "./info-menu";
 import Wrapper from "./wrapper";
 import BreakdownArea from "./steps/breakdown-area";
-import { v4 as uuidv4 } from 'uuid';
 
 export default function Form() {
     const [data, setData] = useState(INITIAL_DATA)
