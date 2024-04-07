@@ -1,29 +1,25 @@
-import { Metadata } from "next";
-import Popup from "../../shared/popup";
-import Column from "@/app/ui/column";
 import BackgroundAnimation from "@/app/shared/background-animation";
-import Title from "../../ui/title";
-
-export const metadata: Metadata = {
-    title: 'Information'
-};
+import Popup from "@/app/shared/popup";
+import Column from "@/app/ui/column";
+import Title from "@/app/ui/title";
 
 export default function Page() {
 
     const introductionColors: string[] = ['bg-gray1', 'bg-gray2', 'bg-gray3', 'bg-gray4', 'bg-gray5'];
-    
-    const mainColors: string[] = ['bg-blue', 'bg-gray2', 'bg-gray3', 'bg-gray4', 'bg-gray5'];
+
+    const mainColors: string[] = ['bg-gray1', 'bg-gray2', 'bg-gray3', 'bg-gray4', 'bg-gray5'];
 
     return (
-        <div className="wrapper theme theme-darkblue">
+        <div className="wrapper theme theme-green">
+
             <Popup />
 
-            <div className="js-autoplay-show wrapper__content grid">
+            <div className="js-autoplay-show wrapper__content animate fade-in delay-last grid">
                 <div className="col-span-2 col-start-1 flex flex-col justify-start items-start w-full h-full">
 
-                    <Title title="project definition"/>
+                    <Title title="project definition" />
 
-                    <div className="js-estimation-col estimation-col grid grid-cols-2 grid-flow-col h-full">
+                    <div className="estimation-col grid grid-cols-2 grid-flow-col h-full">
                         {/* This block shows the first column (01: Project) */}
                         <Column
                             step={1}
@@ -31,27 +27,41 @@ export default function Page() {
                             section='Project information'
                             navigation="/project/information"
                             next="/project/information/create"
-                            isCompleted={false} >
-                            <p className="text-white pb-3">Here is where you will add ingot to start shaping your project and letting the system know what you have in mind so we can come up with a cost together.</p>
-                            <p className="text-white">system know what you have in mind so we can come up with a cost together.
-                                cost together.</p>
+                            isCompleted={true} >
+                            <p className="text-white pb-3">Here is where you will add ingot to start shaping your
+                                project
+                                and letting the system know what you have in mind so we can come up with a cost
+                                together.</p>
+                            <p className="text-white">system know what you have in mind so we can come up with a
+                                cost
+                                together.</p>
                         </Column>
+                        
                         {/* This block shows the second column (02: Area breakdown) */}
                         <Column
                             step={2}
                             cursor='two'
                             section='Area breakdown'
-                            navigation="/project/area-breakdown"
-                            next=""
-                            isCompleted={false} >
-                            <p className="text-white pb-3">Here is where you will add ingot to start shaping your project and letting the system know what you have in mind so we can come up with a cost together</p>
+                            navigation="/project/breakdown"
+                            next="/project/breakdown/create"
+                            isCompleted={true} >
+                            <p className="text-white pb-3">Here is where you will add ingot to start shaping your
+                                project
+                                and letting the system know what you have in mind so we can come up with a cost
+                                together.</p>
                         </Column>
                     </div>
                 </div>
 
                 <div className="col-span-3 col-start-3 flex flex-col justify-start items-start w-full h-full">
-                    
-                    <Title title="project estimation"/>
+
+                    <Title title="project estimation" />
+
+                    {/* <div className="close-btn opacity-0 absolute top-0 right-0 flex flex-col items-end p-30 z-30">
+                        <a href="#" className="js-close-project">
+                            <img src="src/img/icon-close.svg" alt="close" />
+                        </a>
+                    </div> */}
 
                     <div className="js-estimation-col estimation-col grid grid-cols-3 grid-flow-col h-full">
                         {/* This block shows the third column (03: Requirements) */}
@@ -59,12 +69,16 @@ export default function Page() {
                             step={3}
                             cursor='three'
                             section='Requirements'
-                            navigation="/project/requirements"
-                            next=""
-                            isCompleted={false} >
-                            <p className="text-white pb-3">Here is where you will add ingot to start shaping your project
-                                and letting the system know what you have in mind so we can come up with a cost together.</p>
-                            <p className="text-white">system know what you have in mind so we can come up with a cost together.</p>
+                            navigation="/project/requirement"
+                            next="/project/requirement/create"
+                            isCompleted={false}>
+                            <p className="text-white pb-3">Here is where you will add ingot to start shaping your
+                                project
+                                and letting the system know what you have in mind so we can come up with a cost
+                                together.</p>
+                            <p className="text-white">system know what you have in mind so we can come up with a
+                                cost
+                                together.</p>
                         </Column>
                         {/* This block shows the fourth column (04: Refinements) */}
                         <Column
@@ -73,7 +87,7 @@ export default function Page() {
                             section='Refinements'
                             navigation="/project/refinements"
                             next=""
-                            isCompleted={false} >
+                            isCompleted={false}>
                             <p className="text-white pb-3">Here is where you will add ingot to start shaping your
                                 project and letting the system know what you have in mind so we can come up with a cost together.</p>
                             <p className="text-white">system know what you have in mind so we can come up with a cost together.</p>

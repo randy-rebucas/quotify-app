@@ -46,7 +46,7 @@ export default function Page() {
             /*  This block is shown on page load.
             /*  This will be hidden once the navigation animation is finished.
             /--> */}
-            <BackgroundAnimation colors={introductionColors} target={null} className='introduction' isLinear={true} />
+            <BackgroundAnimation colors={introductionColors} target={2} className='introduction' isLinear={true} />
 
             {/* <!--
             /*  Main Navigation Background

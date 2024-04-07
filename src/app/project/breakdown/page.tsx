@@ -1,4 +1,4 @@
-import Column from "@/app/project/information/ui/column";
+import Column from "@/app/ui/column";
 import BackgroundAnimation from "@/app/shared/background-animation";
 import Popup from "@/app/shared/popup";
 import Title from "../ui/title";
