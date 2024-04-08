@@ -35,10 +35,11 @@ export default function TabContentForm() {
     // update this to action and implement dispatch
     function onSubmit(e: FormEvent) {
         e.preventDefault()
-        console.log('next');
+
         setProjectRequirementMenu({
-            menu: currentStepIndex
+            menu: currentStepIndex + 1
         });
+        
         if (!isLastStep) return next()
         alert("Successful Account Creation")
 

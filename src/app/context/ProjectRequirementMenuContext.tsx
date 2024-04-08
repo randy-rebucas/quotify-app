@@ -4,7 +4,7 @@ import { createContext, Dispatch, ReactNode, SetStateAction, useState } from "re
 
 
 export type ProjectRequirementMenu = {
-    menu: number | null
+    menu: number
 }
 
 export interface ProjectRequirementMenuContextInterface {
@@ -14,7 +14,7 @@ export interface ProjectRequirementMenuContextInterface {
 
 const defaultState = {
     projectRequirementMenu: {
-        menu: null,
+        menu: 0,
     },
     setProjectRequirementMenu: (projectRequirementMenu: ProjectRequirementMenu) => { }
 } as ProjectRequirementMenuContextInterface
@@ -27,7 +27,7 @@ export const ProjectRequirementContextProvider = ({
     children: ReactNode;
 }) => {
     const [projectRequirementMenu, setProjectRequirementMenu] = useState<ProjectRequirementMenu>({
-        menu: null,
+        menu: 0,
     })
 
     return <ProjectRequirementMenuContext.Provider value={{ projectRequirementMenu, setProjectRequirementMenu }}>{children}</ProjectRequirementMenuContext.Provider>;

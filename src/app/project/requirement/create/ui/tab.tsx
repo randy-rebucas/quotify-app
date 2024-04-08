@@ -1,7 +1,14 @@
+import clsx from "clsx";
+import { menus } from "./entities";
 import TabContentForm from "./tab-content-form";
 import TabForm from "./tab-form";
+import { useContext } from "react";
+import { ProjectRequirementMenuContext } from "@/app/context/ProjectRequirementMenuContext";
 
 export default function Tab() {
+
+    const { projectRequirementMenu } = useContext(ProjectRequirementMenuContext);
+
     {/* <!--
             /*  Menu Main
             /*  This block is hidden on page load.
@@ -10,7 +17,7 @@ export default function Tab() {
              */}
     return (
         <>
-        {/* js-tabs absolute top-[52px] z-30 right-20 */}
+            {/* js-tabs absolute top-[52px] z-30 right-20 */}
             {/* <!--One Tab Shown--> */}
             <div data-col="1" className="js-tabs absolute top-[52px] z-30 right-20">
                 <h3>
@@ -45,41 +52,9 @@ export default function Tab() {
                                 <div className="estimation-col__bar bg-white mt-6 mb-6"></div>
                             </div>
                             <div className="js-main-menu__content estimation-col__content">
-                                <div
-                                    className="js-step-indicator step-indicator js-has-sub-step active">
-                                    <span className="font-latoblack">03.1:</span> <br />
-                                    finish and certifications
-                                    <div className="js-sub-step hidden pt-3">
-                                        <div className="js-step-indicator step-indicator pl-3" data-category="03.1.1"></div>
-                                        <div className="js-step-indicator step-indicator pl-3" data-category="03.1.2"></div>
-                                        <div className="js-step-indicator step-indicator pl-3" data-category="03.1.3"></div>
-                                    </div>
-                                </div>
-                                <div
-                                    className="js-step-indicator step-indicator">
-                                    <span className="font-latoblack">03.2:</span> <br />
-                                    MEP features
-                                </div>
-                                <div
-                                    className="js-step-indicator step-indicator">
-                                    <span className="font-latoblack">03.3:</span> <br />
-                                    base building conditions
-                                </div>
-                                <div
-                                    className="js-step-indicator step-indicator">
-                                    <span className="font-latoblack">03.4:</span> <br />
-                                    technology
-                                </div>
-                                <div
-                                    className="js-step-indicator step-indicator">
-                                    <span className="font-latoblack">03.5:</span> <br />
-                                    furniture and furnishing
-                                </div>
-                                <div
-                                    className="js-step-indicator step-indicator">
-                                    <span className="font-latoblack">03.6</span> <br />
-                                    review
-                                </div>
+                                {menus.map((menu, index) => (
+                                    <Menu index={menu.num} currentIndex={projectRequirementMenu.menu} title={menu.title} key={index} />
+                                ))}
                             </div>
                         </div>
                         <div className="bg-darkgreen2 p-30 flex items-center sticky w-full bottom-0 justify-between text-white">
@@ -97,4 +72,20 @@ export default function Tab() {
             </div>
         </>
     )
+}
+
+export function Menu({ index, currentIndex, title }: {
+    index: number;
+    currentIndex: number
+    title: string
+}) {
+    return <div className={clsx(
+        'js-step-indicator step-indicator js-has-sub-step',
+        {
+            'active': currentIndex === index,
+        },
+    )}>
+        <span className="font-latoblack">03.{index}:</span> <br />
+        {title}
+    </div>
 }

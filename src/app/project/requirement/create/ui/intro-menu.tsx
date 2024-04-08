@@ -1,12 +1,15 @@
 'use client';
 
 import { ProjectRequirementMenuContext } from "@/app/context/ProjectRequirementMenuContext"
+import clsx from "clsx";
 import { useContext } from "react"
+import { menus } from "./entities";
 
 export default function IntroMenu() {
 
     const { projectRequirementMenu } = useContext(ProjectRequirementMenuContext);
-    console.log(projectRequirementMenu);
+    console.log(projectRequirementMenu.menu);
+
     return (
         <div className="intro-menu col-start-3">
             <div className="h-full">
@@ -21,30 +24,10 @@ export default function IntroMenu() {
                             </h4>
                             <div className="estimation-col__bar bg-white mt-6 mb-6"></div>
                             <div className="estimation-col__content">
-                                <div className="step-indicator">
-                                    <span className="font-latoblack">03.1:</span> <br />
-                                    finish and certifications
-                                </div>
-                                <div className="step-indicator">
-                                    <span className="font-latoblack">03.2:</span> <br />
-                                    MEP features
-                                </div>
-                                <div className="step-indicator">
-                                    <span className="font-latoblack">03.3:</span> <br />
-                                    base building conditions
-                                </div>
-                                <div className="step-indicator">
-                                    <span className="font-latoblack">03.4:</span> <br />
-                                    technology
-                                </div>
-                                <div className="step-indicator">
-                                    <span className="font-latoblack">03.5:</span> <br />
-                                    furniture and furnishing
-                                </div>
-                                <div className="step-indicator">
-                                    <span className="font-latoblack">03.6</span> <br />
-                                    review
-                                </div>
+                                {/* js-has-sub-step active */}
+                                {menus.map((menu, index) => (
+                                    <Menu index={index} currentIndex={projectRequirementMenu.menu} title={menu.title} key={index} />
+                                ))}
                             </div>
                         </div>
                     </div>
@@ -52,4 +35,21 @@ export default function IntroMenu() {
             </div>
         </div>
     )
+}
+
+export function Menu({ index, currentIndex, title }: {
+    index: number;
+    currentIndex: number
+    title: string
+}) {
+    console.log(currentIndex)
+    return <div className={clsx(
+        'step-indicator js-has-sub-step',
+        {
+            'active': currentIndex === index,
+        },
+    )}>
+        <span className="font-latoblack">01.{index}:</span> <br />
+        {title}
+    </div>
 }
