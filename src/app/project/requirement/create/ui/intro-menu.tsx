@@ -1,4 +1,12 @@
+'use client';
+
+import { ProjectRequirementMenuContext } from "@/app/context/ProjectRequirementMenuContext"
+import { useContext } from "react"
+
 export default function IntroMenu() {
+
+    const { projectRequirementMenu } = useContext(ProjectRequirementMenuContext);
+    console.log(projectRequirementMenu);
     return (
         <div className="intro-menu col-start-3">
             <div className="h-full">

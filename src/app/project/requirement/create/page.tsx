@@ -6,6 +6,7 @@ import TabContentForm from "./ui/tab-content-form";
 import TabWrapper from "./ui/tab-wrapper";
 import Tab from "./ui/tab";
 import IntroMenuWrapper from "./ui/intro-menu-wrapper";
+import { ProjectRequirementContextProvider } from "@/app/context/ProjectRequirementMenuContext";
 
 export default function Page() {
 
@@ -14,24 +15,26 @@ export default function Page() {
     const mainColors: string[] = ['bg-gray2A', 'bg-gray3A', 'bg-gray4A', 'bg-white', 'bg-green'];
 
     return (
-        <div className="wrapper theme theme-green">
-            {/* <!--
+        <ProjectRequirementContextProvider>
+            <div className="wrapper theme theme-green">
+                {/* <!--
         /*  Close Popup Block
         /*  This block shows on close popup button click
         /-->         */}
-            <Popup />
+                <Popup />
 
-            {/* <!--
+                {/* <!--
         /*  Wrapper Content
         /*  This block shows the main page content
         /--> */}
-            <IntroMenuWrapper/>
+                <IntroMenuWrapper />
 
-            <TabWrapper/>
+                <TabWrapper />
 
-            <BackgroundAnimation colors={introductionColors} target={2} className="introduction" isLinear={true} />
+                <BackgroundAnimation colors={introductionColors} target={2} className="introduction" isLinear={true} />
 
-            <BackgroundAnimation colors={mainColors} target={2} className="main" isLinear={false} />
-        </div>
+                <BackgroundAnimation colors={mainColors} target={2} className="main" isLinear={false} />
+            </div>
+        </ProjectRequirementContextProvider>
     )
 }

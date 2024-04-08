@@ -12,6 +12,16 @@ type FormWrapperProps = {
 
 
 export default function Wrapper({ stepIndex, isFirstStep, children, onClick }: FormWrapperProps) {
+
+    const step: any = {
+        0: 'finish and certifications',
+        1: 'MEP features',
+        2: 'base building conditions',
+        3: 'technology',
+        4: 'furniture and furnishing',
+        5: 'review'
+    };
+
     return (
         <div className="js-step step active">
             {/* <div className={clsx(
@@ -28,7 +38,7 @@ export default function Wrapper({ stepIndex, isFirstStep, children, onClick }: F
                             <div>
                                 <div className="h-1 w-20 bg-black"></div>
                                 <h5 className="font-latobold mt-1 xl:text-3xl md:text-2xl text-1xl text-black">
-                                    finish and certifications
+                                    {step[stepIndex]}
                                 </h5>
                             </div>
                         </div>
@@ -37,7 +47,7 @@ export default function Wrapper({ stepIndex, isFirstStep, children, onClick }: F
                     <div className="p-30 pt-[74px]">
                         <div className="flex flex-col justify-between h-full">
                             <h5 className="font-latobold mt-1 xl:text-2xl text-1xl text-black">
-                                03.1.1:
+                                03.{stepIndex + 1}:
                             </h5>
                             <p>what is the finish level of your space?</p>
                         </div>
@@ -49,10 +59,11 @@ export default function Wrapper({ stepIndex, isFirstStep, children, onClick }: F
                     /--> */}
                 <Tooltip />
 
-                {children}
-
-                <ActionButtons isFirstStep={isFirstStep} onClick={onClick}/>
             </div>
+
+            {children}
+
+            <ActionButtons isFirstStep={isFirstStep} onClick={onClick} />
         </div>
     )
 }

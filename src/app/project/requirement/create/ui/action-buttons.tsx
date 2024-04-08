@@ -1,3 +1,4 @@
+import clsx from "clsx";
 import { MouseEventHandler } from "react";
 
 export default function ActionButtons({ isFirstStep, onClick }: { isFirstStep: boolean; onClick: MouseEventHandler<HTMLButtonElement> }) {
@@ -5,8 +6,8 @@ export default function ActionButtons({ isFirstStep, onClick }: { isFirstStep: b
         <div
             className="row-start-3 col-span-4 flex flex-col justify-end items-start w-full h-full">
             <div className="p-30 w-full flex items-end justify-between">
-                
-                {!isFirstStep && <button onClick={onClick} className="js-backbtn focus:shadow-outline focus:outline-none">
+                {!isFirstStep && <button type="button" onClick={onClick}
+                    className='js-backbtn focus:shadow-outline focus:outline-none' >
                     <svg xmlns="http://www.w3.org/2000/svg" width="77" height="62" viewBox="0 0 77 62"
                         fill="none">
                         <path opacity="0.3"
@@ -14,7 +15,7 @@ export default function ActionButtons({ isFirstStep, onClick }: { isFirstStep: b
                             fill="#00A99A" />
                     </svg>
                 </button>}
-                <button className="js-nextbtn focus:shadow-outline focus:outline-none" type="button">
+                <button className="js-nextbtn focus:shadow-outline focus:outline-none" type="submit">
                     <svg xmlns="http://www.w3.org/2000/svg" width="78" height="63" viewBox="0 0 78 63"
                         fill="none">
                         <path

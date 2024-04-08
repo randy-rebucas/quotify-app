@@ -7,7 +7,7 @@ type FinishData = {
 }
 
 type FinishFormProps = FinishData & {
-    updateFields: (fields: Partial<FinishData>) => void
+    updateFields: (fields: Partial<FormData>) => void
 }
 
 export default function FinishAndCertification({
@@ -16,6 +16,7 @@ export default function FinishAndCertification({
     finishCertificationRequire,
     updateFields
 }: FinishFormProps) {
+    console.log();
     return (
         <>
             {/* finish and certifications */}

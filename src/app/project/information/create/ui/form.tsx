@@ -32,8 +32,8 @@ export default function Form() {
     // update this to action and implement dispatch
     function onSubmit(e: FormEvent) {
         e.preventDefault()
-        console.log('next');
         if (!isLastStep) return next()
+        console.log(data);
         alert("Successful Account Creation")
 
         // revalidatePath('/project') // Update cached posts
