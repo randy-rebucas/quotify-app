@@ -5,6 +5,9 @@ import { redirect } from "next/navigation";
 import { z } from "zod";
 import Auth from "./models/Auth";
 import bcrypt from "bcrypt";
+import { connect } from "mongoose";
+import User from "./models/User";
+import { unstable_noStore as noStore } from 'next/cache';
 
 const schema = z
   .object({
@@ -24,6 +27,8 @@ const schema = z
   });
 
 export default async function createUser(prevState: any, formData: FormData) {
+  noStore();
+  
   const validatedFields = schema.safeParse({
     email: formData.get("email"),
     password: formData.get("password"),
@@ -39,10 +44,13 @@ export default async function createUser(prevState: any, formData: FormData) {
 
   const { email, password } = validatedFields.data;
 
-  console.log(email);
   try {
+    await connect(
+      "mongodb+srv://vercel-admin-user:MVyaozWTBHlGpQgk@main.c8cxmly.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
+    );
+
     let authCheck = await Auth.findOne({ email: email });
-    console.log(authCheck);
+
     if (authCheck) {
       throw new Error("Something went wrong. Email is in used!");
     }
@@ -54,16 +62,29 @@ export default async function createUser(prevState: any, formData: FormData) {
       password: hash,
     });
     let auth = await authCredentials.save();
-    console.log(auth);
-    return auth;
-  } catch (error) {
+
+    const newUser = new User({
+      auth: auth._id,
+      email: email,
+      name: "",
+    });
+    let user = await newUser.save();
+    console.log();
+    if (!user) {
+      throw new Error("Something went wrong.Cannot save user data!");
+    }
+
+    return user;
+    // Revalidate the cache for the invoices page and redirect the user.
+
+  } catch (error: any) {
     // If a database error occurs, return a more specific error.
     return {
-      message: "Database Error: Failed to Create Invoice.",
+      message: error.message,
     };
   }
 
-  //   // Revalidate the cache for the invoices page and redirect the user.
-  revalidatePath("/dashboard/invoices");
-  redirect("/dashboard/invoices");
+  // revalidatePath("/dashboard/invoices");
+  // redirect("/dashboard/invoices");
 }
+
