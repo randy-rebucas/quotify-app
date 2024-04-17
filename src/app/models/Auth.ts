@@ -1,14 +1,14 @@
-import mongoose, { Schema, Types, model } from "mongoose";
-import bcrypt from "bcryptjs";
+import mongoose, { Schema, Types } from "mongoose";
 
 // 1. Create an interface representing a document in MongoDB.
 export interface IAuth {
   email: string;
   password: string;
-  name?: string;
-  providers?: Types.Array<string>;
   loggedAt?: Date;
-  _id?: Types.ObjectId
+}
+
+export interface IWithIdAuth extends IAuth {
+  _id: string;
 }
 
 // 2. Create a Schema corresponding to the document interface.
@@ -24,11 +24,6 @@ const authSchema = new Schema<IAuth>({
     type: String,
     required: true,
   },
-  name: {
-    type: String,
-    unique: true,
-  },
-  providers: [String],
   loggedAt: {
     type: Date,
     default: null,

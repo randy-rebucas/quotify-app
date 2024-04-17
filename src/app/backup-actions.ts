@@ -3,12 +3,13 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { z } from "zod";
-import Auth, { IAuth } from "./models/Auth";
+import Auth from "./models/Auth";
 import bcrypt from "bcrypt";
-import { connect } from "mongoose";
-import User, { IUser } from "./models/User";
+import User from "./models/User";
 import { unstable_noStore as noStore } from "next/cache";
-import clientPromise from "./lib/db";
+import { connect } from "mongoose";
+// import connect from "./utils/db";
+
 
 const schema = z
   .object({
@@ -29,6 +30,7 @@ const schema = z
 
 export default async function createUser(prevState: any, formData: FormData) {
   noStore();
+  // console.log(process.env.MONGODB_URI);
 
   const validatedFields = schema.safeParse({
     email: formData.get("email"),
@@ -44,37 +46,36 @@ export default async function createUser(prevState: any, formData: FormData) {
   }
 
   const { email, password } = validatedFields.data;
-
+  
   try {
-    const client = await clientPromise;
-    const db = client.db();
+    await connect('mongodb+srv://vercel-admin-user:MVyaozWTBHlGpQgk@main.c8cxmly.mongodb.net/myFirstDatabase?retryWrites=true&w=majority');
 
-    const authCheck = await db.collection<IAuth>("auths").findOne({ email });
-
+    let authCheck = await Auth.findOne({ email });
+  
     if (authCheck) {
-      throw new Error("Something went wrong. Email is in used!");
+      throw new Error("Something went wrong. Email is in used!" );
     }
-
+  
     const salt = await bcrypt.genSalt(10);
     const hash = await bcrypt.hash(password, salt);
-    const authResponse = await db.collection<IAuth>("auths").insertOne({
+    const authCredentials = new Auth({
       email,
       password: hash,
     });
+    let auth = await authCredentials.save();
 
-    const userResponse = await db.collection<IUser>("users").insertOne({
-      auth: authResponse.insertedId,
-      email: email,
+    const newUser = new User({
+      email,
+      auth: auth._id,
       name: "",
     });
+    let user = await newUser.save();
 
-    return userResponse;
+    return user;
     // Revalidate the cache for the invoices page and redirect the user.
   } catch (error: any) {
     // If a database error occurs, return a more specific error.
-    return {
-      message: error.message,
-    };
+    return new Error(error);
   }
 
   // revalidatePath("/dashboard/invoices");

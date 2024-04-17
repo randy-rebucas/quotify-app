@@ -1,7 +1,6 @@
 'use client';
 
 import createUser from "@/app/actions";
-// import createUser from "@/app/lib/actions";
 import Image from "next/image";
 import Link from "next/link";
 import { useFormState, useFormStatus } from "react-dom";
@@ -9,7 +8,7 @@ import { useFormState, useFormStatus } from "react-dom";
 
 export default function Form() {
     const initialState = { message: null, errors: {} }
-    const [state, dispatch] = useFormState(createUser, initialState);
+    const [state, dispatch] = useFormState(createUser, undefined);
     const { pending } = useFormStatus();
 
     return (
@@ -31,10 +30,10 @@ export default function Form() {
             </div>
             <label className="md:w-full block text-white pb-4">
                 <span className="text-sm">
-                    already have an account? <Link className="font-bold" href="/signin">sign in</Link>
+                    already have an account? <Link className="font-bold" href="/login">sign in</Link>
                 </span>
             </label>
-            <div
+            {/* <div
                 className="flex h-8 items-end space-x-1"
                 aria-live="polite"
                 aria-atomic="true"
@@ -45,7 +44,7 @@ export default function Form() {
                             {error}
                         </p>
                     ))}
-            </div>
+            </div> */}
             <div className="w-full flex justify-end md:items-end">
                 <button className="focus:shadow-outline focus:outline-none" type="submit" aria-disabled={pending}>
                     <Image

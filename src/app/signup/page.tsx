@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 import StaggerCover from '../ui/stagger-cover';
 import QuotifyLogo from '../ui/quotify-logo';
-import PageWrapper from '../ui/signin/page-wrapper';
+import PageWrapper from '../ui/login/page-wrapper';
 import Form from '../ui/signup/form';
 
 export const metadata: Metadata = {
