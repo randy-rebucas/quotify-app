@@ -22,7 +22,7 @@ export default function Form() {
             </div>
             <label className="md:w-full block text-white pb-4">
                 <span className="text-sm">
-                    don`&apos;`t have an account? <Link className="font-bold" href="/signup">sign up</Link>
+                    don&apos;t have an account? <Link className="font-bold" href="/signup">sign up</Link>
                 </span>
             </label>
             <div
@@ -37,7 +37,7 @@ export default function Form() {
                 )}
             </div>
             <div className="w-full flex justify-end md:items-end">
-                <button className="focus:shadow-outline focus:outline-none" type="submit" aria-disabled={pending}>
+                <button className="focus:shadow-outline focus:outline-none" aria-disabled={pending}>
                     <Image
                         src="/images/icon-submit.png"
                         width={0}
