@@ -8,9 +8,13 @@ import Area from "./steps/area";
 import HeadCount from "./steps/head-count";
 import { useMultistepForm } from "@/app/hooks/useMultistepForm";
 import Wrapper from "./wrapper";
-
+import { menus } from "@/app/estimation/project-information/create/page";
+import clsx from "clsx";
+import { redirect, useRouter } from "next/navigation";
 
 export default function Form() {
+    const router = useRouter();
+
     const [data, setData] = useState(INITIAL_DATA)
 
     function updateFields(fields: Partial<FormData>) {
@@ -28,31 +32,76 @@ export default function Form() {
         ])
 
     // update this to action and implement dispatch
-    function onSubmit(e: FormEvent) {
+    async function onSubmit(e: FormEvent) {
         e.preventDefault()
         if (!isLastStep) return next()
-        console.log(data);
-        alert("Successful Account Creation")
 
-        // revalidatePath('/project') // Update cached posts
-        // redirect(`/project/breakdown`) 
+        try {
+            const res = await fetch('/api/projects', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            });
+
+            if (res.status === 200) {
+                router.push("/estimation/area-breakdown")
+            }
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     return (
-        <form onSubmit={onSubmit} className="lg:col-span-4 col-span-12 h-full w-full overflow-y-scroll overflow-x-hidden">
-            {!isFirstStep && (
-                <div className="absolute top-0 left-0 flex flex-col items-end p-30">
-                    <button type="button" onClick={back} className="focus:shadow-outline focus:outline-none">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="77" height="62" viewBox="0 0 77 62" fill="none">
-                            <path opacity="0.3" d="M30.8994 61.1465L32.9858 59.0886L5.56387 31.9448L77 31.9449L77 29.0051L5.96129 29.0051L33.1845 2.15526L31.0981 -0.000564773L2.66426e-06 30.6709L30.8994 61.1465Z" fill="white" />
-                        </svg>
-                    </button>
-                </div>
-            )}
+        <>
+            <div className="flex flex-col justify-start items-start w-full h-full">
+                <div className="h-full">
 
-            <Wrapper stepIndex={currentStepIndex}>
-                {step}
-            </Wrapper>
-        </form>
+                    <div className="p-30 lg:pt-col1">
+                        <div className="flex flex-col justify-between h-full">
+                            <div>
+                                <h1 className="font-latobold text-white">
+                                    01:
+                                </h1>
+                                <h4 className="font-latolight mt-3 text-white">
+                                    Project information
+                                </h4>
+                                <div className="estimation-col__bar mt-6 mb-6"></div>
+                                <div className="estimation-col__content">
+                                    {menus.map((menu, index) => (
+                                        <div key={index} className={clsx(
+                                            'js-step-indicator step-indicator',
+                                            {
+                                                'active': index === currentStepIndex,
+                                            },
+                                        )}>
+                                            <span className="font-latoblack">01.{index + 1}:</span> <br />
+                                            {menu.title}
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <form onSubmit={onSubmit} className="lg:col-span-4 col-span-12 h-full w-full overflow-y-scroll overflow-x-hidden">
+                {!isFirstStep && (
+                    <div className="absolute top-0 left-0 flex flex-col items-end p-30">
+                        <button type="button" onClick={back} className="focus:shadow-outline focus:outline-none">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="77" height="62" viewBox="0 0 77 62" fill="none">
+                                <path opacity="0.3" d="M30.8994 61.1465L32.9858 59.0886L5.56387 31.9448L77 31.9449L77 29.0051L5.96129 29.0051L33.1845 2.15526L31.0981 -0.000564773L2.66426e-06 30.6709L30.8994 61.1465Z" fill="white" />
+                            </svg>
+                        </button>
+                    </div>
+                )}
+
+                <Wrapper stepIndex={currentStepIndex}>
+                    {step}
+                </Wrapper>
+            </form>
+        </>
     )
 }

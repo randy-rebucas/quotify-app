@@ -9,11 +9,11 @@ export interface IProject {
   address: string;
   spaceSize: Types.Decimal128;
   rentableArea: Types.Decimal128;
-  headCount: number;
-  averageOfficeAttendance: number;
+  headCount: string;
+  averageOfficeAttendance: string;
   seatingPercentage: Types.Decimal128;
   user: Types.ObjectId | IUser;
-  office: Types.ObjectId | IOffice;
+  // office?: Types.ObjectId | IOffice;
 }
 
 // 2. Create a Schema corresponding to the document interface.
@@ -23,15 +23,14 @@ const projectSchema = new Schema<IProject>({
   address: { type: String, required: true },
   spaceSize: { type: Schema.Types.Decimal128, required: true },
   rentableArea: { type: Schema.Types.Decimal128, required: true },
-  headCount: { type: Number, required: true },
-  averageOfficeAttendance: { type: Number, required: true },
+  headCount: { type: String, required: true },
+  averageOfficeAttendance: { type: String, required: true },
   seatingPercentage: { type: Schema.Types.Decimal128, required: true },
   user: { type: Schema.Types.ObjectId, ref: "Users", required: true },
-  office: {
-    type: Schema.Types.ObjectId,
-    ref: "Offices",
-    required: true,
-  },
+  // office: {
+  //   type: Schema.Types.ObjectId,
+  //   ref: "Offices",
+  // },
 });
 
 // 3. Create a Model.

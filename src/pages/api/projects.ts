@@ -1,6 +1,16 @@
+import { decrypt, getSession } from "@/app/actions/session";
 import Project from "@/app/models/Project";
 import connect from "@/app/utils/db";
 import type { NextApiRequest, NextApiResponse } from "next";
+import { cookies } from "next/headers";
+
+export const config = {
+  api: {
+    bodyParser: {
+      sizeLimit: "500kb",
+    },
+  },
+};
 
 export default async function handler(
   req: NextApiRequest,
@@ -8,20 +18,51 @@ export default async function handler(
 ) {
   connect();
 
-  try {
-    switch (req.method) {
-      case "POST":
-        // const { name, message } = req.body
-        // Process a POST request
-        break;
+  switch (req.method) {
+    case "POST":
+      const {
+        spaceName,
+        hasFloorPlan,
+        address,
+        hasAddress,
+        approximateSize,
+        rentableArea,
+        targetHeadCount,
+        averageAttendance,
+        assignedSeat,
+      } = req.body;
 
-      default:
+      const session = await decrypt(req.cookies.session);
+      try {
+        const project = new Project({
+          spaceName: spaceName,
+          floorPlan: "yu",
+          address: address,
+          spaceSize: approximateSize,
+          rentableArea: rentableArea,
+          headCount: targetHeadCount,
+          averageOfficeAttendance: averageAttendance,
+          seatingPercentage: assignedSeat,
+          user: session?.userId,
+        });
+
+        let data = await project.save();
+
+        res.status(200).json(data);
+      } catch (err) {
+        console.log(err)
+        res.status(500).json(err);
+      }
+      break;
+
+    default:
+      try {
         const projects = await Project.find({}).exec();
 
         res.status(200).json({ projects });
-        break;
-    }
-  } catch (err) {
-    res.status(500).json({ error: "failed to load data" });
+      } catch (err) {
+        res.status(500).json({ error: "failed to load data" });
+      }
+      break;
   }
 }
