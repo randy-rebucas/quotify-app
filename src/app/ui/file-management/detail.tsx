@@ -1,6 +1,16 @@
+import { fetchProject } from "@/app/lib/data";
 import Image from "next/image";
+import { notFound } from "next/navigation";
 
-export default function Detail() {
+export default async function Detail({ params }: { params: { id: string } }) {
+
+    const id = params.id;
+    const project = await fetchProject(id);
+
+    if (!project) {
+        notFound();
+    }
+
     return (
         <div className="js-open-results-content open-results-content wrapper__content-2 js-linear-anim-2 el !absolute top-0 left-0 !z-30">
 

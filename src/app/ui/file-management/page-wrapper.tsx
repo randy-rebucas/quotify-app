@@ -8,6 +8,8 @@ type PageWrapperProps = {
 }
 
 export default function PageWrapper({ children }: PageWrapperProps) {
+
+
     return (
         <motion.div
             initial={{ opacity: 0 }}
