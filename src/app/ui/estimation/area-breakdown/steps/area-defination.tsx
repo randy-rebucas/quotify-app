@@ -1,11 +1,9 @@
-'use client';
-
 import Tooltip from "@/app/ui/tooltip";
-import { Amenities, amenities } from "../entities"
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
+import { IAmenity } from "@/app/models/Amenity";
 
 type AreaData = {
-    selectedIds: any
+    selectedIds: any[]
 }
 
 type AreaFormProps = AreaData & {
@@ -32,9 +30,9 @@ export default function AreaDefination({
     const handleCheckboxChange = (event: ChangeEvent<HTMLInputElement>) => {
         const checkedId = event.target.value;
         if (event.target.checked) {
-            updateFields({ selectedIds: [...selectedIds, +checkedId] });
+            updateFields({ selectedIds: [...selectedIds, checkedId] });
         } else {
-            updateFields({ selectedIds: selectedIds.filter((id: number) => id !== +checkedId) });
+            updateFields({ selectedIds: selectedIds.filter((_id: string) => _id !== checkedId) });
         }
     }
 
@@ -67,6 +65,19 @@ export default function AreaDefination({
         setInputFields(data)
     }
 
+    const [amenities, setAmenities] = useState<IAmenity[]>([]);
+
+    useEffect(() => {
+        async function fetchData() {
+            fetch('/api/amenities')
+                .then((res) => res.json())
+                .then((data) => {
+                    setAmenities(data.amenities)
+                })
+        }
+        fetchData();
+    }, []);
+
     return (
         <>
             <div className="lg:col-span-2 col-span-12 flex flex-col justify-start items-start w-full h-full">
@@ -80,17 +91,16 @@ export default function AreaDefination({
                                 </h5>
                                 <div className="w-full">
                                     <p className="mt-[11.111vh] mb-[1.852vh]">select your amenity spaces</p>
-
-                                    {amenities.map((amenity: Amenities, index: any) => (
-
+                                    
+                                    {amenities.map((amenity: IAmenity, index: any) => (
                                         <div className="custom-checkbox mb-4" key={index}>
-                                            <input id={`tmp-${amenity.id}`} type="checkbox" className="promoted-input-checkbox"
-                                                value={amenity.id} checked={selectedIds.includes(amenity.id)} onChange={e => handleCheckboxChange(e)}
+                                            <input id={`tmp-${amenity._id}`} type="checkbox" className="promoted-input-checkbox"
+                                                value={`${amenity._id}`} checked={selectedIds.includes(amenity._id)} onChange={e => handleCheckboxChange(e)}
                                             />
                                             <svg>
                                                 <use xlinkHref={`#checkmark-${index}`}></use>
                                             </svg>
-                                            <label htmlFor={`tmp-${amenity.id}`}>{amenity.amenityName}</label>
+                                            <label htmlFor={`tmp-${amenity._id}`}>{amenity.amenityName}</label>
                                             <svg xmlns="http://www.w3.org/2000/svg" style={{ display: 'none' }} >
                                                 <symbol id={`checkmark-${index}`} viewBox="0 0 24 24">
                                                     <path strokeLinecap="round" strokeMiterlimit="10" fill="none" d="M22.9 3.7l-15.2 16.6-6.6-7.1">
@@ -98,9 +108,7 @@ export default function AreaDefination({
                                                 </symbol>
                                             </svg>
                                         </div>
-
                                     ))}
-
                                 </div>
                             </div>
                         </div>

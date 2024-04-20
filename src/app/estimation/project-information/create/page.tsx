@@ -4,7 +4,6 @@ import IntroWrapper from "@/app/ui/estimation/intro-wrapper";
 import MainWrapper from "@/app/ui/estimation/main-wrapper";
 import LinearCover from "@/app/ui/linear-cover";
 import StaggerCover from "@/app/ui/stagger-cover";
-import clsx from "clsx";
 
 type MenuData = {
     num: number;
