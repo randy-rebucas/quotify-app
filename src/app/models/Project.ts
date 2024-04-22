@@ -2,11 +2,17 @@ import mongoose, { Schema, Types } from "mongoose";
 import { IUser } from "./User";
 import { IOffice } from "./Office";
 
+export interface IAddress {
+  line1: string;
+  line2: string;
+  state: string;
+  zipCode: string;
+}
 // 1. Create an interface representing a document in MongoDB.
 export interface IProject {
   spaceName: string;
   floorPlan: string;
-  address: string;
+  address: IAddress;
   spaceSize: Types.Decimal128;
   rentableArea: Types.Decimal128;
   headCount: string;

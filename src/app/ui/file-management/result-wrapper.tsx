@@ -26,11 +26,11 @@ export default function ResultWrapper() {
 
     return (
         <>
-            <Result isMore={more} files={projects}/>
+            <Result isMore={more} files={projects} />
 
             {/* <Detail /> */}
 
-            <Action isMore={more} onClick={handleMoreLessClick} />
+            {projects.length && <Action isMore={more} onClick={handleMoreLessClick} />}
         </>
     )
 }
