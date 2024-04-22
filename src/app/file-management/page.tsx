@@ -12,8 +12,8 @@ export const metadata: Metadata = {
 };
 
 export default async function Page() {
-    const data = await fetchProjects();
-
+    // const projects = await fetchProjects();
+    // console.log(projects)
     const colors: string[] = ['bg-gray1B', 'bg-gray2A', 'bg-gray3A', 'bg-gray4A', 'bg-gray5A']
 
     return (
@@ -40,9 +40,9 @@ export default async function Page() {
                             />
                         </Link>
                     </div>
-                    <Suspense fallback={<p>Loading projects...</p>}>
-                        <ResultWrapper data={data} />
-                    </Suspense>
+
+                    <ResultWrapper />
+
                 </div>
             </PageWrapper>
 

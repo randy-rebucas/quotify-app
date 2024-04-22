@@ -1,4 +1,4 @@
-import { fetchAmenities } from "@/app/lib/data";
+import { fetchAmenities, fetchCustomSpaces } from "@/app/lib/data";
 import { IAmenity } from "@/app/models/Amenity";
 import Form from "@/app/ui/estimation/area-breakdown/form";
 import IntroWrapper from "@/app/ui/estimation/intro-wrapper";
@@ -6,33 +6,12 @@ import MainWrapper from "@/app/ui/estimation/main-wrapper";
 import Popup from "@/app/ui/estimation/popup";
 import LinearCover from "@/app/ui/linear-cover";
 import StaggerCover from "@/app/ui/stagger-cover";
-import { useEffect, useState } from "react";
-
-// type MenuData = {
-//     num: number;
-//     title: string;
-// };
-
-// export const menus: MenuData[] = [
-//     {
-//         num: 1,
-//         title: "area definition",
-//     },
-//     {
-//         num: 2,
-//         title: "proportion breakdown",
-//     }
-// ];
+import { fetchMenus } from "@/app/lib/data";
 
 export default async function Page() {
-
-    // const data = await fetchAmenities();
-    // let amenities = data.map((obj) => {
-    //     return {
-    //         id: String(obj._id),
-    //         amenityName: obj.amenityName
-    //     }
-    // })
+    const menus = await fetchMenus();
+    const amenities = await fetchAmenities();
+    const custom_spaces = await fetchCustomSpaces();
 
     const introductionColors: string[] = ['bg-blue1', 'bg-blue2', 'bg-blue3', 'bg-blue4', 'bg-blue5'];
 
@@ -77,7 +56,7 @@ export default async function Page() {
             </IntroWrapper>
 
             <MainWrapper>
-                <Form />
+                <Form menus={menus} amenities={amenities} custom_spaces={custom_spaces}/>
             </MainWrapper>
 
             <LinearCover colors={introductionColors} target={2} className="introduction" />

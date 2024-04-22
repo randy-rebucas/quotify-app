@@ -7,19 +7,26 @@ import Result from "./result";
 import Empty from "./empty";
 import { IProject } from "@/app/models/Project";
 
-export default function ResultWrapper({ data }: { data: IProject[] }) {
+export default function ResultWrapper() {
     const [more, setMore] = useState<boolean>(false);
+    const [projects, setProjects] = useState<IProject[]>([]);
     const handleMoreLessClick = () => {
         setMore(!more);
     }
 
-    if (!data.length) {
-        return <Empty />
-    }
+    useEffect(() => {
+        fetch('/api/projects')
+            .then((res) => res.json())
+            .then((data) => {
+                setProjects(data.projects)
+            })
+    }, [])
+
+    if (!projects) return <Empty />
 
     return (
         <>
-            <Result isMore={more} />
+            <Result isMore={more} files={projects}/>
 
             {/* <Detail /> */}
 

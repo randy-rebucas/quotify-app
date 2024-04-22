@@ -1,27 +1,39 @@
+'use client';
+
 import Image from "next/image";
-import { files } from "./files";
+// import { files } from "./files";
 import clsx from "clsx";
 import { useEffect } from "react";
+import { IProject } from "@/app/models/Project";
+import Empty from "./empty";
 
-
-export default function Result({ isMore }: { isMore: boolean }) {
+// 
+export default function Result({ isMore, files }: { isMore: boolean, files: IProject[] }) {
 
     const data = !isMore ? files.slice(0, 4) : files;
 
     return (
+        // js-wrapper__results wrapper__results lg:col-span-4 col-span-12 col-end-5 d-flex flex-col overflow-x-hidden overflow-y-scroll has-one-row 
+        // js-wrapper__results wrapper__results lg:col-span-4 col-span-12 col-end-5 d-flex flex-col overflow-x-hidden overflow-y-scroll
 
+        // js-wrapper__results wrapper__results lg:col-span-4 col-span-12 col-end-5 d-flex flex-col overflow-x-hidden overflow-y-scroll has-one-row
+        // js-wrapper__results wrapper__results lg:col-span-4 col-span-12 col-end-5 d-flex flex-col overflow-x-hidden overflow-y-scroll
         <div className={clsx(
-            'js-wrapper__results wrapper__results lg:col-span-4 col-span-12 col-end-5 d-flex flex-col  overflow-x-hidden overflow-y-scroll',
+            'js-wrapper__results wrapper__results lg:col-span-4 col-span-12 col-end-5 d-flex flex-col overflow-x-hidden overflow-y-scroll',
             {
                 'has-one-row': !isMore,
             },
         )}>
+            {/* file file-1 lg:col-span-1 */}
+            {/* file file-5 lg:col-span-1 toggle */}
 
+            {/* file file-1 lg:col-span-1 */}
+            {/* file file-5 lg:col-span-1 */}
             <div className="lg:col-start-2 h-full">
                 <div className="grid lg:grid-cols-4 lg:grid-flow-col relative h-full">
 
                     {data.map((file, index) => (
-                        <div className={`file file-${index + 1} lg:col-${index % 4 == 0 ? 'span' : 'start'}-${index % 4 + 1}`} key={index}>
+                        <div className={`file file-${index + 1} lg:col-${index % 4 == 0 ? 'span' : 'start'}-${index % 4 + 1} `} key={index}>
                             <div className="file-map"></div>
                             <div className="file-img" data-lat="48.895651" data-long="2.290569" data-color="#383A64">
                                 <div className="flex flex-col justify-start relative z-10">
@@ -41,15 +53,15 @@ export default function Result({ isMore }: { isMore: boolean }) {
                                             className="mb-5"
                                             alt="file"
                                         />
-                                        <h2>Project<br />{file.title}</h2>
+                                        <h2>Project<br />{file.spaceName}</h2>
 
                                         <div className="file__border bg-black"></div>
 
                                         <div className="file__address">
-                                            {file.address.line1}<br />
+                                            {/* {file.address.line1}<br />
                                             {file.address.line2}<br />
                                             {file.address.state}<br />
-                                            {file.address.zipCode}
+                                            {file.address.zipCode} */}
                                         </div>
 
                                         <div className="file__est">

@@ -1,6 +1,7 @@
 import Amenity from "@/app/models/Amenity";
 import connect from "@/app/utils/db";
 import type { NextApiRequest, NextApiResponse } from "next";
+import { v4 as uuid } from 'uuid'
 
 export const config = {
   api: {
@@ -18,20 +19,19 @@ export default async function handler(
 
   switch (req.method) {
     case "POST":
-      const {
-        amenityName
-      } = req.body;
+      const { amenityName } = req.body;
 
       try {
         const amenity = new Amenity({
-            amenityName: amenityName
+          _id: uuid(),
+          amenityName: amenityName,
         });
 
         let data = await amenity.save();
 
         res.status(200).json(data);
       } catch (err) {
-        console.log(err)
+        console.log(err);
         res.status(500).json(err);
       }
       break;

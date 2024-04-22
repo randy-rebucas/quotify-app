@@ -6,12 +6,12 @@ import { useMultistepForm } from "@/app/hooks/useMultistepForm";
 import Wrapper from "./wrapper";
 import AreaDefination from "./steps/area-defination";
 import ProportionBreakdown from "./steps/proportion-breakdown";
-// import { menus } from "@/app/estimation/area-breakdown/create/page";
 import clsx from "clsx";
-import { uuid } from 'uuidv4';
 import { IMenu } from "@/app/models/Menu";
+import { v4 as uuid } from 'uuid'
 
-export default function Form() {
+
+export default function Form({ menus, amenities, custom_spaces }: { menus: any[]; amenities: any[]; custom_spaces: any[] }) {
     const [data, setData] = useState(INITIAL_DATA)
 
     function updateFields(fields: Partial<FormData>) {
@@ -22,7 +22,7 @@ export default function Form() {
 
     const { steps, currentStepIndex, step, isFirstStep, isLastStep, back, next } =
         useMultistepForm([
-            <AreaDefination {...data} updateFields={updateFields} key={uuid()} />,
+            <AreaDefination {...data} updateFields={updateFields} amenities={amenities} custom_spaces={custom_spaces} key={uuid()} />,
             <ProportionBreakdown {...data} updateFields={updateFields} key={uuid()} />
         ])
 
@@ -36,25 +36,6 @@ export default function Form() {
         // revalidatePath('/project') // Update cached posts
         // redirect(`/project/breakdown`) 
     }
-
-    {/* hidden */ }
-
-    const [menus, setMenus] = useState<IMenu[]>([]);
-
-    useEffect(() => {
-        async function fetchMenu() {
-            // You can await here
-            fetch('/api/menus?page=area-breakdown')
-                .then((res) => res.json())
-                .then((data) => {
-                    console.log(data);
-                    setMenus(data.menus)
-                })
-        }
-        fetchMenu();
-    }, []);
-
-
     return (
         <>
             <div className="lg:col-start-1 flex flex-col justify-start items-start w-full h-full">

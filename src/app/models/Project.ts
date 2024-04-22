@@ -13,6 +13,7 @@ export interface IProject {
   averageOfficeAttendance: string;
   seatingPercentage: Types.Decimal128;
   user: Types.ObjectId | IUser;
+  _id?: Types.ObjectId;
   // office?: Types.ObjectId | IOffice;
 }
 

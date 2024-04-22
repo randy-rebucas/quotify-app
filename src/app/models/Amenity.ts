@@ -2,14 +2,15 @@ import mongoose, { Schema, Types } from "mongoose";
 
 // 1. Create an interface representing a document in MongoDB.
 export interface IAmenity {
+  _id: string;
   amenityName: string;
-  _id?: Types.ObjectId;
+  // _id?: Types.ObjectId;
 }
 
 // 2. Create a Schema corresponding to the document interface.
 const amenitySchema = new Schema<IAmenity>({
-  amenityName: { type: String, unique: true, required: true },
-  _id: String
+  _id: { type: String, required: true },
+  amenityName: { type: String, unique: true, required: true }
 });
 
 

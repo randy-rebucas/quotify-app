@@ -11,6 +11,7 @@ import Wrapper from "./wrapper";
 import { menus } from "@/app/estimation/project-information/create/page";
 import clsx from "clsx";
 import { redirect, useRouter } from "next/navigation";
+import { v4 as uuid } from 'uuid'
 
 export default function Form() {
     const router = useRouter();
@@ -25,10 +26,10 @@ export default function Form() {
 
     const { steps, currentStepIndex, step, isFirstStep, isLastStep, back, next } =
         useMultistepForm([
-            <Plan {...data} updateFields={updateFields} key={1} />,
-            <Address {...data} updateFields={updateFields} key={2} />,
-            <Area {...data} updateFields={updateFields} key={3} />,
-            <HeadCount {...data} updateFields={updateFields} key={4} />
+            <Plan {...data} updateFields={updateFields} key={uuid()}  />,
+            <Address {...data} updateFields={updateFields} key={uuid()}  />,
+            <Area {...data} updateFields={updateFields} key={uuid()}  />,
+            <HeadCount {...data} updateFields={updateFields} key={uuid()}  />
         ])
 
     // update this to action and implement dispatch
@@ -63,7 +64,7 @@ export default function Form() {
                         <div className="flex flex-col justify-between h-full">
                             <div>
                                 <h1 className="font-latobold text-white">
-                                    01:
+                                    01.{currentStepIndex + 1}:
                                 </h1>
                                 <h4 className="font-latolight mt-3 text-white">
                                     Project information

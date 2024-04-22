@@ -2,6 +2,8 @@ import { unstable_noStore as noStore } from "next/cache";
 import connect from "../utils/db";
 import Project from "../models/Project";
 import Amenity, { IAmenity } from "../models/Amenity";
+import Menu from "../models/Menu";
+import CustomSpace from "../models/CustomSpace";
 
 export async function fetchProjects() {
   noStore();
@@ -23,6 +25,16 @@ export async function fetchProject(id: string) {
   return project;
 }
 
+export async function fetchMenus() {
+  noStore();
+
+  connect();
+
+  const menus = await Menu.find({}).lean();
+
+  return menus;
+}
+
 export async function fetchAmenities() {
   noStore();
 
@@ -31,4 +43,26 @@ export async function fetchAmenities() {
   const amenities = await Amenity.find({}).lean();
 
   return amenities;
+}
+
+export async function fetchCustomSpaces() {
+  noStore();
+
+  connect();
+
+  const customSpaces = await CustomSpace.aggregate([
+    {
+      $group: {
+        _id: "$customSpaceGroupName",
+        spaces: {
+          $push: {
+            space_name: "$customSpaceName",
+            capacity: "$capacity",
+          },
+        }, 
+      },
+    },
+  ]);
+
+  return customSpaces;
 }

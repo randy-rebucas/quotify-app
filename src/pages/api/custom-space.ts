@@ -1,4 +1,4 @@
-import Menu from "@/app/models/Menu";
+import CustomSpace from "@/app/models/CustomSpace";
 import connect from "@/app/utils/db";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { v4 as uuid } from 'uuid'
@@ -19,16 +19,17 @@ export default async function handler(
 
   switch (req.method) {
     case "POST":
-      const { title, pageHandled } = req.body;
+      const { customSpaceName, customSpaceGroupName, capacity } = req.body;
 
       try {
-        const menu = new Menu({
+        const custom_space = new CustomSpace({
           _id: uuid(),
-          title: title,
-          pageHandled: pageHandled,
+          customSpaceName: customSpaceName,
+          customSpaceGroupName: customSpaceGroupName,
+          capacity: capacity,
         });
 
-        let data = await menu.save();
+        let data = await custom_space.save();
 
         res.status(200).json(data);
       } catch (err) {
@@ -39,9 +40,9 @@ export default async function handler(
 
     default:
       try {
-        const menus = await Menu.find({ pageHandled: req.query.page }).exec();
+        const custom_spaces = await CustomSpace.find({}).exec();
 
-        res.status(200).json({ menus });
+        res.status(200).json({ custom_spaces });
       } catch (err) {
         res.status(500).json({ error: "failed to load data" });
       }
