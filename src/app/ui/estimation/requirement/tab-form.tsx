@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import styles from './styles.module.css'
+
 
 export default function TabForm() {
     {/* <!-- new estimation tab--> */ }
@@ -10,7 +10,7 @@ export default function TabForm() {
     return (
         <div className="bg-darkgreen relative">
             <button onClick={() => setToggle(!toggle)} className="js-new-estimate new-estimate h-[55px] w-[43px] flex items-center justify-center">
-                <span className={`${styles.estimate__icon} p-2`}>&nbsp;</span>
+                <span className='new-estimate__icon p-2'>&nbsp;</span>
             </button>
             {toggle && <div className="flex flex-col absolute right-0 top-[55px] px-30 pt-30 pb-4 text-md bg-darkgreen">
                 <h3 className="text-green mb-3">new variation</h3>

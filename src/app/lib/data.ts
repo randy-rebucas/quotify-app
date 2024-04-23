@@ -24,13 +24,13 @@ export async function fetchProject(id: string) {
 
   return project;
 }
-
-export async function fetchMenus() {
+// pageHandled
+export async function fetchMenus(query: string) {
   noStore();
 
   connect();
 
-  const menus = await Menu.find({}).lean();
+  const menus = await Menu.find({ pageHandled: query }).lean();
 
   return menus;
 }
@@ -60,7 +60,7 @@ export async function fetchCustomSpaces() {
             space_name: "$customSpaceName",
             capacity: "$capacity",
           },
-        }, 
+        },
       },
     },
   ]);

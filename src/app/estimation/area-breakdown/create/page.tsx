@@ -9,7 +9,7 @@ import StaggerCover from "@/app/ui/stagger-cover";
 import { fetchMenus } from "@/app/lib/data";
 
 export default async function Page() {
-    const menus = await fetchMenus();
+    const menus = await fetchMenus('area-breakdown');
     const amenities = await fetchAmenities();
     const custom_spaces = await fetchCustomSpaces();
 

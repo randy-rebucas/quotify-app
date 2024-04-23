@@ -8,12 +8,11 @@ import Area from "./steps/area";
 import HeadCount from "./steps/head-count";
 import { useMultistepForm } from "@/app/hooks/useMultistepForm";
 import Wrapper from "./wrapper";
-import { menus } from "@/app/estimation/project-information/create/page";
 import clsx from "clsx";
 import { redirect, useRouter } from "next/navigation";
 import { v4 as uuid } from 'uuid'
 
-export default function Form() {
+export default function Form({ menus }: { menus: any[]}) {
     const router = useRouter();
 
     const [data, setData] = useState(INITIAL_DATA)
