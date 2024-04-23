@@ -4,7 +4,6 @@ import mongoose, { Schema, Types } from "mongoose";
 export interface IAmenity {
   _id: string;
   amenityName: string;
-  // _id?: Types.ObjectId;
 }
 
 // 2. Create a Schema corresponding to the document interface.

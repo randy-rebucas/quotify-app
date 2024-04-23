@@ -7,7 +7,6 @@ import Wrapper from "./wrapper";
 import AreaDefination from "./steps/area-defination";
 import ProportionBreakdown from "./steps/proportion-breakdown";
 import clsx from "clsx";
-import { IMenu } from "@/app/models/Menu";
 import { v4 as uuid } from 'uuid'
 
 
@@ -29,7 +28,7 @@ export default function Form({ menus, amenities, custom_spaces }: { menus: any[]
     // update this to action and implement dispatch
     function onSubmit(e: FormEvent) {
         e.preventDefault()
-        console.log('next');
+        console.log(data);
         if (!isLastStep) return next()
         alert("Successful Account Creation")
 

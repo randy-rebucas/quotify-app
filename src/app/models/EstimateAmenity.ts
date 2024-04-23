@@ -7,6 +7,7 @@ export interface IEstimateAmenity {
   quantity: number;
   estimate?: Types.ObjectId | IEstimate;
   amenity?: Types.ObjectId | IAmenity;
+  // amenities?: [Types.ObjectId | IAmenity];
 }
 
 // 2. Create a Schema corresponding to the document interface.
@@ -22,6 +23,12 @@ const estimateAmenitySchema = new Schema<IEstimateAmenity>({
     ref: "Amenities",
     required: true,
   },
+  // amenities: [
+  //   {
+  //     type: Schema.Types.ObjectId,
+  //     ref: "Amenities",
+  //   },
+  // ],
 });
 
 // 3. Create a Model.

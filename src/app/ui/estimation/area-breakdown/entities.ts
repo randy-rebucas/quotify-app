@@ -1,7 +1,12 @@
+import { ProjectCustomSpaceData } from "./steps/area-defination";
+
+
 export type FormData = {
-  selectedIds: number[];
+  selectedAmenityIds: string[];
+  selectedCustomSpaces: ProjectCustomSpaceData[];
 };
 
 export const INITIAL_DATA: FormData = {
-  selectedIds: []
+  selectedAmenityIds: [],
+  selectedCustomSpaces: [],
 };

@@ -56,6 +56,7 @@ export async function fetchCustomSpaces() {
         _id: "$customSpaceGroupName",
         spaces: {
           $push: {
+            id: "$_id",
             space_name: "$customSpaceName",
             capacity: "$capacity",
           },
