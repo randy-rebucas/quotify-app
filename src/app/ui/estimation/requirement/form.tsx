@@ -13,7 +13,7 @@ import FurnitureAndFurnishing from "./steps/furniture-and-furnishing";
 import Review from "./steps/review";
 import clsx from "clsx";
 
-export default function Form({ menus }: { menus: any[]}) {
+export default function Form({ menus }: { menus: any[] }) {
     const [data, setData] = useState(INITIAL_DATA)
     const { projectRequirementMenu, setProjectRequirementMenu } = useContext(ProjectRequirementMenuContext);
 
@@ -71,56 +71,18 @@ export default function Form({ menus }: { menus: any[]}) {
                                 <div className="estimation-col__bar bg-white mt-6 mb-6"></div>
                             </div>
                             <div className="js-main-menu__content estimation-col__content">
-                                    {menus.map((menu, index) => (
-                                        <div key={index} className={clsx(
-                                            'js-step-indicator step-indicator',
-                                            {
-                                                'active': index === currentStepIndex,
-                                            },
-                                        )}>
-                                            <span className="font-latoblack">03.{index + 1}:</span> <br />
-                                            {menu.title}
-                                        </div>
-                                    ))}
-                                </div>
-                                
-                            {/* <div className="js-main-menu__content estimation-col__content">
-                                <div
-                                    className="js-step-indicator step-indicator js-has-sub-step active">
-                                    <span className="font-latoblack">03.1:</span> <br />
-                                    finish and certifications
-                                    <div className="js-sub-step hidden pt-3">
-                                        <div className="js-step-indicator step-indicator pl-3" data-category="03.1.1"></div>
-                                        <div className="js-step-indicator step-indicator pl-3" data-category="03.1.2"></div>
-                                        <div className="js-step-indicator step-indicator pl-3" data-category="03.1.3"></div>
+                                {menus.map((menu, index) => (
+                                    <div key={index} className={clsx(
+                                        'js-step-indicator step-indicator',
+                                        {
+                                            'active': index === currentStepIndex,
+                                        },
+                                    )}>
+                                        <span className="font-latoblack">03.{index + 1}:</span> <br />
+                                        {menu.title}
                                     </div>
-                                </div>
-                                <div
-                                    className="js-step-indicator step-indicator">
-                                    <span className="font-latoblack">03.2:</span> <br />
-                                    MEP features
-                                </div>
-                                <div
-                                    className="js-step-indicator step-indicator">
-                                    <span className="font-latoblack">03.3:</span> <br />
-                                    base building conditions
-                                </div>
-                                <div
-                                    className="js-step-indicator step-indicator">
-                                    <span className="font-latoblack">03.4:</span> <br />
-                                    technology
-                                </div>
-                                <div
-                                    className="js-step-indicator step-indicator">
-                                    <span className="font-latoblack">03.5:</span> <br />
-                                    furniture and furnishing
-                                </div>
-                                <div
-                                    className="js-step-indicator step-indicator">
-                                    <span className="font-latoblack">03.6</span> <br />
-                                    review
-                                </div>
-                            </div> */}
+                                ))}
+                            </div>
                         </div>
                         <div className="bg-darkgreen2 p-30 flex items-center sticky w-full bottom-0 justify-between text-white">
                             <span className="text-[18px] leading-[24px] font-lato">cost estimate <br />per square foot</span>

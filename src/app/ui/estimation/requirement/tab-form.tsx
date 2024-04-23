@@ -1,5 +1,6 @@
 'use client';
 
+import clsx from 'clsx';
 import { useState } from 'react';
 
 
@@ -9,7 +10,12 @@ export default function TabForm() {
 
     return (
         <div className="bg-darkgreen relative">
-            <button onClick={() => setToggle(!toggle)} className="js-new-estimate new-estimate h-[55px] w-[43px] flex items-center justify-center">
+            <button onClick={() => setToggle(!toggle)} className={clsx(
+                'js-new-estimate new-estimate h-[55px] w-[43px] flex items-center justify-center',
+                {
+                    'active': toggle,
+                },
+            )}>
                 <span className='new-estimate__icon p-2'>&nbsp;</span>
             </button>
             {toggle && <div className="flex flex-col absolute right-0 top-[55px] px-30 pt-30 pb-4 text-md bg-darkgreen">

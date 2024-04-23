@@ -48,8 +48,11 @@ export default function Wrapper({ stepIndex, isFirstStep, children, onClick }: F
                         <div className="flex flex-col justify-between h-full">
                             <h5 className="font-latobold mt-1 xl:text-2xl text-1xl text-black">
                                 03.{stepIndex + 1}:
+                                {/* 03.1.1: */}
                             </h5>
                             <p>what is the finish level of your space?</p>
+                            {/* what level of leed certification do you need in your space? */}
+                            {/* what well certification does your space require? */}
                         </div>
                     </div>
                 </div>
