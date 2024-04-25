@@ -10,11 +10,11 @@ import Auth from "../models/Auth";
 import User from "../models/User";
 import bcrypt from "bcrypt";
 import { redirect } from "next/navigation";
-import { revalidatePath, unstable_noStore } from "next/cache";
+import { revalidatePath, unstable_noStore as noStore } from "next/cache";
 import { createSession, deleteSession } from "./session";
 
 export async function signup(state: FormState, formData: FormData) {
-  unstable_noStore;
+  noStore;
   // Validate form fields
   const validatedFields = SignupFormSchema.safeParse({
     email: formData.get("email"),
