@@ -1,9 +1,10 @@
-import { unstable_noStore as noStore } from "next/cache";
+import { unstable_noStore as noStore, revalidatePath } from "next/cache";
 import connect from "../utils/db";
 import Project from "../models/Project";
 import Amenity, { IAmenity } from "../models/Amenity";
 import Menu from "../models/Menu";
 import CustomSpace from "../models/CustomSpace";
+import User from "../models/User";
 
 export async function fetchProjects() {
   noStore();
@@ -66,4 +67,25 @@ export async function fetchCustomSpaces() {
   ]);
 
   return customSpaces;
+}
+
+
+export async function fetchUsers() {
+  noStore();
+
+  connect();
+
+  const users = await User.find({}).exec();
+
+  return users;
+}
+
+export async function deleteUser(id: string) {
+  try {
+    const users = await User.findOneAndDelete({_id : id}).exec();
+    revalidatePath('/setting/users');
+    return { message: 'Deleted User.' };
+  } catch (error) {
+    return { message: 'Database Error: Failed to Delete User.' };
+  }
 }

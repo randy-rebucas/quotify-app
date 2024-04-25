@@ -5,6 +5,7 @@ import { IOffice } from "./Office";
 
 // 1. Create an interface representing a document in MongoDB.
 export interface IUser {
+  _id: Types.ObjectId | string;
   email: string;
   auth: Types.ObjectId | IAuth;
   roles: [string];
