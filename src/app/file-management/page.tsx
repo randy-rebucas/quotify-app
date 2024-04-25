@@ -21,7 +21,7 @@ export default async function Page() {
             <PageWrapper>
                 <div className="grid lg:grid-cols-5 lg:grid-flow-col">
                     <div className="lg:col-span-1 col-span-12 row-span-2 p-30 flex flex-col justify-between row-end-3">
-                        <Link href="/settings" className="flex wrapper__settings">
+                        <Link href="/setting" className="flex wrapper__settings">
                             <Image
                                 src="/images/icon-settings.svg"
                                 width={50}

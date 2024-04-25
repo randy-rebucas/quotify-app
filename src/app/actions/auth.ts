@@ -34,9 +34,11 @@ export async function signup(state: FormState, formData: FormData) {
   // Call the provider or db to create a user...
   connect();
 
-  let authCheck = await Auth.findOne({ email }).exec();
+  let authCheck = await Auth.find({}).exec();
 
-  if (authCheck) {
+  let authCheckEmail = await Auth.findOne({ email }).exec();
+
+  if (authCheckEmail) {
     return {
       message: "Email already exists, please login or use a different email.",
     };
@@ -55,6 +57,7 @@ export async function signup(state: FormState, formData: FormData) {
     name: "sample",
     email: email,
     auth: authResponse._id,
+    roles: authCheck.length > 1 ? "user" : "admin",
   });
   let userResponse = await user.save();
 

@@ -7,9 +7,9 @@ import { IOffice } from "./Office";
 export interface IUser {
   email: string;
   auth: Types.ObjectId | IAuth;
+  roles: [string];
   name?: string;
   avatar?: string;
-  role?: Types.ObjectId | IRole;
   office?: Types.ObjectId | IOffice;
 }
 
@@ -17,9 +17,17 @@ export interface IUser {
 const userSchema = new Schema<IUser>({
   email: { type: String, required: true },
   auth: { type: Schema.Types.ObjectId, ref: "Auth", required: true },
+  roles: {
+    type: [
+      {
+        type: String,
+        enum: ["user", "admin"],
+      },
+    ],
+    default: ["user"],
+  },
   name: { type: String },
   avatar: { type: String },
-  role: { type: Schema.Types.ObjectId, ref: "Roles" },
   office: { type: Schema.Types.ObjectId, ref: "Offices" },
 });
 

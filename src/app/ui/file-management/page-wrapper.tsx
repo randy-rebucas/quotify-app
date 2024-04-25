@@ -1,14 +1,20 @@
 'use client';
 
+import { logout } from "@/app/actions/auth";
 import { motion } from "framer-motion";
-import { ReactNode } from "react";
+import { ReactNode, useEffect } from "react";
 
 type PageWrapperProps = {
     children: ReactNode
 }
 
 export default function PageWrapper({ children }: PageWrapperProps) {
-
+    // useEffect( () => {
+    //     const doLogout = async () => {
+    //         await logout();
+    //     }
+    //     doLogout();
+    // }, []);
 
     return (
         <motion.div
