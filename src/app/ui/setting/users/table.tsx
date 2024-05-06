@@ -16,12 +16,12 @@ export default function Table({ users }: { users: IUser[] }) {
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-gray-200 dark:divide-neutral-700">
-                                {users.map((user: IUser, index: number) => (
+                                {users.map((user: any, index: number) => (
                                     <tr key={index}
-                                        className="w-full border-b py-3 text-sm last-of-type:border-none [&:first-child>td:first-child]:rounded-tl-lg [&:first-child>td:last-child]:rounded-tr-lg [&:last-child>td:first-child]:rounded-bl-lg [&:last-child>td:last-child]:rounded-br-lg" >
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-neutral-200">{user.email}</td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-end text-sm font-medium">
-                                            <div className="flex flex-row justify-end">
+                                        className="w-full border-b py-1 text-sm last-of-type:border-none [&:first-child>td:first-child]:rounded-tl-lg [&:first-child>td:last-child]:rounded-tr-lg [&:last-child>td:first-child]:rounded-bl-lg [&:last-child>td:last-child]:rounded-br-lg" >
+                                        <td className="whitespace-nowrap px-3 py-1">{user.email}</td>
+                                        <td className="whitespace-nowrap py-1 pl-6 pr-3">
+                                            <div className="flex justify-end gap-3">
                                                 <UpdateUser id={user._id.toString()} />
                                                 <DeleteUser id={user._id.toString()} />
                                             </div>

@@ -30,7 +30,7 @@ export default function EditUserForm({
                 type="email"
                 defaultValue={user.email}
                 placeholder="Enter email"
-                className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
+                className="peer block w-full rounded-md border border-gray-200 py-2 pl-3 text-sm outline-2 placeholder:text-gray-500"
               />
               
             </div>
