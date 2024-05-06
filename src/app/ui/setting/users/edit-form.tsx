@@ -1,9 +1,10 @@
 'use client';
 
 import Link from 'next/link';
-import { updateUser } from '@/app/lib/actions';
+
 import { useFormState } from 'react-dom';
 import { Button } from '../../button';
+import { updateUser } from '@/app/actions/user';
 
 export default function EditUserForm({
   user,

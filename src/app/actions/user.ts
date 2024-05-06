@@ -4,8 +4,8 @@ import User from "../models/User";
 import Auth from "../models/Auth";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
-import { AuthFormState, SignupFormSchema, UserFormSchema, UserFormState } from "./definitions";
 import bcrypt from "bcrypt";
+import { AuthFormState, SignupFormSchema, UserFormSchema, UserFormState } from "@/app/lib/definitions";
 
 const UpdateUser = UserFormSchema.omit({ id: true });
 
