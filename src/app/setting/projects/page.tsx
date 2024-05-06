@@ -1,9 +1,7 @@
 import { fetchProjects } from '@/app/lib/data';
-import { lusitana } from '@/app/ui/fonts';
 import Table from '@/app/ui/setting/projects/table';
 import Title from '@/app/ui/title';
 import { Metadata } from 'next';
-import Link from 'next/link';
 
 export const metadata: Metadata = {
     title: 'Projects',
