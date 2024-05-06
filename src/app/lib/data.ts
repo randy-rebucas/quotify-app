@@ -51,6 +51,16 @@ export async function fetchCustomSpaces() {
 
   connect();
 
+  const custom_spaces = await CustomSpace.find({}).lean();
+
+  return custom_spaces;
+}
+
+export async function fetchCustomSpacesByGroup() {
+  noStore();
+
+  connect();
+
   const customSpaces = await CustomSpace.aggregate([
     {
       $group: {
@@ -81,10 +91,24 @@ export async function fetchUsers() {
 }
 
 export async function deleteUser(id: string) {
+  noStore();
+
+  connect();
   try {
     const users = await User.findOneAndDelete({_id : id}).exec();
     revalidatePath('/setting/users');
     return { message: 'Deleted User.' };
+  } catch (error) {
+    return { message: 'Database Error: Failed to Delete User.' };
+  }
+}
+
+export async function fetchUserById(id: string) {
+  noStore();
+  connect();
+  try {
+    const user = await User.findOne({_id : id}).populate('auth').exec();
+    return {id: user._id.toString(), email: user.auth.email};
   } catch (error) {
     return { message: 'Database Error: Failed to Delete User.' };
   }

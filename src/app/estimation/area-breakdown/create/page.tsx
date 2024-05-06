@@ -1,4 +1,4 @@
-import { fetchAmenities, fetchCustomSpaces } from "@/app/lib/data";
+import { fetchAmenities, fetchCustomSpacesByGroup } from "@/app/lib/data";
 import { IAmenity } from "@/app/models/Amenity";
 import Form from "@/app/ui/estimation/area-breakdown/form";
 import IntroWrapper from "@/app/ui/estimation/intro-wrapper";
@@ -11,7 +11,7 @@ import { fetchMenus } from "@/app/lib/data";
 export default async function Page() {
     const menus = await fetchMenus('area-breakdown');
     const amenities = await fetchAmenities();
-    const custom_spaces = await fetchCustomSpaces();
+    const custom_spaces = await fetchCustomSpacesByGroup();
 
     const introductionColors: string[] = ['bg-blue1', 'bg-blue2', 'bg-blue3', 'bg-blue4', 'bg-blue5'];
 

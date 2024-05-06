@@ -46,3 +46,8 @@ export type FormState =
   | undefined;
 
 export type SessionPayload = {};
+
+export type UserForm = {
+  id: string;
+  email: number;
+};

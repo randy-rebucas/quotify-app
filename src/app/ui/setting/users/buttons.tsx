@@ -1,5 +1,6 @@
-'use server'
-import { deleteUser } from '@/app/lib/data';
+// 'use server'
+
+import { deleteUser } from '@/app/lib/actions';
 import { PencilIcon, PlusIcon, TrashIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 
@@ -15,27 +16,24 @@ import Link from 'next/link';
 //   );
 // }
 
-// export function UpdateInvoice({ id }: { id: string }) {
-//   return (
-//     <Link
-//       href={`/dashboard/invoices/${id}/edit`}
-//       className="rounded-md border p-2 hover:bg-gray-100"
-//     >
-//       <PencilIcon className="w-5" />
-//     </Link>
-//   );
-// }
-
+export function UpdateUser({ id }: { id: string }) {
+  return (
+    <Link
+      href={`/setting/users/${id}/edit`}
+      className="mr-[15px] inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-blue-600 hover:text-blue-800 disabled:opacity-50 disabled:pointer-events-none dark:text-blue-500 dark:hover:text-blue-400"
+    >
+      Edit
+    </Link>
+  );
+}
 
 export async function DeleteUser({ id }: { id: string }) {
-
   const deleteUserWithId = deleteUser.bind(null, id);
 
   return (
     <form action={deleteUserWithId}>
-      <button className="rounded-md border p-2 hover:bg-gray-100">
-        <span className="sr-only">Delete</span>
-        <TrashIcon className="w-5" />
+      <button className="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-red-500 hover:text-red-800 disabled:opacity-50 disabled:pointer-events-none dark:text-red-500 dark:hover:text-red-400">
+        Delete
       </button>
     </form>
   );
