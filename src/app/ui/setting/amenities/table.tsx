@@ -1,6 +1,8 @@
 import { IAmenity } from "@/app/models/Amenity";
+import { DeleteAmenity, UpdateAmenity } from "./buttons";
 
 export default function Table({ amenities }: { amenities: any[] }) {
+
     return (
         <div className="flex flex-col">
             <div className="-m-1.5 overflow-x-auto">
@@ -14,17 +16,15 @@ export default function Table({ amenities }: { amenities: any[] }) {
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-gray-200 dark:divide-neutral-700">
-                                {amenities.map((amenity: IAmenity, index: number) => (
+                                {amenities.map((amenity: any, index: number) => (
                                     <tr key={index}
-                                        className="w-full border-b py-3 text-sm last-of-type:border-none [&:first-child>td:first-child]:rounded-tl-lg [&:first-child>td:last-child]:rounded-tr-lg [&:last-child>td:first-child]:rounded-bl-lg [&:last-child>td:last-child]:rounded-br-lg" >
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-neutral-200">{amenity.amenityName}</td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-end text-sm font-medium">
-                                            <button type="button" className=" mr-[15px] inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-blue-600 hover:text-blue-800 disabled:opacity-50 disabled:pointer-events-none dark:text-blue-500 dark:hover:text-blue-400">
-                                                Edit
-                                            </button>
-                                            <button type="button" className="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-red-500 hover:text-red-800 disabled:opacity-50 disabled:pointer-events-none dark:text-red-500 dark:hover:text-red-400">
-                                                Delete
-                                            </button>
+                                        className="w-full border-b py-1 text-sm last-of-type:border-none [&:first-child>td:first-child]:rounded-tl-lg [&:first-child>td:last-child]:rounded-tr-lg [&:last-child>td:first-child]:rounded-bl-lg [&:last-child>td:last-child]:rounded-br-lg" >
+                                        <td className="px-6 py-1 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-neutral-200">{amenity.amenityName}</td>
+                                        <td className="px-6 py-1 whitespace-nowrap text-end text-sm font-medium">
+                                            <div className="flex justify-end gap-3">
+                                                <UpdateAmenity id={amenity._id.toString()} />
+                                                <DeleteAmenity id={amenity._id.toString()} />
+                                            </div>
                                         </td>
                                     </tr>
                                 ))}

@@ -50,7 +50,7 @@ export type AuthFormState =
 export const UserFormSchema = z.object({
   id: z.string(),
   email: z.string({
-    invalid_type_error: "Please select a email.",
+    invalid_type_error: "Please enter a email.",
   }),
 });
 
@@ -58,6 +58,22 @@ export type UserFormState =
   | {
       errors?: {
         email?: string[];
+      };
+      message?: string;
+    }
+  | undefined;
+
+export const AmenitypFormSchema = z.object({
+  id: z.string(),
+  amenity_name: z.string({
+    invalid_type_error: "Please enter a amenity name.",
+  }),
+});
+
+export type AmenityFormState =
+  | {
+      errors?: {
+        amenity_name?: string[];
       };
       message?: string;
     }

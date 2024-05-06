@@ -79,7 +79,6 @@ export async function fetchCustomSpacesByGroup() {
   return customSpaces;
 }
 
-
 export async function fetchUsers() {
   noStore();
 
@@ -94,22 +93,26 @@ export async function deleteUser(id: string) {
   noStore();
 
   connect();
-  try {
-    const users = await User.findOneAndDelete({_id : id}).exec();
-    revalidatePath('/setting/users');
-    return { message: 'Deleted User.' };
-  } catch (error) {
-    return { message: 'Database Error: Failed to Delete User.' };
-  }
+
+  await User.findOneAndDelete({ _id: id }).exec();
+  revalidatePath("/setting/users");
+  return { message: "Deleted User." };
 }
 
 export async function fetchUserById(id: string) {
   noStore();
+
   connect();
-  try {
-    const user = await User.findOne({_id : id}).populate('auth').exec();
-    return {id: user._id.toString(), email: user.auth.email};
-  } catch (error) {
-    return { message: 'Database Error: Failed to Delete User.' };
-  }
+
+  const user = await User.findOne({ _id: id }).populate("auth").exec();
+  return { id: user._id.toString(), email: user.auth.email };
+}
+
+export async function fetchAmenityById(id: string) {
+  noStore();
+
+  connect();
+
+  const amenity = await Amenity.findOne({ _id: id }).exec();
+  return { id: amenity._id.toString(), amenity_name: amenity.amenityName };
 }
