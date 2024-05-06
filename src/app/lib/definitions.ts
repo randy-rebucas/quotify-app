@@ -1,5 +1,7 @@
 import { z } from "zod";
 
+export type SessionPayload = {};
+
 export const SignupFormSchema = z
   .object({
     email: z.string().email({ message: "Please enter a valid email." }).trim(),
@@ -34,7 +36,7 @@ export const LoginFormSchema = z.object({
     .trim(),
 });
 
-export type FormState =
+export type AuthFormState =
   | {
       errors?: {
         email?: string[];
@@ -45,9 +47,18 @@ export type FormState =
     }
   | undefined;
 
-export type SessionPayload = {};
+export const UserFormSchema = z.object({
+  id: z.string(),
+  email: z.string({
+    invalid_type_error: "Please select a email.",
+  }),
+});
 
-export type UserForm = {
-  id: string;
-  email: number;
-};
+export type UserFormState =
+  | {
+      errors?: {
+        email?: string[];
+      };
+      message?: string;
+    }
+  | undefined;

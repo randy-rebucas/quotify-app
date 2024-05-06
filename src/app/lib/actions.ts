@@ -1,36 +1,19 @@
 "use server";
 
-import { z } from "zod";
 import User from "../models/User";
-import { redirect } from "next/navigation";
-import { revalidatePath, unstable_noStore as noStore } from "next/cache";
 import Auth from "../models/Auth";
+import { redirect } from "next/navigation";
+import { revalidatePath } from "next/cache";
+import { UserFormSchema, UserFormState } from "./definitions";
 
-const FormSchema = z.object({
-  id: z.string(),
-  email: z.string({
-    invalid_type_error: "Please select a email.",
-  }),
-});
-
-const UpdateUser = FormSchema.omit({ id: true });
-
-export type UserFormState =
-  | {
-      errors?: {
-        email?: string[];
-      };
-      message?: string;
-    }
-  | undefined;
+const UpdateUser = UserFormSchema.omit({ id: true });
 
 export async function updateUser(
   id: string,
   prevState: UserFormState,
   formData: FormData
 ) {
-  noStore;
-  console.log(id);
+
   const validatedFields = UpdateUser.safeParse({
     email: formData.get("email"),
   });
@@ -44,14 +27,12 @@ export async function updateUser(
   const { email } = validatedFields.data;
 
   try {
-    const filterUser = { _id: id };
-
     const update = { email: email };
 
+    const filterUser = { _id: id };
     let user = await User.findOneAndUpdate(filterUser, update);
-    console.log(user.auth._id);
-    const filterAuth = { _id: user.auth._id };
 
+    const filterAuth = { _id: user.auth._id };
     await Auth.findOneAndUpdate(filterAuth, update);
   } catch (error) {
     return { message: "Database Error: Failed to Update Invoice." };
@@ -63,7 +44,7 @@ export async function updateUser(
 
 export async function deleteUser(id: string) {
   try {
-    const users = await User.findOneAndDelete({ _id: id }).exec();
+    await User.findOneAndDelete({ _id: id }).exec();
     revalidatePath("/setting/users");
     return { message: "Deleted User." };
   } catch (error) {
