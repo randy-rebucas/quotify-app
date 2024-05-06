@@ -5,10 +5,10 @@ import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import {
   AmenityFormState,
-  AmenitypFormSchema
+  AmenityFormSchema
 } from "@/app/lib/definitions";
 
-const CreateAmenity = AmenitypFormSchema.omit({ id: true });
+const CreateAmenity = AmenityFormSchema.omit({ id: true });
 
 export async function updateAmenity(
   id: string,

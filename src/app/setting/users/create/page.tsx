@@ -1,3 +1,4 @@
+import Breadcrumbs from '@/app/ui/breadcrumbs';
 import Form from '@/app/ui/setting/users/create-form';
 import { Metadata } from 'next';
 
@@ -8,7 +9,17 @@ export default async function Page() {
 
     return (
         <main>
-            <Form  />
+            <Breadcrumbs
+                breadcrumbs={[
+                    { label: 'Users', href: '/setting/users' },
+                    {
+                        label: 'Create User',
+                        href: '/setting/users/create',
+                        active: true,
+                    },
+                ]}
+            />
+            <Form />
         </main>
     );
 }

@@ -8,7 +8,6 @@ export interface IAmenity {
 
 // 2. Create a Schema corresponding to the document interface.
 const amenitySchema = new Schema<IAmenity>({
-  // _id: { type: String },
   amenityName: { type: String, unique: true, required: true }
 });
 

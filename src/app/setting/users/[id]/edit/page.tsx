@@ -2,6 +2,7 @@ import Form from '@/app/ui/setting/users/edit-form';
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 import { fetchUserById } from '@/app/lib/data';
+import Breadcrumbs from '@/app/ui/breadcrumbs';
 
 export const metadata: Metadata = {
     title: 'User Edit',
@@ -16,6 +17,16 @@ export default async function Page({ params }: { params: { id: string } }) {
     }
     return (
         <main>
+            <Breadcrumbs
+                breadcrumbs={[
+                    { label: 'Users', href: '/setting/users' },
+                    {
+                        label: 'Edit User',
+                        href: `/setting/users/${id}/edit`,
+                        active: true,
+                    },
+                ]}
+            />
             <Form user={user} />
         </main>
     );

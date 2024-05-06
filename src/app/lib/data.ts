@@ -46,14 +46,37 @@ export async function fetchAmenities() {
   return amenities;
 }
 
+export async function fetchAmenityById(id: string) {
+  noStore();
+
+  connect();
+
+  const amenity = await Amenity.findOne({ _id: id }).exec();
+  return { id: amenity._id.toString(), amenity_name: amenity.amenityName };
+}
+
 export async function fetchCustomSpaces() {
   noStore();
 
   connect();
 
-  const custom_spaces = await CustomSpace.find({}).lean();
+  const custom_spaces = await CustomSpace.find({}).exec();
 
   return custom_spaces;
+}
+
+export async function fetchCustomSpaceById(id: string) {
+  noStore();
+
+  connect();
+
+  const custom_space = await CustomSpace.findOne({ _id: id }).exec();
+  return {
+    id: custom_space._id.toString(),
+    custom_space_name: custom_space.customSpaceName,
+    custom_space_group_name: custom_space.customSpaceGroupName,
+    capacity: custom_space.capacity,
+  };
 }
 
 export async function fetchCustomSpacesByGroup() {
@@ -106,13 +129,4 @@ export async function fetchUserById(id: string) {
 
   const user = await User.findOne({ _id: id }).populate("auth").exec();
   return { id: user._id.toString(), email: user.auth.email };
-}
-
-export async function fetchAmenityById(id: string) {
-  noStore();
-
-  connect();
-
-  const amenity = await Amenity.findOne({ _id: id }).exec();
-  return { id: amenity._id.toString(), amenity_name: amenity.amenityName };
 }

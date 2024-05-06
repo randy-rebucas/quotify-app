@@ -1,4 +1,4 @@
-import mongoose, { Schema } from "mongoose";
+import mongoose, { Schema, Types } from "mongoose";
 
 // 1. Create an interface representing a document in MongoDB.
 export interface ICustomSpace {
@@ -6,13 +6,12 @@ export interface ICustomSpace {
   // extra 
   customSpaceGroupName?: string;
   capacity?: string;
-  spaces?: any
-  _id?: string;
+  _id?: Types.ObjectId;
+  id?: string;
 }
 
 // 2. Create a Schema corresponding to the document interface.
 const customSpaceSchema = new Schema<ICustomSpace>({
-  _id: { type: String },
   customSpaceName: { type: String, unique: true, required: true },
   // extra 
   customSpaceGroupName: { type: String },

@@ -63,7 +63,7 @@ export type UserFormState =
     }
   | undefined;
 
-export const AmenitypFormSchema = z.object({
+export const AmenityFormSchema = z.object({
   id: z.string(),
   amenity_name: z.string({
     invalid_type_error: "Please enter a amenity name.",
@@ -74,6 +74,26 @@ export type AmenityFormState =
   | {
       errors?: {
         amenity_name?: string[];
+      };
+      message?: string;
+    }
+  | undefined;
+
+export const CustomSpaceFormSchema = z.object({
+  id: z.string(),
+  custom_space_name: z.string({
+    invalid_type_error: "Please enter a custom space name.",
+  }),
+  custom_space_group_name: z.string().trim(),
+  capacity: z.string().trim(),
+});
+
+export type CustomSpaceFormState =
+  | {
+      errors?: {
+        custom_space_name?: string[];
+        custom_space_group_name?: string[];
+        capacity?: string[];
       };
       message?: string;
     }
