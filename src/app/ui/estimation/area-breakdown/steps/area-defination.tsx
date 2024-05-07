@@ -1,7 +1,7 @@
 import Tooltip from "@/app/ui/tooltip";
 import { ChangeEvent, useState } from "react";
 import { IAmenity } from "@/app/models/Amenity";
-import { ICustomSpace } from "@/app/models/CustomSpace";
+import { ICustomSpace, ITransformCustomSpace, ITransformCustomSpaceData } from "@/app/models/CustomSpace";
 import { v4 as uuid } from 'uuid'
 
 type AreaData = {
@@ -72,7 +72,6 @@ export default function AreaDefination({
         updateFields({ selectedCustomSpaces: selectedCustomSpaces.filter((customSpace: ProjectCustomSpaceData) => customSpace._id !== _id) });
     }
 
-    console.log(custom_spaces);
     return (
         <>
             <div className="lg:col-span-2 col-span-12 flex flex-col justify-start items-start w-full h-full">
@@ -126,7 +125,7 @@ export default function AreaDefination({
                                         <select name="space" id={`spaceSelect`}
                                             defaultValue={selectedCustomSpace.space}
                                             className="border-[#005A92] border-b-[1px] border-solid focus:outline-none inline-flex items-center justify-end min-w-[263px] mr-[50px] px-0 py-1 text-black text-left">
-                                            {custom_spaces.map((custom_space: ICustomSpace) => (
+                                            {custom_spaces.map((custom_space: any) => (
                                                 <>
                                                     {custom_space._id &&
                                                         <optgroup key={custom_space._id} className="py-3 text-gray-700 dark:text-gray-200" label={custom_space._id}>
@@ -180,11 +179,11 @@ export default function AreaDefination({
                                 <select name="space" id={`spaceSelect`}
                                     onChange={(e) => handleSelectChange(e)}
                                     className="border-[#005A92] border-b-[1px] border-solid focus:outline-none inline-flex items-center justify-end min-w-[263px] mr-[50px] px-0 py-1 text-black text-left">
-                                    {custom_spaces.map((custom_space: ICustomSpace) => (
+                                    {custom_spaces.map((custom_space: ITransformCustomSpaceData) => (
                                         <>
                                             {custom_space._id &&
                                                 <optgroup key={custom_space._id} className="py-3 text-gray-700 dark:text-gray-200" label={custom_space._id}>
-                                                    {custom_space.spaces.map((space: any, index: number) => (
+                                                    {custom_space.spaces.map((space: ITransformCustomSpace, index: number) => (
                                                         <option key={index} value={space.id} className="py-3 text-[#005A92] hover:bg-[#D0D0D0]">{space.space_name} {space.capacity && <>(capacity: {space.capacity})</>}</option>
                                                     ))}
                                                 </optgroup>}

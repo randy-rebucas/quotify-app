@@ -16,6 +16,28 @@ export async function fetchProjects() {
   return projects;
 }
 
+export async function fetchProjectsByUserId(id: any) {
+  noStore();
+
+  connect();
+
+  const projects = await Project.find({ user: id }).exec();
+
+  return projects.map((project) => {
+    return {
+      _id: project._id.toString(),
+      spaceName: "last sample",
+      floorPlan: "yu",
+      address: "dsadasd",
+      spaceSize: project.spaceSize.toString(),
+      rentableArea: project.rentableArea.toString(),
+      headCount: "5",
+      averageOfficeAttendance: "5",
+      seatingPercentage: project.seatingPercentage.toString(),
+    };
+  });
+}
+
 export async function fetchProject(id: string) {
   noStore();
 
@@ -41,9 +63,14 @@ export async function fetchAmenities() {
 
   connect();
 
-  const amenities = await Amenity.find({}).lean();
+  const amenities = await Amenity.find({}).exec();
 
-  return amenities;
+  return amenities.map((amenity) => {
+    return {
+      _id: amenity._id.toString(),
+      amenityName: amenity.amenityName,
+    };
+  });
 }
 
 export async function fetchAmenityById(id: string) {
@@ -52,7 +79,12 @@ export async function fetchAmenityById(id: string) {
   connect();
 
   const amenity = await Amenity.findOne({ _id: id }).exec();
-  return { id: amenity._id.toString(), amenity_name: amenity.amenityName };
+
+  const transformData = {
+    id: amenity._id.toString(),
+    amenity_name: amenity.amenityName,
+  };
+  return transformData;
 }
 
 export async function fetchCustomSpaces() {
@@ -71,12 +103,13 @@ export async function fetchCustomSpaceById(id: string) {
   connect();
 
   const custom_space = await CustomSpace.findOne({ _id: id }).exec();
-  return {
+  const transformData = {
     id: custom_space._id.toString(),
     custom_space_name: custom_space.customSpaceName,
     custom_space_group_name: custom_space.customSpaceGroupName,
     capacity: custom_space.capacity,
   };
+  return transformData;
 }
 
 export async function fetchCustomSpacesByGroup() {
@@ -99,7 +132,25 @@ export async function fetchCustomSpacesByGroup() {
     },
   ]);
 
-  return customSpaces;
+  const transformData = customSpaces
+    .filter((v) => {
+      return v._id !== "";
+    })
+    .map((x) => {
+      const transformSpaces = x.spaces.map((y: any) => {
+        return {
+          ...y,
+          id: y.id.toString(),
+        };
+      });
+
+      return {
+        _id: x._id,
+        spaces: transformSpaces,
+      };
+    });
+
+  return transformData;
 }
 
 export async function fetchUsers() {

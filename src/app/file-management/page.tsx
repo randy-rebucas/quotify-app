@@ -4,16 +4,20 @@ import StaggerCover from "../ui/stagger-cover";
 import PageWrapper from "../ui/file-management/page-wrapper";
 import ResultWrapper from "../ui/file-management/result-wrapper";
 import { Suspense } from "react";
-import { fetchProjects } from "../lib/data";
+import { fetchProjectsByUserId } from "../lib/data";
 import { Metadata } from "next";
+import { getSession } from "../actions/session";
 
 export const metadata: Metadata = {
     title: 'File Management'
 };
 
 export default async function Page() {
-    // const projects = await fetchProjects();
-    // console.log(projects)
+    
+    const session = await getSession();
+
+    const projects = await fetchProjectsByUserId(session?.userId);
+ 
     const colors: string[] = ['bg-gray1B', 'bg-gray2A', 'bg-gray3A', 'bg-gray4A', 'bg-gray5A']
 
     return (
@@ -41,7 +45,7 @@ export default async function Page() {
                         </Link>
                     </div>
 
-                    <ResultWrapper />
+                    <ResultWrapper projects={projects} />
 
                 </div>
             </PageWrapper>
@@ -50,3 +54,4 @@ export default async function Page() {
         </div>
     )
 }
+

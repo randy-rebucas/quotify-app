@@ -13,22 +13,12 @@ export default function Result({ isMore, files }: { isMore: boolean, files: IPro
     const data = !isMore ? files.slice(0, 4) : files;
 
     return (
-        // js-wrapper__results wrapper__results lg:col-span-4 col-span-12 col-end-5 d-flex flex-col overflow-x-hidden overflow-y-scroll has-one-row 
-        // js-wrapper__results wrapper__results lg:col-span-4 col-span-12 col-end-5 d-flex flex-col overflow-x-hidden overflow-y-scroll
-
-        // js-wrapper__results wrapper__results lg:col-span-4 col-span-12 col-end-5 d-flex flex-col overflow-x-hidden overflow-y-scroll has-one-row
-        // js-wrapper__results wrapper__results lg:col-span-4 col-span-12 col-end-5 d-flex flex-col overflow-x-hidden overflow-y-scroll
         <div className={clsx(
             'js-wrapper__results wrapper__results lg:col-span-4 col-span-12 col-end-5 d-flex flex-col overflow-x-hidden overflow-y-scroll',
             {
                 'has-one-row': !isMore,
             },
         )}>
-            {/* file file-1 lg:col-span-1 */}
-            {/* file file-5 lg:col-span-1 toggle */}
-
-            {/* file file-1 lg:col-span-1 */}
-            {/* file file-5 lg:col-span-1 */}
             <div className="lg:col-start-2 h-full">
                 <div className="grid lg:grid-cols-4 lg:grid-flow-col relative h-full">
 
@@ -53,7 +43,7 @@ export default function Result({ isMore, files }: { isMore: boolean, files: IPro
                                             className="mb-5"
                                             alt="file"
                                         />
-                                        <h2>Project<br />{file.spaceName}</h2>
+                                        <h2>{file.spaceName}</h2>
 
                                         <div className="file__border bg-black"></div>
 
