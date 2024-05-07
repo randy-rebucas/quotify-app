@@ -9,6 +9,7 @@ export const metadata: Metadata = {
 
 export default async function Page() {
     const projects = await fetchProjects();
+
     return (
 
         <div className="w-full">

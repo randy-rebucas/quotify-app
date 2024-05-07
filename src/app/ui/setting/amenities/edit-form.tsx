@@ -12,7 +12,7 @@ export default function EditUserForm({
   amenity: any;
 }) {
 
-  const updateAmenityWithId = updateAmenity.bind(null, amenity.id);
+  const updateAmenityWithId = updateAmenity.bind(null, amenity._id);
   const [state, dispatch] = useFormState(updateAmenityWithId, undefined);
 
   return (

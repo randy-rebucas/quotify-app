@@ -15,7 +15,7 @@ export default function EditCustomSpaceForm({
   custom_spaces: any[]
 }) {
 
-  const updateCustomSpaceWithId = updateCustomSpace.bind(null, custom_space.id);
+  const updateCustomSpaceWithId = updateCustomSpace.bind(null, custom_space._id);
   const [state, dispatch] = useFormState(updateCustomSpaceWithId, undefined);
 
   return (

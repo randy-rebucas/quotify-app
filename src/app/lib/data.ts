@@ -13,7 +13,21 @@ export async function fetchProjects() {
 
   const projects = await Project.find({}).exec();
 
-  return projects;
+  const transformData = projects.map((project) => {
+    return {
+      _id: project._id.toString(),
+      spaceName: project.spaceName,
+      floorPlan: project.floorPlan,
+      address: project.address,
+      spaceSize: project.spaceSize.toString(),
+      rentableArea: project.rentableArea.toString(),
+      headCount: project.headCount,
+      averageOfficeAttendance: project.averageOfficeAttendance,
+      seatingPercentage: project.seatingPercentage.toString(),
+    };
+  });
+
+  return transformData;
 }
 
 export async function fetchProjectsByUserId(id: any) {
@@ -23,19 +37,21 @@ export async function fetchProjectsByUserId(id: any) {
 
   const projects = await Project.find({ user: id }).exec();
 
-  return projects.map((project) => {
+  const transformData = projects.map((project) => {
     return {
       _id: project._id.toString(),
-      spaceName: "last sample",
-      floorPlan: "yu",
-      address: "dsadasd",
+      spaceName: project.spaceName,
+      floorPlan: project.floorPlan,
+      address: project.address,
       spaceSize: project.spaceSize.toString(),
       rentableArea: project.rentableArea.toString(),
-      headCount: "5",
-      averageOfficeAttendance: "5",
+      headCount: project.headCount,
+      averageOfficeAttendance: project.averageOfficeAttendance,
       seatingPercentage: project.seatingPercentage.toString(),
     };
   });
+
+  return transformData;
 }
 
 export async function fetchProject(id: string) {
@@ -44,8 +60,19 @@ export async function fetchProject(id: string) {
   connect();
 
   const project = await Project.findById(id).exec();
-
-  return project;
+  const transformData = {
+    _id: project._id.toString(),
+    spaceName: project.spaceName,
+    floorPlan: project.floorPlan,
+    address: project.address,
+    spaceSize: project.spaceSize.toString(),
+    rentableArea: project.rentableArea.toString(),
+    headCount: project.headCount,
+    averageOfficeAttendance: project.averageOfficeAttendance,
+    seatingPercentage: project.seatingPercentage.toString(),
+  };
+  
+  return transformData;
 }
 // pageHandled
 export async function fetchMenus(query: string) {
@@ -65,12 +92,14 @@ export async function fetchAmenities() {
 
   const amenities = await Amenity.find({}).exec();
 
-  return amenities.map((amenity) => {
+  const transformData = amenities.map((amenity) => {
     return {
       _id: amenity._id.toString(),
       amenityName: amenity.amenityName,
     };
   });
+
+  return transformData;
 }
 
 export async function fetchAmenityById(id: string) {
@@ -81,9 +110,10 @@ export async function fetchAmenityById(id: string) {
   const amenity = await Amenity.findOne({ _id: id }).exec();
 
   const transformData = {
-    id: amenity._id.toString(),
+    _id: amenity._id.toString(),
     amenity_name: amenity.amenityName,
   };
+
   return transformData;
 }
 
@@ -94,7 +124,16 @@ export async function fetchCustomSpaces() {
 
   const custom_spaces = await CustomSpace.find({}).exec();
 
-  return custom_spaces;
+  const transformData = custom_spaces.map((custom_space) => {
+    return {
+      _id: custom_space._id.toString(),
+      customSpaceName: custom_space.customSpaceName,
+      customSpaceGroupName: custom_space.customSpaceGroupName,
+      capacity: custom_space.capacity,
+    };
+  });
+
+  return transformData;
 }
 
 export async function fetchCustomSpaceById(id: string) {
@@ -103,12 +142,14 @@ export async function fetchCustomSpaceById(id: string) {
   connect();
 
   const custom_space = await CustomSpace.findOne({ _id: id }).exec();
+
   const transformData = {
-    id: custom_space._id.toString(),
+    _id: custom_space._id.toString(),
     custom_space_name: custom_space.customSpaceName,
     custom_space_group_name: custom_space.customSpaceGroupName,
     capacity: custom_space.capacity,
   };
+
   return transformData;
 }
 
@@ -160,7 +201,17 @@ export async function fetchUsers() {
 
   const users = await User.find({}).exec();
 
-  return users;
+  const transformData = users.map((user) => {
+    return {
+      _id: user._id.toString(),
+      email: user.email,
+      auth: user.auth._id.toString(),
+      roles: user.roles,
+      name: user.name,
+    };
+  });
+
+  return transformData;
 }
 
 export async function deleteUser(id: string) {
@@ -169,7 +220,9 @@ export async function deleteUser(id: string) {
   connect();
 
   await User.findOneAndDelete({ _id: id }).exec();
+
   revalidatePath("/setting/users");
+
   return { message: "Deleted User." };
 }
 
@@ -179,5 +232,11 @@ export async function fetchUserById(id: string) {
   connect();
 
   const user = await User.findOne({ _id: id }).populate("auth").exec();
-  return { id: user._id.toString(), email: user.auth.email };
+
+  const transformData = {
+    _id: user._id.toString(),
+    email: user.auth.email,
+  };
+
+  return transformData;
 }

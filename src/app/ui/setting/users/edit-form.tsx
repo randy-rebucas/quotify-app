@@ -12,7 +12,7 @@ export default function EditUserForm({
   user: any;
 }) {
 
-  const updateUserWithId = updateUser.bind(null, user.id);
+  const updateUserWithId = updateUser.bind(null, user._id);
   const [state, dispatch] = useFormState(updateUserWithId, undefined);
 
   return (
