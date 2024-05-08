@@ -98,3 +98,21 @@ export type CustomSpaceFormState =
       message?: string;
     }
   | undefined;
+
+export const MenuFormSchema = z.object({
+  id: z.string(),
+  title: z.string({
+    invalid_type_error: "Please enter a title.",
+  }).trim(),
+  page_handled: z.string().trim(),
+});
+
+export type MenuFormState =
+  | {
+      errors?: {
+        title?: string[];
+        page_handled?: string[];
+      };
+      message?: string;
+    }
+  | undefined;

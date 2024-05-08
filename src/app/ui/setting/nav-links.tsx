@@ -12,6 +12,7 @@ const links = [
   { name: 'Projects', href: '/setting/projects' },
   { name: 'Amenities', href: '/setting/amenities' },
   { name: 'Custom Spaces', href: '/setting/custom-spaces' },
+  { name: 'Menus', href: '/setting/menus' },
 ];
 
 export default function NavLinks() {

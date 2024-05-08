@@ -4,10 +4,10 @@ import IntroWrapper from "@/app/ui/estimation/intro-wrapper";
 import MainWrapper from "@/app/ui/estimation/main-wrapper";
 import LinearCover from "@/app/ui/linear-cover";
 import StaggerCover from "@/app/ui/stagger-cover";
-import { fetchMenus } from "@/app/lib/data";
+import { fetchMenuByPageHandled } from "@/app/lib/data";
 
 export default async function Page() {
-    const menus = await fetchMenus('project-information');
+    const menus = await fetchMenuByPageHandled('project-information');
 
     const introductionColors: string[] = ['bg-darkblue1', 'bg-darkblue2', 'bg-darkblue3', 'bg-darkblue4', 'bg-darkblue5'];
 

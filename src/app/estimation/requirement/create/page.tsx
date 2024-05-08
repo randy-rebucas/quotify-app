@@ -1,5 +1,5 @@
 import { ProjectRequirementContextProvider } from "@/app/context/ProjectRequirementMenuContext";
-import { fetchMenus } from "@/app/lib/data";
+import { fetchMenuByPageHandled } from "@/app/lib/data";
 import IntroWrapper from "@/app/ui/estimation/intro-wrapper";
 import MainWrapper from "@/app/ui/estimation/main-wrapper";
 import Popup from "@/app/ui/estimation/popup";
@@ -9,7 +9,7 @@ import LinearCover from "@/app/ui/linear-cover";
 import StaggerCover from "@/app/ui/stagger-cover";
 
 export default async function Page() {
-    const menus = await fetchMenus('requirement');
+    const menus = await fetchMenuByPageHandled('requirement');
 
     const introductionColors: string[] = ['bg-green1', 'bg-green2', 'bg-green3', 'bg-green4', 'bg-green5'];
 

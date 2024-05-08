@@ -1,4 +1,4 @@
-import { fetchAmenities, fetchCustomSpacesByGroup } from "@/app/lib/data";
+import { fetchAmenities, fetchCustomSpacesByGroup, fetchMenuByPageHandled } from "@/app/lib/data";
 import { IAmenity } from "@/app/models/Amenity";
 import Form from "@/app/ui/estimation/area-breakdown/form";
 import IntroWrapper from "@/app/ui/estimation/intro-wrapper";
@@ -6,10 +6,9 @@ import MainWrapper from "@/app/ui/estimation/main-wrapper";
 import Popup from "@/app/ui/estimation/popup";
 import LinearCover from "@/app/ui/linear-cover";
 import StaggerCover from "@/app/ui/stagger-cover";
-import { fetchMenus } from "@/app/lib/data";
 
 export default async function Page() {
-    const menus = await fetchMenus('area-breakdown');
+    const menus = await fetchMenuByPageHandled('area-breakdown');
     const amenities = await fetchAmenities();
     const custom_spaces = await fetchCustomSpacesByGroup();
 

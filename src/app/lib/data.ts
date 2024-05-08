@@ -75,7 +75,33 @@ export async function fetchProject(id: string) {
   return transformData;
 }
 // pageHandled
-export async function fetchMenus(query: string) {
+export async function fetchMenus() {
+  noStore();
+
+  connect();
+
+  const menus = await Menu.find({ }).exec();
+
+  return menus;
+}
+
+export async function fetchMenuById(id: string) {
+  noStore();
+
+  connect();
+
+  const menu = await Menu.findOne({ _id: id }).exec();
+
+  const transformData = {
+    _id: menu._id.toString(),
+    title: menu.title,
+    pageHandled: menu.pageHandled,
+  };
+
+  return transformData;
+}
+
+export async function fetchMenuByPageHandled(query: string) {
   noStore();
 
   connect();
