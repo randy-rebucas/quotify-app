@@ -16,7 +16,8 @@ import { useFormState } from "react-dom";
 
 export default function Form({ menus }: { menus: any[] }) {
     const router = useRouter();
-
+    const [isLoading, setIsLoading] = useState<boolean>(false)
+    const [error, setError] = useState<string | null>(null)
     const [data, setData] = useState<FormData>(INITIAL_DATA)
 
     function updateFields(fields: Partial<FormData>) {
@@ -34,12 +35,14 @@ export default function Form({ menus }: { menus: any[] }) {
         ])
 
     // update this to action and implement dispatch
-    async function onSubmit(e: FormEvent) {
-        e.preventDefault()
+    async function onSubmit(event: FormEvent<HTMLFormElement>) {
+        event.preventDefault();
+        setIsLoading(true)
+        setError(null) // Clear previous errors when a new request starts
         if (!isLastStep) return next()
 
         try {
-            const res = await fetch('/api/projects', {
+            const response = await fetch('/api/projects', {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
@@ -47,12 +50,21 @@ export default function Form({ menus }: { menus: any[] }) {
                 },
                 body: JSON.stringify(data),
             });
-            console.log(res);
-            if (res.status === 200) {
+
+            if (!response.ok) {
+                throw new Error('Failed to submit the data. Please try again.')
+            }
+
+            await response.json();
+
+            if (response.status === 200) {
                 router.push("/estimation/area-breakdown")
             }
-        } catch (error) {
+        } catch (error: any) {
             console.log(error);
+            setError(error.message)
+        } finally {
+            setIsLoading(false) // Set loading to false when the request completes
         }
     }
 
@@ -100,7 +112,8 @@ export default function Form({ menus }: { menus: any[] }) {
                     </div>
                 )}
 
-                <Wrapper stepIndex={currentStepIndex}>
+                <Wrapper stepIndex={currentStepIndex} isLoading={isLoading}>
+                    {error && <div style={{ color: 'red' }}>{error}</div>}
                     {step}
                 </Wrapper>
             </form>

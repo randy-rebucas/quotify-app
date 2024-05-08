@@ -8,10 +8,11 @@ import Tooltip from "../../tooltip";
 
 type FormWrapperProps = {
     stepIndex: number;
+    isLoading: boolean;
     children: ReactNode
 }
 
-export default function Wrapper({ stepIndex, children }: FormWrapperProps) {
+export default function Wrapper({ stepIndex, isLoading , children }: FormWrapperProps) {
     return (
         <div className="js-step step active">
 
@@ -37,7 +38,6 @@ export default function Wrapper({ stepIndex, children }: FormWrapperProps) {
                     {(stepIndex + 1) === 2 && <Address />}
 
                 </div>
-                
                 <div className="p-30 w-full flex items-end justify-end">
                     <button className="focus:shadow-outline focus:outline-none" type="submit">
                         <svg xmlns="http://www.w3.org/2000/svg" width="78" height="63" viewBox="0 0 78 63"

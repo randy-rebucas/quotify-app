@@ -3,6 +3,7 @@ import Project from "@/app/models/Project";
 import connect from "@/app/utils/db";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { cookies } from "next/headers";
+import { z } from "zod";
 
 export const config = {
   api: {
@@ -12,6 +13,19 @@ export const config = {
   },
 };
 
+const schema = z.object({
+  id: z.string(),
+  space_name: z.string().trim(),
+  has_floor_plan: z.boolean(),
+  has_address: z.boolean(),
+  approximate_size: z.number(),
+  rentable_area: z.number(),
+  is_base_on_head_count: z.string(),
+  target_head_count: z.string(),
+  average_attendance: z.string(),
+  assigned_seat: z.string(),
+});
+
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
@@ -20,6 +34,7 @@ export default async function handler(
 
   switch (req.method) {
     case "POST":
+      // const parsed = schema.parse(req.body)
       const {
         spaceName,
         // floorPlan,
@@ -48,6 +63,8 @@ export default async function handler(
         });
 
         let data = await project.save();
+        // res.redirect(307, `/estimation/area-breakdown`);
+        // res.redirect(307, `/estimation/area-breakdown/${data._id}`);
 
         res.status(200).json({ id: data._id });
       } catch (err) {
