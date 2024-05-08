@@ -2,23 +2,17 @@ import mongoose, { Schema, Types } from "mongoose";
 import { IUser } from "./User";
 import { IOffice } from "./Office";
 
-export interface IAddress {
-  line1: string;
-  line2: string;
-  state: string;
-  zipCode: string;
-}
 // 1. Create an interface representing a document in MongoDB.
 export interface IProject {
   spaceName: string;
-  floorPlan: string;
-  address: IAddress;
   spaceSize: Types.Decimal128;
   rentableArea: Types.Decimal128;
   headCount: string;
   averageOfficeAttendance: string;
   seatingPercentage: Types.Decimal128;
   user: Types.ObjectId | IUser;
+  // floorPlan?: [IFile];
+  // address?: IAddress;
   _id?: Types.ObjectId;
   // office?: Types.ObjectId | IOffice;
 }
@@ -26,8 +20,14 @@ export interface IProject {
 // 2. Create a Schema corresponding to the document interface.
 const projectSchema = new Schema<IProject>({
   spaceName: { type: String, unique: true, required: true },
-  floorPlan: { type: String, required: true },
-  address: { type: String, required: true },
+  // floorPlan: [
+  //   {
+  //     filename: String,
+  //     type: String,
+  //     size: String,
+  //   },
+  // ],
+  // address: { type: String },
   spaceSize: { type: Schema.Types.Decimal128, required: true },
   rentableArea: { type: Schema.Types.Decimal128, required: true },
   headCount: { type: String, required: true },

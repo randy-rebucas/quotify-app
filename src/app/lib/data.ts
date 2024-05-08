@@ -106,9 +106,15 @@ export async function fetchMenuByPageHandled(query: string) {
 
   connect();
 
-  const menus = await Menu.find({ pageHandled: query }).lean();
+  const menus = await Menu.find({ pageHandled: query }).exec();
+  const transformData = menus.map((menu) => {
+    return {
+      _id: menu._id.toString(),
+      title: menu.title,
+    };
+  });
 
-  return menus;
+  return transformData;
 }
 
 export async function fetchAmenities() {

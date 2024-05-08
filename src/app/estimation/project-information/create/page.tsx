@@ -32,7 +32,7 @@ export default async function Page() {
                                     <div className="estimation-col__bar mt-6 mb-6"></div>
                                     <div className="estimation-col__content">
                                         {menus.map((menu, index) => (
-                                            <div key={index} className='step-indicator'>
+                                            <div key={menu._id} className='step-indicator'>
                                                 <span className="font-latoblack">01.{index + 1}:</span> <br />
                                                 {menu.title}
                                             </div>

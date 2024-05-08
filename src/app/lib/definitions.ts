@@ -116,3 +116,26 @@ export type MenuFormState =
       message?: string;
     }
   | undefined;
+
+
+  export const ProjectFormSchema = z.object({
+    id: z.string(),
+    space_name: z.string().trim(),
+    has_floor_plan: z.boolean(),
+    has_address: z.boolean(),
+    approximate_size: z.number(),
+    rentable_area: z.number(),
+    is_base_on_head_count: z.string(),
+    target_head_count: z.string(),
+    average_attendance: z.string(),
+    assigned_seat: z.string(),
+  });
+
+  export type ProjectFormState =
+    | {
+        errors?: {
+          space_name?: string[];
+        };
+        message?: string;
+      }
+    | undefined;

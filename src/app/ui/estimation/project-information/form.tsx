@@ -11,11 +11,13 @@ import Wrapper from "./wrapper";
 import clsx from "clsx";
 import { redirect, useRouter } from "next/navigation";
 import { v4 as uuid } from 'uuid'
+import { createProject } from "@/app/actions/project";
+import { useFormState } from "react-dom";
 
-export default function Form({ menus }: { menus: any[]}) {
+export default function Form({ menus }: { menus: any[] }) {
     const router = useRouter();
 
-    const [data, setData] = useState(INITIAL_DATA)
+    const [data, setData] = useState<FormData>(INITIAL_DATA)
 
     function updateFields(fields: Partial<FormData>) {
         setData(prev => {
@@ -25,10 +27,10 @@ export default function Form({ menus }: { menus: any[]}) {
 
     const { steps, currentStepIndex, step, isFirstStep, isLastStep, back, next } =
         useMultistepForm([
-            <Plan {...data} updateFields={updateFields} key={uuid()}  />,
-            <Address {...data} updateFields={updateFields} key={uuid()}  />,
-            <Area {...data} updateFields={updateFields} key={uuid()}  />,
-            <HeadCount {...data} updateFields={updateFields} key={uuid()}  />
+            <Plan {...data} updateFields={updateFields} key={uuid()} />,
+            <Address {...data} updateFields={updateFields} key={uuid()} />,
+            <Area {...data} updateFields={updateFields} key={uuid()} />,
+            <HeadCount {...data} updateFields={updateFields} key={uuid()} />
         ])
 
     // update this to action and implement dispatch
@@ -45,7 +47,7 @@ export default function Form({ menus }: { menus: any[]}) {
                 },
                 body: JSON.stringify(data),
             });
-
+            console.log(res);
             if (res.status === 200) {
                 router.push("/estimation/area-breakdown")
             }
@@ -70,8 +72,8 @@ export default function Form({ menus }: { menus: any[]}) {
                                 </h4>
                                 <div className="estimation-col__bar mt-6 mb-6"></div>
                                 <div className="estimation-col__content">
-                                    {menus.map((menu, index) => (
-                                        <div key={index} className={clsx(
+                                    {menus.map((menu: any, index: number) => (
+                                        <div key={menu._id} className={clsx(
                                             'js-step-indicator step-indicator',
                                             {
                                                 'active': index === currentStepIndex,

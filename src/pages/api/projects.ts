@@ -22,9 +22,10 @@ export default async function handler(
     case "POST":
       const {
         spaceName,
-        hasFloorPlan,
-        address,
-        hasAddress,
+        // floorPlan,
+        // hasFloorPlan,
+        // address,
+        // hasAddress,
         approximateSize,
         rentableArea,
         targetHeadCount,
@@ -36,8 +37,8 @@ export default async function handler(
       try {
         const project = new Project({
           spaceName: spaceName,
-          floorPlan: "yu",
-          address: address,
+          // floorPlan: floorPlan,
+          // address: hasAddress ? address : null,
           spaceSize: approximateSize,
           rentableArea: rentableArea,
           headCount: targetHeadCount,
@@ -48,9 +49,9 @@ export default async function handler(
 
         let data = await project.save();
 
-        res.status(200).json(data);
+        res.status(200).json({ id: data._id });
       } catch (err) {
-        console.log(err)
+        console.log(err);
         res.status(500).json(err);
       }
       break;
