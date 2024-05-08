@@ -5,13 +5,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-export default function Buttons({ path, next, completed }: { 
-    path: string; 
+export default function Buttons({ path, next, completed }: {
+    path: string;
     next: string;
-    completed: boolean 
+    completed: boolean
 }) {
     const pathname = usePathname();
-
     return (
         <>
             <Link href={`${next}`} className={`${pathname != path ? 'hidden' : ''}`}>
@@ -22,7 +21,7 @@ export default function Buttons({ path, next, completed }: {
                     alt="next"
                 />
             </Link>
-            
+
             <Link href="/" className={`${!completed ? 'hidden' : ''}`}>
                 <Image
                     src="/images/icon-check.svg"

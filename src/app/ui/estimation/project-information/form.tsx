@@ -55,10 +55,10 @@ export default function Form({ menus }: { menus: any[] }) {
                 throw new Error('Failed to submit the data. Please try again.')
             }
 
-            await response.json();
+            let projectResponse = await response.json();
 
             if (response.status === 200) {
-                router.push("/estimation/area-breakdown")
+                router.push(`/estimation/area-breakdown/${projectResponse.id}`)
             }
         } catch (error: any) {
             console.log(error);
