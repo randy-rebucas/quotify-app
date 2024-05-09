@@ -63,8 +63,6 @@ export default async function handler(
         });
 
         let data = await project.save();
-        // res.redirect(307, `/estimation/area-breakdown`);
-        // res.redirect(307, `/estimation/area-breakdown/${data._id}`);
 
         res.status(200).json({ id: data._id });
       } catch (err) {

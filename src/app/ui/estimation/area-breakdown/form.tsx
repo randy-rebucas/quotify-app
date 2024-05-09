@@ -1,6 +1,6 @@
 'use client';
 
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useState } from "react";
 import { FormData, INITIAL_DATA } from "./entities";
 import { useMultistepForm } from "@/app/hooks/useMultistepForm";
 import Wrapper from "./wrapper";
@@ -8,9 +8,14 @@ import AreaDefination from "./steps/area-defination";
 import ProportionBreakdown from "./steps/proportion-breakdown";
 import clsx from "clsx";
 import { v4 as uuid } from 'uuid'
+import { useRouter } from "next/navigation";
+
 
 
 export default function Form({ menus, amenities, custom_spaces }: { menus: any[]; amenities: any[]; custom_spaces: any[] }) {
+    const router = useRouter();
+    const [isLoading, setIsLoading] = useState<boolean>(false)
+    const [error, setError] = useState<string | null>(null)
     const [data, setData] = useState(INITIAL_DATA)
 
     function updateFields(fields: Partial<FormData>) {
@@ -26,14 +31,39 @@ export default function Form({ menus, amenities, custom_spaces }: { menus: any[]
         ])
 
     // update this to action and implement dispatch
-    function onSubmit(e: FormEvent) {
-        e.preventDefault()
-        console.log(data);
-        if (!isLastStep) return next()
-        alert("Successful Account Creation")
+    async function onSubmit(event: FormEvent<HTMLFormElement>) {
+        event.preventDefault()
+        setIsLoading(true)
+        setError(null) // Clear previous errors when a new request starts
 
-        // revalidatePath('/project') // Update cached posts
-        // redirect(`/project/breakdown`) 
+        if (!isLastStep) return next()
+
+            console.log(data);
+        // try {
+        //     const response = await fetch('/api/projects', {
+        //         method: 'POST',
+        //         headers: {
+        //             'Accept': 'application/json',
+        //             'Content-Type': 'application/json',
+        //         },
+        //         body: JSON.stringify(data),
+        //     });
+
+        //     if (!response.ok) {
+        //         throw new Error('Failed to submit the data. Please try again.')
+        //     }
+
+        //     let projectResponse = await response.json();
+
+        //     if (response.status === 200) {
+        //         router.push(`/estimation/area-breakdown/${projectResponse.id}`)
+        //     }
+        // } catch (error: any) {
+        //     console.log(error);
+        //     setError(error.message)
+        // } finally {
+        //     setIsLoading(false) // Set loading to false when the request completes
+        // }
     }
     return (
         <>
@@ -57,8 +87,8 @@ export default function Form({ menus, amenities, custom_spaces }: { menus: any[]
                                 </h4>
                                 <div className="estimation-col__bar mt-6 mb-6"></div>
                                 {menus.length && <div className="estimation-col__content">
-                                    {menus.map((menu, index) => (
-                                        <div key={menu.title} className={clsx(
+                                    {menus.map((menu: any, index: number) => (
+                                        <div key={menu._id} className={clsx(
                                             'js-step-indicator step-indicator',
                                             {
                                                 'active': index === currentStepIndex,
@@ -85,6 +115,7 @@ export default function Form({ menus, amenities, custom_spaces }: { menus: any[]
                     </div>
                 )}
                 <Wrapper stepIndex={currentStepIndex}>
+                    {error && <div style={{ color: 'red' }}>{error}</div>}
                     {step}
                 </Wrapper>
             </form>

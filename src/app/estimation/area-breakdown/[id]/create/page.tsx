@@ -6,8 +6,15 @@ import MainWrapper from "@/app/ui/estimation/main-wrapper";
 import Popup from "@/app/ui/estimation/popup";
 import LinearCover from "@/app/ui/linear-cover";
 import StaggerCover from "@/app/ui/stagger-cover";
+import { notFound } from "next/navigation";
 
-export default async function Page() {
+export default async function Page({ params }: { params: { id: string } }) {
+    const id = params.id;
+
+    if (!id) {
+        notFound();
+    }
+    
     const menus = await fetchMenuByPageHandled('area-breakdown');
     const amenities = await fetchAmenities();
     const custom_spaces = await fetchCustomSpacesByGroup();

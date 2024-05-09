@@ -48,10 +48,10 @@ export default function Result({ isMore, files }: { isMore: boolean, files: IPro
                                         <div className="file__border bg-black"></div>
 
                                         <div className="file__address">
-                                            {file.address.line1}<br />
+                                            {/* {file.address.line1}<br />
                                             {file.address.line2}<br />
                                             {file.address.state}<br />
-                                            {file.address.zipCode}
+                                            {file.address.zipCode} */}
                                         </div>
 
                                         <div className="file__est">

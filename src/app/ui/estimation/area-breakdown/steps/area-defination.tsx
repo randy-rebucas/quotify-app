@@ -15,16 +15,10 @@ type AreaFormProps = AreaData & {
     updateFields: (fields: Partial<AreaData>) => void
 }
 
-export type ProjectCustomSpaceData = {
+type ProjectCustomSpaceData = {
     _id: string;
     space: string;
     quantity: number;
-};
-
-const INITIAL_PROJECT_CUSTOM_SPACE_DATA: ProjectCustomSpaceData = {
-    _id: uuid(),
-    space: '',
-    quantity: 0
 };
 
 export default function AreaDefination({
