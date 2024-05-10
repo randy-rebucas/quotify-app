@@ -4,14 +4,12 @@ import { IProject } from "./Project";
 
 // 1. Create an interface representing a document in MongoDB.
 export interface IProjectAmenity {
-  quantity: number;
   project?: Types.ObjectId | IProject;
   amenity?: Types.ObjectId | IAmenity;
 }
 
 // 2. Create a Schema corresponding to the document interface.
 const projectAmenitySchema = new Schema<IProjectAmenity>({
-  quantity: { type: Number },
   project: { type: Schema.Types.ObjectId, ref: "Projects", required: true },
   amenity: { type: Schema.Types.ObjectId, ref: "Amenities", required: true },
 });

@@ -3,9 +3,16 @@ import Form from "@/app/ui/estimation/project-definition/form";
 import Menu from "@/app/ui/estimation/project-definition/menu";
 import PageWrapper from "@/app/ui/page-wrapper";
 import StaggerCover from "@/app/ui/stagger-cover";
+import { notFound } from "next/navigation";
 
 
-export default function Page() {
+export default function Page({ params }: { params: { id: string } }) {
+    const id = params.id;
+
+    if (!id) {
+        notFound();
+    }
+    
     const colors: string[] = ['bg-blue2', 'bg-white', 'bg-white', 'bg-white', 'bg-white'];
 
     return (
@@ -16,7 +23,7 @@ export default function Page() {
             <PageWrapper >
                 <Menu />
 
-                <Form />
+                <Form project_id={id}/>
             </PageWrapper>
 
             <StaggerCover colors={colors} target={2} className="opacity-1" />

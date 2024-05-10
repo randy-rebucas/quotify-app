@@ -7,8 +7,15 @@ import Form from "@/app/ui/estimation/requirement/form";
 import TabForm from "@/app/ui/estimation/requirement/tab-form";
 import LinearCover from "@/app/ui/linear-cover";
 import StaggerCover from "@/app/ui/stagger-cover";
+import { notFound } from "next/navigation";
 
-export default async function Page() {
+export default async function Page({ params }: { params: { id: string } }) {
+    const id = params.id;
+
+    if (!id) {
+        notFound();
+    }
+    
     const menus = await fetchMenuByPageHandled('requirement');
 
     const introductionColors: string[] = ['bg-green1', 'bg-green2', 'bg-green3', 'bg-green4', 'bg-green5'];
@@ -85,7 +92,7 @@ export default async function Page() {
                     </div>
 
 
-                    <Form menus={menus} />
+                    <Form menus={menus} project_id={id}/>
 
                 </MainWrapper>
 

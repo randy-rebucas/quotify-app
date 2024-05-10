@@ -3,10 +3,16 @@ import Column from "@/app/ui/estimation/project-information/column";
 import Title from "@/app/ui/estimation/title";
 import LinearCover from "@/app/ui/linear-cover";
 import StaggerCover from "@/app/ui/stagger-cover";
+import { notFound } from "next/navigation";
 
 
-export default function Page() {
+export default function Page({ params }: { params: { id: string } }) {
+    const id = params.id;
 
+    if (!id) {
+        notFound();
+    }
+    
     const introductionColors: string[] = ['bg-gray1', 'bg-gray2', 'bg-gray3', 'bg-gray4', 'bg-gray5'];
 
     const mainColors: string[] = ['bg-gray1', 'bg-gray2', 'bg-gray3', 'bg-gray4', 'bg-gray5'];
@@ -71,8 +77,8 @@ export default function Page() {
                             step={3}
                             cursor='three'
                             section='Requirements'
-                            navigation="/estimation/requirement"
-                            next="/estimation/requirement/create"
+                            navigation={`/estimation/requirement/${id}`}
+                            next={`/estimation/requirement/${id}/create`}
                             isCompleted={false}>
                             <p className="text-white pb-3">Here is where you will add ingot to start shaping your
                                 project

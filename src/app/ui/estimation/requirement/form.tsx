@@ -12,8 +12,13 @@ import Technology from "./steps/technology";
 import FurnitureAndFurnishing from "./steps/furniture-and-furnishing";
 import Review from "./steps/review";
 import clsx from "clsx";
+import { useRouter } from "next/navigation";
 
-export default function Form({ menus }: { menus: any[] }) {
+export default function Form({ menus, project_id }: { menus: any[], project_id: string }) {
+    const router = useRouter();
+    const [isLoading, setIsLoading] = useState<boolean>(false)
+    const [error, setError] = useState<string | null>(null)
+    
     const [data, setData] = useState(INITIAL_DATA)
     const { projectRequirementMenu, setProjectRequirementMenu } = useContext(ProjectRequirementMenuContext);
 
@@ -34,18 +39,44 @@ export default function Form({ menus }: { menus: any[] }) {
         ])
 
     // update this to action and implement dispatch
-    function onSubmit(e: FormEvent) {
-        e.preventDefault()
+    async function onSubmit(event: FormEvent<HTMLFormElement>) {
+        event.preventDefault()
+        setIsLoading(true)
+        setError(null) // Clear previous errors when a new request starts
 
         setProjectRequirementMenu({
             menu: currentStepIndex + 1
         });
 
         if (!isLastStep) return next()
-        alert("Successful Account Creation")
+            try {
+                let form_data = { ...data, ...{ projectId: project_id } };
+        
+                const response = await fetch('/api/project/area-definition', {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(form_data),
+                });
+    
+                if (!response.ok) {
+                    throw new Error('Failed to submit the data. Please try again.')
+                }
+    
+                let projectResponse = await response.json();
+    
+                if (response.status === 200) {
+                    router.push(`/estimation/project-definition/${projectResponse.id}`)
+                }
+            } catch (error: any) {
+                console.log(error);
+                setError(error.message)
+            } finally {
+                setIsLoading(false) // Set loading to false when the request completes
+            }
 
-        // revalidatePath('/project') // Update cached posts
-        // redirect(`/project/breakdown`) 
     }
 
     return (

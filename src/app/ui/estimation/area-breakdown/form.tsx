@@ -10,9 +10,7 @@ import clsx from "clsx";
 import { v4 as uuid } from 'uuid'
 import { useRouter } from "next/navigation";
 
-
-
-export default function Form({ menus, amenities, custom_spaces }: { menus: any[]; amenities: any[]; custom_spaces: any[] }) {
+export default function Form({ menus, amenities, custom_spaces, project_id }: { menus: any[]; amenities: any[]; custom_spaces: any[], project_id: string }) {
     const router = useRouter();
     const [isLoading, setIsLoading] = useState<boolean>(false)
     const [error, setError] = useState<string | null>(null)
@@ -38,33 +36,35 @@ export default function Form({ menus, amenities, custom_spaces }: { menus: any[]
 
         if (!isLastStep) return next()
 
-            console.log(data);
-        // try {
-        //     const response = await fetch('/api/projects', {
-        //         method: 'POST',
-        //         headers: {
-        //             'Accept': 'application/json',
-        //             'Content-Type': 'application/json',
-        //         },
-        //         body: JSON.stringify(data),
-        //     });
+        try {
+            let form_data = { ...data, ...{ projectId: project_id } };
+    
+            const response = await fetch('/api/project/area-definition', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(form_data),
+            });
 
-        //     if (!response.ok) {
-        //         throw new Error('Failed to submit the data. Please try again.')
-        //     }
+            if (!response.ok) {
+                throw new Error('Failed to submit the data. Please try again.')
+            }
 
-        //     let projectResponse = await response.json();
+            let projectResponse = await response.json();
 
-        //     if (response.status === 200) {
-        //         router.push(`/estimation/area-breakdown/${projectResponse.id}`)
-        //     }
-        // } catch (error: any) {
-        //     console.log(error);
-        //     setError(error.message)
-        // } finally {
-        //     setIsLoading(false) // Set loading to false when the request completes
-        // }
+            if (response.status === 200) {
+                router.push(`/estimation/project-definition/${projectResponse.id}`)
+            }
+        } catch (error: any) {
+            console.log(error);
+            setError(error.message)
+        } finally {
+            setIsLoading(false) // Set loading to false when the request completes
+        }
     }
+
     return (
         <>
             <div className="lg:col-start-1 flex flex-col justify-start items-start w-full h-full">

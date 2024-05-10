@@ -7,7 +7,6 @@ export interface ICustomSpace {
   customSpaceGroupName?: string;
   capacity?: string;
   _id?: Types.ObjectId;
-  // id?: string;
 }
 
 export interface ITransformCustomSpace {

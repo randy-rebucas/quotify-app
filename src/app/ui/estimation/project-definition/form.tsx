@@ -7,17 +7,17 @@ import { PieChartPresentation } from "../pie-chart-presentation";
 import { common } from "../../mock";
 import { pieColors, pieData } from "../../data";
 import PieChartData from "../pie-chart-data";
+import { useRouter } from "next/navigation";
 
-export default function Form() {
-
+export default function Form({ project_id }: { project_id: string }) {
+    const router = useRouter();
     const download = () => { }
 
     const share = () => { }
 
     function onSubmit(e: FormEvent) {
         e.preventDefault()
-        console.log('next');
-        alert("Successful Account Creation")
+        router.push(`/estimation/requirement/${project_id}`)
     }
     
     return (
