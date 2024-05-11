@@ -3,7 +3,6 @@
 import { ProjectRequirementMenuContext } from "@/app/context/ProjectRequirementMenuContext";
 import { useMultistepForm } from "@/app/hooks/useMultistepForm";
 import { FormEvent, useContext, useState } from "react";
-import { INITIAL_DATA } from "./entities";
 import Wrapper from "./wrapper";
 import FinishAndCertification from "./steps/finish-and-certifications";
 import MepFeatures from "./steps/mep-features";
@@ -13,16 +12,17 @@ import FurnitureAndFurnishing from "./steps/furniture-and-furnishing";
 import Review from "./steps/review";
 import clsx from "clsx";
 import { useRouter } from "next/navigation";
+import { INITIAL_DATA, RequirementData } from "./entities";
 
 export default function Form({ menus, project_id }: { menus: any[], project_id: string }) {
     const router = useRouter();
     const [isLoading, setIsLoading] = useState<boolean>(false)
     const [error, setError] = useState<string | null>(null)
-    
+
     const [data, setData] = useState(INITIAL_DATA)
     const { projectRequirementMenu, setProjectRequirementMenu } = useContext(ProjectRequirementMenuContext);
 
-    function updateFields(fields: Partial<FormData>) {
+    function updateFields(fields: Partial<RequirementData>) {
         setData(prev => {
             return { ...prev, ...fields }
         })
@@ -49,33 +49,33 @@ export default function Form({ menus, project_id }: { menus: any[], project_id: 
         });
 
         if (!isLastStep) return next()
-            try {
-                let form_data = { ...data, ...{ projectId: project_id } };
-        
-                const response = await fetch('/api/project/area-definition', {
-                    method: 'POST',
-                    headers: {
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(form_data),
-                });
-    
-                if (!response.ok) {
-                    throw new Error('Failed to submit the data. Please try again.')
-                }
-    
-                let projectResponse = await response.json();
-    
-                if (response.status === 200) {
-                    router.push(`/estimation/project-definition/${projectResponse.id}`)
-                }
-            } catch (error: any) {
-                console.log(error);
-                setError(error.message)
-            } finally {
-                setIsLoading(false) // Set loading to false when the request completes
+        try {
+            let form_data = { ...data, ...{ projectId: project_id } };
+
+            const response = await fetch('/api/project/area-definition', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(form_data),
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to submit the data. Please try again.')
             }
+
+            let projectResponse = await response.json();
+
+            if (response.status === 200) {
+                router.push(`/estimation/project-definition/${projectResponse.id}`)
+            }
+        } catch (error: any) {
+            console.log(error);
+            setError(error.message)
+        } finally {
+            setIsLoading(false) // Set loading to false when the request completes
+        }
 
     }
 

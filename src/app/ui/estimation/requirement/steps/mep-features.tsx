@@ -1,17 +1,13 @@
 'use client';
 
 import Image from "next/image";
+import { RequirementData } from "../entities";
 
-type MepData = {
-    mepFinishLevel: string
-}
-
-type MepFormProps = MepData & {
-    updateFields: (fields: Partial<FormData>) => void
+type MepFormProps = RequirementData & {
+    updateFields: (fields: Partial<RequirementData>) => void
 }
 
 export default function MepFeatures({
-    mepFinishLevel,
     updateFields
 }: MepFormProps) {
     {/* MEP features */ }

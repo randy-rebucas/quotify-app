@@ -17,7 +17,7 @@ export default function Form({ menus, amenities, custom_spaces, project_id }: { 
     const [data, setData] = useState(INITIAL_DATA)
 
     function updateFields(fields: Partial<FormData>) {
-        setData(prev => {
+        setData((prev: any) => {
             return { ...prev, ...fields }
         })
     }

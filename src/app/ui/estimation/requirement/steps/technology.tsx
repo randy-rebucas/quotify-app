@@ -1,17 +1,13 @@
 'use client';
 
 import Image from "next/image";
+import { RequirementData } from "../entities";
 
-type TechnologyData = {
-    technologyFinishLevel: string
-}
-
-type TechnologyFormProps = TechnologyData & {
-    updateFields: (fields: Partial<FormData>) => void
+type TechnologyFormProps = RequirementData & {
+    updateFields: (fields: Partial<RequirementData>) => void
 }
 
 export default function Technology({
-    technologyFinishLevel,
     updateFields
 }: TechnologyFormProps) {
     return (

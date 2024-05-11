@@ -1,10 +1,13 @@
 import Tooltip from "@/app/ui/tooltip";
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, useEffect } from "react";
 import { IAmenity } from "@/app/models/Amenity";
-import { ICustomSpace, ITransformCustomSpace, ITransformCustomSpaceData } from "@/app/models/CustomSpace";
-import { v4 as uuid } from 'uuid'
-import { space } from "postcss/lib/list";
 import clsx from "clsx";
+
+export type ProjectCustomSpaceData = {
+    id: number;
+    space: string;
+    quantity: number;
+};
 
 type AreaData = {
     selectedAmenityIds: any[]
@@ -16,23 +19,6 @@ type AreaFormProps = AreaData & {
     custom_spaces: any;
     updateFields: (fields: Partial<AreaData>) => void
 }
-
-type ProjectCustomSpaceData = {
-    id: number;
-    space: string;
-    quantity: number;
-};
-
-type ProjectCustomSpace = {
-    space: string;
-    quantity: number;
-};
-
-type IProjectCustomSpace = {
-    id: number;
-    space: string;
-    quantity: number;
-};
 
 export default function AreaDefination({
     selectedAmenityIds,

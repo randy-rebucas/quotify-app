@@ -1,18 +1,13 @@
 'use client';
 
 import Image from "next/image";
+import { RequirementData } from "../entities";
 
-
-type BaseBuildingData = {
-    baseBuildingConditionFinishLevel: string
-}
-
-type MepFormProps = BaseBuildingData & {
-    updateFields: (fields: Partial<FormData>) => void
+type MepFormProps = RequirementData & {
+    updateFields: (fields: Partial<RequirementData>) => void
 }
 
 export default function BaseBuildingConditions({
-    baseBuildingConditionFinishLevel,
     updateFields
 }: MepFormProps) {
 

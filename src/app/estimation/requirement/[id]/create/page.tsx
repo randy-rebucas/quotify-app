@@ -79,7 +79,7 @@ export default async function Page({ params }: { params: { id: string } }) {
                         <div className="bg-darkgreen mb-1 h-[55px] w-[43px] flex items-center justify-center rotate-180">
                             <a href="#" className="js-tabs__toggle">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="13" height="20" viewBox="0 0 13 20" fill="none">
-                                    <path d="M11 2L3 10L11 18" stroke="#99B9B6" stroke-width="3" />
+                                    <path d="M11 2L3 10L11 18" stroke="#99B9B6" strokeWidth="3" />
                                 </svg>
                             </a>
                         </div>

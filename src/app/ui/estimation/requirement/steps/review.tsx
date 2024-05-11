@@ -1,18 +1,13 @@
 'use client';
 
 import Image from "next/image";
+import { RequirementData } from "../entities";
 
-
-type ReviewData = {
-    reviewFinishLevel: string
-}
-
-type ReviewFormProps = ReviewData & {
-    updateFields: (fields: Partial<FormData>) => void
+type ReviewFormProps = RequirementData & {
+    updateFields: (fields: Partial<RequirementData>) => void
 }
 
 export default function Review({
-    reviewFinishLevel,
     updateFields
 }: ReviewFormProps) {
     return (

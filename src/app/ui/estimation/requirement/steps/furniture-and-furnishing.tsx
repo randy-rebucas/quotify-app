@@ -1,17 +1,13 @@
 'use client';
 
 import Image from "next/image";
+import { RequirementData } from "../entities";
 
-type FurnishingData = {
-    furnishingFinishLevel: string
-}
-
-type FurnishingFormProps = FurnishingData & {
-    updateFields: (fields: Partial<FormData>) => void
+type FurnishingFormProps = RequirementData & {
+    updateFields: (fields: Partial<RequirementData>) => void
 }
 
 export default function FurnitureAndFurnishing({
-    furnishingFinishLevel,
     updateFields
 }: FurnishingFormProps) {
     return (

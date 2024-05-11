@@ -2,24 +2,24 @@
 'use client';
 
 import Image from "next/image";
+import { RequirementData } from "../entities";
 
-type FinishData = {
-    finishLevel: string;
-    finishLevelOfLeed: string;
-    finishCertificationRequire: string;
-}
-
-type FinishFormProps = FinishData & {
-    updateFields: (fields: Partial<FormData>) => void
+type RequirementFormProps = RequirementData & {
+    updateFields: (fields: Partial<RequirementData>) => void
 }
 
 export default function FinishAndCertification({
-    finishLevel,
-    finishLevelOfLeed,
-    finishCertificationRequire,
     updateFields
-}: FinishFormProps) {
-    console.log();
+}: RequirementFormProps) {
+    // useEffect(() => {
+    //     const initialCustomSpace = [
+    //         { id: 0, space: '', quantity: 0 }
+    //     ];
+    
+    //     if (selectedCustomSpaces.length === 0) {
+    //         updateFields({ selectedCustomSpaces: initialCustomSpace });
+    //     }
+    // }, [selectedCustomSpaces, updateFields])
     return (
         <>
             {/* finish and certifications */}
