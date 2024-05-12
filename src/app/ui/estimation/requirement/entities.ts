@@ -1,5 +1,4 @@
 type StimateRequirementData = {
-  id: number;
   finish: string;
   sustainabilityCertification: string;
   mepFeatures: string;
@@ -8,23 +7,36 @@ type StimateRequirementData = {
   furniture: string;
 };
 
-type StimateData = {
+export type StimateData = {
+  id: number;
   name: string;
-  requirements: StimateRequirementData[]
-}
+  requirement: StimateRequirementData;
+};
 
 export type RequirementData = {
   stimates: StimateData[];
-}
+};
 
 export const INITIAL_DATA: RequirementData = {
-  stimates: [],
-}
+  stimates: [
+    {
+      id: 0,
+      name: "Main estimation",
+      requirement: {
+        finish: "",
+        sustainabilityCertification: "",
+        mepFeatures: "",
+        buildingCondition: "",
+        technology: "",
+        furniture: "",
+      },
+    },
+  ],
+};
 
-// type FormData = {
-//     stimates: any[];
-// };
-
-// const INITIAL_DATA: FormData = {
-//     stimates: []
-// };
+export let tabMapping = new Map<number, string>();
+//1. Add entries
+tabMapping.set(0, 'A');
+tabMapping.set(1, 'B');
+tabMapping.set(2, 'C');
+tabMapping.set(3, 'D');

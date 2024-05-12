@@ -4,7 +4,6 @@ import IntroWrapper from "@/app/ui/estimation/intro-wrapper";
 import MainWrapper from "@/app/ui/estimation/main-wrapper";
 import Popup from "@/app/ui/estimation/popup";
 import Form from "@/app/ui/estimation/requirement/form";
-import TabForm from "@/app/ui/estimation/requirement/tab-form";
 import LinearCover from "@/app/ui/linear-cover";
 import StaggerCover from "@/app/ui/stagger-cover";
 import { notFound } from "next/navigation";
@@ -15,7 +14,7 @@ export default async function Page({ params }: { params: { id: string } }) {
     if (!id) {
         notFound();
     }
-    
+
     const menus = await fetchMenuByPageHandled('requirement');
 
     const introductionColors: string[] = ['bg-green1', 'bg-green2', 'bg-green3', 'bg-green4', 'bg-green5'];
@@ -75,24 +74,9 @@ export default async function Page({ params }: { params: { id: string } }) {
                 </IntroWrapper>
 
                 <MainWrapper>
-                    <div data-col="1" className="js-tabs absolute top-[52px] z-30 right-20">
-                        <div className="bg-darkgreen mb-1 h-[55px] w-[43px] flex items-center justify-center rotate-180">
-                            <a href="#" className="js-tabs__toggle">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="20" viewBox="0 0 13 20" fill="none">
-                                    <path d="M11 2L3 10L11 18" stroke="#99B9B6" strokeWidth="3" />
-                                </svg>
-                            </a>
-                        </div>
-                        <h3>
-                            <a data-menu="A" className="js-tabs-tab tabs-tab active">
-                                A:
-                            </a>
-                        </h3>
-                        <TabForm />
-                    </div>
-
-
-                    <Form menus={menus} project_id={id}/>
+                    <ProjectRequirementContextProvider>
+                        <Form menus={menus} project_id={id} />
+                    </ProjectRequirementContextProvider>
 
                 </MainWrapper>
 
