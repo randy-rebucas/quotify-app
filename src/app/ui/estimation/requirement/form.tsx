@@ -19,7 +19,7 @@ import TabForm from "./tab-form";
 export default function Form({ menus, project_id }: { menus: any[], project_id: string }) {
     const router = useRouter();
     const [isLoading, setIsLoading] = useState<boolean>(false)
-    const [isExpanded, setIsExpanded] = useState<boolean>(false)
+    const [isExpanded, setIsExpanded] = useState<boolean>(true)
     const [activeTab, setActiveTab] = useState<number>(0)
     const [error, setError] = useState<string | null>(null)
 
@@ -112,19 +112,17 @@ export default function Form({ menus, project_id }: { menus: any[], project_id: 
     let last_stimate = stimates.length - 1;
 
     console.log(isExpanded);
+
     return (
         <>
             <div data-col={last_stimate + 1} className={clsx(
-                'js-tabs absolute z-30',
+                `js-tabs absolute z-30 ${isExpanded ? `right-${stimates.length * 2}0` : 'right-20'}`,
                 {
-                    'top-[52px] right-20': (stimates.length == 1 && isExpanded),
-                    'top-[14px] right-40': (stimates.length == 2 && isExpanded),
-                    'top-[14px] right-60': (stimates.length == 3 && isExpanded),
-                    'top-[14px] right-80': (stimates.length == 4 && isExpanded),
+                    'top-[52px]': stimates.length == 1,
+                    'top-[14px]': stimates.length > 1,
                 }
-            )}> 
-            {/* js-tabs absolute z-30 top-[14px] right-80 */}
-                <div className={clsx(
+            )}>
+                {stimates.length > 1 && <div className={clsx(
                     'bg-darkgreen mb-1 h-[55px] w-[43px] flex items-center justify-center',
                     {
                         'rotate-180': isExpanded
@@ -135,7 +133,7 @@ export default function Form({ menus, project_id }: { menus: any[], project_id: 
                             <path d="M11 2L3 10L11 18" stroke="#99B9B6" strokeWidth="3" />
                         </svg>
                     </a>
-                </div>
+                </div>}
                 <h3>
                     {stimates.map((stimate: StimateData, index: number) => (
                         <a key={index} data-menu={tabMapping.get(stimate.id)} className={clsx(
@@ -154,12 +152,14 @@ export default function Form({ menus, project_id }: { menus: any[], project_id: 
             {stimates.map((stimate: StimateData, index: number) => (
                 <div key={index} data-menu={tabMapping.get(stimate.id)}
                     className={clsx(
-                        `menu animate fade-in-2 bg-green1 flex flex-col justify-start items-start w-full h-full overflow-y-scroll z-30 ${!isExpanded ? "col-start-5" : ""}`,
+                        `menu animate fade-in-2 bg-green1 flex flex-col justify-start items-start w-full h-full overflow-y-scroll z-30`,
                         {
-                            'js-main-menu col-start-5 bg-green6 ': index == 0, // A
-                            'absolute col-span-1 col-start-4 ': index == 1, // B
-                            'absolute col-span-1 col-start-3 ': index == 2, // C
-                            'absolute col-span-1 col-start-2 ': index == 3, // D
+                            'col-start-5': !isExpanded,
+                            'active': activeTab == stimate.id,
+                            'js-main-menu col-start-5 bg-green6 bg-green1 ': index == 0, // A
+                            'absolute col-span-1 col-start-4 bg-green2 ': index == 1, // B
+                            'absolute col-span-1 col-start-3 bg-green3 ': index == 2, // C
+                            'absolute col-span-1 col-start-2 bg-green4 ': index == 3, // D
                         },
                     )} >
                     <div className="h-full flex flex-col justify-between">
