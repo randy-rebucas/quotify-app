@@ -58,7 +58,6 @@ export default function Form({ menus, amenities, custom_spaces, project_id }: { 
                 router.push(`/estimation/project-definition/${projectResponse.id}`)
             }
         } catch (error: any) {
-            console.log(error);
             setError(error.message)
         } finally {
             setIsLoading(false) // Set loading to false when the request completes

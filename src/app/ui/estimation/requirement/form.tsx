@@ -11,7 +11,7 @@ import FurnitureAndFurnishing from "./steps/furniture-and-furnishing";
 import Review from "./steps/review";
 import clsx from "clsx";
 import { useRouter } from "next/navigation";
-import { INITIAL_DATA, RequirementData, StimateData, tabMapping } from "./entities";
+import { INITIAL_DATA, menuMapping, RequirementData, StimateData, tabMapping } from "./entities";
 import { v4 as uuid } from 'uuid'
 import TabForm from "./tab-form";
 
@@ -97,14 +97,40 @@ export default function Form({ menus, project_id }: { menus: any[], project_id: 
                 router.push(`/estimation/refinement/${projectResponse.id}`)
             }
         } catch (error: any) {
-            console.log(error);
             setError(error.message)
         } finally {
             setIsLoading(false) // Set loading to false when the request completes
         }
     }
 
-    console.log(stimates);
+    const getSelectedRequirement = (index: number, lookup: string) => {
+        let selectedValue = stimates.find((stimate) => stimate.id == index);
+        let requirement;
+        switch (menuMapping.get(lookup)) {
+            case 'finish':
+                requirement = selectedValue?.requirement.finish;
+                break;
+            case 'sustainabilityCertification':
+                requirement = selectedValue?.requirement.sustainabilityCertification;
+                break;
+            case 'mepFeatures':
+                requirement = selectedValue?.requirement.mepFeatures;
+                break;
+            case 'buildingCondition':
+                requirement = selectedValue?.requirement.buildingCondition;
+                break;
+            case 'technology':
+                requirement = selectedValue?.requirement.technology;
+                break;
+            case 'furniture':
+                requirement = selectedValue?.requirement.furniture;
+                break;
+            default:
+                break;
+        }
+        return requirement;
+    }
+
     return (
         <>
             <div data-col={last_stimate + 1} className={clsx(
@@ -192,6 +218,11 @@ export default function Form({ menus, project_id }: { menus: any[], project_id: 
                                         )}>
                                             <span className="font-latoblack">03.{index + 1}:</span> <br />
                                             {menu.title}
+                                            {getSelectedRequirement(stimate.id, menu.title) && <div className="js-step-indicator step-indicator pl-3 checked" style={{
+                                                paddingBottom: 'unset'
+                                            }} data-category="03.1.1">
+                                                {getSelectedRequirement(stimate.id, menu.title)}
+                                            </div>}
                                         </div>
                                     ))}
                                 </div>

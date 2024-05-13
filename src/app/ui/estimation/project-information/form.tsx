@@ -61,7 +61,6 @@ export default function Form({ menus }: { menus: any[] }) {
                 router.push(`/estimation/area-breakdown/${projectResponse.id}`)
             }
         } catch (error: any) {
-            console.log(error);
             setError(error.message)
         } finally {
             setIsLoading(false) // Set loading to false when the request completes
