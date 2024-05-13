@@ -4,10 +4,14 @@ import Image from "next/image";
 import { RequirementData } from "../entities";
 
 type ReviewFormProps = RequirementData & {
+    stimates: any,
+    tabiIndex: number,
     updateFields: (fields: Partial<RequirementData>) => void
 }
 
 export default function Review({
+    stimates,
+    tabiIndex,
     updateFields
 }: ReviewFormProps) {
     return (

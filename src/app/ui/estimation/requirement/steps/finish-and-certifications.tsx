@@ -7,12 +7,14 @@ import { ChangeEvent, useEffect, useState } from "react";
 import { finishData, finishType } from "../mock";
 
 type RequirementFormProps = RequirementData & {
-    stimates: any
+    stimates: any,
+    tabiIndex: number,
     updateFields: (fields: Partial<RequirementData>) => void
 }
 
 export default function FinishAndCertification({
     stimates,
+    tabiIndex,
     updateFields
 }: RequirementFormProps) {
 
@@ -39,11 +41,10 @@ export default function FinishAndCertification({
 
     const handleRadioChange = (index: number, event: ChangeEvent<HTMLInputElement>) => {
         let data = [...stimates];
-        data[0].requirement.finish = event.target.value;
+        data[tabiIndex].requirement.finish = event.target.value;
         updateFields({ stimates: data });
     }
 
-    console.log(stimates);
     return (
         <>
             {/* checked={selectedAmenityIds.includes(amenity._id)} */}

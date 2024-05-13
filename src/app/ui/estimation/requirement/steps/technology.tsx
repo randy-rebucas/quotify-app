@@ -4,10 +4,14 @@ import Image from "next/image";
 import { RequirementData } from "../entities";
 
 type TechnologyFormProps = RequirementData & {
+    stimates: any,
+    tabiIndex: number,
     updateFields: (fields: Partial<RequirementData>) => void
 }
 
 export default function Technology({
+    stimates,
+    tabiIndex,
     updateFields
 }: TechnologyFormProps) {
     return (

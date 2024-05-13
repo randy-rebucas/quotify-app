@@ -1,6 +1,5 @@
 'use client';
 
-import { ProjectRequirementMenuContext } from "@/app/context/ProjectRequirementMenuContext";
 import { useMultistepForm } from "@/app/hooks/useMultistepForm";
 import { FormEvent, useContext, useEffect, useState } from "react";
 import Wrapper from "./wrapper";
@@ -24,7 +23,6 @@ export default function Form({ menus, project_id }: { menus: any[], project_id: 
     const [error, setError] = useState<string | null>(null)
 
     const [data, setData] = useState(INITIAL_DATA)
-    const { projectRequirementMenu, setProjectRequirementMenu } = useContext(ProjectRequirementMenuContext);
 
     function updateFields(fields: Partial<RequirementData>) {
         setData(prev => {
@@ -36,14 +34,39 @@ export default function Form({ menus, project_id }: { menus: any[], project_id: 
 
     const { steps, currentStepIndex, step, isFirstStep, isLastStep, back, next } =
         useMultistepForm([
-            <FinishAndCertification {...data} updateFields={updateFields} key={uuid()} />,
-            <MepFeatures {...data} updateFields={updateFields} key={uuid()} />,
-            <BaseBuildingConditions {...data} updateFields={updateFields} key={uuid()} />,
-            <Technology {...data} updateFields={updateFields} key={uuid()} />,
-            <FurnitureAndFurnishing {...data} updateFields={updateFields} key={uuid()} />,
-            <Review {...data} updateFields={updateFields} key={uuid()} />
+            <FinishAndCertification {...data} updateFields={updateFields} tabiIndex={activeTab} key={uuid()} />,
+            <MepFeatures {...data} updateFields={updateFields} tabiIndex={activeTab} key={uuid()} />,
+            <BaseBuildingConditions {...data} updateFields={updateFields} tabiIndex={activeTab} key={uuid()} />,
+            <Technology {...data} updateFields={updateFields} tabiIndex={activeTab} key={uuid()} />,
+            <FurnitureAndFurnishing {...data} updateFields={updateFields} tabiIndex={activeTab} key={uuid()} />,
+            <Review {...data} updateFields={updateFields} tabiIndex={activeTab} key={uuid()} />
         ])
 
+    const handleTabFormSubmit = (e: any) => {
+        e.preventDefault()
+        let sourceId = e.target.source.value;
+
+        let source = stimates.find((stimate) => stimate.id == sourceId);
+
+        const initialRequirement = {
+            id: stimates.length,
+            name: e.target.title.value,
+            requirement: {
+                finish: source?.requirement.finish,
+                sustainabilityCertification: source?.requirement.sustainabilityCertification,
+                mepFeatures: source?.requirement.mepFeatures,
+                buildingCondition: source?.requirement.buildingCondition,
+                technology: source?.requirement.technology,
+                furniture: source?.requirement.furniture
+            }
+        };
+
+        setData(prev => {
+            return { ...prev, ...{ stimates: [...stimates, initialRequirement] } }
+        })
+    }
+
+    let last_stimate = stimates.length - 1;
 
     // update this to action and implement dispatch
     async function onSubmit(event: FormEvent<HTMLFormElement>) {
@@ -55,7 +78,7 @@ export default function Form({ menus, project_id }: { menus: any[], project_id: 
         try {
             let form_data = { ...data, ...{ projectId: project_id } };
 
-            const response = await fetch('/api/project/area-definition', {
+            const response = await fetch('/api/project/requirement', {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
@@ -71,7 +94,7 @@ export default function Form({ menus, project_id }: { menus: any[], project_id: 
             let projectResponse = await response.json();
 
             if (response.status === 200) {
-                router.push(`/estimation/project-definition/${projectResponse.id}`)
+                router.push(`/estimation/refinement/${projectResponse.id}`)
             }
         } catch (error: any) {
             console.log(error);
@@ -81,38 +104,7 @@ export default function Form({ menus, project_id }: { menus: any[], project_id: 
         }
     }
 
-    const handleTabFormSubmit = (e: any) => {
-        e.preventDefault()
-        // console.log(e.target.source.value);
-        // console.log(e.target.title.value);
-        // console.log(e.target.description.value);
-        let sourceId = e.target.source.value;
-
-        let source = stimates.find((stimate) => stimate.id == sourceId);
-        console.log(source);
-
-        const initialRequirement = {
-            id: stimates.length,
-            name: e.target.title.value,
-            requirement: {
-                finish: '',
-                sustainabilityCertification: '',
-                mepFeatures: '',
-                buildingCondition: '',
-                technology: '',
-                furniture: ''
-            }
-        };
-
-        setData(prev => {
-            return { ...prev, ...{ stimates: [...stimates, initialRequirement] } }
-        })
-    }
-
-    let last_stimate = stimates.length - 1;
-
-    console.log(isExpanded);
-
+    console.log(stimates);
     return (
         <>
             <div data-col={last_stimate + 1} className={clsx(
@@ -139,7 +131,8 @@ export default function Form({ menus, project_id }: { menus: any[], project_id: 
                         <a key={index} data-menu={tabMapping.get(stimate.id)} className={clsx(
                             'js-tabs-tab tabs-tab',
                             {
-                                'active': activeTab == stimate.id
+                                'active': activeTab == stimate.id,
+                                'cursor-pointer': activeTab != stimate.id
                             }
                         )} onClick={() => setActiveTab(stimate.id)}>
                             {tabMapping.get(stimate.id)}:
@@ -152,10 +145,11 @@ export default function Form({ menus, project_id }: { menus: any[], project_id: 
             {stimates.map((stimate: StimateData, index: number) => (
                 <div key={index} data-menu={tabMapping.get(stimate.id)}
                     className={clsx(
-                        `menu animate fade-in-2 bg-green1 flex flex-col justify-start items-start w-full h-full overflow-y-scroll z-30`,
+                        `menu animate fade-in-2 bg-green1 flex flex-col justify-start items-start w-full h-full overflow-y-scroll`,
                         {
                             'col-start-5': !isExpanded,
-                            'active': activeTab == stimate.id,
+                            'z-30 active': activeTab == stimate.id,
+                            'z-10': activeTab != stimate.id,
                             'js-main-menu col-start-5 bg-green6 bg-green1 ': index == 0, // A
                             'absolute col-span-1 col-start-4 bg-green2 ': index == 1, // B
                             'absolute col-span-1 col-start-3 bg-green3 ': index == 2, // C
@@ -172,7 +166,13 @@ export default function Form({ menus, project_id }: { menus: any[], project_id: 
 
                         <div className="flex flex-col justify-between h-full mt-[8.519vh]">
                             <div className="px-30">
-                                <div className="js-main-menu__header">
+
+                                <div className={clsx(
+                                    `js-main-menu__header`,
+                                    {
+                                        'invisible': activeTab != stimate.id,
+                                    },
+                                )}>
                                     <h2 className="font-bold font-latobold xl:text-7xl md:text-6xl text-5xl text-white">
                                         03:
                                     </h2>
@@ -181,6 +181,7 @@ export default function Form({ menus, project_id }: { menus: any[], project_id: 
                                     </h4>
                                     <div className="estimation-col__bar bg-white mt-6 mb-6"></div>
                                 </div>
+
                                 <div className="js-main-menu__content estimation-col__content">
                                     {menus.map((menu, index) => (
                                         <div key={index} className={clsx(

@@ -4,12 +4,14 @@ import Image from "next/image";
 import { RequirementData } from "../entities";
 
 type MepFormProps = RequirementData & {
-    stimates: any
+    stimates: any,
+    tabiIndex: number,
     updateFields: (fields: Partial<RequirementData>) => void
 }
 
 export default function MepFeatures({
     stimates,
+    tabiIndex,
     updateFields
 }: MepFormProps) {
     console.log(stimates);

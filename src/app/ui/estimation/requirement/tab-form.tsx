@@ -1,15 +1,16 @@
 'use client';
 
 import clsx from 'clsx';
-import { FormEventHandler, useState } from 'react';
-import { StimateData, tabMapping } from './entities';
+import { FormEventHandler, useEffect, useState } from 'react';
+import { StimateData, tabMapping, titleMapping } from './entities';
 
 
 export default function TabForm({ stimates, onSubmit }: { stimates: StimateData[], onSubmit: FormEventHandler<HTMLFormElement> }) {
 
     const [toggle, setToggle] = useState<boolean>(false);
     const [toggleOption, setToggleOption] = useState<boolean>(false);
-    const [source, setSource] = useState<any>('');
+    const [source, setSource] = useState<string>('');
+    const [title, setTitle] = useState<any>('');
 
     const onSelectSource = (id: string) => {
         setSource(id);
@@ -17,6 +18,10 @@ export default function TabForm({ stimates, onSubmit }: { stimates: StimateData[
     }
 
     let last_stimate = stimates.length - 1;
+
+    useEffect(() => {
+        setTitle(titleMapping.get(stimates.length))
+    }, [stimates]);
 
     return (
         <div className="bg-darkgreen relative">
@@ -72,7 +77,7 @@ export default function TabForm({ stimates, onSubmit }: { stimates: StimateData[
                             className="text-white flex border-b-2 border-l-0 border-r-0 border-t-0 outline-none border-solid border-green w-full">
                             <h3 className="text-green py-2">{tabMapping.get(last_stimate + 1)}:</h3>
                             <input className="js-count-chars__field bg-transparent px-3 py-2 outline-none text-white placeholder-green"
-                                maxLength={40} type="text" name='title' placeholder="name" />
+                                maxLength={40} type="text" name='title' placeholder="name" value={title} onChange={() => {}}/>
                         </div>
                         <div className="js-count-chars__status text-[10px] font-lato text-green mt-1">0/40</div>
                     </div>
@@ -80,7 +85,7 @@ export default function TabForm({ stimates, onSubmit }: { stimates: StimateData[
                     <div className="js-count-chars flex flex-col items-end w-full mb-3">
                         <textarea
                             className="js-count-chars__field bg-transparent h-[80px] py-2 text-white placeholder-green border-b-2 border-l-0 border-r-0 border-t-0 outline-none border-solid border-green w-full"
-                            name="description" maxLength={250} placeholder="description"></textarea>
+                            name="description" maxLength={250} placeholder="description" defaultValue='this is a short description for this estimate.'></textarea>
                         <div className="js-count-chars__status text-[10px] font-lato text-green mt-1">0/250</div>
                     </div>
 

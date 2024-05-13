@@ -4,10 +4,14 @@ import Image from "next/image";
 import { RequirementData } from "../entities";
 
 type FurnishingFormProps = RequirementData & {
+    stimates: any,
+    tabiIndex: number,
     updateFields: (fields: Partial<RequirementData>) => void
 }
 
 export default function FurnitureAndFurnishing({
+    stimates,
+    tabiIndex,
     updateFields
 }: FurnishingFormProps) {
     return (
