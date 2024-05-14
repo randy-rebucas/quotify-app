@@ -8,10 +8,9 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const { type } = req.query;
+
   connect();
-  // switch (type) {
-  //   case "area-definition":
+
   const { selectedAmenityIds, selectedCustomSpaces, projectId } = req.body;
 
   try {
@@ -43,10 +42,4 @@ export default async function handler(
     console.log(err);
     res.status(500).json(err);
   }
-
-  //     break;
-
-  //   default:
-  //     break;
-  // }
 }

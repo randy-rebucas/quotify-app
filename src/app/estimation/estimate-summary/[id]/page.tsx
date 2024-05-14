@@ -3,9 +3,17 @@ import Column from "@/app/ui/estimation/project-information/column";
 import Title from "@/app/ui/estimation/title";
 import LinearCover from "@/app/ui/linear-cover";
 import StaggerCover from "@/app/ui/stagger-cover";
+import { notFound } from "next/navigation";
 
 
-export default function Page() {
+export default function Page({ params }: { params: { id: string } }) {
+    
+    const id = params.id;
+
+    if (!id) {
+        notFound();
+    }
+    
 
     const introductionColors: string[] = ['bg-gray1', 'bg-gray2', 'bg-gray3', 'bg-gray4', 'bg-gray5'];
 
@@ -99,8 +107,8 @@ export default function Page() {
                             step={5}
                             cursor='five'
                             section='Estimate summary'
-                            navigation="/estimation/estimate-summary"
-                            next="/estimation/estimate-summary/preview"
+                            navigation={`/estimation/estimate-summary/${id}`}
+                            next={`/estimation/estimate-summary/${id}/preview`}
                             isCompleted={false}>
                             <p className="text-white">Here is where you will add ingot to start shaping your project and letting the system
                                 know what you have in mind so we can come up with a cost together.</p>

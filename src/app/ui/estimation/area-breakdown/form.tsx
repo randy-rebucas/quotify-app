@@ -39,7 +39,7 @@ export default function Form({ menus, amenities, custom_spaces, project_id }: { 
         try {
             let form_data = { ...data, ...{ projectId: project_id } };
     
-            const response = await fetch('/api/project/area-definition', {
+            const response = await fetch('/api/project/definition', {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',

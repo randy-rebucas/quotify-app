@@ -76,7 +76,12 @@ export default function Form({ menus, project_id }: { menus: any[], project_id: 
 
         if (!isLastStep) return next()
         try {
-            let form_data = { ...data, ...{ projectId: project_id } };
+            let form_data = {
+                ...data, ...{
+                    projectId: project_id,
+                    section: 'requirement'
+                }
+            };
 
             const response = await fetch('/api/project/requirement', {
                 method: 'POST',

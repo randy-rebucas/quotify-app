@@ -7,9 +7,15 @@ import Form from "@/app/ui/estimation/refinement/form";
 import TabForm from "@/app/ui/estimation/refinement/tab-form";
 import LinearCover from "@/app/ui/linear-cover";
 import StaggerCover from "@/app/ui/stagger-cover";
+import { notFound } from "next/navigation";
 
-export default async function Page() {
+export default async function Page({ params }: { params: { id: string } }) {
+    const id = params.id;
 
+    if (!id) {
+        notFound();
+    }
+    
     const menus = await fetchMenuByPageHandled('refinement');
 
     const introductionColors: string[] = ['bg-yellow1', 'bg-yellow2', 'bg-yellow3', 'bg-yellow4', 'bg-yellow5'];
@@ -51,17 +57,8 @@ export default async function Page() {
                 </IntroWrapper>
 
                 <MainWrapper>
-                    <div data-col="1" className="js-tabs absolute top-[7.037vh] z-30 right-20">
-                        <h3>
-                            <a data-menu="A" className="js-tabs-tab tabs-tab active">
-                                A:
-                            </a>
-                        </h3>
 
-                        <TabForm />
-                    </div>
-
-                    <Form menus={menus}/>
+                    <Form menus={menus} project_id={id}/>
 
                 </MainWrapper>
 
