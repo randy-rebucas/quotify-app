@@ -117,6 +117,7 @@ export default function Address({
                                     placeholder="enter building address here" type="text" />
 
                                 {address && <p>Address: {address}</p>}
+                                
                                 <div className="relative w-full h-[37.037vh] mt-[4.63vh]">
                                     {scriptLoaded ? <div style={{
                                         height: 300
