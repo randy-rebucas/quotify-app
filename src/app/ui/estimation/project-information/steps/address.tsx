@@ -1,3 +1,5 @@
+import { GoogleMapsEmbed } from '@next/third-parties/google'
+
 type AddressData = {
     address: string
     hasAddress: boolean
@@ -29,13 +31,20 @@ export default function Address({
                                     placeholder="enter building address here" type="text" value={address} onChange={e => updateFields({ address: e.target.value })} />
 
                                 <div className="relative w-full h-[37.037vh] mt-[4.63vh]">
-                                    <iframe className="absolute top-0 left-0 w-full h-full"
+                                    <GoogleMapsEmbed
+                                        apiKey="AIzaSyCSpu4SkHDlOVRji08oCB01hFatAjtlcNE"
+                                        height={200}
+                                        width="100%"
+                                        mode="place"
+                                        q="Brooklyn+Bridge,New+York,NY"
+                                    />
+                                    {/* <iframe className="absolute top-0 left-0 w-full h-full"
                                         src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d12080.73732861526!2d-74.0059418!3d40.7127847!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zM40zMDA2JzEwLjAiTiA3NMKwMjUnMzcuNyJX!5e0!3m2!1sen!2sus!4v1648482801994!5m2!1sen!2sus"
                                         style={{
                                             border: 0
                                         }} allowFullScreen={true} aria-hidden="false"
                                         tabIndex={0}>
-                                    </iframe>
+                                    </iframe> */}
                                 </div>
 
                                 <div className="custom-checkbox mb-4 mt-10">

@@ -1,3 +1,4 @@
+import { fetchEstimatesByProjectId, fetchEstimatesBySection, fetchProject } from "@/app/lib/data";
 import Actions from "@/app/ui/estimation/estimate-summary/actions";
 import Column from "@/app/ui/estimation/estimate-summary/column";
 import Form from "@/app/ui/estimation/estimate-summary/form";
@@ -6,9 +7,23 @@ import MainWrapper from "@/app/ui/estimation/main-wrapper";
 import Popup from "@/app/ui/estimation/popup";
 import LinearCover from "@/app/ui/linear-cover";
 import StaggerCover from "@/app/ui/stagger-cover";
+import { notFound } from "next/navigation";
 
-export default function Summary() {
+export default async function Page({ params }: { params: { id: string } }) {
+    const id = params.id;
 
+    if (!id) {
+        notFound();
+    }
+    
+    const project = await fetchProject(id);
+
+    const estimates = await fetchEstimatesByProjectId(id);
+
+    const estimateRequirements = await fetchEstimatesBySection(id, 'requirement');
+    const estimateRefinements = await fetchEstimatesBySection(id, 'refinements');
+    // console.log(estimateRequirements);
+    console.log(estimates);
     const introductionColors: string[] = ['bg-red1', 'bg-red2', 'bg-red3', 'bg-red4', 'bg-red5'];
 
     const mainColors: string[] = ['bg-gray2A', 'bg-gray3A', 'bg-gray4A', 'bg-white', 'bg-red'];
@@ -47,7 +62,7 @@ export default function Summary() {
                             <div className="pt-[52px]">
 
                                 <h2 className="font-bold font-latoblack xl:text-4xl md:text-3xl text-2xl text-white mb-10">
-                                    Project<br />MMoser</h2>
+                                    Project<br />{project.spaceName}</h2>
 
                                 <div className="file__border bg-white"></div>
 

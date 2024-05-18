@@ -1,6 +1,18 @@
 export default function Actions() {
     return (
         <div>
+            
+            <a href="#" className="text-[24px] font-latobold flex items-center mb-[10px]">
+            {/* <svg width="89" height="67" viewBox="0 0 89 67" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M89 2.54972L28.454 67L0 33.299L2.82204 30.887L28.595 61.4204L86.3003 0L89 2.54972Z" fill="white"/>
+</svg> */}
+
+                <svg fill="none" width="16" height="19" stroke="#fff" stroke-linecap="round" stroke-width="2" viewBox="0 0 23 25" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
+                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
+                </svg>
+                <div className="text-white ml-3 text-opacity-50 hover:text-opacity-100">edit</div>
+            </a>
             <a href="#" className="text-[24px] font-latobold flex items-center mb-[10px]">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="19" viewBox="0 0 16 19" fill="none">
                     <path fill-rule="evenodd" clip-rule="evenodd" d="M9.00075 11.175L12.2437 7.933L13.6577 9.347L8.00075 15.004L2.34375 9.347L3.75775 7.933L7.00075 11.175V0H9.00075V11.175Z" fill="white" />

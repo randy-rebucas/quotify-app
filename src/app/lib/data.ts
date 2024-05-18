@@ -5,6 +5,7 @@ import Amenity, { IAmenity } from "../models/Amenity";
 import Menu from "../models/Menu";
 import CustomSpace from "../models/CustomSpace";
 import User from "../models/User";
+import Estimate from "../models/Estimate";
 
 export async function fetchProjects() {
   noStore();
@@ -269,6 +270,42 @@ export async function fetchUserById(id: string) {
     _id: user._id.toString(),
     email: user.auth.email,
   };
+
+  return transformData;
+}
+
+export async function fetchEstimatesByProjectId(projectId: string) {
+  noStore();
+
+  connect();
+
+  const esimates = await Estimate.find({ project: projectId }).exec();
+
+  const transformData = esimates.map((esimate) => {
+    return {
+      _id: esimate._id.toString(),
+      name: esimate.name,
+      project: esimate.project._id.toString(),
+    };
+  });
+
+  return transformData;
+}
+
+export async function fetchEstimatesBySection(projectId: string, section: string) {
+  noStore();
+
+  connect();
+
+  const esimates = await Estimate.find({ project: projectId, section: section }).exec();
+
+  const transformData = esimates.map((esimate) => {
+    return {
+      _id: esimate._id.toString(),
+      name: esimate.name,
+      project: esimate.project._id.toString(),
+    };
+  });
 
   return transformData;
 }

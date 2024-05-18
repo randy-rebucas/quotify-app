@@ -1,5 +1,6 @@
 export type FormData = {
     spaceName: string
+    floorPlans: any[]
     hasFloorPlan: boolean
     address: string
     hasAddress: boolean
@@ -13,6 +14,7 @@ export type FormData = {
 
 export const INITIAL_DATA: FormData = {
     spaceName: "",
+    floorPlans: [],
     hasFloorPlan: false,
     address: "",
     hasAddress: false,

@@ -6,6 +6,7 @@ export interface IEstimate {
   name: string;
   section: string;
   project?: Types.ObjectId | IProject;
+  _id?: Types.ObjectId;
 }
 
 // 2. Create a Schema corresponding to the document interface.

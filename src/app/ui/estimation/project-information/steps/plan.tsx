@@ -1,6 +1,10 @@
+import { useState } from "react"
+import Upload from "../upload"
+
 type PlanData = {
-    spaceName: string
-    hasFloorPlan: boolean,
+    spaceName: string;
+    floorPlans: any[];
+    hasFloorPlan: boolean;
 }
 
 type PlanFormProps = PlanData & {
@@ -9,9 +13,25 @@ type PlanFormProps = PlanData & {
 
 export default function Plan({
     spaceName,
+    floorPlans,
     hasFloorPlan,
     updateFields
 }: PlanFormProps) {
+
+    const handleChange = (e: any) => {
+        e.preventDefault();
+        console.log("File has been added");
+        if (e.target.files && e.target.files[0]) {
+            for (let i = 0; i < e.target.files["length"]; i++) {
+                updateFields({ floorPlans: [...floorPlans, e.target.files[i]] });
+            }
+        }
+    }
+
+    const removeFile = (idx: number) => {
+        updateFields({ floorPlans: floorPlans.filter((file: any, id: number) => id !== idx) });
+    }
+
     return (
 
         <div className="lg:col-span-2 col-span-12 flex flex-col justify-start items-start w-full h-full">
@@ -32,27 +52,23 @@ export default function Plan({
                                 <p className="pt-[5.926vh]">To be able to define areas and square
                                     footage in future sections, start by uploading your floorplans.</p>
 
-                                <div className="custom-upload mt-5">
-                                    <label className="w-full">
-                                        <div
-                                            className="px-30 flex flex-col items-start justify-end w-full h-64 border-2 border-dashed cursor-pointer">
-                                            <div className="flex flex-col items-start justify-start pt-5 pb-6">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="63"
-                                                    height="78" viewBox="0 0 63 78" fill="none">
-                                                    <path opacity="0.5"
-                                                        d="M-2.02821e-06 31.1L2.1 33.2L29.8 5.6L29.8 77.5L32.8 77.5L32.8 6L60.2 33.4L62.4 31.3L31.1 -1.35942e-06L-2.02821e-06 31.1Z"
-                                                        fill="#003855" />
-                                                </svg>
-                                            </div>
-                                            <input className="dropzone-file hidden" type="file" />
-                                        </div>
-                                        <p className="custom-upload__label mt-4">drag files here or
-                                            <span>browse</span>
-                                        </p>
-                                    </label>
-                                </div>
+                                <Upload onChange={handleChange} />
 
-                                <div className="custom-checkbox mb-4 mt-10">
+                                {/* uploaded files  */}
+                                <div className="flex flex-col p-3">
+                                    {floorPlans.map((file: any, index: any) => (
+                                        <div key={index} className="flex flex-row justify-between space-x-5">
+                                            <span>{file.name}</span>
+                                            <span
+                                                className="text-red-500 cursor-pointer"
+                                                onClick={() => removeFile(index)}
+                                            >
+                                                remove
+                                            </span>
+                                        </div>
+                                    ))}
+                                </div>
+                                <div className="custom-checkbox mb-4 mt-2">
                                     <input id="tmp-1" type="checkbox" className="promoted-input-checkbox" value={1} checked={hasFloorPlan} onChange={e => updateFields({ hasFloorPlan: e.target.checked })} />
                                     <svg>
                                         <use href="#checkmark-1" xlinkHref="#checkmark-1" />
@@ -69,12 +85,10 @@ export default function Plan({
                                     </svg>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
     )
 }

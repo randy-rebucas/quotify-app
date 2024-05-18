@@ -11,11 +11,11 @@ type ColumnProps = {
 }
 
 export default function Column({id, children }: ColumnProps) {
-    const [open, setOpen] = useState<boolean>(false);
+    // const [open, setOpen] = useState<boolean>(false);
 
-    const handleCheckboxChange = (event: ChangeEvent<HTMLInputElement>) => {
-        setOpen(event.target.checked);
-    }
+    // const handleCheckboxChange = (event: ChangeEvent<HTMLInputElement>) => {
+    //     setOpen(event.target.checked);
+    // }
 
     return (
         <div className="relative h-full flex flex-col justify-between">
@@ -23,8 +23,8 @@ export default function Column({id, children }: ColumnProps) {
 
                 {children}
 
-                <div className="lg:pt-[48px] w-full px-[30px] pb-[100px]">
-                    <div className="js-custom-checkbox custom-checkbox mb-4">
+                <div className="w-full px-[30px] pb-[100px]">
+                    {/* <div className="js-custom-checkbox custom-checkbox mb-4">
                         <input id={`tmp-${id}`} type="checkbox" className="promoted-input-checkbox" onChange={e => handleCheckboxChange(e)} />
                         <svg>
                             <use xlinkHref={`#checkmark-${id}`} />
@@ -39,7 +39,7 @@ export default function Column({id, children }: ColumnProps) {
                         </svg>
                     </div>
 
-                    {open && <Overview />}
+                    {open && <Overview />} */}
 
 
                     <Accordions id={1} title="Requirements" data={requirements}/>
@@ -60,7 +60,7 @@ export default function Column({id, children }: ColumnProps) {
 export function Overview() {
     return (
         <div className="bg-[#D2D2D2] py-[15px] px-[20px]">
-            <ul className="gap-[10px] flex flex-wrap">
+            <ul className="gap-[6px] flex flex-wrap">
                 <li className="flex gap-[10px] w-[48%]">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
                         <path d="M12.5 8H15M10.5 1H15V15H1V1H5L8 3L10.5 1ZM7 15V8V15ZM4.5 8H9.5H4.5Z" stroke="black" stroke-opacity="0.5" />
