@@ -40,31 +40,31 @@ export default function Form({ menus }: { menus: any[] }) {
         setIsLoading(true)
         setError(null) // Clear previous errors when a new request starts
         if (!isLastStep) return next()
+        console.log(data);
+        // try {
+        //     const response = await fetch('/api/projects', {
+        //         method: 'POST',
+        //         headers: {
+        //             'Accept': 'application/json',
+        //             'Content-Type': 'application/json',
+        //         },
+        //         body: JSON.stringify(data),
+        //     });
 
-        try {
-            const response = await fetch('/api/projects', {
-                method: 'POST',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(data),
-            });
+        //     if (!response.ok) {
+        //         throw new Error('Failed to submit the data. Please try again.')
+        //     }
 
-            if (!response.ok) {
-                throw new Error('Failed to submit the data. Please try again.')
-            }
+        //     let projectResponse = await response.json();
 
-            let projectResponse = await response.json();
-
-            if (response.status === 200) {
-                router.push(`/estimation/area-breakdown/${projectResponse.id}`)
-            }
-        } catch (error: any) {
-            setError(error.message)
-        } finally {
-            setIsLoading(false) // Set loading to false when the request completes
-        }
+        //     if (response.status === 200) {
+        //         router.push(`/estimation/area-breakdown/${projectResponse.id}`)
+        //     }
+        // } catch (error: any) {
+        //     setError(error.message)
+        // } finally {
+        //     setIsLoading(false) // Set loading to false when the request completes
+        // }
     }
 
     return (

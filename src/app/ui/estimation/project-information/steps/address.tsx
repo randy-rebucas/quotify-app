@@ -1,4 +1,11 @@
-import { GoogleMapsEmbed } from '@next/third-parties/google'
+import { ChangeEventHandler, useEffect, useRef, useState } from "react";
+import { LatLong } from "../entities";
+import { useJsApiLoader } from '@react-google-maps/api';
+import { Library, Libraries } from '@googlemaps/js-api-loader';
+type Address = {
+    formated_address: string
+    location: any
+}
 
 type AddressData = {
     address: string
@@ -8,11 +15,96 @@ type AddressData = {
 type AddressFormProps = AddressData & {
     updateFields: (fields: Partial<AddressData>) => void
 }
+
+const libs: Library[] = ["core", "maps", "places", "marker"]
+
 export default function Address({
     address,
     hasAddress,
     updateFields,
 }: AddressFormProps) {
+    const [coords, setCoords] = useState<number[]>([14.599512, 120.984222]);
+
+    const [selectedPlace, setSelectedPlace] = useState<string | null>(null);
+    const [selectedLocation, setSelectedLocation] = useState<google.maps.LatLng | undefined>();
+
+    const [map, setMap] = useState<google.maps.Map | null>(null);
+    const [autoComplete, setAutoComplete] = useState<google.maps.places.Autocomplete | null>(null);
+    const { isLoaded } = useJsApiLoader({
+        id: 'google-map-script',
+        googleMapsApiKey: process.env.NEXT_PUBLIC_MAPS_API_KEY as string,
+        libraries: libs,
+    })
+
+    const mapRef = useRef<HTMLDivElement>(null);
+    const placeAutoCompleteRef = useRef<HTMLInputElement>(null);
+
+
+    useEffect(() => {
+        let latlong: LatLong = { coordinates: coords };
+
+        if (isLoaded) {
+            const options = {
+                center: {
+                    lat: latlong.coordinates[0],
+                    lng: latlong.coordinates[1]
+                },
+                zoom: 17,
+                mapId: "My-Map"
+            }
+
+            const gMap = new google.maps.Map(mapRef.current as HTMLDivElement, options);
+            setMap(gMap);
+
+            const gAutoComplete = new google.maps.places.Autocomplete(placeAutoCompleteRef.current as HTMLInputElement, {
+                fields: ['formatted_address', 'geometry'],
+                componentRestrictions: {
+                    country: ['ca']
+                }
+            });
+            setAutoComplete(gAutoComplete);
+        }
+    }, [coords, isLoaded])
+
+    useEffect(() => {
+        const setMarker = (location: google.maps.LatLng, name: string) => {
+            if (!map) return
+
+            map.setCenter(location);
+            const marker = new google.maps.marker.AdvancedMarkerElement({
+                map: map,
+                position: location,
+                title: name
+            });
+
+            console.log(marker);
+            // if (marker) {
+            //     updateFields({
+            //         address:  selectedPlace!
+            //     });
+            // }
+        }
+
+        if (autoComplete) {
+            autoComplete.addListener('place_changed', () => {
+                const { formatted_address, geometry, name } = autoComplete.getPlace();
+                const position = geometry?.location;
+                setSelectedPlace(formatted_address as string);
+                setSelectedLocation(position);
+                if (position) {
+                    setMarker(position, name!);
+                }
+            });
+        }
+    }, [autoComplete, map, selectedPlace, updateFields])
+
+    // if (selectedLocation) {
+    //     updateFields({
+    //         address:  selectedPlace!
+    //     });
+    // }
+    console.log(address);
+    console.log(coords)
     return (
 
         <div className="lg:col-span-2 col-span-12 flex flex-col justify-start items-start w-full h-full">
@@ -25,26 +117,17 @@ export default function Address({
                                 where is the space located?
                             </h5>
 
-                            <div className="mt-[18.519vh] w-full">
-                                <input id="map-search"
-                                    className="block border-b border-0 bg-transparent py-1 text-darkblue border-darkblue w-full outline-none "
-                                    placeholder="enter building address here" type="text" value={address} onChange={e => updateFields({ address: e.target.value })} />
+                            <div className="mt-[15px] w-full">
 
+                                <input id="map-search" ref={placeAutoCompleteRef}
+                                    className="block border-b border-0 bg-transparent py-1 text-darkblue border-darkblue w-full outline-none "
+                                    placeholder="enter building address here" type="text" />
+
+                                {address && <p>Address: {address}</p>}
                                 <div className="relative w-full h-[37.037vh] mt-[4.63vh]">
-                                    <GoogleMapsEmbed
-                                        apiKey="AIzaSyCSpu4SkHDlOVRji08oCB01hFatAjtlcNE"
-                                        height={200}
-                                        width="100%"
-                                        mode="place"
-                                        q="Brooklyn+Bridge,New+York,NY"
-                                    />
-                                    {/* <iframe className="absolute top-0 left-0 w-full h-full"
-                                        src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d12080.73732861526!2d-74.0059418!3d40.7127847!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zM40zMDA2JzEwLjAiTiA3NMKwMjUnMzcuNyJX!5e0!3m2!1sen!2sus!4v1648482801994!5m2!1sen!2sus"
-                                        style={{
-                                            border: 0
-                                        }} allowFullScreen={true} aria-hidden="false"
-                                        tabIndex={0}>
-                                    </iframe> */}
+                                    {isLoaded ? <div style={{
+                                        height: 300
+                                    }} ref={mapRef}></div> : <p>Loading map...</p>}
                                 </div>
 
                                 <div className="custom-checkbox mb-4 mt-10">

@@ -1,3 +1,8 @@
+type Address = {
+    formated_address: string
+    location: any
+}
+
 export type FormData = {
     spaceName: string
     floorPlans: any[]
@@ -16,7 +21,7 @@ export const INITIAL_DATA: FormData = {
     spaceName: "",
     floorPlans: [],
     hasFloorPlan: false,
-    address: "",
+    address: '',
     hasAddress: false,
     approximateSize: '3000',
     rentableArea: '3000',
@@ -24,4 +29,8 @@ export const INITIAL_DATA: FormData = {
     targetHeadCount: "",
     averageAttendance: "",
     assignedSeat: "30"
+}
+
+export type LatLong = {
+    coordinates: number[]
 }
