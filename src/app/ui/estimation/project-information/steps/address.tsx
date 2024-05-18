@@ -16,7 +16,7 @@ type AddressFormProps = AddressData & {
     updateFields: (fields: Partial<AddressData>) => void
 }
 
-const libs: Library[] = ["core", "maps", "places", "marker"]
+const libraries = ["core", "maps", "places", "marker", 'geometry'];
 
 export default function Address({
     address,
@@ -30,10 +30,10 @@ export default function Address({
 
     const [map, setMap] = useState<google.maps.Map | null>(null);
     const [autoComplete, setAutoComplete] = useState<google.maps.places.Autocomplete | null>(null);
-    const { isLoaded } = useJsApiLoader({
+    const { isLoaded: scriptLoaded, loadError } = useJsApiLoader({
         id: 'google-map-script',
         googleMapsApiKey: process.env.NEXT_PUBLIC_MAPS_API_KEY as string,
-        libraries: libs,
+        libraries: libraries as Libraries,
     })
 
     const mapRef = useRef<HTMLDivElement>(null);
@@ -43,7 +43,7 @@ export default function Address({
     useEffect(() => {
         let latlong: LatLong = { coordinates: coords };
 
-        if (isLoaded) {
+        if (scriptLoaded) {
             const options = {
                 center: {
                     lat: latlong.coordinates[0],
@@ -64,7 +64,7 @@ export default function Address({
             });
             setAutoComplete(gAutoComplete);
         }
-    }, [coords, isLoaded])
+    }, [coords, scriptLoaded])
 
     useEffect(() => {
         const setMarker = (location: google.maps.LatLng, name: string) => {
@@ -98,13 +98,6 @@ export default function Address({
         }
     }, [autoComplete, map, selectedPlace, updateFields])
 
-    // if (selectedLocation) {
-    //     updateFields({
-    //         address:  selectedPlace!
-    //     });
-    // }
-    console.log(address);
-    console.log(coords)
     return (
 
         <div className="lg:col-span-2 col-span-12 flex flex-col justify-start items-start w-full h-full">
@@ -125,7 +118,7 @@ export default function Address({
 
                                 {address && <p>Address: {address}</p>}
                                 <div className="relative w-full h-[37.037vh] mt-[4.63vh]">
-                                    {isLoaded ? <div style={{
+                                    {scriptLoaded ? <div style={{
                                         height: 300
                                     }} ref={mapRef}></div> : <p>Loading map...</p>}
                                 </div>
