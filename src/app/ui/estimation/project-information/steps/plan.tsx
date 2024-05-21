@@ -27,7 +27,7 @@ export default function Plan({
             }
         }
     }
-
+    console.log(floorPlans);
     const removeFile = (idx: number) => {
         updateFields({ floorPlans: floorPlans.filter((file: any, id: number) => id !== idx) });
     }

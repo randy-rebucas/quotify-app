@@ -3,7 +3,7 @@ type Address = {
     location: any
 }
 
-export type FormData = {
+export type ProjectData = {
     spaceName: string
     floorPlans: any[]
     hasFloorPlan: boolean
@@ -17,7 +17,7 @@ export type FormData = {
     assignedSeat: string
 }
 
-export const INITIAL_DATA: FormData = {
+export const INITIAL_DATA: ProjectData = {
     spaceName: "",
     floorPlans: [],
     hasFloorPlan: false,

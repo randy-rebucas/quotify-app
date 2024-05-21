@@ -1,29 +1,28 @@
 import { ChangeEventHandler, useEffect, useRef, useState } from "react";
 import { LatLong } from "./entities";
 import { useJsApiLoader } from '@react-google-maps/api';
-import { Library } from '@googlemaps/js-api-loader';
+import { Libraries, Library } from '@googlemaps/js-api-loader';
 
+const libraries = ["core", "maps", "places", "marker", 'geometry'];
 
-export default function CustomMap({ latlong, onChange }: {
-    latlong: LatLong,
-    onChange: ChangeEventHandler<HTMLInputElement>
+export default function CustomMap({ location }: {
+    location: google.maps.LatLng | undefined
 }) {
-    const libs: Library[] = ["core", "maps", "places", "marker"]
 
+    const [coords, setCoords] = useState<number[]>([14.599512, 120.984222]);
 
-    const [selectedPlace, setSelectedPlace] = useState<string | null>(null);
     const [map, setMap] = useState<google.maps.Map | null>(null);
-    const [autoComplete, setAutoComplete] = useState<google.maps.places.Autocomplete | null>(null);
-    const { isLoaded } = useJsApiLoader({
+    const { isLoaded: scriptLoaded, loadError } = useJsApiLoader({
+        id: 'google-map-script',
         googleMapsApiKey: process.env.NEXT_PUBLIC_MAPS_API_KEY as string,
-        libraries: libs
+        libraries: libraries as Libraries,
     })
-
     const mapRef = useRef<HTMLDivElement>(null);
-    const placeAutoCompleteRef = useRef<HTMLInputElement>(null);
-    const event = new Event("change");
+
     useEffect(() => {
-        if (isLoaded) {
+        let latlong: LatLong = { coordinates: coords };
+
+        if (scriptLoaded) {
             const options = {
                 center: {
                     lat: latlong.coordinates[0],
@@ -35,17 +34,11 @@ export default function CustomMap({ latlong, onChange }: {
 
             const gMap = new google.maps.Map(mapRef.current as HTMLDivElement, options);
             setMap(gMap);
-            const gAutoComplete = new google.maps.places.Autocomplete(placeAutoCompleteRef.current as HTMLInputElement, {
-                fields: ['formatted_address', 'geometry'],
-                componentRestrictions: {
-                    country: ['ca']
-                }
-            });
-            setAutoComplete(gAutoComplete);
         }
-    }, [isLoaded, latlong])
+    }, [coords, scriptLoaded])
 
     useEffect(() => {
+
         const setMarker = (location: google.maps.LatLng, name: string) => {
             if (!map) return
 
@@ -55,41 +48,22 @@ export default function CustomMap({ latlong, onChange }: {
                 position: location,
                 title: name
             });
+
+            // console.log(location.lat());
+            // console.log(location.lng());
         }
 
-        if (autoComplete) {
-            autoComplete.addListener('place_changed', () => {
-                const place = autoComplete.getPlace();
-                setSelectedPlace(place.formatted_address as string);
-                // onChange(place.formatted_address)
-                const position = place.geometry?.location;
-
-                if (position) {
-                    setMarker(position, place.name!)
-                }
-            });
-
-            placeAutoCompleteRef.current?.addEventListener('change', (e: Event) => {
-                console.log(e.target?.dispatchEvent);
-            })
-
-            placeAutoCompleteRef.current?.dispatchEvent(event);
+        if (location) {
+            setMarker(location, 'Marker');
         }
-    }, [autoComplete])
 
+    }, [location, map])
 
     return (
-        <>
-            <input id="map-search" ref={placeAutoCompleteRef}
-                className="block border-b border-0 bg-transparent py-1 text-darkblue border-darkblue w-full outline-none "
-                placeholder="enter building address here" type="text" onChange={onChange}/>
-            {/* value={address} onChange={e => updateFields({ address: e.target.value })} */}
-            <p>{selectedPlace}</p>
-            <div className="relative w-full h-[37.037vh] mt-[4.63vh]">
-                {isLoaded ? <div style={{
-                    height: 300
-                }} ref={mapRef}></div> : <p>Loading map...</p>}
-            </div>
-        </>
+        <div className="relative w-full h-[37.037vh] mt-[4.63vh]">
+            {scriptLoaded ? <div style={{
+                height: 300
+            }} ref={mapRef}></div> : <p>Loading map...</p>}
+        </div>
     )
 }

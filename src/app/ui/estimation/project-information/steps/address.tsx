@@ -2,6 +2,7 @@ import { ChangeEventHandler, useEffect, useRef, useState } from "react";
 import { LatLong } from "../entities";
 import { useJsApiLoader } from '@react-google-maps/api';
 import { Library, Libraries } from '@googlemaps/js-api-loader';
+import CustomMap from "../map";
 type Address = {
     formated_address: string
     location: any
@@ -23,12 +24,9 @@ export default function Address({
     hasAddress,
     updateFields,
 }: AddressFormProps) {
-    const [coords, setCoords] = useState<number[]>([14.599512, 120.984222]);
-
     const [selectedPlace, setSelectedPlace] = useState<string | null>(null);
     const [selectedLocation, setSelectedLocation] = useState<google.maps.LatLng | undefined>();
 
-    const [map, setMap] = useState<google.maps.Map | null>(null);
     const [autoComplete, setAutoComplete] = useState<google.maps.places.Autocomplete | null>(null);
     const { isLoaded: scriptLoaded, loadError } = useJsApiLoader({
         id: 'google-map-script',
@@ -36,26 +34,11 @@ export default function Address({
         libraries: libraries as Libraries,
     })
 
-    const mapRef = useRef<HTMLDivElement>(null);
     const placeAutoCompleteRef = useRef<HTMLInputElement>(null);
 
 
     useEffect(() => {
-        let latlong: LatLong = { coordinates: coords };
-
         if (scriptLoaded) {
-            const options = {
-                center: {
-                    lat: latlong.coordinates[0],
-                    lng: latlong.coordinates[1]
-                },
-                zoom: 17,
-                mapId: "My-Map"
-            }
-
-            const gMap = new google.maps.Map(mapRef.current as HTMLDivElement, options);
-            setMap(gMap);
-
             const gAutoComplete = new google.maps.places.Autocomplete(placeAutoCompleteRef.current as HTMLInputElement, {
                 fields: ['formatted_address', 'geometry'],
                 componentRestrictions: {
@@ -64,40 +47,31 @@ export default function Address({
             });
             setAutoComplete(gAutoComplete);
         }
-    }, [coords, scriptLoaded])
+    }, [scriptLoaded])
 
     useEffect(() => {
-        const setMarker = (location: google.maps.LatLng, name: string) => {
-            if (!map) return
-
-            map.setCenter(location);
-            const marker = new google.maps.marker.AdvancedMarkerElement({
-                map: map,
-                position: location,
-                title: name
-            });
-
-            console.log(marker);
-            // if (marker) {
-            //     updateFields({
-            //         address:  selectedPlace!
-            //     });
-            // }
-        }
-
         if (autoComplete) {
             autoComplete.addListener('place_changed', () => {
                 const { formatted_address, geometry, name } = autoComplete.getPlace();
                 const position = geometry?.location;
                 setSelectedPlace(formatted_address as string);
                 setSelectedLocation(position);
-                if (position) {
-                    setMarker(position, name!);
-                }
             });
         }
-    }, [autoComplete, map, selectedPlace, updateFields])
+    }, [autoComplete])
 
+    useEffect(() => {
+        if (selectedPlace) {
+            updateFields({
+                address: selectedPlace
+            });
+        }
+        console.log(selectedPlace);
+
+    }, [selectedPlace, updateFields])
+
+    console.log(selectedPlace);
+    
     return (
 
         <div className="lg:col-span-2 col-span-12 flex flex-col justify-start items-start w-full h-full">
@@ -117,13 +91,13 @@ export default function Address({
                                     placeholder="enter building address here" type="text" />
 
                                 {address && <p>Address: {address}</p>}
-                                
-                                <div className="relative w-full h-[37.037vh] mt-[4.63vh]">
+
+                                {/* <div className="relative w-full h-[37.037vh] mt-[4.63vh]">
                                     {scriptLoaded ? <div style={{
                                         height: 300
                                     }} ref={mapRef}></div> : <p>Loading map...</p>}
-                                </div>
-
+                                </div> */}
+                                <CustomMap location={selectedLocation} />
                                 <div className="custom-checkbox mb-4 mt-10">
                                     <input id="tmp-4" type="checkbox" className="promoted-input-checkbox" value={1} checked={hasAddress} onChange={e => updateFields({ hasAddress: e.target.checked })} />
                                     <svg>

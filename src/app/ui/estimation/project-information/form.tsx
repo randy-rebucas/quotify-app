@@ -1,7 +1,7 @@
 'use client';
 
 import { FormEvent, useState } from "react";
-import { FormData, INITIAL_DATA } from "./entities";
+import { ProjectData, INITIAL_DATA } from "./entities";
 import Plan from "./steps/plan";
 import Address from "./steps/address";
 import Area from "./steps/area";
@@ -18,9 +18,9 @@ export default function Form({ menus }: { menus: any[] }) {
     const router = useRouter();
     const [isLoading, setIsLoading] = useState<boolean>(false)
     const [error, setError] = useState<string | null>(null)
-    const [data, setData] = useState<FormData>(INITIAL_DATA)
+    const [data, setData] = useState<ProjectData>(INITIAL_DATA)
 
-    function updateFields(fields: Partial<FormData>) {
+    function updateFields(fields: Partial<ProjectData>) {
         setData(prev => {
             return { ...prev, ...fields }
         })
@@ -40,31 +40,46 @@ export default function Form({ menus }: { menus: any[] }) {
         setIsLoading(true)
         setError(null) // Clear previous errors when a new request starts
         if (!isLastStep) return next()
-        console.log(data);
-        // try {
-        //     const response = await fetch('/api/projects', {
-        //         method: 'POST',
-        //         headers: {
-        //             'Accept': 'application/json',
-        //             'Content-Type': 'application/json',
-        //         },
-        //         body: JSON.stringify(data),
-        //     });
+        try {
+            // hasFloorPlan: boolean
+            // hasAddress: boolean
+            // isBaseOnHeadCount: boolean
 
-        //     if (!response.ok) {
-        //         throw new Error('Failed to submit the data. Please try again.')
-        //     }
+            const hasFloorPlan = data.hasFloorPlan ? true : false;
 
-        //     let projectResponse = await response.json();
+            const formData = new FormData();
+            formData.append('spaceName', data.spaceName);
+            formData.append('address', data.address);
+            formData.append('approximateSize', data.approximateSize);
+            formData.append('rentableArea', data.rentableArea);
+            formData.append('targetHeadCount', data.targetHeadCount);
+            formData.append('averageAttendance', data.averageAttendance);
+            formData.append('assignedSeat', data.assignedSeat);
+            for (let index = 0; index < data.floorPlans.length; index++) {
+                const element = data.floorPlans[index];        
+                formData.append(element.name, element);
+            }
+            console.log(Object.fromEntries(formData))
 
-        //     if (response.status === 200) {
-        //         router.push(`/estimation/area-breakdown/${projectResponse.id}`)
-        //     }
-        // } catch (error: any) {
-        //     setError(error.message)
-        // } finally {
-        //     setIsLoading(false) // Set loading to false when the request completes
-        // }
+            const response = await fetch('/api/projects', {
+                method: 'POST',
+                body: formData,
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to submit the data. Please try again.')
+            }
+
+            let projectResponse = await response.json();
+
+            if (response.status === 200) {
+                router.push(`/estimation/area-breakdown/${projectResponse.id}`)
+            }
+        } catch (error: any) {
+            setError(error.message)
+        } finally {
+            setIsLoading(false) // Set loading to false when the request completes
+        }
     }
 
     return (
@@ -100,7 +115,7 @@ export default function Form({ menus }: { menus: any[] }) {
                     </div>
                 </div>
             </div>
-            <form onSubmit={onSubmit} className="lg:col-span-4 col-span-12 h-full w-full overflow-y-scroll overflow-x-hidden">
+            <form onSubmit={onSubmit} className="lg:col-span-4 col-span-12 h-full w-full overflow-y-scroll overflow-x-hidden" encType="multipart/form-data">
                 {!isFirstStep && (
                     <div className="absolute top-0 left-0 flex flex-col items-end p-30">
                         <button type="button" onClick={back} className="focus:shadow-outline focus:outline-none">
