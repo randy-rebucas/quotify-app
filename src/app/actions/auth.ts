@@ -31,49 +31,54 @@ export async function signup(state: AuthFormState, formData: FormData) {
 
   const { email, password } = validatedFields.data;
 
-  // Call the provider or db to create a user...
-  connect();
+  try {
+    // Call the provider or db to create a user...
+    connect();
 
-  let authCheck = await Auth.find({}).exec();
+    let authCheck = await Auth.find({}).exec();
 
-  let authCheckEmail = await Auth.findOne({ email }).exec();
+    let authCheckEmail = await Auth.findOne({ email }).exec();
 
-  if (authCheckEmail) {
-    return {
-      message: "Email already exists, please login or use a different email.",
-    };
+    if (authCheckEmail) {
+      return {
+        message: "Email already exists, please login or use a different email.",
+      };
+    }
+
+    const salt = await bcrypt.genSalt(10);
+    const hash = await bcrypt.hash(password, salt);
+
+    const auth = new Auth({
+      email: email,
+      password: hash,
+    });
+    let authResponse = await auth.save();
+
+    const user = new User({
+      name: "sample",
+      email: email,
+      auth: authResponse._id,
+      roles: authCheck.length > 1 ? "user" : "admin",
+    });
+    let userResponse = await user.save();
+
+    if (!userResponse) {
+      return {
+        message: "An error occurred while creating your account.",
+      };
+    }
+
+    // TODO:
+    // 4. Create user session
+    await createSession(userResponse._id);
+
+    // 5. Redirect user
+    revalidatePath("/");
+    redirect("/");
+  } catch (error) {
+    console.log(error);
+    return;
   }
-
-  const salt = await bcrypt.genSalt(10);
-  const hash = await bcrypt.hash(password, salt);
-
-  const auth = new Auth({
-    email: email,
-    password: hash,
-  });
-  let authResponse = await auth.save();
-
-  const user = new User({
-    name: "sample",
-    email: email,
-    auth: authResponse._id,
-    roles: authCheck.length > 1 ? "user" : "admin",
-  });
-  let userResponse = await user.save();
-
-  if (!userResponse) {
-    return {
-      message: "An error occurred while creating your account.",
-    };
-  }
-
-  // TODO:
-  // 4. Create user session
-  await createSession(userResponse._id);
-
-  // 5. Redirect user
-  revalidatePath("/");
-  redirect("/");
 }
 
 export async function login(state: AuthFormState, formData: FormData) {
@@ -91,35 +96,41 @@ export async function login(state: AuthFormState, formData: FormData) {
 
   const { email, password } = validatedFields.data;
 
-  connect();
+  try {
+    connect();
 
-  let auth = await Auth.findOne({ email }).exec();
+    let auth = await Auth.findOne({ email }).exec();
 
-  if (!auth) {
-    return {
-      message: "Email not exists, Please register.",
-    };
+    if (!auth) {
+      return {
+        message: "Email not exists, Please register.",
+      };
+    }
+
+    let decrypted = await bcrypt.compare(password, auth.password);
+
+    if (!decrypted) {
+      return {
+        message: "Something went wrong. Incorrect password!",
+      };
+    }
+
+    let user = await User.findOne({ email }).exec();
+
+    if (!user) {
+      return {
+        message: "Something went wrong. Cannot find email: " + email + " list!",
+      };
+    }
+
+    createSession(user._id);
+    
+    revalidatePath("/file-management");
+    redirect("/file-management");
+  } catch (error) {
+    console.log(error);
+    return;
   }
-
-  let decrypted = await bcrypt.compare(password, auth.password);
-
-  if (!decrypted) {
-    return {
-      message: "Something went wrong. Incorrect password!",
-    };
-  }
-
-  let user = await User.findOne({ email }).exec();
-
-  if (!user) {
-    return {
-      message: "Something went wrong. Cannot find email: " + email + " list!",
-    };
-  }
-
-  createSession(user._id);
-  // revalidatePath("/file-management");
-  redirect("/file-management");
 }
 
 export async function logout() {
