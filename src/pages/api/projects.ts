@@ -1,25 +1,12 @@
-import { decrypt, getSession } from "@/app/actions/session";
+import type { NextApiRequest, NextApiResponse } from "next";
+import { decrypt } from "@/app/actions/session";
 import Project from "@/app/models/Project";
 import connect from "@/app/utils/db";
 import path from "path";
-
-import { writeFile } from "fs/promises";
-import type { NextApiRequest, NextApiResponse } from "next";
-import { cookies } from "next/headers";
 import { z } from "zod";
 import FloorPlan from "@/app/models/FloorPlan";
-import formidable, {
-  IncomingForm,
-  Fields,
-  Files,
-  Formidable,
-} from "formidable";
-import multer from "multer";
-import { request } from "http";
+import formidable, { File } from "formidable";
 import fs from "fs";
-import { revalidatePath } from "next/cache";
-import util from 'node:util';
-import os from 'node:os';
 
 const schema = z.object({
   id: z.string(),
@@ -40,6 +27,11 @@ export const config = {
   },
 };
 
+type FileProps = {
+  fieldName: string;
+  file: File;
+};
+
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
@@ -48,96 +40,82 @@ export default async function handler(
 
   switch (req.method) {
     case "POST":
-      var form = formidable({ uploadDir: __dirname });
-      // const file = form.get("file") as Blob | null;
-      // const [fields, files] = await form.parse(req);
-      const files: any[] = [];
+      const files: FileProps[] = [];
       const fields: { fieldName: string; value: string }[] = [];
 
+      const form = formidable({
+        uploadDir: __dirname,
+        multiples: true,
+        keepExtensions: true,
+      });
+      form.once("error", console.error);
       form
+        .on("fileBegin", (name, file) => {
+          console.log("start uploading: ", file.originalFilename);
+        })
         .on("field", (fieldName, value) => {
-          console.log(fieldName, value);
           fields.push({ fieldName, value });
         })
         .on("file", async (fieldName, file) => {
-          console.log(fieldName, file);
           files.push({ fieldName, file });
-          // const imageBuffer = Buffer.from(await file.arrayBuffer())
         })
-        .on("end", () => {
+        .on("end", async () => {
           console.log("-> upload done");
-          res.writeHead(200, { "Content-Type": "text/plain" });
-          res.write(`received fields:\n\n${util.inspect(fields)}`);
-          res.write("\n\n");
-          res.end(`received files:\n\n${util.inspect(files)}`);
         });
 
-      const data = form.parse(req);
-      // console.log(data);
+      await form.parse(req);
 
-      // const {
-      //   spaceName,
-      //   floorPlans,
-      //   hasFloorPlan,
-      //   address,
-      //   hasAddress,
-      //   approximateSize,
-      //   rentableArea,
-      //   targetHeadCount,
-      //   averageAttendance,
-      //   assignedSeat,
-      // } = req.body;
+      const session = await decrypt(req.cookies.session);
 
-      // const session = await decrypt(req.cookies.session);
-      // try {
-      //   const project = new Project({
-      //     spaceName: spaceName,
-      //     address: hasAddress ? address : null,
-      //     spaceSize: approximateSize,
-      //     rentableArea: rentableArea,
-      //     headCount: targetHeadCount,
-      //     averageOfficeAttendance: averageAttendance,
-      //     seatingPercentage: assignedSeat,
-      //     user: session?.userId,
-      //   });
+      const fieldMap = new Map();
+      fields.map((element: { fieldName: string; value: string }) =>
+        fieldMap.set(element.fieldName, element.value)
+      );
 
-      //   let data = await project.save();
+      const project = new Project({
+        spaceName: fieldMap.get("spaceName"),
+        address: fieldMap.get("address"),
+        spaceSize: fieldMap.get("approximateSize"),
+        rentableArea: fieldMap.get("rentableArea"),
+        headCount: fieldMap.get("targetHeadCount"),
+        averageOfficeAttendance: fieldMap.get("averageAttendance"),
+        seatingPercentage: fieldMap.get("assignedSeat"),
+        user: session?.userId,
+      });
 
-      //   if (!hasFloorPlan) {
+      let projectResponse = await project.save();
 
-      //     floorPlans.map(async (file: File) => {
-      //       //
-      //       // Convert the file data to a Buffer
-      //       const buffer = Buffer.from(await file.arrayBuffer());
+      const hasFloorPlan =
+        fieldMap.get("hasFloorPlan") === "true" ? true : false;
 
-      //       // Replace spaces in the file name with underscores
-      //       const filename = file.name.replaceAll(" ", "_");
-      //       console.log(filename);
+      if (!hasFloorPlan) {
+        files.map(async (element: FileProps) => {
+          const { fieldName, file } = element;
+          const oldPath = file.filepath;
+          const newPath = path.join(process.cwd(), "public/uploads", `${Date.now()}${file.originalFilename?.substring(
+            file.originalFilename?.lastIndexOf(".")
+          )}`);
+          fs.renameSync(oldPath, newPath);
+          
+          const floorPlan = new FloorPlan({
+            filename: file.originalFilename,
+            type: file.mimetype,
+            size: file.size,
+            path: newPath,
+            project: projectResponse._id,
+          });
 
-      //       const filePath = path.join(process.cwd(), "public/assets/" + filename);
-      //       // Write the file to the specified directory (public/assets) with the modified filename
-      //       await writeFile(
-      //         filePath,
-      //         buffer
-      //       );
+          await floorPlan.save();
+        });
+      }
 
-      //       const floorPlan = new FloorPlan({
-      //         filename: file.name,
-      //         type: file.type,
-      //         size: file.size,
-      //         path: filePath,
-      //         project: data._id
-      //       });
+      try {
+        res.status(200).json({ id: projectResponse._id });
+      } catch (e) {
+        console.error("Error while trying to upload a file\n", e);
+        res.status(500).json(e);
+      }
 
-      //       let floorplan = await floorPlan.save();
-      //     })
-      //   }
-
-      //   res.status(200).json({ id: data._id });
-      // } catch (err) {
-      //   console.log(err);
-      //   res.status(500).json(err);
-      // }
       break;
 
     default:
@@ -146,7 +124,7 @@ export default async function handler(
 
         res.status(200).json({ projects });
       } catch (err) {
-        res.status(500).json({ error: "failed to load data" });
+        res.status(500).json(err);
       }
       break;
   }

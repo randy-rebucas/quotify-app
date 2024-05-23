@@ -41,12 +41,6 @@ export default function Form({ menus }: { menus: any[] }) {
         setError(null) // Clear previous errors when a new request starts
         if (!isLastStep) return next()
         try {
-            // hasFloorPlan: boolean
-            // hasAddress: boolean
-            // isBaseOnHeadCount: boolean
-
-            const hasFloorPlan = data.hasFloorPlan ? true : false;
-
             const formData = new FormData();
             formData.append('spaceName', data.spaceName);
             formData.append('address', data.address);
@@ -55,8 +49,12 @@ export default function Form({ menus }: { menus: any[] }) {
             formData.append('targetHeadCount', data.targetHeadCount);
             formData.append('averageAttendance', data.averageAttendance);
             formData.append('assignedSeat', data.assignedSeat);
+            formData.append('hasFloorPlan', data.hasFloorPlan ? 'true' : 'false');
+            formData.append('hasAddress', data.hasAddress ? 'true' : 'false');
+            formData.append('isBaseOnHeadCount', data.isBaseOnHeadCount ? 'true' : 'false');
+
             for (let index = 0; index < data.floorPlans.length; index++) {
-                const element = data.floorPlans[index];        
+                const element = data.floorPlans[index];
                 formData.append(element.name, element);
             }
             console.log(Object.fromEntries(formData))
