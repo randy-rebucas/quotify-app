@@ -124,8 +124,7 @@ export async function login(state: AuthFormState, formData: FormData) {
     }
 
     createSession(user._id);
-    
-    revalidatePath("/file-management");
+
     redirect("/file-management");
   } catch (error) {
     console.log(error);
