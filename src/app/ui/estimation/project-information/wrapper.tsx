@@ -17,7 +17,7 @@ type FormWrapperProps = {
 }
 
 export default function Wrapper({ stepIndex, isLoading, project, updateFields, children }: FormWrapperProps) {
-    const { floorPlans } = project;
+    const { floorPlans, address } = project;
 
     return (
         <div className="js-step step active">
@@ -41,7 +41,7 @@ export default function Wrapper({ stepIndex, isLoading, project, updateFields, c
 
                     {/* only show if there is an address selected */}
                     {/* and only show on second step  */}
-                    {(stepIndex + 1) === 2 && <Address />}
+                    {(stepIndex + 1) === 2 && <Address address={address}/>}
 
                 </div>
                 <div className="p-30 w-full flex items-end justify-end">

@@ -1,15 +1,11 @@
-import { ChangeEventHandler, useEffect, useRef, useState } from "react";
-import { LatLong } from "../entities";
+import { useEffect, useRef, useState } from "react";
+import { Address as CustomAddress } from "../entities";
 import { useJsApiLoader } from '@react-google-maps/api';
-import { Library, Libraries } from '@googlemaps/js-api-loader';
+import { Libraries } from '@googlemaps/js-api-loader';
 import CustomMap from "../map";
-type Address = {
-    formated_address: string
-    location: any
-}
 
 type AddressData = {
-    address: string
+    address: CustomAddress
     hasAddress: boolean
 }
 
@@ -24,9 +20,6 @@ export default function Address({
     hasAddress,
     updateFields,
 }: AddressFormProps) {
-    const [selectedPlace, setSelectedPlace] = useState<string | null>(null);
-    const [selectedLocation, setSelectedLocation] = useState<google.maps.LatLng | undefined>();
-
     const [autoComplete, setAutoComplete] = useState<google.maps.places.Autocomplete | null>(null);
     const { isLoaded: scriptLoaded, loadError } = useJsApiLoader({
         id: 'google-map-script',
@@ -35,7 +28,6 @@ export default function Address({
     })
 
     const placeAutoCompleteRef = useRef<HTMLInputElement>(null);
-
 
     useEffect(() => {
         if (scriptLoaded) {
@@ -49,29 +41,20 @@ export default function Address({
         }
     }, [scriptLoaded])
 
-    useEffect(() => {
-        if (autoComplete) {
-            autoComplete.addListener('place_changed', () => {
-                const { formatted_address, geometry, name } = autoComplete.getPlace();
-                const position = geometry?.location;
-                setSelectedPlace(formatted_address as string);
-                setSelectedLocation(position);
-            });
-        }
-    }, [autoComplete])
 
-    useEffect(() => {
-        if (selectedPlace) {
+    if (autoComplete) {
+        autoComplete.addListener('place_changed', () => {
+            const { formatted_address, geometry, name } = autoComplete.getPlace();
+            const position = geometry?.location;
             updateFields({
-                address: selectedPlace
+                address: {
+                    place: formatted_address as string,
+                    location: position
+                }
             });
-        }
-        console.log(selectedPlace);
+        });
+    }
 
-    }, [selectedPlace, updateFields])
-
-    console.log(selectedPlace);
-    
     return (
 
         <div className="lg:col-span-2 col-span-12 flex flex-col justify-start items-start w-full h-full">
@@ -90,14 +73,8 @@ export default function Address({
                                     className="block border-b border-0 bg-transparent py-1 text-darkblue border-darkblue w-full outline-none "
                                     placeholder="enter building address here" type="text" />
 
-                                {address && <p>Address: {address}</p>}
+                                <CustomMap location={address.location} />
 
-                                {/* <div className="relative w-full h-[37.037vh] mt-[4.63vh]">
-                                    {scriptLoaded ? <div style={{
-                                        height: 300
-                                    }} ref={mapRef}></div> : <p>Loading map...</p>}
-                                </div> */}
-                                <CustomMap location={selectedLocation} />
                                 <div className="custom-checkbox mb-4 mt-10">
                                     <input id="tmp-4" type="checkbox" className="promoted-input-checkbox" value={1} checked={hasAddress} onChange={e => updateFields({ hasAddress: e.target.checked })} />
                                     <svg>

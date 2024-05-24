@@ -1,8 +1,13 @@
+export type Address = {
+    place: string;
+    location: google.maps.LatLng | undefined
+}
+
 export type ProjectData = {
     spaceName: string
     floorPlans: any[]
     hasFloorPlan: boolean
-    address: string
+    address: Address
     hasAddress: boolean
     approximateSize: string
     rentableArea: string
@@ -16,7 +21,10 @@ export const INITIAL_DATA: ProjectData = {
     spaceName: "",
     floorPlans: [],
     hasFloorPlan: false,
-    address: '',
+    address: {
+        place: '',
+        location: undefined
+    },
     hasAddress: false,
     approximateSize: '3000',
     rentableArea: '3000',
