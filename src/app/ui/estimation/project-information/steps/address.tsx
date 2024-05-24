@@ -71,7 +71,7 @@ export default function Address({
 
                                 <input id="map-search" ref={placeAutoCompleteRef}
                                     className="block border-b border-0 bg-transparent py-1 text-darkblue border-darkblue w-full outline-none "
-                                    placeholder="enter building address here" type="text" />
+                                    placeholder="enter building address here" type="text"/>
 
                                 <CustomMap location={address.location} />
 

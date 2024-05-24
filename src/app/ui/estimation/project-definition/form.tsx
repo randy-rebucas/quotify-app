@@ -9,17 +9,19 @@ import { pieColors, pieData } from "../../data";
 import PieChartData from "../pie-chart-data";
 import { useRouter } from "next/navigation";
 
-export default function Form({ project_id }: { project_id: string }) {
+export default function Form({ project }: { project: any }) {
     const router = useRouter();
+
     const download = () => { }
 
     const share = () => { }
 
     function onSubmit(e: FormEvent) {
         e.preventDefault()
-        router.push(`/estimation/requirement/${project_id}`)
+        router.push(`/estimation/requirement/${project._id}`)
     }
     
+    console.log(project);
     return (
         <form onSubmit={onSubmit} className="col-span-4 row-span-2 h-full w-full overflow-y-scroll overflow-x-hidden">
             <div className="grid grid-cols-4 h-full">
@@ -64,10 +66,10 @@ export default function Form({ project_id }: { project_id: string }) {
                                         </iframe>
                                         <div className="mt-[15px] max-w-[150px] text-black font-latolight">
                                             <strong className="font-latobold">Mmoser - Vancouver office</strong>
-                                            510 W Hastings St.
+                                            <p>510 W Hastings St.
                                             Suite 1300
                                             Vancouver, BC
-                                            V6B 1L8
+                                            V6B 1L8</p>
                                         </div>
                                     </div>
                                     <div className="col-span-1 flex flex-col justify-end h-full">
@@ -77,19 +79,19 @@ export default function Form({ project_id }: { project_id: string }) {
                                                     <div className="flex pb-1">
                                                         <div className="text-[14px]">space size</div>
                                                     </div>
-                                                    <div className="font-latobold text-[24px]">10,000 sqft</div>
+                                                    <div className="font-latobold text-[24px]">{Number(project.spaceSize).toLocaleString()} sqft</div>
                                                 </li>
                                                 <li className="font-latolight pb-2 mb-3">
                                                     <div className="flex pb-1">
                                                         <div className="text-[14px]">rentable area</div>
                                                     </div>
-                                                    <div className="font-latobold text-[24px]">5,000 sqft</div>
+                                                    <div className="font-latobold text-[24px]">{Number(project.rentableArea).toLocaleString()} sqft</div>
                                                 </li>
                                                 <li className="font-latolight pb-2 mb-3">
                                                     <div className="flex pb-1">
                                                         <div className="text-[14px]">target headcount</div>
                                                     </div>
-                                                    <div className="font-latobold text-[24px]">420</div>
+                                                    <div className="font-latobold text-[24px]">{project.headCount}</div>
                                                 </li>
                                                 <li className="font-latolight pb-2 mb-3">
                                                     <div className="flex pb-1">

@@ -5,6 +5,7 @@ import { IOffice } from "./Office";
 // 1. Create an interface representing a document in MongoDB.
 export interface IProject {
   spaceName: string;
+  address: string;
   spaceSize: Types.Decimal128;
   rentableArea: Types.Decimal128;
   headCount: string;
@@ -17,6 +18,7 @@ export interface IProject {
 // 2. Create a Schema corresponding to the document interface.
 const projectSchema = new Schema<IProject>({
   spaceName: { type: String, unique: true, required: true },
+  address: { type: String, required: true },
   spaceSize: { type: Schema.Types.Decimal128, required: true },
   rentableArea: { type: Schema.Types.Decimal128, required: true },
   headCount: { type: String, required: true },

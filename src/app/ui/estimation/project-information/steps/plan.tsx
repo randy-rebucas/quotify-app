@@ -42,7 +42,7 @@ export default function Plan({
                             <div className="mt-[9.259vh] w-full">
                                 <input
                                     className="block border-b border-0 bg-transparent py-1 text-darkblue border-darkblue w-full outline-none "
-                                    placeholder="give you a space name" type="text" value={spaceName} onChange={e => updateFields({ spaceName: e.target.value })} autoFocus />
+                                    placeholder="give you a space name" type="text" value={spaceName} onChange={e => updateFields({ spaceName: e.target.value })} autoFocus required/>
 
                                 <p className="pt-[5.926vh]">To be able to define areas and square
                                     footage in future sections, start by uploading your floorplans.</p>

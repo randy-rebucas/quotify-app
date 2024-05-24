@@ -119,7 +119,7 @@ export default function Area({
                                     className="text-sm text-gray-500 dark:text-gray-400 absolute end-0 -bottom-3">300,000
                                     sqft</span>
                             </div>
-                            <div className="mt-[3.704vh] font-latobold text-[30px]"><span>{rentableArea}</span> sqft</div>
+                            <div className="mt-[3.704vh] font-latobold text-[30px]"><span>{Number(rentableArea).toLocaleString()}</span> sqft</div>
                         </div>
                     </div>
                 </div>

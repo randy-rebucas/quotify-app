@@ -58,7 +58,6 @@ export default async function handler(
         fieldMap.set(element.fieldName, element.value)
       );
 
-      console.log(fieldMap.get("address"));
       const project = new Project({
         spaceName: fieldMap.get("spaceName"),
         address: fieldMap.get("address"),
