@@ -31,11 +31,12 @@ export default function Area({
                                     <p>what is the approximate size of your new space?</p>
 
                                     <div className="flex flex-col items-start justify-center w-full">
-                                        <div className="custom-range-slider mt-[5.556vh]">
+                                        <div className="custom-range-slider mt-[5.556vh] relative w-full">
                                             {/* value="3000" */}
                                             <input id="small-range" type="range"
-                                                min="1000"
-                                                max="300000"
+                                                min={1000}
+                                                max={300000}
+                                                step={1000}
                                                 value={approximateSize} onChange={e => updateFields({ approximateSize: e.target.value })}
                                                 className="w-full h-1 mb-6 bg-gray-200 rounded-lg appearance-none cursor-pointer range-sm dark:bg-gray-700" />
                                             <span
@@ -45,11 +46,11 @@ export default function Area({
                                                 className="text-sm text-gray-500 dark:text-gray-400 absolute end-0 -bottom-3">300,000
                                                 sqft</span>
                                         </div>
-                                        <div className="mt-[3.704vh] font-latobold text-[30px]"><span>300,000</span> sqft</div>
+                                        <div className="mt-[3.704vh] font-latobold text-[30px]"><span>{Number(approximateSize).toLocaleString()}</span> sqft</div>
                                     </div>
 
                                     <div className="custom-checkbox mb-4 mt-[21.204vh]">
-                                        <input id="tmp-5" type="checkbox" className="promoted-input-checkbox" value={1} checked={isBaseOnHeadCount} onChange={e => updateFields({ isBaseOnHeadCount: e.target.checked })}/>
+                                        <input id="tmp-5" type="checkbox" className="promoted-input-checkbox" value={1} checked={isBaseOnHeadCount} onChange={e => updateFields({ isBaseOnHeadCount: e.target.checked })} />
                                         <svg>
                                             <use href="#checkmark-5" xlinkHref="#checkmark-5" />
                                         </svg>
@@ -65,7 +66,7 @@ export default function Area({
                                         </svg>
                                     </div>
                                 </div>
-                                
+
                             </div>
                         </div>
                     </div>
@@ -103,11 +104,12 @@ export default function Area({
                         <p>what is the rentable area square footage?</p>
 
                         <div className="flex flex-col items-start justify-center w-full">
-                            <div className="custom-range-slider mt-[5.556vh]">
+                            <div className="custom-range-slider mt-[5.556vh] relative w-full">
                                 {/* value="3000" */}
                                 <input id="small-range" type="range"
-                                    min="1000"
-                                    max="300000"
+                                    min={1000}
+                                    max={300000}
+                                    step={1000}
                                     value={rentableArea} onChange={e => updateFields({ rentableArea: e.target.value })}
                                     className="w-full h-1 mb-6 bg-gray-200 rounded-lg appearance-none cursor-pointer range-sm dark:bg-gray-700" />
                                 <span
@@ -117,7 +119,7 @@ export default function Area({
                                     className="text-sm text-gray-500 dark:text-gray-400 absolute end-0 -bottom-3">300,000
                                     sqft</span>
                             </div>
-                            <div className="mt-[3.704vh] font-latobold text-[30px]"><span>200,000</span> sqft</div>
+                            <div className="mt-[3.704vh] font-latobold text-[30px]"><span>{rentableArea}</span> sqft</div>
                         </div>
                     </div>
                 </div>

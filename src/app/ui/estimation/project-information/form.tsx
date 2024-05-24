@@ -42,7 +42,7 @@ export default function Form({ menus }: { menus: any[] }) {
         try {
             const formData = new FormData();
             formData.append('spaceName', data.spaceName);
-            formData.append('address', data.address);
+            formData.append('address', data.address.place);
             formData.append('approximateSize', data.approximateSize);
             formData.append('rentableArea', data.rentableArea);
             formData.append('targetHeadCount', data.targetHeadCount);
