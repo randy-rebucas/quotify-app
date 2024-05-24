@@ -3,23 +3,9 @@ import { decrypt } from "@/app/actions/session";
 import Project from "@/app/models/Project";
 import connect from "@/app/utils/db";
 import path from "path";
-import { z } from "zod";
 import FloorPlan from "@/app/models/FloorPlan";
 import formidable, { File } from "formidable";
 import fs from "fs";
-
-const schema = z.object({
-  id: z.string(),
-  space_name: z.string().trim(),
-  has_floor_plan: z.boolean(),
-  has_address: z.boolean(),
-  approximate_size: z.number(),
-  rentable_area: z.number(),
-  is_base_on_head_count: z.string(),
-  target_head_count: z.string(),
-  average_attendance: z.string(),
-  assigned_seat: z.string(),
-});
 
 export const config = {
   api: {

@@ -5,14 +5,20 @@ import clsx from "clsx";
 import DropzoneUploadedFile from "./results/dropzone-uploaded-file";
 import Address from "./results/address";
 import Tooltip from "../../tooltip";
+import { ProjectData } from "./entities";
+import { PlanData } from "./steps/plan";
 
 type FormWrapperProps = {
     stepIndex: number;
     isLoading: boolean;
+    project: ProjectData;
+    updateFields: (fields: Partial<PlanData>) => void
     children: ReactNode
 }
 
-export default function Wrapper({ stepIndex, isLoading , children }: FormWrapperProps) {
+export default function Wrapper({ stepIndex, isLoading, project, updateFields, children }: FormWrapperProps) {
+    const { floorPlans } = project;
+
     return (
         <div className="js-step step active">
 
@@ -30,7 +36,7 @@ export default function Wrapper({ stepIndex, isLoading , children }: FormWrapper
                 <div className="flex flex-col justify-start items-end w-full h-full">
                     {/* only show if there is an uploaded file */}
                     {/* and only on first step  */}
-                    {(stepIndex + 1) === 1 && <DropzoneUploadedFile />}
+                    {(stepIndex + 1) === 1 && <DropzoneUploadedFile floorPlans={floorPlans} updateFields={updateFields}/>}
 
 
                     {/* only show if there is an address selected */}

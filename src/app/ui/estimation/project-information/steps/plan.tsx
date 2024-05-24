@@ -1,7 +1,6 @@
-import { useState } from "react"
 import Upload from "../upload"
 
-type PlanData = {
+export type PlanData = {
     spaceName: string;
     floorPlans: any[];
     hasFloorPlan: boolean;
@@ -27,10 +26,6 @@ export default function Plan({
             }
         }
     }
-    console.log(floorPlans);
-    const removeFile = (idx: number) => {
-        updateFields({ floorPlans: floorPlans.filter((file: any, id: number) => id !== idx) });
-    }
 
     return (
 
@@ -54,20 +49,6 @@ export default function Plan({
 
                                 <Upload onChange={handleChange} />
 
-                                {/* uploaded files  */}
-                                <div className="flex flex-col p-3">
-                                    {floorPlans.map((file: any, index: any) => (
-                                        <div key={index} className="flex flex-row justify-between space-x-5">
-                                            <span>{file.name}</span>
-                                            <span
-                                                className="text-red-500 cursor-pointer"
-                                                onClick={() => removeFile(index)}
-                                            >
-                                                remove
-                                            </span>
-                                        </div>
-                                    ))}
-                                </div>
                                 <div className="custom-checkbox mb-4 mt-2">
                                     <input id="tmp-1" type="checkbox" className="promoted-input-checkbox" value={1} checked={hasFloorPlan} onChange={e => updateFields({ hasFloorPlan: e.target.checked })} />
                                     <svg>
@@ -91,4 +72,8 @@ export default function Plan({
             </div>
         </div>
     )
+}
+
+function setProjectFloorPlans() {
+    throw new Error("Function not implemented.");
 }

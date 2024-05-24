@@ -1,8 +1,3 @@
-type Address = {
-    formated_address: string
-    location: any
-}
-
 export type ProjectData = {
     spaceName: string
     floorPlans: any[]

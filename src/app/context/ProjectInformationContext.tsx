@@ -3,59 +3,36 @@
 import { createContext, Dispatch, ReactNode, SetStateAction, useState } from "react";
 
 
-export type ProjectInformation = {
-  spaceName: string
-  hasFloorPlan: boolean
-  address: string
-  hasAddress: boolean
-  approximateSize: string
-  rentableArea: string
-  isBaseOnHeadCount: boolean
-  targetHeadCount: string
-  averageAttendance: string
-  assignedSeat: string
+export type ProjectFloorPlans = {
+  floorPlan: any[]
 }
 
-export interface ProjectInformationContextInterface {
-  projectInformation: ProjectInformation,
-  setProjectInformation: Dispatch<SetStateAction<ProjectInformation>>
+export interface ProjectFloorPlanContextInterface {
+  projectFloorPlans: ProjectFloorPlans,
+  setProjectFloorPlans: Dispatch<SetStateAction<ProjectFloorPlans>>
 }
 
 const defaultState = {
-  projectInformation: {
-    spaceName: "",
-    hasFloorPlan: false,
-    address: "",
-    hasAddress: false,
-    approximateSize: '3000',
-    rentableArea: '3000',
-    isBaseOnHeadCount: false,
-    targetHeadCount: "",
-    averageAttendance: "",
-    assignedSeat: "30"
+  projectFloorPlans: {
+    floorPlan: [],
   },
-  setProjectInformation: (projectInformation: ProjectInformation) => { }
-} as ProjectInformationContextInterface
+  setProjectFloorPlans: (projectFloorPlans: ProjectFloorPlans) => { }
+} as ProjectFloorPlanContextInterface
 
-export const ProjectInformationContext = createContext(defaultState);
+export const ProjectFloorPlanContext = createContext(defaultState);
 
-export const ProjectInformationContextProvider = ({
+export const ProjectFloorPlanContextProvider = ({
   children,
 }: {
   children: ReactNode;
 }) => {
-  const [projectInformation, setProjectInformation] = useState<ProjectInformation>({
-    spaceName: "",
-    hasFloorPlan: false,
-    address: "",
-    hasAddress: false,
-    approximateSize: '3000',
-    rentableArea: '3000',
-    isBaseOnHeadCount: false,
-    targetHeadCount: "",
-    averageAttendance: "",
-    assignedSeat: "30"
+  const [projectFloorPlans, setProjectFloorPlans] = useState<ProjectFloorPlans>({
+    floorPlan: [],
   })
 
-  return <ProjectInformationContext.Provider value={{ projectInformation, setProjectInformation }}>{children}</ProjectInformationContext.Provider>;
+  return (
+    <ProjectFloorPlanContext.Provider value={{ projectFloorPlans, setProjectFloorPlans }}>
+      {children}
+    </ProjectFloorPlanContext.Provider>
+  );
 };

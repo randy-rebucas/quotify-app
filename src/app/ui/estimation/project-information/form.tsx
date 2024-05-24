@@ -9,10 +9,9 @@ import HeadCount from "./steps/head-count";
 import { useMultistepForm } from "@/app/hooks/useMultistepForm";
 import Wrapper from "./wrapper";
 import clsx from "clsx";
-import { redirect, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { v4 as uuid } from 'uuid'
-import { createProject } from "@/app/actions/project";
-import { useFormState } from "react-dom";
+import { ProjectFloorPlanContextProvider } from "@/app/context/ProjectInformationContext";
 
 export default function Form({ menus }: { menus: any[] }) {
     const router = useRouter();
@@ -57,7 +56,6 @@ export default function Form({ menus }: { menus: any[] }) {
                 const element = data.floorPlans[index];
                 formData.append(element.name, element);
             }
-            console.log(Object.fromEntries(formData))
 
             const response = await fetch('/api/projects', {
                 method: 'POST',
@@ -80,8 +78,9 @@ export default function Form({ menus }: { menus: any[] }) {
         }
     }
 
+    console.log(data);
     return (
-        <>
+        <ProjectFloorPlanContextProvider>
             <div className="flex flex-col justify-start items-start w-full h-full">
                 <div className="h-full">
 
@@ -124,11 +123,11 @@ export default function Form({ menus }: { menus: any[] }) {
                     </div>
                 )}
 
-                <Wrapper stepIndex={currentStepIndex} isLoading={isLoading}>
+                <Wrapper stepIndex={currentStepIndex} isLoading={isLoading} project={data} updateFields={updateFields}>
                     {error && <div style={{ color: 'red' }}>{error}</div>}
                     {step}
                 </Wrapper>
             </form>
-        </>
+        </ProjectFloorPlanContextProvider>
     )
 }
