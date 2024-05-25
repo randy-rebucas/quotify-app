@@ -11,6 +11,7 @@ export interface IProject {
   headCount: string;
   averageOfficeAttendance: string;
   seatingPercentage: Types.Decimal128;
+  isCompleted: boolean;
   user: Types.ObjectId | IUser;
   _id?: Types.ObjectId;
 }
@@ -24,6 +25,7 @@ const projectSchema = new Schema<IProject>({
   headCount: { type: String, required: true },
   averageOfficeAttendance: { type: String, required: true },
   seatingPercentage: { type: Schema.Types.Decimal128, required: true },
+  isCompleted: { type: Schema.Types.Boolean, default: false },
   user: { type: Schema.Types.ObjectId, ref: "Users", required: true },
 });
 

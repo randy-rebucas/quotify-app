@@ -66,10 +66,7 @@ export default function Form({ project }: { project: any }) {
                                         </iframe>
                                         <div className="mt-[15px] max-w-[150px] text-black font-latolight">
                                             <strong className="font-latobold">Mmoser - Vancouver office</strong>
-                                            <p>510 W Hastings St.
-                                            Suite 1300
-                                            Vancouver, BC
-                                            V6B 1L8</p>
+                                            <p>{project.address}</p>
                                         </div>
                                     </div>
                                     <div className="col-span-1 flex flex-col justify-end h-full">

@@ -34,13 +34,11 @@ export default function Wrapper({ stepIndex, isLoading, project, updateFields, c
                 <Tooltip />
 
                 <div className="flex flex-col justify-start items-end w-full h-full">
-                    {/* only show if there is an uploaded file */}
-                    {/* and only on first step  */}
+
                     {(stepIndex + 1) === 1 && <DropzoneUploadedFile floorPlans={floorPlans} updateFields={updateFields}/>}
 
 
-                    {/* only show if there is an address selected */}
-                    {/* and only show on second step  */}
+
                     {(stepIndex + 1) === 2 && <Address address={address}/>}
 
                 </div>

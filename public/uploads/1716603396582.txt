@@ -1,0 +1,1 @@
+User::role(UserTypeEnum::SUPER_ADMIN)->GET()

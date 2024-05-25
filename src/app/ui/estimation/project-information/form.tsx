@@ -11,7 +11,7 @@ import Wrapper from "./wrapper";
 import clsx from "clsx";
 import { useRouter } from "next/navigation";
 import { v4 as uuid } from 'uuid'
-import { ProjectFloorPlanContextProvider } from "@/app/context/ProjectInformationContext";
+
 
 export default function Form({ menus }: { menus: any[] }) {
     const router = useRouter();
@@ -80,7 +80,7 @@ export default function Form({ menus }: { menus: any[] }) {
 
     console.log(data);
     return (
-        <ProjectFloorPlanContextProvider>
+        <>
             <div className="flex flex-col justify-start items-start w-full h-full">
                 <div className="h-full">
 
@@ -124,10 +124,10 @@ export default function Form({ menus }: { menus: any[] }) {
                 )}
 
                 <Wrapper stepIndex={currentStepIndex} isLoading={isLoading} project={data} updateFields={updateFields}>
-                    {error && <div style={{ color: 'red' }}>{error}</div>}
+                    {/* {error && <div style={{ color: 'red' }}>{error}</div>} */}
                     {step}
                 </Wrapper>
             </form>
-        </ProjectFloorPlanContextProvider>
+        </>
     )
 }

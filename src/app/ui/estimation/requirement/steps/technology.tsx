@@ -29,7 +29,7 @@ export default function Technology({
                 <div data-col={index + 1} key={finish.id}
                     className={`js-select-option col-start-${index + 1} row-start-2 col-span-1 flex flex-col justify-between items-start w-full h-full`}>
                     <div className="p-30 estimation">
-                        <input type="radio" name="finish" value={finish.slug} id={`finish-${index + 1}`} onChange={e => handleRadioChange(index, e)} />
+                        <input type="radio" name="finish" value={finish.slug} id={`finish-${index + 1}`} onChange={e => handleRadioChange(index, e)} checked={stimates[tabiIndex].requirement.technology == finish.slug}/>
                         <label htmlFor={`finish-${index + 1}`}>
                             <Image
                                 src={finish.image}

@@ -14,6 +14,7 @@ export default function Area({
     isBaseOnHeadCount,
     updateFields
 }: AreaFormProps) {
+    
     return (
         <>
             <div className="lg:col-span-2 col-span-12 flex flex-col justify-start items-start w-full h-full">

@@ -1,7 +1,7 @@
+
 import { fetchEstimatesByProjectId, fetchEstimatesBySection, fetchProject } from "@/app/lib/data";
-import Actions from "@/app/ui/estimation/estimate-summary/actions";
 import Column from "@/app/ui/estimation/estimate-summary/column";
-import Form from "@/app/ui/estimation/estimate-summary/form";
+import Detail from "@/app/ui/estimation/estimate-summary/detail";
 import IntroWrapper from "@/app/ui/estimation/intro-wrapper";
 import MainWrapper from "@/app/ui/estimation/main-wrapper";
 import Popup from "@/app/ui/estimation/popup";
@@ -22,11 +22,12 @@ export default async function Page({ params }: { params: { id: string } }) {
 
     const estimateRequirements = await fetchEstimatesBySection(id, 'requirement');
     const estimateRefinements = await fetchEstimatesBySection(id, 'refinements');
-    // console.log(estimateRequirements);
-    console.log(estimates);
+
+    console.log(project);
     const introductionColors: string[] = ['bg-red1', 'bg-red2', 'bg-red3', 'bg-red4', 'bg-red5'];
 
     const mainColors: string[] = ['bg-gray2A', 'bg-gray3A', 'bg-gray4A', 'bg-white', 'bg-red'];
+    
 
     return (
         <div className="wrapper theme theme-red">
@@ -59,25 +60,7 @@ export default async function Page({ params }: { params: { id: string } }) {
                 <div className="js-main-column lg:col-start-5 flex flex-col justify-start items-start w-full h-full overflow-y-scroll">
                     <div className="estimation-col w-full h-full">
                         <div className="p-30 flex flex-col justify-between relative z-10 w-full h-full">
-                            <div className="pt-[52px]">
-
-                                <h2 className="font-bold font-latoblack xl:text-4xl md:text-3xl text-2xl text-white mb-10">
-                                    Project<br />{project.spaceName}</h2>
-
-                                <div className="file__border bg-white"></div>
-
-                                <div className="text-white mt-4 pt-2">
-                                    510 W Hastings St.<br />
-                                    Suite 1300<br />
-                                    Vancouver, BC<br />
-                                    V6B 1L8
-                                </div>
-
-                                <div className="text-white mt-2 pt-[44px]">
-                                    <Form />
-                                </div>
-                            </div>
-                            <Actions />
+                            <Detail project={project}/>
                         </div>
                     </div>
                 </div>
@@ -97,7 +80,7 @@ export default async function Page({ params }: { params: { id: string } }) {
                                     <path d="M6.15878 12.3176C2.74777 12.3176 0 9.5698 0 6.15878C0 2.74777 2.74777 0 6.15878 0C9.5698 0 12.3176 2.74777 12.3176 6.15878C12.3176 9.5698 9.5698 12.3176 6.15878 12.3176ZM6.15878 0.947505C3.26889 0.947505 0.947505 3.26889 0.947505 6.15878C0.947505 9.04868 3.26889 11.3701 6.15878 11.3701C9.04868 11.3701 11.3701 9.04868 11.3701 6.15878C11.3701 3.26889 9.04868 0.947505 6.15878 0.947505Z" fill="#505050" />
                                     <path d="M10.7461 10.0732L15.0004 14.3275L14.3305 14.9974L10.0762 10.7431L10.7461 10.0732Z" fill="#505050" />
                                 </svg>
-                                <input className="pl-[50px] w-full bg-black bg-opacity-10 !text-[#505050] placeholder:!text-[#505050] p-[15px] outline-none border-none" value="" placeholder="search" />
+                                <input className="pl-[50px] w-full bg-black bg-opacity-10 !text-[#505050] placeholder:!text-[#505050] p-[15px] outline-none border-none" value="" readOnly placeholder="search" />
                             </div>
                         </Column>
 
@@ -114,7 +97,7 @@ export default async function Page({ params }: { params: { id: string } }) {
                                     <path d="M6.15878 12.3176C2.74777 12.3176 0 9.5698 0 6.15878C0 2.74777 2.74777 0 6.15878 0C9.5698 0 12.3176 2.74777 12.3176 6.15878C12.3176 9.5698 9.5698 12.3176 6.15878 12.3176ZM6.15878 0.947505C3.26889 0.947505 0.947505 3.26889 0.947505 6.15878C0.947505 9.04868 3.26889 11.3701 6.15878 11.3701C9.04868 11.3701 11.3701 9.04868 11.3701 6.15878C11.3701 3.26889 9.04868 0.947505 6.15878 0.947505Z" fill="#505050" />
                                     <path d="M10.7461 10.0732L15.0004 14.3275L14.3305 14.9974L10.0762 10.7431L10.7461 10.0732Z" fill="#505050" />
                                 </svg>
-                                <input className="pl-[50px] w-full bg-black bg-opacity-10 !text-[#505050] placeholder:!text-[#505050] p-[15px] outline-none border-none" value="" placeholder="search" />
+                                <input className="pl-[50px] w-full bg-black bg-opacity-10 !text-[#505050] placeholder:!text-[#505050] p-[15px] outline-none border-none" value="" readOnly placeholder="search" />
                             </div>
                         </Column>
 
@@ -131,7 +114,7 @@ export default async function Page({ params }: { params: { id: string } }) {
                                     <path d="M6.15878 12.3176C2.74777 12.3176 0 9.5698 0 6.15878C0 2.74777 2.74777 0 6.15878 0C9.5698 0 12.3176 2.74777 12.3176 6.15878C12.3176 9.5698 9.5698 12.3176 6.15878 12.3176ZM6.15878 0.947505C3.26889 0.947505 0.947505 3.26889 0.947505 6.15878C0.947505 9.04868 3.26889 11.3701 6.15878 11.3701C9.04868 11.3701 11.3701 9.04868 11.3701 6.15878C11.3701 3.26889 9.04868 0.947505 6.15878 0.947505Z" fill="#505050" />
                                     <path d="M10.7461 10.0732L15.0004 14.3275L14.3305 14.9974L10.0762 10.7431L10.7461 10.0732Z" fill="#505050" />
                                 </svg>
-                                <input className="pl-[50px] w-full bg-black bg-opacity-10 !text-[#505050] placeholder:!text-[#505050] p-[15px] outline-none border-none" value="" placeholder="search" />
+                                <input className="pl-[50px] w-full bg-black bg-opacity-10 !text-[#505050] placeholder:!text-[#505050] p-[15px] outline-none border-none" value="" readOnly placeholder="search" />
                             </div>
                         </Column>
 
@@ -148,7 +131,7 @@ export default async function Page({ params }: { params: { id: string } }) {
                                     <path d="M6.15878 12.3176C2.74777 12.3176 0 9.5698 0 6.15878C0 2.74777 2.74777 0 6.15878 0C9.5698 0 12.3176 2.74777 12.3176 6.15878C12.3176 9.5698 9.5698 12.3176 6.15878 12.3176ZM6.15878 0.947505C3.26889 0.947505 0.947505 3.26889 0.947505 6.15878C0.947505 9.04868 3.26889 11.3701 6.15878 11.3701C9.04868 11.3701 11.3701 9.04868 11.3701 6.15878C11.3701 3.26889 9.04868 0.947505 6.15878 0.947505Z" fill="#505050" />
                                     <path d="M10.7461 10.0732L15.0004 14.3275L14.3305 14.9974L10.0762 10.7431L10.7461 10.0732Z" fill="#505050" />
                                 </svg>
-                                <input className="pl-[50px] w-full bg-black bg-opacity-10 !text-[#505050] placeholder:!text-[#505050] p-[15px] outline-none border-none" value="" placeholder="search" />
+                                <input className="pl-[50px] w-full bg-black bg-opacity-10 !text-[#505050] placeholder:!text-[#505050] p-[15px] outline-none border-none" value="" readOnly placeholder="search" />
                             </div>
                         </Column>
 

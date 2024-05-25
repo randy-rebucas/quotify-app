@@ -9,9 +9,10 @@ export default function DropzoneUploadedFile({ floorPlans, updateFields }: { flo
   }
 
   const isImageType = ['image/jpeg', 'image/jpg', 'image/png'];
+
   return (
     <>
-      {floorPlans.length && <div className="mt-[30.833vh] px-30 w-full">
+      <div className="mt-[30.833vh] px-30 w-full">
         <div className="dropzone-uploads">
           <p className="text-darkblue font-latobold">my floorplans</p>
           <div className="flex flex-col gap-3 mt-10">
@@ -29,19 +30,10 @@ export default function DropzoneUploadedFile({ floorPlans, updateFields }: { flo
                   remove
                 </span>
               </div>
-              // <div key={idx} className="flex flex-row space-x-5">
-              //   <span>{file.name}</span>
-              //   <span
-              //     className="text-red-500 cursor-pointer"
-              //     onClick={() => removeFile(idx)}
-              //   >
-              //     remove
-              //   </span>
-              // </div>
             ))}
           </div>
         </div>
-      </div>}
+      </div>
     </>
   );
 }

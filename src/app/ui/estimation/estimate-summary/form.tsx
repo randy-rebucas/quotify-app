@@ -1,8 +1,9 @@
 'use client';
 
 import Image from "next/image";
+import { useState } from "react";
 
-export default function Form() {
+export default function Form({ isEdit, project }: { isEdit: boolean, project: any }) {
 
     return (
         <form className="main-form">
@@ -17,8 +18,8 @@ export default function Form() {
                         />
                         <div className="pl-2 text-[14px]">space size</div>
                     </div>
-                    <label className="font-latobold text-[24px]">10,000 sqft</label>
-                    <input className="hidden px-[10px] py-[5px]" value="10,0000" onChange={e => console.log(e.target.value)} name="space-size" />
+                    {!isEdit && <label className="font-latobold text-[24px]">{Number(project.spaceSize).toLocaleString()} sqft</label>}
+                    {isEdit && <input type="text" className="px-[10px] py-[5px] text-black" value={project.spaceSize} onChange={e => console.log(e.target.value)} name="space-size" />}
                 </li>
                 <li className="font-latolight pb-2 mb-3">
                     <div className="flex pb-1">
@@ -30,8 +31,8 @@ export default function Form() {
                         />
                         <div className="pl-2 text-[14px]">rentable area</div>
                     </div>
-                    <label className="font-latobold text-[24px]">5,000 sqft</label>
-                    <input className="hidden px-[10px] py-[5px]" value="5,0000" onChange={e => console.log(e.target.value)} name="rentable-area" />
+                    {!isEdit && <label className="font-latobold text-[24px]">{Number(project.rentableArea).toLocaleString()} sqft</label>}
+                    {isEdit && <input type="text" className="px-[10px] py-[5px] text-black" value={project.rentableArea} onChange={e => console.log(e.target.value)} name="rentable-area" />}
                 </li>
                 <li className="font-latolight pb-2 mb-3">
                     <div className="flex pb-1">
@@ -43,8 +44,8 @@ export default function Form() {
                         />
                         <div className="pl-2 text-[14px]">target headcount</div>
                     </div>
-                    <label className="font-latobold text-[24px]">420</label>
-                    <input className="hidden px-[10px] py-[5px]" value="420" onChange={e => console.log(e.target.value)} name="target-headcount" />
+                    {!isEdit && <label className="font-latobold text-[24px]">{project.headCount}</label>}
+                    {isEdit && <input type="text" className=" px-[10px] py-[5px] text-black" value={project.headCount} onChange={e => console.log(e.target.value)} name="target-headcount" />}
                 </li>
                 <li className="font-latolight pb-2 mb-3">
                     <div className="flex pb-1">
@@ -56,8 +57,8 @@ export default function Form() {
                         />
                         <div className="pl-2 text-[14px]">workspace assigned</div>
                     </div>
-                    <label className="font-latobold text-[24px]">25%</label>
-                    <input className="hidden px-[10px] py-[5px]" value="25" onChange={e => console.log(e.target.value)} name="workspace-assigned" />
+                    {!isEdit && <label className="font-latobold text-[24px]">{project.seatingPercentage}%</label>}
+                    {isEdit && <input type="text" className=" px-[10px] py-[5px] text-black" value={project.seatingPercentage} onChange={e => console.log(e.target.value)} name="workspace-assigned" />}
                 </li>
                 <li className="font-latolight pb-2 mb-3">
                     <div className="flex pb-1">
@@ -69,10 +70,11 @@ export default function Form() {
                         />
                         <div className="pl-2 text-[14px]">staff working remotely</div>
                     </div>
-                    <label className="font-latobold text-[24px]">25%</label>
-                    <input className="hidden px-[10px] py-[5px]" value="25" onChange={e => console.log(e.target.value)} name="staff-working-remotely" />
+                    {!isEdit && <label className="font-latobold text-[24px]">{project.averageOfficeAttendance}%</label>}
+                    {isEdit && <input type="text" className=" px-[10px] py-[5px] text-black" value={project.averageOfficeAttendance} onChange={e => console.log(e.target.value)} name="staff-working-remotely" />}
                 </li>
             </ul>
+            {isEdit && <button type="submit" className="border-2 p-2 rounded-lg">Update</button>}
         </form>
     )
 }

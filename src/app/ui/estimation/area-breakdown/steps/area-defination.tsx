@@ -1,5 +1,5 @@
 import Tooltip from "@/app/ui/tooltip";
-import { ChangeEvent, useEffect } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { IAmenity } from "@/app/models/Amenity";
 import clsx from "clsx";
 
@@ -28,7 +28,7 @@ export default function AreaDefination({
     updateFields
 }: AreaFormProps) {
     const MAX_QUANTITY = 10;
-
+    const [openOption, setOpenOption] = useState<boolean>(false);
     const handleCheckboxChange = (event: ChangeEvent<HTMLInputElement>) => {
         const checkedId = event.target.value;
         if (event.target.checked) {
@@ -42,7 +42,7 @@ export default function AreaDefination({
         const initialCustomSpace = [
             { id: 0, space: '', quantity: 0 }
         ];
-    
+
         if (selectedCustomSpaces.length === 0) {
             updateFields({ selectedCustomSpaces: initialCustomSpace });
         }
@@ -75,6 +75,10 @@ export default function AreaDefination({
             (data[index].quantity == 0) ? 0 : data[index].quantity - 1;
         data[index].quantity = newQuantity;
         updateFields({ selectedCustomSpaces: data });
+    }
+
+    const toggleOption = () => {
+        setOpenOption(!openOption)
     }
     return (
         <>
@@ -129,6 +133,7 @@ export default function AreaDefination({
                                         defaultValue={input.space}
                                         onChange={(event) => handleSelectChange(index, event)}
                                         className="border-[#005A92] border-b-[1px] border-solid focus:outline-none inline-flex items-center justify-end min-w-[263px] mr-[50px] px-0 py-1 text-black text-left">
+                                        <option key={`option-group-X`}>Select</option>
                                         {custom_spaces.map((custom_space: any, index: number) => (
                                             <optgroup key={`option-group-${index}`} className="py-3 text-gray-700 dark:text-gray-200" label={custom_space._id}>
                                                 {custom_space.spaces.map((space: { id: string; space_name: string; capacity?: string }, index: number) => (
@@ -137,23 +142,7 @@ export default function AreaDefination({
                                             </optgroup>
                                         ))}
                                     </select>
-                                    {/* <div>
-                                        <div id={`space-${index}`} className="text-black mr-[50px] border-b-[1px] border-solid border-[#005A92] min-w-[263px] focus:outline-none px-0 text-left inline-flex items-center justify-between">
-                                            <input
-                                                type="text"
-                                                name='space'
-                                                id={`space-${index}`}
-                                                value={input.space}
-                                                onChange={(event) => handleQuantityChange(index, event)}
-                                                className="flex-shrink-0 text-gray-900 dark:text-white bg-transparent text-[24px] focus:outline-none focus:ring-0 max-w-[2.5rem] text-center placeholder:text-opacity-60"
-                                                readOnly
-                                            />
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="10" viewBox="0 0 18 10" fill="none" onClick={toggleOption}>
-                                                <path d="M1 1L9 9L17 1" stroke="#005A92" />
-                                            </svg>
-                                        </div>
-                                        {openOption && <Dropdown options={custom_spaces} />}
-                                    </div> */}
+
                                     <div className="flex items-center justify-start">
                                         <label htmlFor="counter-input" className="text-[14px] text-[#005A92] text-opacity-60">quantity</label>
                                         <div className="relative flex items-center border-b-[1px] border-solid border-[#005A92] min-w-[78px] justify-between">

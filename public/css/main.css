@@ -10311,10 +10311,14 @@ __updated.file {
   --box-shadow: #02c8b6;
 }
 
+.estimation {
+  transition: transform var(--transition);
+}
 
 .estimation input {
   display: none;
 }
+
 .estimation input:checked + label {
   opacity: 1;
   box-shadow: 0 0 0 3px var(--background);
@@ -10374,22 +10378,4 @@ __updated.file {
   /* stroke-dasharray: 16px; */
   transition: stroke-dashoffset 0.4s ease 0.15s;
   stroke-dashoffset: 16px;
-}
-
-.estimation .cont-checkbox {
-  width: 150px;
-  height: 100px;
-  border-radius: var(--border-radius);
-  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
-  background: white;
-  transition: transform 0.15s;
-}
-
-.estimation .cont-checkbox:first-of-type {
-  margin-bottom: 0.75rem;
-  margin-right: 0.75rem;
-}
-
-.estimation .cont-checkbox:active {
-  transform: scale(0.9);
 }

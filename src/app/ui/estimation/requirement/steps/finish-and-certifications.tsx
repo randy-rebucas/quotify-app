@@ -47,13 +47,11 @@ export default function FinishAndCertification({
 
     return (
         <>
-            {/* checked={selectedAmenityIds.includes(amenity._id)} */}
-            {/* checked={selectedTopping === 'Regular'} */}
             {finishData.map((finish: finishType, index: any) => (
                 <div data-category="03.1.1" key={finish.id} data-value={finish.slug} data-col={index + 1}
                     className={`js-select-option col-start-${index + 1} row-start-2 col-span-1 flex flex-col justify-between items-start w-full h-full`}>
                     <div className="p-30 estimation">
-                        <input type="radio" name="finish" value={finish.slug} id={`finish-${index + 1}`} onChange={e => handleRadioChange(index, e)} />
+                        <input type="radio" name="finish" value={finish.slug} id={`finish-${index + 1}`} onChange={e => handleRadioChange(index, e)} checked={stimates[tabiIndex].requirement.finish == finish.slug}/>
                         <label htmlFor={`finish-${index + 1}`}>
                             <Image
                                 src={finish.image}

@@ -32,7 +32,7 @@ export default function Flooring({
                         <div data-value={refinement.name} data-col={index + 1} key={refinement.id}
                             className={`js-select-option col-start-${index + 1} row-start-2 col-span-1 flex flex-col justify-between items-start w-full h-full`}>
                             <div className="p-30 estimation">
-                                <input type="radio" name="refinement" value={refinement.slug} id={`refinement-${index + 1}`} onChange={e => handleRadioChange(index, e)} />
+                                <input type="radio" name="refinement" value={refinement.slug} id={`refinement-${index + 1}`} onChange={e => handleRadioChange(index, e)} checked={stimates[tabiIndex].refinement.flooring == refinement.slug}/>
                                 <label htmlFor={`refinement-${index + 1}`}>
                                     <Image
                                         src={refinement.image}
