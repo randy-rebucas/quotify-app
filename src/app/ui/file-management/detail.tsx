@@ -1,20 +1,47 @@
+'use client'
+
 import { fetchProject } from "@/app/lib/data";
+import { IProject } from "@/app/models/Project";
+import clsx from "clsx";
 import Image from "next/image";
 import { notFound } from "next/navigation";
+import { MouseEventHandler, useEffect, useState } from "react";
 
-export default async function Detail({ params }: { params: { id: string } }) {
+export default function Detail({ projectId, onClick }: { projectId: string, onClick: MouseEventHandler<HTMLAnchorElement> }) {
 
-    const id = params.id;
-    const project = await fetchProject(id);
+    const [data, setData] = useState<IProject | null>(null)
 
-    if (!project) {
+    if (!projectId) {
         notFound();
     }
 
-    return (
-        <div className="js-open-results-content open-results-content wrapper__content-2 js-linear-anim-2 el !absolute top-0 left-0 !z-30">
+    useEffect( () => {
 
-            <div className="grid lg:grid-cols-5 lg:grid-flow-col h-full min-h-900">
+        const getProject = async (id: string) => {
+            const response = await fetch(`/api/project/${id}`, {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                }
+            });
+
+            let projectResponse = await response.json();
+
+            setData(projectResponse);
+        }
+
+        if (projectId) {
+            getProject(projectId);
+        }
+
+    }, [projectId])
+
+    return (
+
+        <div className='js-open-results-content open-results-content wrapper__content-2 js-linear-anim-2 el !absolute top-0 left-0 !z-30' style={{ transform: projectId ? 'translateX(100%)' : '' }}>
+
+            <div className="grid lg:grid-cols-5 lg:grid-flow-col h-full min-h-900" >
 
                 <div className="file col-span-1 flex flex-col justify-between  relative bg-black">
                     <div className="file-map absolute top-0 left-0 w-full h-full z-10"></div>
@@ -23,21 +50,17 @@ export default async function Detail({ params }: { params: { id: string } }) {
                             <div>
                                 <Image
                                     src="/images/icon-file.svg"
-                                    width={0}
-                                    height={0}
-                                    sizes="100vw"
-                                    className="mb-5 filter brightness-200 invert w-full h-auto"
+                                    width={35}
+                                    height={35}
+                                    className="mb-5 filter brightness-200 invert"
                                     alt="file"
                                 />
-                                <h2>Project<br />MMoser</h2>
+                                <h2>{data?.spaceName}</h2>
 
                                 <div className="file__border bg-white"></div>
 
                                 <div className="file__address">
-                                    510 W Hastings St.<br />
-                                    Suite 1300<br />
-                                    Vancouver, BC<br />
-                                    V6B 1L8
+                                    {data?.address}
                                 </div>
 
                                 <div className="text-white mt-2 pt-[10.093vh]">
@@ -53,7 +76,7 @@ export default async function Detail({ params }: { params: { id: string } }) {
                                                 />
                                                 <div className="pl-2 text-[14px]">space size</div>
                                             </div>
-                                            <div className="font-latobold text-[24px]">10,000 sqft</div>
+                                            <div className="font-latobold text-[24px]">{Number(data?.spaceSize).toLocaleString()} sqft</div>
                                         </li>
                                         <li className="font-latolight pb-2 mb-3">
                                             <div className="flex pb-1">
@@ -66,7 +89,7 @@ export default async function Detail({ params }: { params: { id: string } }) {
                                                 />
                                                 <div className="pl-2 text-[14px]">rentable area</div>
                                             </div>
-                                            <div className="font-latobold text-[24px]">5,000 sqft</div>
+                                            <div className="font-latobold text-[24px]">{Number(data?.rentableArea).toLocaleString()} sqft</div>
                                         </li>
                                         <li className="font-latolight pb-2 mb-3">
                                             <div className="flex pb-1">
@@ -79,7 +102,7 @@ export default async function Detail({ params }: { params: { id: string } }) {
                                                 />
                                                 <div className="pl-2 text-[14px]">target headcount</div>
                                             </div>
-                                            <div className="font-latobold text-[24px]">420</div>
+                                            <div className="font-latobold text-[24px]">{data?.headCount}</div>
                                         </li>
                                         <li className="font-latolight pb-2 mb-3">
                                             <div className="flex pb-1">
@@ -92,7 +115,7 @@ export default async function Detail({ params }: { params: { id: string } }) {
                                                 />
                                                 <div className="pl-2 text-[14px]">workspace assigned</div>
                                             </div>
-                                            <div className="font-latobold text-[24px]">25%</div>
+                                            <div className="font-latobold text-[24px]">{data?.averageOfficeAttendance}%</div>
                                         </li>
                                         <li className="font-latolight pb-2 mb-3">
                                             <div className="flex pb-1">
@@ -110,7 +133,7 @@ export default async function Detail({ params }: { params: { id: string } }) {
                                     </ul>
                                 </div>
                             </div>
-                            <a href="estimation.html" className="flex text-[24px] text-white opacity-50 hover:opacity-1">
+                            {/* <a href="estimation.html" className="flex text-[24px] text-white opacity-50 hover:opacity-1">
                                 <Image
                                     src="/images/icon-create.svg"
                                     width={15}
@@ -119,7 +142,7 @@ export default async function Detail({ params }: { params: { id: string } }) {
                                     alt="create-new"
                                 />
                                 <div className="pl-2">add estimate</div>
-                            </a>
+                            </a> */}
                         </div>
                     </div>
                 </div>
@@ -127,7 +150,7 @@ export default async function Detail({ params }: { params: { id: string } }) {
 
                 <div className="lg:col-span-3 col-span-12 lg:col-start-2 row-end-2 min-h-900 relative">
                     <div className="close-btn opacity-1 absolute top-0 right-0 flex flex-col items-end p-30 z-30">
-                        <a href="#" className="js-close-results">
+                        <a href="#" className="js-close-results" onClick={onClick}>
                             <Image
                                 src="/images/icon-close.svg"
                                 width={0}
@@ -172,7 +195,7 @@ export default async function Detail({ params }: { params: { id: string } }) {
                                         </li>
                                     </ul>
                                     <div className="mt-[13.333vh]">
-                                        <ul className="flex justify-between text-white opacity-50 mb-30">
+                                        {/* <ul className="flex justify-between text-white opacity-50 mb-30">
                                             <li className="flex items-center">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
                                                     <path d="M12.5 8H15M10.5 1H15V15H1V1H5L8 3L10.5 1ZM7 15V8V15ZM4.5 8H9.5H4.5Z" stroke="white" strokeOpacity="0.5" />
@@ -202,7 +225,7 @@ export default async function Detail({ params }: { params: { id: string } }) {
                                                 </svg>
                                                 <div className="ml-2 text-[12px]">20%</div>
                                             </li>
-                                        </ul>
+                                        </ul> */}
 
                                         <h2>standard estimate</h2>
 
@@ -271,7 +294,7 @@ export default async function Detail({ params }: { params: { id: string } }) {
                                         </li>
                                     </ul>
                                     <div className="mt-[13.333vh]">
-                                        <ul className="flex justify-between text-white opacity-50 mb-30">
+                                        {/* <ul className="flex justify-between text-white opacity-50 mb-30">
                                             <li className="flex items-center">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
                                                     <path d="M12.5 8H15M10.5 1H15V15H1V1H5L8 3L10.5 1ZM7 15V8V15ZM4.5 8H9.5H4.5Z" stroke="white" strokeOpacity="0.5" />
@@ -301,7 +324,7 @@ export default async function Detail({ params }: { params: { id: string } }) {
                                                 </svg>
                                                 <div className="ml-2 text-[12px]">20%</div>
                                             </li>
-                                        </ul>
+                                        </ul> */}
 
                                         <h2>low end estimate</h2>
 
@@ -370,7 +393,7 @@ export default async function Detail({ params }: { params: { id: string } }) {
                                         </li>
                                     </ul>
                                     <div className="mt-[13.333vh]">
-                                        <ul className="flex justify-between text-white opacity-50 mb-30">
+                                        {/* <ul className="flex justify-between text-white opacity-50 mb-30">
                                             <li className="flex items-center">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
                                                     <path d="M12.5 8H15M10.5 1H15V15H1V1H5L8 3L10.5 1ZM7 15V8V15ZM4.5 8H9.5H4.5Z" stroke="white" strokeOpacity="0.5" />
@@ -400,7 +423,7 @@ export default async function Detail({ params }: { params: { id: string } }) {
                                                 </svg>
                                                 <div className="ml-2 text-[12px]">20%</div>
                                             </li>
-                                        </ul>
+                                        </ul> */}
 
                                         <h2>high end estimate</h2>
 

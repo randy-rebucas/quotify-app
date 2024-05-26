@@ -9,6 +9,8 @@ import Empty from "./empty";
 export default function ResultWrapper({ projects }: { projects: any[] }) {
     const [more, setMore] = useState<boolean>(false);
 
+    const [selectedProjectId, setSelectedProjectId] = useState<any>(null);
+
     const handleMoreLessClick = () => {
         setMore(!more);
     }
@@ -18,12 +20,21 @@ export default function ResultWrapper({ projects }: { projects: any[] }) {
             <Empty />
         )
     }
-    
+
+    const handleProjectSelectedClick = (e: any) => {
+        e.preventDefault();
+        setSelectedProjectId(e.currentTarget.dataset.file);
+    }
+
+    const handleProjectClearedClick = () => {
+        setSelectedProjectId(null);
+    }
+
     return (
         <>
-            <Result isMore={more} files={projects} />
+            <Result isMore={more} files={projects} onClick={handleProjectSelectedClick} />
 
-            {/* <Detail /> */}
+            {selectedProjectId && <Detail projectId={selectedProjectId}  onClick={handleProjectClearedClick}/>}
 
             {projects.length > 4 && <Action isMore={more} onClick={handleMoreLessClick} />}
         </>

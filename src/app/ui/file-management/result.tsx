@@ -1,14 +1,11 @@
 'use client';
 
 import Image from "next/image";
-// import { files } from "./files";
 import clsx from "clsx";
-import { useEffect } from "react";
+import { MouseEventHandler, useEffect } from "react";
 import { IProject } from "@/app/models/Project";
-import Empty from "./empty";
 
-// 
-export default function Result({ isMore, files }: { isMore: boolean, files: IProject[] }) {
+export default function Result({ isMore, files, onClick }: { isMore: boolean, files: IProject[], onClick: MouseEventHandler<HTMLAnchorElement> }) {
 
     const data = !isMore ? files.slice(0, 4) : files;
 
@@ -23,11 +20,11 @@ export default function Result({ isMore, files }: { isMore: boolean, files: IPro
                 <div className="grid lg:grid-cols-4 lg:grid-flow-col relative h-full">
 
                     {data.map((file, index) => (
-                        <div className={`file file-${index + 1} lg:col-${index % 4 == 0 ? 'span' : 'start'}-${index % 4 + 1} `} key={index}>
+                        <div className={`file file-${index + 1} lg:col-${index % 4 == 0 ? 'span' : 'start'}-${index % 4 + 1}`} key={index}>
                             <div className="file-map"></div>
                             <div className="file-img" data-lat="48.895651" data-long="2.290569" data-color="#383A64">
                                 <div className="flex flex-col justify-start relative z-10">
-                                    <a className="absolute js-open-results right-0">
+                                    <a href="#" className="absolute js-open-results right-0" data-file={file._id} onClick={onClick}>
                                         <Image
                                             src="/images/icon-settings.svg"
                                             width={25}
@@ -48,16 +45,16 @@ export default function Result({ isMore, files }: { isMore: boolean, files: IPro
                                         <div className="file__border bg-black"></div>
 
                                         <div className="file__address">
-                                            {/* {file.address.line1}<br />
-                                            {file.address.line2}<br />
-                                            {file.address.state}<br />
-                                            {file.address.zipCode} */}
+                                            {file.address}
                                         </div>
 
                                         <div className="file__est">
                                             4 estimates
                                         </div>
                                     </div>
+                                </div>
+                                <div className="file__updated text-black">
+                                    last edited 20th August, 2020
                                 </div>
                             </div>
                         </div>

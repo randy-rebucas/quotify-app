@@ -9417,7 +9417,8 @@ h2 {
   font-size: 35px;
   font-style: normal;
   font-weight: 400;
-  line-height: 35px; /* 100% */
+  /* line-height: 35px;  */
+  /* 100% */
 }
 
 h3 {
@@ -9789,7 +9790,7 @@ p {
   margin-bottom: 10px;
   font-family: Lato-Bold, sans-serif;
   font-size: 1.5rem;
-  line-height: 2rem;
+  /* line-height: 2rem; */
   --tw-text-opacity: 1;
   color: rgb(0, 0, 0);
   color: rgba(0, 0, 0, var(--tw-text-opacity));
