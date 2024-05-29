@@ -9,9 +9,11 @@ import connect from "../utils/db";
 import Auth from "../models/Auth";
 import User from "../models/User";
 import bcrypt from "bcrypt";
-import { redirect } from "next/navigation";
+import { permanentRedirect, redirect, useRouter } from "next/navigation";
 import { revalidatePath, unstable_noStore as noStore } from "next/cache";
-import { createSession, deleteSession } from "./session";
+import { createSession, decrypt, deleteSession } from "./session";
+import { cookies } from "next/headers";
+import { isRedirectError } from "next/dist/client/components/redirect";
 
 export async function signup(state: AuthFormState, formData: FormData) {
   noStore;
@@ -58,7 +60,7 @@ export async function signup(state: AuthFormState, formData: FormData) {
       name: "sample",
       email: email,
       auth: authResponse._id,
-      roles: authCheck.length > 1 ? "user" : "admin",
+      roles: authCheck.length === 1 ? "admin" : "user",
     });
     let userResponse = await user.save();
 
@@ -70,7 +72,7 @@ export async function signup(state: AuthFormState, formData: FormData) {
 
     // TODO:
     // 4. Create user session
-    await createSession(userResponse._id);
+    await createSession(userResponse._id.toString());
 
     // 5. Redirect user
     revalidatePath("/");
@@ -95,7 +97,6 @@ export async function login(state: AuthFormState, formData: FormData) {
   }
 
   const { email, password } = validatedFields.data;
-
   try {
     connect();
 
@@ -106,15 +107,12 @@ export async function login(state: AuthFormState, formData: FormData) {
         message: "Email not exists, Please register.",
       };
     }
-
     let decrypted = await bcrypt.compare(password, auth.password);
-
     if (!decrypted) {
       return {
         message: "Something went wrong. Incorrect password!",
       };
     }
-
     let user = await User.findOne({ email }).exec();
 
     if (!user) {
@@ -123,11 +121,16 @@ export async function login(state: AuthFormState, formData: FormData) {
       };
     }
 
-    createSession(user._id);
+    await createSession(user._id.toString());
 
+    revalidatePath("/file-management");
     redirect("/file-management");
   } catch (error) {
-    console.log(error);
+    if (isRedirectError(error)) { // Redirect error handle here
+      throw error // You have to throw the redirect error
+    } else {
+      console.log('other error')
+    }
     return;
   }
 }

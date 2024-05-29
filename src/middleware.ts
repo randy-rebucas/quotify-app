@@ -31,9 +31,9 @@ export default async function middleware(req: NextRequest) {
   if (
     isPublicRoute &&
     session?.userId &&
-    !req.nextUrl.pathname.startsWith("/file-management")
+    !req.nextUrl.pathname.startsWith('/file-management')
   ) {
-    return NextResponse.redirect(new URL("/file-management", req.nextUrl));
+    return NextResponse.redirect(new URL('/file-management', req.nextUrl));
   }
 
   return NextResponse.next();
@@ -41,5 +41,5 @@ export default async function middleware(req: NextRequest) {
 
 // Routes Middleware should not run on
 export const config = {
-  matcher: ["/((?!api|_next/static|_next/image|.*\\.png$).*)"],
+  matcher: ['/((?!api|_next/static|_next/image|.*\\.png$).*)'],
 };
