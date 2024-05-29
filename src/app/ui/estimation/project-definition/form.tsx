@@ -20,7 +20,7 @@ export default function Form({ project }: { project: any }) {
         e.preventDefault()
         router.push(`/estimation/requirement/${project._id}`)
     }
-    
+
     console.log(project);
     return (
         <form onSubmit={onSubmit} className="col-span-4 row-span-2 h-full w-full overflow-y-scroll overflow-x-hidden">
@@ -60,7 +60,10 @@ export default function Form({ project }: { project: any }) {
                                     </div>
                                     <div className="col-span-1 flex flex-col justify-end h-full">
                                         <iframe className="w-[228px] h-[152px]"
-                                            src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d12080.73732861526!2d-74.0059418!3d40.7127847!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zM40zMDA2JzEwLjAiTiA3NMKwMjUnMzcuNyJX!5e0!3m2!1sen!2sus!4v1648482801994!5m2!1sen!2sus"
+                                            loading="lazy"
+                                            referrerPolicy="no-referrer-when-downgrade"
+                                            src={`https://www.google.com/maps/embed/v1/${process.env.NEXT_PUBLIC_MAPS_MODE}?key=${process.env.NEXT_PUBLIC_MAPS_API_KEY}
+                                            &q=${project.address}`}
                                             style={{ border: 0 }} allowFullScreen={true} aria-hidden="false"
                                             tabIndex={0}>
                                         </iframe>
