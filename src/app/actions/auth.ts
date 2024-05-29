@@ -78,7 +78,11 @@ export async function signup(state: AuthFormState, formData: FormData) {
     revalidatePath("/");
     redirect("/");
   } catch (error) {
-    console.log(error);
+    if (isRedirectError(error)) { // Redirect error handle here
+      throw error // You have to throw the redirect error
+    } else {
+      console.log('other error')
+    }
     return;
   }
 }
