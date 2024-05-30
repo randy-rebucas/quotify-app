@@ -16,7 +16,7 @@ const links = [
   { name: 'Custom Spaces', href: '/setting/custom-spaces' },
   { name: 'Menus', href: '/setting/menus' },
   { name: 'Requirements', href: '/setting/requirements' },
-  { name: 'Requirements Levels', href: '/setting/requirement-levels' },
+  { name: 'Requirement Levels', href: '/setting/requirement-levels' },
   { name: 'Refinements', href: '/setting/refinements' },
   { name: 'Refinement Levels', href: '/setting/refinement-levels' },
 ];

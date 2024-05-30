@@ -1,7 +1,7 @@
 import { DeleteMenu, UpdateMenu } from "./buttons";
 
 export default function Table({ menus }: { menus: any[] }) {
-    console.log(menus);
+
     return (
         <div className="flex flex-col">
             <div className="-m-1.5 overflow-x-auto">
