@@ -101,9 +101,11 @@ export type CustomSpaceFormState =
 
 export const MenuFormSchema = z.object({
   id: z.string(),
-  title: z.string({
-    invalid_type_error: "Please enter a title.",
-  }).trim(),
+  title: z
+    .string({
+      invalid_type_error: "Please enter a title.",
+    })
+    .trim(),
   page_handled: z.string().trim(),
 });
 
@@ -117,25 +119,62 @@ export type MenuFormState =
     }
   | undefined;
 
+export const ProjectFormSchema = z.object({
+  id: z.string(),
+  space_name: z.string().trim(),
+  has_floor_plan: z.boolean(),
+  has_address: z.boolean(),
+  approximate_size: z.number(),
+  rentable_area: z.number(),
+  is_base_on_head_count: z.string(),
+  target_head_count: z.string(),
+  average_attendance: z.string(),
+  assigned_seat: z.string(),
+});
 
-  export const ProjectFormSchema = z.object({
-    id: z.string(),
-    space_name: z.string().trim(),
-    has_floor_plan: z.boolean(),
-    has_address: z.boolean(),
-    approximate_size: z.number(),
-    rentable_area: z.number(),
-    is_base_on_head_count: z.string(),
-    target_head_count: z.string(),
-    average_attendance: z.string(),
-    assigned_seat: z.string(),
-  });
+export type ProjectFormState =
+  | {
+      errors?: {
+        space_name?: string[];
+      };
+      message?: string;
+    }
+  | undefined;
 
-  export type ProjectFormState =
-    | {
-        errors?: {
-          space_name?: string[];
-        };
-        message?: string;
-      }
-    | undefined;
+export const OfficeFormSchema = z.object({
+  id: z.string(),
+  location: z
+    .string({
+      invalid_type_error: "Please enter a location.",
+    })
+    .trim(),
+  status: z.string(),
+});
+
+export type OfficeFormState =
+  | {
+      errors?: {
+        location?: string[];
+        status?: string[];
+      };
+      message?: string;
+    }
+  | undefined;
+
+export const AmenityCategoryFormSchema = z.object({
+  id: z.string(),
+  name: z
+    .string({
+      invalid_type_error: "Please enter a name.",
+    })
+    .trim()
+});
+
+export type AmenityCategoryFormState =
+  | {
+      errors?: {
+        name?: string[];
+      };
+      message?: string;
+    }
+  | undefined;

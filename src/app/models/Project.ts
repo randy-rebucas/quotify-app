@@ -22,7 +22,7 @@ const projectSchema = new Schema<IProject>({
   address: { type: String, required: true },
   spaceSize: { type: Schema.Types.Decimal128, required: true },
   rentableArea: { type: Schema.Types.Decimal128, required: true },
-  headCount: { type: String, required: true },
+  headCount: { type: String, required: true }, // headcount
   averageOfficeAttendance: { type: String, required: true },
   seatingPercentage: { type: Schema.Types.Decimal128, required: true },
   isCompleted: { type: Schema.Types.Boolean, default: false },

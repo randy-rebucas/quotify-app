@@ -6,6 +6,8 @@ import Menu from "../models/Menu";
 import CustomSpace from "../models/CustomSpace";
 import User from "../models/User";
 import Estimate from "../models/Estimate";
+import Office from "../models/Office";
+import AmenityCategory from "../models/AmenityCategory";
 
 export async function fetchProjects() {
   noStore();
@@ -72,7 +74,7 @@ export async function fetchProject(id: string) {
     averageOfficeAttendance: project.averageOfficeAttendance,
     seatingPercentage: project.seatingPercentage.toString(),
   };
-  
+
   return transformData;
 }
 // pageHandled
@@ -81,7 +83,7 @@ export async function fetchMenus() {
 
   connect();
 
-  const menus = await Menu.find({ }).exec();
+  const menus = await Menu.find({}).exec();
 
   return menus;
 }
@@ -292,12 +294,18 @@ export async function fetchEstimatesByProjectId(projectId: string) {
   return transformData;
 }
 
-export async function fetchEstimatesBySection(projectId: string, section: string) {
+export async function fetchEstimatesBySection(
+  projectId: string,
+  section: string
+) {
   noStore();
 
   connect();
 
-  const esimates = await Estimate.find({ project: projectId, section: section }).exec();
+  const esimates = await Estimate.find({
+    project: projectId,
+    section: section,
+  }).exec();
 
   const transformData = esimates.map((esimate) => {
     return {
@@ -306,6 +314,96 @@ export async function fetchEstimatesBySection(projectId: string, section: string
       project: esimate.project._id.toString(),
     };
   });
+
+  return transformData;
+}
+
+export async function fetchOffices() {
+  noStore();
+
+  connect();
+
+  const offices = await Office.find({}).exec();
+
+  const transformData = offices.map((office) => {
+    return {
+      _id: office._id.toString(),
+      location: office.location,
+      status: office.status,
+    };
+  });
+
+  return transformData;
+}
+
+export async function deleteOffice(id: string) {
+  noStore();
+
+  connect();
+
+  await Office.findOneAndDelete({ _id: id }).exec();
+
+  revalidatePath("/setting/offices");
+
+  return { message: "Deleted Office." };
+}
+
+export async function fetchOfficeById(id: string) {
+  noStore();
+
+  connect();
+
+  const office = await Office.findOne({ _id: id }).exec();
+
+  const transformData = {
+    _id: office._id.toString(),
+    location: office.location,
+    status: office.status,
+  };
+
+  return transformData;
+}
+
+export async function fetchAmenityCategories() {
+  noStore();
+
+  connect();
+
+  const amenityCategories = await AmenityCategory.find({}).exec();
+
+  const transformData = amenityCategories.map((amenityCategory) => {
+    return {
+      _id: amenityCategory._id.toString(),
+      name: amenityCategory.name
+    };
+  });
+
+  return transformData;
+}
+
+export async function deleteAmenityCategory(id: string) {
+  noStore();
+
+  connect();
+
+  await AmenityCategory.findOneAndDelete({ _id: id }).exec();
+
+  revalidatePath("/setting/amenity-categories");
+
+  return { message: "Deleted category." };
+}
+
+export async function fetchAmenityCategoryById(id: string) {
+  noStore();
+
+  connect();
+
+  const amenityCategory = await AmenityCategory.findOne({ _id: id }).exec();
+
+  const transformData = {
+    _id: amenityCategory._id.toString(),
+    name: amenityCategory.name
+  };
 
   return transformData;
 }

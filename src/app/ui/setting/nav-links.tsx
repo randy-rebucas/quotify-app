@@ -8,11 +8,17 @@ import clsx from 'clsx';
 // Depending on the size of the application, this would be stored in a database.
 const links = [
   { name: 'Settings', href: '/setting' },
+  { name: 'Offices', href: '/setting/offices' },
   { name: 'Users', href: '/setting/users' },
   { name: 'Projects', href: '/setting/projects' },
+  { name: 'Amenity Categories', href: '/setting/amenity-categories' },
   { name: 'Amenities', href: '/setting/amenities' },
   { name: 'Custom Spaces', href: '/setting/custom-spaces' },
   { name: 'Menus', href: '/setting/menus' },
+  { name: 'Requirements', href: '/setting/requirements' },
+  { name: 'Requirements Levels', href: '/setting/requirement-levels' },
+  { name: 'Refinements', href: '/setting/refinements' },
+  { name: 'Refinement Levels', href: '/setting/refinement-levels' },
 ];
 
 export default function NavLinks() {
