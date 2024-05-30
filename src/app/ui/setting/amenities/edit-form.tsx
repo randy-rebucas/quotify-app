@@ -7,14 +7,15 @@ import { Button } from '../../button';
 import { updateAmenity } from '@/app/actions/amenity';
 
 export default function EditUserForm({
-  amenity,
+  amenity, categories
 }: {
   amenity: any;
+  categories: any[]
 }) {
 
   const updateAmenityWithId = updateAmenity.bind(null, amenity._id);
   const [state, dispatch] = useFormState(updateAmenityWithId, undefined);
-
+  console.log(amenity);
   return (
     <form action={dispatch}>
       <div className="rounded-md bg-gray-50 p-4 md:p-6">
@@ -35,6 +36,29 @@ export default function EditUserForm({
               />
 
             </div>
+          </div>
+        </div>
+
+        <div className="mb-4">
+          <label htmlFor="category" className="mb-2 block text-sm font-medium">
+            Choose category
+          </label>
+          <div className="relative">
+            <select
+              id="category"
+              name="categoryId"
+              className="peer block w-full cursor-pointer rounded-md border border-gray-200 py-2 pl-2 text-sm outline-2 placeholder:text-gray-500"
+              defaultValue={amenity.category_id}
+            >
+              <option value="" disabled>
+                Select a category
+              </option>
+              {categories.map((category) => (
+                <option key={category._id} value={category._id}>
+                  {category.name}
+                </option>
+              ))}
+            </select>
           </div>
         </div>
       </div>

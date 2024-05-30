@@ -4,9 +4,10 @@ import Link from 'next/link';
 import { Button } from '@/app/ui/button';
 import { useFormState } from 'react-dom';
 import { createAmenity } from '@/app/actions/amenity';
+import { UserCircleIcon } from '@heroicons/react/24/outline';
 
 
-export default function Form() {
+export default function Form({ categories }: { categories: any[] }) {
 
   const [state, dispatch] = useFormState(createAmenity, undefined);
 
@@ -31,7 +32,28 @@ export default function Form() {
             </div>
           </div>
         </div>
-
+        <div className="mb-4">
+          <label htmlFor="category" className="mb-2 block text-sm font-medium">
+            Choose category
+          </label>
+          <div className="relative">
+            <select
+              id="category"
+              name="categoryId"
+              className="peer block w-full cursor-pointer rounded-md border border-gray-200 py-2 pl-2 text-sm outline-2 placeholder:text-gray-500"
+              defaultValue=""
+            >
+              <option value="" disabled>
+                Select a category
+              </option>
+              {categories.map((category) => (
+                <option key={category._id} value={category._id}>
+                  {category.name}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
       </div>
       <div className="mt-6 flex justify-end gap-4">
         <Link

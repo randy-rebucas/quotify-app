@@ -68,12 +68,16 @@ export const AmenityFormSchema = z.object({
   amenity_name: z.string({
     invalid_type_error: "Please enter a amenity name.",
   }),
+  categoryId: z.string({
+    invalid_type_error: 'Please select a category.',
+  }), 
 });
 
 export type AmenityFormState =
   | {
       errors?: {
         amenity_name?: string[];
+        categoryId?: string[];
       };
       message?: string;
     }

@@ -3,10 +3,7 @@
 import Amenity from "../models/Amenity";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
-import {
-  AmenityFormState,
-  AmenityFormSchema
-} from "@/app/lib/definitions";
+import { AmenityFormState, AmenityFormSchema } from "@/app/lib/definitions";
 
 const CreateAmenity = AmenityFormSchema.omit({ id: true });
 
@@ -15,9 +12,9 @@ export async function updateAmenity(
   prevState: AmenityFormState,
   formData: FormData
 ) {
-
   const validatedFields = CreateAmenity.safeParse({
     amenity_name: formData.get("amenity_name"),
+    categoryId: formData.get("categoryId"),
   });
 
   if (!validatedFields.success) {
@@ -26,9 +23,9 @@ export async function updateAmenity(
     };
   }
 
-  const { amenity_name } = validatedFields.data;
+  const { amenity_name, categoryId } = validatedFields.data;
 
-  const update = { amenityName: amenity_name };
+  const update = { amenityName: amenity_name, category: categoryId };
 
   const filterAmenity = { _id: id };
   await Amenity.findOneAndUpdate(filterAmenity, update);
@@ -44,6 +41,7 @@ export async function createAmenity(
   // Validate form using Zod
   const validatedFields = CreateAmenity.safeParse({
     amenity_name: formData.get("amenity_name"),
+    categoryId: formData.get("categoryId"),
   });
 
   // If any form fields are invalid, return early
@@ -53,10 +51,11 @@ export async function createAmenity(
     };
   }
 
-  const { amenity_name } = validatedFields.data;
+  const { amenity_name, categoryId } = validatedFields.data;
 
   const amenity = new Amenity({
     amenityName: amenity_name,
+    category: categoryId,
   });
   await amenity.save();
 

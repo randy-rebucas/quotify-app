@@ -130,7 +130,7 @@ export async function fetchAmenities() {
   const transformData = amenities.map((amenity) => {
     return {
       _id: amenity._id.toString(),
-      amenityName: amenity.amenityName,
+      amenityName: amenity.amenityName
     };
   });
 
@@ -142,11 +142,12 @@ export async function fetchAmenityById(id: string) {
 
   connect();
 
-  const amenity = await Amenity.findOne({ _id: id }).exec();
+  const amenity = await Amenity.findOne({ _id: id }).populate("category").exec();
 
   const transformData = {
     _id: amenity._id.toString(),
     amenity_name: amenity.amenityName,
+    category_id: amenity.category ? amenity.category._id.toString() : null
   };
 
   return transformData;
