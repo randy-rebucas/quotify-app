@@ -130,7 +130,7 @@ export async function fetchAmenities() {
   const transformData = amenities.map((amenity) => {
     return {
       _id: amenity._id.toString(),
-      amenityName: amenity.amenityName
+      amenityName: amenity.amenityName,
     };
   });
 
@@ -142,12 +142,14 @@ export async function fetchAmenityById(id: string) {
 
   connect();
 
-  const amenity = await Amenity.findOne({ _id: id }).populate("category").exec();
+  const amenity = await Amenity.findOne({ _id: id })
+    .populate("category")
+    .exec();
 
   const transformData = {
     _id: amenity._id.toString(),
     amenity_name: amenity.amenityName,
-    category_id: amenity.category ? amenity.category._id.toString() : null
+    category_id: amenity.category ? amenity.category._id.toString() : null,
   };
 
   return transformData;
@@ -235,7 +237,7 @@ export async function fetchUsers() {
 
   connect();
 
-  const users = await User.find({}).exec();
+  const users = await User.find({}).populate("office").exec();
 
   const transformData = users.map((user) => {
     return {
@@ -244,6 +246,7 @@ export async function fetchUsers() {
       auth: user.auth._id.toString(),
       roles: user.roles,
       name: user.name,
+      office: user.office,
     };
   });
 
@@ -267,11 +270,13 @@ export async function fetchUserById(id: string) {
 
   connect();
 
-  const user = await User.findOne({ _id: id }).populate("auth").exec();
+
+  const user = await User.findOne({ _id: id }).populate("office").populate("auth").exec();
 
   const transformData = {
     _id: user._id.toString(),
     email: user.auth.email,
+    office_id: user.office ? user.office._id.toString() : null,
   };
 
   return transformData;
@@ -365,6 +370,42 @@ export async function fetchOfficeById(id: string) {
   return transformData;
 }
 
+export async function fetchOfficeByStatus(status: string) {
+  noStore();
+
+  connect();
+
+  const office = await Office.findOne({ status: status }).exec();
+
+  const transformData = {
+    _id: office._id.toString(),
+    location: office.location,
+    status: office.status,
+  };
+
+  return transformData;
+}
+
+export async function fetchDefaultOffice() {
+  noStore();
+
+  connect();
+
+  const office = await Office.findOne({ status: 1 }).limit(1).exec();
+
+  let transformData = null;
+
+  if (office) {
+    transformData = {
+      _id: office._id.toString(),
+      location: office.location,
+      status: office.status,
+    };
+  }
+
+  return transformData;
+}
+
 export async function fetchAmenityCategories() {
   noStore();
 
@@ -375,7 +416,7 @@ export async function fetchAmenityCategories() {
   const transformData = amenityCategories.map((amenityCategory) => {
     return {
       _id: amenityCategory._id.toString(),
-      name: amenityCategory.name
+      name: amenityCategory.name,
     };
   });
 
@@ -403,7 +444,7 @@ export async function fetchAmenityCategoryById(id: string) {
 
   const transformData = {
     _id: amenityCategory._id.toString(),
-    name: amenityCategory.name
+    name: amenityCategory.name,
   };
 
   return transformData;

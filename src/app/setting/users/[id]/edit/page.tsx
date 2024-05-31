@@ -1,7 +1,7 @@
 import Form from '@/app/ui/setting/users/edit-form';
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
-import { fetchUserById } from '@/app/lib/data';
+import { fetchOffices, fetchUserById } from '@/app/lib/data';
 import Breadcrumbs from '@/app/ui/breadcrumbs';
 
 export const metadata: Metadata = {
@@ -11,10 +11,12 @@ export default async function Page({ params }: { params: { id: string } }) {
     const id = params.id;
 
     const user = await fetchUserById(id);
+    const offices = await fetchOffices();
 
     if (!user) {
         notFound();
     }
+
     return (
         <main>
             <Breadcrumbs
@@ -27,7 +29,7 @@ export default async function Page({ params }: { params: { id: string } }) {
                     },
                 ]}
             />
-            <Form user={user} />
+            <Form user={user} offices={offices}/>
         </main>
     );
 }

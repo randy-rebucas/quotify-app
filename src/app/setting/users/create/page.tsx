@@ -1,3 +1,4 @@
+import { fetchOffices } from '@/app/lib/data';
 import Breadcrumbs from '@/app/ui/breadcrumbs';
 import Form from '@/app/ui/setting/users/create-form';
 import { Metadata } from 'next';
@@ -6,6 +7,8 @@ export const metadata: Metadata = {
     title: 'User Create',
 };
 export default async function Page() {
+    
+    const offices = await fetchOffices();
 
     return (
         <main>
@@ -19,7 +22,7 @@ export default async function Page() {
                     },
                 ]}
             />
-            <Form />
+            <Form offices={offices}/>
         </main>
     );
 }

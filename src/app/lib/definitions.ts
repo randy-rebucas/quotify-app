@@ -52,12 +52,36 @@ export const UserFormSchema = z.object({
   email: z.string({
     invalid_type_error: "Please enter a email.",
   }),
+  password: z
+    .string()
+    .min(8, { message: "Be at least 8 characters long" })
+    .regex(/[a-zA-Z]/, { message: "Contain at least one letter." })
+    .regex(/[0-9]/, { message: "Contain at least one number." })
+    .regex(/[^a-zA-Z0-9]/, {
+      message: "Contain at least one special character.",
+    })
+    .trim(),
+  officeId: z.string({
+    invalid_type_error: "Please select a office.",
+  }),
+});
+
+export const EditUserFormSchema = z.object({
+  id: z.string(),
+  email: z.string({
+    invalid_type_error: "Please enter a email.",
+  }),
+  officeId: z.string({
+    invalid_type_error: "Please select a office.",
+  }),
 });
 
 export type UserFormState =
   | {
       errors?: {
         email?: string[];
+        password?: string[];
+        // officeId: string[];
       };
       message?: string;
     }
@@ -69,8 +93,8 @@ export const AmenityFormSchema = z.object({
     invalid_type_error: "Please enter a amenity name.",
   }),
   categoryId: z.string({
-    invalid_type_error: 'Please select a category.',
-  }), 
+    invalid_type_error: "Please select a category.",
+  }),
 });
 
 export type AmenityFormState =
@@ -171,7 +195,7 @@ export const AmenityCategoryFormSchema = z.object({
     .string({
       invalid_type_error: "Please enter a name.",
     })
-    .trim()
+    .trim(),
 });
 
 export type AmenityCategoryFormState =

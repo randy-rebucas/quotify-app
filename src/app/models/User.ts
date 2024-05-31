@@ -15,22 +15,25 @@ export interface IUser {
 }
 
 // 2. Create a Schema corresponding to the document interface.
-const userSchema = new Schema<IUser>({
-  email: { type: String },
-  auth: { type: Schema.Types.ObjectId, ref: "Auth", required: true },
-  roles: {
-    type: [
-      {
-        type: String,
-        enum: ["user", "admin"],
-      },
-    ],
-    default: ["user"],
+const userSchema = new Schema<IUser>(
+  {
+    email: { type: String },
+    auth: { type: Schema.Types.ObjectId, ref: "Auth", required: true },
+    roles: {
+      type: [
+        {
+          type: String,
+          enum: ["user", "admin"],
+        },
+      ],
+      default: ["user"],
+    },
+    name: { type: String },
+    avatar: { type: String },
+    office: { type: Schema.Types.ObjectId, ref: "Offices" },
   },
-  name: { type: String },
-  avatar: { type: String },
-  office: { type: Schema.Types.ObjectId, ref: "Offices" },
-});
+  { timestamps: true }
+);
 
 // 3. Create a Model.
 const User =

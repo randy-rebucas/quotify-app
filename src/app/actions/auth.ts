@@ -14,6 +14,7 @@ import { revalidatePath, unstable_noStore as noStore } from "next/cache";
 import { createSession, decrypt, deleteSession } from "./session";
 import { cookies } from "next/headers";
 import { isRedirectError } from "next/dist/client/components/redirect";
+import Office from "../models/Office";
 
 export async function signup(state: AuthFormState, formData: FormData) {
   noStore;
@@ -56,12 +57,29 @@ export async function signup(state: AuthFormState, formData: FormData) {
     });
     let authResponse = await auth.save();
 
-    const user = new User({
+    const office = await Office.findOne({ status: 1 }).limit(1).exec();
+
+    const userData = {
       name: "sample",
       email: email,
       auth: authResponse._id,
       roles: authCheck.length === 1 ? "admin" : "user",
-    });
+    };
+
+    let optional = {};
+    if (office) {
+      optional = {
+        office: office?._id
+      };
+    }
+
+    const transformUser = {
+      ...userData,
+      ...optional,
+    };
+
+    const user = new User(transformUser);
+
     let userResponse = await user.save();
 
     if (!userResponse) {
@@ -78,10 +96,11 @@ export async function signup(state: AuthFormState, formData: FormData) {
     revalidatePath("/");
     redirect("/");
   } catch (error) {
-    if (isRedirectError(error)) { // Redirect error handle here
-      throw error // You have to throw the redirect error
+    if (isRedirectError(error)) {
+      // Redirect error handle here
+      throw error; // You have to throw the redirect error
     } else {
-      console.log('other error')
+      console.log("other error");
     }
     return;
   }
@@ -130,10 +149,11 @@ export async function login(state: AuthFormState, formData: FormData) {
     revalidatePath("/file-management");
     redirect("/file-management");
   } catch (error) {
-    if (isRedirectError(error)) { // Redirect error handle here
-      throw error // You have to throw the redirect error
+    if (isRedirectError(error)) {
+      // Redirect error handle here
+      throw error; // You have to throw the redirect error
     } else {
-      console.log('other error')
+      console.log("other error");
     }
     return;
   }

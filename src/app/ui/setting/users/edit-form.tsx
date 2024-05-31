@@ -7,9 +7,10 @@ import { Button } from '../../button';
 import { updateUser } from '@/app/actions/user';
 
 export default function EditUserForm({
-  user,
+  user, offices
 }: {
   user: any;
+  offices: any[]
 }) {
 
   const updateUserWithId = updateUser.bind(null, user._id);
@@ -37,7 +38,29 @@ export default function EditUserForm({
             </div>
           </div>
         </div>
-
+        
+        <div className="mb-4">
+          <label htmlFor="office" className="mb-2 block text-sm font-medium">
+            Choose office
+          </label>
+          <div className="relative">
+            <select
+              id="office"
+              name="officeId"
+              className="peer block w-full cursor-pointer rounded-md border border-gray-200 py-2 pl-2 text-sm outline-2 placeholder:text-gray-500"
+              defaultValue={user.office_id}
+            >
+              <option value="" disabled>
+                Select a office
+              </option>
+              {offices.map((office) => (
+                <option key={office._id} value={office._id}>
+                  {office.location}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
       </div>
       <div className="mt-6 flex justify-end gap-4">
         <Link

@@ -4,7 +4,7 @@ import StaggerCover from "../ui/stagger-cover";
 import PageWrapper from "../ui/file-management/page-wrapper";
 import ResultWrapper from "../ui/file-management/result-wrapper";
 import { Suspense } from "react";
-import { fetchProjectsByUserId } from "../lib/data";
+import { fetchDefaultOffice, fetchProjectsByUserId } from "../lib/data";
 import { Metadata } from "next";
 import { getSession } from "../actions/session";
 import { PowerIcon } from "@heroicons/react/24/outline";

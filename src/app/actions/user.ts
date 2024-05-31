@@ -5,18 +5,24 @@ import Auth from "../models/Auth";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import bcrypt from "bcrypt";
-import { AuthFormState, SignupFormSchema, UserFormSchema, UserFormState } from "@/app/lib/definitions";
+import {
+  AuthFormState,
+  EditUserFormSchema,
+  SignupFormSchema,
+  UserFormSchema,
+  UserFormState,
+} from "@/app/lib/definitions";
 
-const UpdateUser = UserFormSchema.omit({ id: true });
+const UpdateUser = EditUserFormSchema.omit({ id: true });
 
 export async function updateUser(
   id: string,
   prevState: UserFormState,
   formData: FormData
 ) {
-
   const validatedFields = UpdateUser.safeParse({
     email: formData.get("email"),
+    officeId: formData.get("officeId"),
   });
 
   if (!validatedFields.success) {
@@ -25,10 +31,10 @@ export async function updateUser(
     };
   }
 
-  const { email } = validatedFields.data;
+  const { email, officeId } = validatedFields.data;
 
   try {
-    const update = { email: email };
+    const update = { email: email, office: officeId };
 
     const filterUser = { _id: id };
     let user = await User.findOneAndUpdate(filterUser, update);
@@ -43,14 +49,15 @@ export async function updateUser(
   redirect("/setting/users");
 }
 
-const CreateUser = UserFormSchema.omit({ id: true});
+const CreateUser = UserFormSchema.omit({ id: true });
 
 export async function createUser(prevState: AuthFormState, formData: FormData) {
   // Validate form using Zod
-  const validatedFields = SignupFormSchema.safeParse({
+  const validatedFields = CreateUser.safeParse({
     email: formData.get("email"),
     password: formData.get("password"),
     confirm_password: formData.get("confirm_password"),
+    officeId: formData.get("officeId"),
   });
 
   // If any form fields are invalid, return early
@@ -60,7 +67,7 @@ export async function createUser(prevState: AuthFormState, formData: FormData) {
     };
   }
 
-  const { email, password } = validatedFields.data;
+  const { email, password, officeId } = validatedFields.data;
 
   let authCheck = await Auth.find({}).exec();
 
@@ -85,7 +92,8 @@ export async function createUser(prevState: AuthFormState, formData: FormData) {
     name: "sample",
     email: email,
     auth: authResponse._id,
-    roles: authCheck.length > 1 ? "user" : "admin",
+    roles: authCheck.length === 1 ? "admin" : "user",
+    office: officeId,
   });
   let userResponse = await user.save();
 
