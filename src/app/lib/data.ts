@@ -9,6 +9,7 @@ import Estimate from "../models/Estimate";
 import Office from "../models/Office";
 import AmenityCategory from "../models/AmenityCategory";
 import Requirement from "../models/Requirement";
+import Refinement from "../models/Refinement";
 
 export async function fetchProjects() {
   noStore();
@@ -486,6 +487,50 @@ export async function fetchRequirementById(id: string) {
   connect();
 
   const item = await Requirement.findOne({ _id: id }).exec();
+
+  const transformItem = {
+    _id: item._id.toString(),
+    name: item.name,
+  };
+
+  return transformItem;
+}
+
+export async function fetchRefinements() {
+  noStore();
+
+  connect();
+
+  const items = await Refinement.find({}).exec();
+
+  const transformItems = items.map((item) => {
+    return {
+      _id: item._id.toString(),
+      name: item.name,
+    };
+  });
+
+  return transformItems;
+}
+
+export async function deleteRefinement(id: string) {
+  noStore();
+
+  connect();
+
+  await Refinement.findOneAndDelete({ _id: id }).exec();
+
+  revalidatePath("/setting/refinements");
+
+  return { message: "Deleted refinement." };
+}
+
+export async function fetchRefinementById(id: string) {
+  noStore();
+
+  connect();
+
+  const item = await Refinement.findOne({ _id: id }).exec();
 
   const transformItem = {
     _id: item._id.toString(),

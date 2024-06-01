@@ -224,3 +224,21 @@ export type RequirementFormState =
       message?: string;
     }
   | undefined;
+
+export const RefinementFormSchema = z.object({
+  id: z.string(),
+  name: z
+    .string({
+      invalid_type_error: "Please enter a name.",
+    })
+    .trim(),
+});
+
+export type RefinementFormState =
+  | {
+      errors?: {
+        name?: string[];
+      };
+      message?: string;
+    }
+  | undefined;

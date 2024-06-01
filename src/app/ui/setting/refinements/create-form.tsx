@@ -1,19 +1,15 @@
 'use client';
 
 import Link from 'next/link';
-
+import { Button } from '@/app/ui/button';
 import { useFormState } from 'react-dom';
-import { Button } from '../../button';
-import { updateRequirement } from '@/app/actions/requirement';
+import { createRefinement } from '@/app/actions/refinement';
 
-export default function EditAmenityCategoryForm({
-  refinement,
-}: {
-  refinement: any;
-}) {
 
-  const updateRefinementWithId = updateRequirement.bind(null, refinement._id);
-  const [state, dispatch] = useFormState(updateRefinementWithId, undefined);
+
+export default function Form() {
+
+  const [state, dispatch] = useFormState(createRefinement, undefined);
 
   return (
     <form action={dispatch}>
@@ -29,8 +25,7 @@ export default function EditAmenityCategoryForm({
                 id="name"
                 name="name"
                 type="text"
-                defaultValue={refinement.name}
-                placeholder="Enter name"
+                placeholder="Enter Name"
                 className="peer block w-full rounded-md border border-gray-200 py-2 pl-3 text-sm outline-2 placeholder:text-gray-500"
               />
               {state?.errors?.name && <div>{state.errors.name}</div>}
@@ -38,14 +33,13 @@ export default function EditAmenityCategoryForm({
           </div>
         </div>
       </div>
-
       <div className="mt-6 flex justify-end gap-4">
         <Link
           href="/setting/refinements"
           className="flex h-10 items-center rounded-lg bg-gray-100 px-4 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-200" >
           Cancel
         </Link>
-        <Button type="submit">Edit</Button>
+        <Button type="submit">Create</Button>
       </div>
     </form>
   );

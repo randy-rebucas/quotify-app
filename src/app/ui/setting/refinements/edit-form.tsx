@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 import { useFormState } from 'react-dom';
 import { Button } from '../../button';
-import { updateRequirement } from '@/app/actions/requirement';
+import { updateRefinement } from '@/app/actions/refinement';
 
 export default function EditAmenityCategoryForm({
   refinement,
@@ -12,7 +12,7 @@ export default function EditAmenityCategoryForm({
   refinement: any;
 }) {
 
-  const updateRefinementWithId = updateRequirement.bind(null, refinement._id);
+  const updateRefinementWithId = updateRefinement.bind(null, refinement._id);
   const [state, dispatch] = useFormState(updateRefinementWithId, undefined);
 
   return (

@@ -3,13 +3,13 @@
 import Link from 'next/link';
 import { Button } from '@/app/ui/button';
 import { useFormState } from 'react-dom';
-import { createRequirement } from '@/app/actions/requirement';
+import { createRefinement } from '@/app/actions/refinement';
 
 
 
 export default function Form() {
 
-  const [state, dispatch] = useFormState(createRequirement, undefined);
+  const [state, dispatch] = useFormState(createRefinement, undefined);
 
   return (
     <form action={dispatch}>
