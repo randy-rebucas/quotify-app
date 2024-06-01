@@ -206,3 +206,21 @@ export type AmenityCategoryFormState =
       message?: string;
     }
   | undefined;
+
+export const RequirementFormSchema = z.object({
+  id: z.string(),
+  name: z
+    .string({
+      invalid_type_error: "Please enter a name.",
+    })
+    .trim(),
+});
+
+export type RequirementFormState =
+  | {
+      errors?: {
+        name?: string[];
+      };
+      message?: string;
+    }
+  | undefined;

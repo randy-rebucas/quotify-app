@@ -66,6 +66,7 @@ export default async function handler(
         headCount: fieldMap.get("targetHeadCount"),
         averageOfficeAttendance: fieldMap.get("averageAttendance"),
         seatingPercentage: fieldMap.get("assignedSeat"),
+        lastUri: 'area-breakdown',
         user: session?.userId,
       });
 

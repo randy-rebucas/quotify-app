@@ -8,6 +8,7 @@ import User from "../models/User";
 import Estimate from "../models/Estimate";
 import Office from "../models/Office";
 import AmenityCategory from "../models/AmenityCategory";
+import Requirement from "../models/Requirement";
 
 export async function fetchProjects() {
   noStore();
@@ -448,4 +449,48 @@ export async function fetchAmenityCategoryById(id: string) {
   };
 
   return transformData;
+}
+
+export async function fetchRequirements() {
+  noStore();
+
+  connect();
+
+  const items = await Requirement.find({}).exec();
+
+  const transformItems = items.map((item) => {
+    return {
+      _id: item._id.toString(),
+      name: item.name,
+    };
+  });
+
+  return transformItems;
+}
+
+export async function deleteRequirement(id: string) {
+  noStore();
+
+  connect();
+
+  await Requirement.findOneAndDelete({ _id: id }).exec();
+
+  revalidatePath("/setting/requirements");
+
+  return { message: "Deleted requirement." };
+}
+
+export async function fetchRequirementById(id: string) {
+  noStore();
+
+  connect();
+
+  const item = await Requirement.findOne({ _id: id }).exec();
+
+  const transformItem = {
+    _id: item._id.toString(),
+    name: item.name,
+  };
+
+  return transformItem;
 }

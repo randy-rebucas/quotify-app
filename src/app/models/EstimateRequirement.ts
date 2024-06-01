@@ -27,6 +27,19 @@ const estimateRequirementSchema = new Schema<IEstimateRequirement>({
   },
 });
 
+// const estimateRequirementSchema = new Schema<IEstimateRequirement>({
+//   requirements: [{
+//     type: Schema.Types.ObjectId,
+//     ref: "RefinementLevels",
+//     required: true,
+//   }],
+//   estimate: {
+//     type: Schema.Types.ObjectId,
+//     ref: "Estimates",
+//     required: true,
+//   },
+// });
+
 // 3. Create a Model.
 const EstimateRequirement =
   mongoose.models.EstimateRequirements ??
