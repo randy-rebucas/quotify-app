@@ -15,7 +15,7 @@ export default function EditUserForm({
 
   const updateAmenityWithId = updateAmenity.bind(null, amenity._id);
   const [state, dispatch] = useFormState(updateAmenityWithId, undefined);
-  console.log(amenity);
+
   return (
     <form action={dispatch}>
       <div className="rounded-md bg-gray-50 p-4 md:p-6">

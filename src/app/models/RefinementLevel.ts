@@ -6,7 +6,7 @@ export interface IRefinementLevel {
   level: string;
   unitRate: Types.Decimal128;
   description: string;
-  image: string;
+  image?: string;
   refinement?: Types.ObjectId | IRefinement;
 }
 
@@ -15,7 +15,7 @@ const refinementLevelSchema = new Schema<IRefinementLevel>({
   level: { type: String, required: true },
   unitRate: { type: Schema.Types.Decimal128, required: true },
   description: { type: String, required: true },
-  image: { type: String, required: true },
+  image: { type: String },
   refinement: { type: Schema.Types.ObjectId, ref: "Refinements" },
 });
 

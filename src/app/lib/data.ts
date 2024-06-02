@@ -10,6 +10,8 @@ import Office from "../models/Office";
 import AmenityCategory from "../models/AmenityCategory";
 import Requirement from "../models/Requirement";
 import Refinement from "../models/Refinement";
+import RefinementLevel from "../models/RefinementLevel";
+import path from "path";
 
 export async function fetchProjects() {
   noStore();
@@ -272,8 +274,10 @@ export async function fetchUserById(id: string) {
 
   connect();
 
-
-  const user = await User.findOne({ _id: id }).populate("office").populate("auth").exec();
+  const user = await User.findOne({ _id: id })
+    .populate("office")
+    .populate("auth")
+    .exec();
 
   const transformData = {
     _id: user._id.toString(),
@@ -535,6 +539,58 @@ export async function fetchRefinementById(id: string) {
   const transformItem = {
     _id: item._id.toString(),
     name: item.name,
+  };
+
+  return transformItem;
+}
+
+export async function fetchRefinementLevels() {
+  noStore();
+
+  connect();
+
+  const items = await RefinementLevel.find({}).populate('refinement').exec();
+
+  const transformItems = items.map((item) => {
+    return {
+      _id: item._id.toString(),
+      level: item.level,
+      unitRate: item.unitRate.toString(),
+      description: item.description,
+      image: item.image,
+      refinement: item.refinement,
+    };
+  });
+
+  return transformItems;
+}
+
+export async function deleteRefinementLevel(id: string) {
+  noStore();
+
+  connect();
+
+  await RefinementLevel.findOneAndDelete({ _id: id }).exec();
+
+  revalidatePath("/setting/refinement-levels");
+
+  return { message: "Deleted refinement level." };
+}
+
+export async function fetchRefinementlevelById(id: string) {
+  noStore();
+
+  connect();
+
+  const item = await RefinementLevel.findOne({ _id: id }).populate('refinement').exec();
+
+  const transformItem = {
+    _id: item._id.toString(),
+    level: item.level,
+    unitRate: item.unitRate.toString(),
+    description: item.description,
+    image: item.image,
+    refinementId: item.refinement._id.toString(),
   };
 
   return transformItem;

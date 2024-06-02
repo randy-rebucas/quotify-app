@@ -7,12 +7,12 @@ import { Button } from '../../button';
 import { updateRequirement } from '@/app/actions/requirement';
 
 export default function EditAmenityCategoryForm({
-  refinement,
+  requirement,
 }: {
-  refinement: any;
+  requirement: any;
 }) {
 
-  const updateRefinementWithId = updateRequirement.bind(null, refinement._id);
+  const updateRefinementWithId = updateRequirement.bind(null, requirement._id);
   const [state, dispatch] = useFormState(updateRefinementWithId, undefined);
 
   return (
@@ -29,7 +29,7 @@ export default function EditAmenityCategoryForm({
                 id="name"
                 name="name"
                 type="text"
-                defaultValue={refinement.name}
+                defaultValue={requirement.name}
                 placeholder="Enter name"
                 className="peer block w-full rounded-md border border-gray-200 py-2 pl-3 text-sm outline-2 placeholder:text-gray-500"
               />
