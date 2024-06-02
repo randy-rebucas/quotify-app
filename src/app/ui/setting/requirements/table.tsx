@@ -1,8 +1,8 @@
-import { IRefinement } from "@/app/models/Refinement";
 import { Delete, Update } from "./buttons";
+import { IRequirement } from "@/app/models/Requirement";
 
 
-export default function Table({ refinements }: { refinements: IRefinement[] }) {
+export default function Table({ requirements }: { requirements: IRequirement[] }) {
 
     return (
         <div className="flex flex-col">
@@ -17,14 +17,14 @@ export default function Table({ refinements }: { refinements: IRefinement[] }) {
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-gray-200 dark:divide-neutral-700">
-                                {refinements.map((refinement: any, index: number) => (
+                                {requirements.map((requirement: any, index: number) => (
                                     <tr key={index}
                                         className="w-full border-b py-1 text-sm last-of-type:border-none [&:first-child>td:first-child]:rounded-tl-lg [&:first-child>td:last-child]:rounded-tr-lg [&:last-child>td:first-child]:rounded-bl-lg [&:last-child>td:last-child]:rounded-br-lg" >
-                                        <td className="whitespace-nowrap px-3 py-1">{refinement.name}</td>
+                                        <td className="whitespace-nowrap px-3 py-1">{requirement.name}</td>
                                         <td className="whitespace-nowrap py-1 pl-6 pr-3">
                                             <div className="flex justify-end gap-3">
-                                                <Update id={refinement._id.toString()} />
-                                                <Delete id={refinement._id.toString()} />
+                                                <Update id={requirement._id.toString()} />
+                                                <Delete id={requirement._id.toString()} />
                                             </div>
                                         </td>
                                     </tr>

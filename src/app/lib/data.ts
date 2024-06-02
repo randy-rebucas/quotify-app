@@ -12,6 +12,7 @@ import Requirement from "../models/Requirement";
 import Refinement from "../models/Refinement";
 import RefinementLevel from "../models/RefinementLevel";
 import path from "path";
+import Media from "../models/Media";
 
 export async function fetchProjects() {
   noStore();
@@ -549,7 +550,7 @@ export async function fetchRefinementLevels() {
 
   connect();
 
-  const items = await RefinementLevel.find({}).populate('refinement').exec();
+  const items = await RefinementLevel.find({}).populate("refinement").exec();
 
   const transformItems = items.map((item) => {
     return {
@@ -582,7 +583,9 @@ export async function fetchRefinementlevelById(id: string) {
 
   connect();
 
-  const item = await RefinementLevel.findOne({ _id: id }).populate('refinement').exec();
+  const item = await RefinementLevel.findOne({ _id: id })
+    .populate("refinement")
+    .exec();
 
   const transformItem = {
     _id: item._id.toString(),
@@ -591,6 +594,60 @@ export async function fetchRefinementlevelById(id: string) {
     description: item.description,
     image: item.image,
     refinementId: item.refinement._id.toString(),
+  };
+
+  return transformItem;
+}
+
+export async function fetchMediaLibraries() {
+  noStore();
+
+  connect();
+
+  const items = await Media.find({}).populate("user").exec();
+
+  const transformItems = items.map((item) => {
+    return {
+      _id: item._id.toString(),
+      metaData: item.metaData,
+      uploadedDate: item.uploadedDate,
+      uploadedBy: item.uploadedBy,
+      fileName: item.fileName,
+      fileType: item.fileType,
+      fileSize: item.fileSize,
+    };
+  });
+
+  return transformItems;
+}
+
+export async function deleteMediaLibrary(id: string) {
+  noStore();
+
+  connect();
+
+  await Media.findOneAndDelete({ _id: id }).exec();
+
+  revalidatePath("/setting/medias-libraries");
+
+  return { message: "Deleted media." };
+}
+
+export async function fetchMediaLibraryById(id: string) {
+  noStore();
+
+  connect();
+
+  const item = await Media.findOne({ _id: id }).populate("user").exec();
+
+  const transformItem = {
+    _id: item._id.toString(),
+    metaData: item.metaData,
+    uploadedDate: item.uploadedDate,
+    uploadedBy: item.uploadedBy,
+    fileName: item.fileName,
+    fileType: item.fileType,
+    fileSize: item.fileSize,
   };
 
   return transformItem;
