@@ -1,6 +1,6 @@
 import { fetchRefinements } from '@/app/lib/data';
-import { Create } from '@/app/ui/setting/requirements/buttons';
-import Table from '@/app/ui/setting/requirements/table';
+import { Create } from '@/app/ui/setting/refinements/buttons';
+import Table from '@/app/ui/setting/refinements/table';
 import Title from '@/app/ui/title';
 import { Metadata } from 'next';
 
