@@ -604,7 +604,7 @@ export async function fetchMediaLibraries() {
 
   connect();
 
-  const items = await Media.find({}).populate("user").exec();
+  const items = await Media.find({}).populate("uploadedBy").exec();
 
   const transformItems = items.map((item) => {
     return {
@@ -638,7 +638,7 @@ export async function fetchMediaLibraryById(id: string) {
 
   connect();
 
-  const item = await Media.findOne({ _id: id }).populate("user").exec();
+  const item = await Media.findOne({ _id: id }).populate("uploadedBy").exec();
 
   const transformItem = {
     _id: item._id.toString(),

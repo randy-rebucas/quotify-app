@@ -19,8 +19,8 @@ export interface IMedia {
 // 2. Create a Schema corresponding to the document interface.
 const mediaSchema = new Schema<IMedia>({
   metaData: {
-    title: { type: String, required: true },
-    alternativeText: { type: String, required: true },
+    title: { type: String },
+    alternativeText: { type: String },
   },
   uploadedDate: { type: Date, default: Date.now },
   uploadedBy: { type: Schema.Types.ObjectId, ref: "Users", required: true },

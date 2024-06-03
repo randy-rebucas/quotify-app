@@ -3,26 +3,25 @@
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import {
-  RefinementLevelFormSchema,
-  RefinementLevelFormState,
-  UpdateRefinementLevelFormSchema,
+  MediaLibraryFormSchema,
+  MediaLibraryFormState,
 } from "@/app/lib/definitions";
 import RefinementLevel from "../models/RefinementLevel";
 import { unlink, writeFile } from "fs/promises";
 import path from "path";
+import Media from "../models/Media";
+import { decrypt } from "./session";
+import { cookies } from "next/headers";
 
-const UpdateSchema = UpdateRefinementLevelFormSchema.omit({ id: true });
+const UpdateSchema = MediaLibraryFormSchema.omit({ id: true });
 
-export async function updateRefinementLevel(
+export async function updateMedia(
   id: string,
-  prevState: RefinementLevelFormState,
+  prevState: MediaLibraryFormState,
   formData: FormData
 ) {
   const validatedFields = UpdateSchema.safeParse({
-    level: formData.get("level"),
-    unitRate: formData.get("unitRate"),
-    description: formData.get("description"),
-    refinementId: formData.get("refinementId"),
+    image: formData.get("image"),
   });
 
   if (!validatedFields.success) {
@@ -31,41 +30,36 @@ export async function updateRefinementLevel(
     };
   }
 
-  const { level, unitRate, description, refinementId } = validatedFields.data;
+  const { image } = validatedFields.data;
 
   try {
     const update = {
-      level: level,
-      unitRate: unitRate,
-      description: description,
-      refinement: refinementId
+      image: image,
     };
     const filter = { _id: id };
 
-    await RefinementLevel.findOneAndUpdate(filter, update);
+    await Media.findOneAndUpdate(filter, update);
   } catch (error) {
     return { message: "Database Error: Failed to Update refinement." };
   }
 
-  revalidatePath("/setting/medias-libraries");
-  redirect("/setting/medias-libraries");
+  revalidatePath("/setting/media-libraries");
+  redirect("/setting/media-libraries");
 }
 
-const CreateSchema = RefinementLevelFormSchema.omit({ id: true });
+const CreateSchema = MediaLibraryFormSchema.omit({ id: true });
 
-export async function createRefinementLevel(
-  prevState: RefinementLevelFormState,
+export async function createMedia(
+  prevState: MediaLibraryFormState,
   formData: FormData
 ) {
-
   // Validate form using Zod
   const validatedFields = CreateSchema.safeParse({
-    level: formData.get("level"),
-    unitRate: formData.get("unitRate"),
-    description: formData.get("description"),
     image: formData.get("image"),
-    refinementId: formData.get("refinementId"),
   });
+
+  const cookieStore = cookies();
+  const session = await decrypt(cookieStore.get("session")?.value);
 
   // If any form fields are invalid, return early
   if (!validatedFields.success) {
@@ -73,43 +67,40 @@ export async function createRefinementLevel(
       errors: validatedFields.error.flatten().fieldErrors,
     };
   }
-  
-  const { level, unitRate, description, image, refinementId } = validatedFields.data;
+
+  const { image } = validatedFields.data;
 
   const buffer = Buffer.from(await image.arrayBuffer());
   // Replace spaces in the file name with underscores
   let filename = image.name.replaceAll(" ", "_");
-  filename = `${Date.now()}${filename?.substring(
-    filename?.lastIndexOf(".")
-  )}`
+  filename = `${Date.now()}${filename?.substring(filename?.lastIndexOf("."))}`;
 
   await writeFile(
     path.join(process.cwd(), "public/uploads/" + filename),
     buffer
   );
 
-  const refinementLevel = new RefinementLevel({
-    level: level,
-    unitRate: Number(unitRate).toLocaleString(),
-    description: description,
-    image: filename,
-    refinement: refinementId
+  const media = new Media({
+    fileName: filename,
+    uploadedBy: session?.userId,
+    fileType: image.type,
+    fileSize: image.size,
   });
-  await refinementLevel.save();
+  await media.save();
 
-  revalidatePath("/setting/medias-libraries");
-  redirect("/setting/medias-libraries");
+  revalidatePath("/setting/media-libraries");
+  redirect("/setting/media-libraries");
 }
 
-export async function deleteRefinementLevel(id: string) {
+export async function deleteMedia(id: string) {
   try {
-    let refinementLevel = await RefinementLevel.findOne({ _id: id }).exec();
-    let filename = refinementLevel.image;
+    let media = await Media.findOne({ _id: id }).exec();
+    let filename = media.image;
 
     await unlink(path.join(process.cwd(), "public/uploads/" + filename));
 
-    await RefinementLevel.findOneAndDelete({ _id: id }).exec();
-    revalidatePath("/setting/medias-libraries");
+    await Media.findOneAndDelete({ _id: id }).exec();
+    revalidatePath("/setting/media-libraries");
     return { message: "Deleted Refinement level." };
   } catch (error) {
     return { message: "Database Error: Failed to Delete Refinement." };
