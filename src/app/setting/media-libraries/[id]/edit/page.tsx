@@ -1,34 +1,15 @@
-import Form from '@/app/ui/setting/menus/edit-form';
+import Form from '@/app/ui/setting/media-libraries/edit-form';
 import { notFound } from 'next/navigation';
-import { Metadata } from 'next';
-import { fetchMenuById } from '@/app/lib/data';
-import Breadcrumbs from '@/app/ui/breadcrumbs';
+import { fetchMediaLibraryById } from '@/app/lib/data';
 
 
-export const metadata: Metadata = {
-    title: 'Menu Edit',
-};
 export default async function Page({ params }: { params: { id: string } }) {
     const id = params.id;
 
-    const menu = await fetchMenuById(id);
+    const media = await fetchMediaLibraryById(id);
 
-    if (!menu) {
+    if (!media) {
         notFound();
     }
-    return (
-        <main>
-            <Breadcrumbs
-                breadcrumbs={[
-                    { label: 'Menus', href: '/setting/menus' },
-                    {
-                        label: 'Edit Menu',
-                        href: `/setting/menus/${id}/edit`,
-                        active: true,
-                    },
-                ]}
-            />
-            <Form menu={menu} />
-        </main>
-    );
+    return <Form media={media} />;
 }
