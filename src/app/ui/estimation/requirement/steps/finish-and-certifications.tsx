@@ -45,6 +45,7 @@ export default function FinishAndCertification({
         updateFields({ stimates: data });
     }
 
+    // const 
     return (
         <>
             {finishData.map((finish: finishType, index: any) => (

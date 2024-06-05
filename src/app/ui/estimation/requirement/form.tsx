@@ -15,7 +15,7 @@ import { INITIAL_DATA, menuMapping, RequirementData, StimateData, tabMapping } f
 import { v4 as uuid } from 'uuid'
 import TabForm from "./tab-form";
 
-export default function Form({ menus, project_id }: { menus: any[], project_id: string }) {
+export default function Form({ requirements, project_id }: { requirements: any[], project_id: string }) {
     const router = useRouter();
     const [isLoading, setIsLoading] = useState<boolean>(false)
     const [isExpanded, setIsExpanded] = useState<boolean>(true)
@@ -214,7 +214,7 @@ export default function Form({ menus, project_id }: { menus: any[], project_id: 
                                 </div>
 
                                 <div className="js-main-menu__content estimation-col__content">
-                                    {menus.map((menu, index) => (
+                                    {requirements.map((requirement, index) => (
                                         <div key={index} className={clsx(
                                             'js-step-indicator step-indicator',
                                             {
@@ -222,11 +222,11 @@ export default function Form({ menus, project_id }: { menus: any[], project_id: 
                                             },
                                         )}>
                                             <span className="font-latoblack">03.{index + 1}:</span> <br />
-                                            {menu.title}
-                                            {getSelectedRequirement(stimate.id, menu.title) && <div className="js-step-indicator step-indicator pl-3 checked" style={{
+                                            {requirement.name}
+                                            {getSelectedRequirement(stimate.id, requirement.name) && <div className="js-step-indicator step-indicator pl-3 checked" style={{
                                                 paddingBottom: 'unset'
                                             }} data-category="03.1.1">
-                                                {getSelectedRequirement(stimate.id, menu.title)}
+                                                {getSelectedRequirement(stimate.id, requirement.name)}
                                             </div>}
                                         </div>
                                     ))}
