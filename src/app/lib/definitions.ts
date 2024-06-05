@@ -302,3 +302,27 @@ export type MediaLibraryFormState =
       message?: string;
     }
   | undefined;
+
+export const RequirementLevelFormSchema = z.object({
+  id: z.string(),
+  level: z.string(),
+  unitRate: z.string(),
+  description: z.string(),
+  image: z.string(),
+  requirementId: z.string({
+    invalid_type_error: "Please select a requirement.",
+  }),
+});
+
+export type RequiermentLevelFormState =
+  | {
+      errors?: {
+        level?: string[];
+        unitRate?: string[];
+        description?: string[];
+        image?: string[];
+        requirementId?: string[];
+      };
+      message?: string;
+    }
+  | undefined;

@@ -3,11 +3,11 @@
 import Link from 'next/link';
 import { Button } from '@/app/ui/button';
 import { useFormState } from 'react-dom';
-import { createRefinementLevel } from '@/app/actions/refinementLevel';
+import { createRequirementLevel } from '@/app/actions/requirementLevel';
 
-export default function Form({ refinements }: { refinements: any[] }) {
+export default function Form({ requirements }: { requirements: any[] }) {
 
-  const [state, dispatch] = useFormState(createRefinementLevel, undefined);
+  const [state, dispatch] = useFormState(createRequirementLevel, undefined);
 
   return (
     <form action={dispatch}>
@@ -75,22 +75,22 @@ export default function Form({ refinements }: { refinements: any[] }) {
           </div>
         </div>
         <div className="mb-4">
-          <label htmlFor="refinement" className="mb-2 block text-sm font-medium">
-            Choose refinement
+          <label htmlFor="requirementId" className="mb-2 block text-sm font-medium">
+            Choose Requirement
           </label>
           <div className="relative">
             <select
-              id="refinement"
-              name="refinementId"
+              id="requirement"
+              name="requirementId"
               className="peer block w-full cursor-pointer rounded-md border border-gray-200 py-2 pl-2 text-sm outline-2 placeholder:text-gray-500"
               defaultValue=""
             >
               <option value="" disabled>
-                Select a refinement
+                Select a requirement
               </option>
-              {refinements.map((refinement) => (
-                <option key={refinement._id} value={refinement._id}>
-                  {refinement.name}
+              {requirements.map((requirement) => (
+                <option key={requirement._id} value={requirement._id}>
+                  {requirement.name}
                 </option>
               ))}
             </select>

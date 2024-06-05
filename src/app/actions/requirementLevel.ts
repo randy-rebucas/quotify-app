@@ -3,18 +3,19 @@
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import {
-  RefinementLevelFormSchema,
-  RefinementLevelFormState,
+    RequiermentLevelFormState,
+  RequirementLevelFormSchema,
 } from "@/app/lib/definitions";
 import RefinementLevel from "../models/RefinementLevel";
 import { unlink, writeFile } from "fs/promises";
 import path from "path";
+import RequirementLevel from "../models/RequirementLevel";
 
-const UpdateSchema = RefinementLevelFormSchema.omit({ id: true });
+const UpdateSchema = RequirementLevelFormSchema.omit({ id: true });
 
-export async function updateRefinementLevel(
+export async function updateRequirementLevel(
   id: string,
-  prevState: RefinementLevelFormState,
+  prevState: RequiermentLevelFormState,
   formData: FormData
 ) {
   const validatedFields = UpdateSchema.safeParse({
@@ -22,7 +23,7 @@ export async function updateRefinementLevel(
     unitRate: formData.get("unitRate"),
     description: formData.get("description"),
     image: formData.get("image"),
-    refinementId: formData.get("refinementId"),
+    requirementId: formData.get("requirementId"),
   });
 
   if (!validatedFields.success) {
@@ -31,7 +32,7 @@ export async function updateRefinementLevel(
     };
   }
 
-  const { level, unitRate, description, image, refinementId } =
+  const { level, unitRate, description, image, requirementId } =
     validatedFields.data;
 
   try {
@@ -40,23 +41,23 @@ export async function updateRefinementLevel(
       unitRate: Number(unitRate).toLocaleString(),
       description: description,
       image: image,
-      refinement: refinementId,
+      requirement: requirementId,
     };
     const filter = { _id: id };
 
-    await RefinementLevel.findOneAndUpdate(filter, update);
+    await RequirementLevel.findOneAndUpdate(filter, update);
   } catch (error) {
     return { message: "Database Error: Failed to Update refinement." };
   }
 
-  revalidatePath("/setting/refinement-levels");
-  redirect("/setting/refinement-levels");
+  revalidatePath("/setting/requirement-levels");
+  redirect("/setting/requirement-levels");
 }
 
-const CreateSchema = RefinementLevelFormSchema.omit({ id: true });
+const CreateSchema = RequirementLevelFormSchema.omit({ id: true });
 
-export async function createRefinementLevel(
-  prevState: RefinementLevelFormState,
+export async function createRequirementLevel(
+  prevState: RequiermentLevelFormState,
   formData: FormData
 ) {
   // Validate form using Zod
@@ -65,7 +66,7 @@ export async function createRefinementLevel(
     unitRate: formData.get("unitRate"),
     description: formData.get("description"),
     image: formData.get("image"),
-    refinementId: formData.get("refinementId"),
+    requirementId: formData.get("requirementId"),
   });
 
   // If any form fields are invalid, return early
@@ -75,33 +76,33 @@ export async function createRefinementLevel(
     };
   }
 
-  const { level, unitRate, description, image, refinementId } =
+  const { level, unitRate, description, image, requirementId } =
     validatedFields.data;
 
-  const refinementLevel = new RefinementLevel({
+  const requirementLevel = new RequirementLevel({
     level: level,
     unitRate: Number(unitRate).toLocaleString(),
     description: description,
     image: image,
-    refinement: refinementId,
+    requirement: requirementId,
   });
-  await refinementLevel.save();
+  await requirementLevel.save();
 
-  revalidatePath("/setting/refinement-levels");
-  redirect("/setting/refinement-levels");
+  revalidatePath("/setting/requirement-levels");
+  redirect("/setting/requirement-levels");
 }
 
-export async function deleteRefinementLevel(id: string) {
+export async function deleteRequirementLevel(id: string) {
   try {
-    let refinementLevel = await RefinementLevel.findOne({ _id: id }).populate('image').exec();
-    let filename = refinementLevel.image.fileName;
-    
+    let requirementLevel = await RequirementLevel.findOne({ _id: id }).populate('image').exec();
+    let filename = requirementLevel.image.fileName;
+
     await unlink(path.join(process.cwd(), "public/uploads/" + filename));
 
-    await RefinementLevel.findOneAndDelete({ _id: id }).exec();
-    revalidatePath("/setting/refinement-levels");
-    return { message: "Deleted Refinement level." };
+    await RequirementLevel.findOneAndDelete({ _id: id }).exec();
+    revalidatePath("/setting/requirement-levels");
+    return { message: "Deleted requirement level." };
   } catch (error) {
-    return { message: "Database Error: Failed to Delete Refinement." };
+    return { message: "Database Error: Failed to Delete requirement." };
   }
 }

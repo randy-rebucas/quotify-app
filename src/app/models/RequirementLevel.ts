@@ -1,12 +1,13 @@
 import mongoose, { Schema, Types, model } from "mongoose";
 import { IRequirement } from "./Requirement";
+import { IMedia } from "./Media";
 
 // 1. Create an interface representing a document in MongoDB.
 export interface IRequirementLevel {
   level: string;
   unitRate: Types.Decimal128;
   description: string;
-  image: string;
+  image?: Types.ObjectId | IMedia;
   requirement?: Types.ObjectId | IRequirement;
 }
 
@@ -15,7 +16,7 @@ const requirementLevelSchema = new Schema<IRequirementLevel>({
   level: { type: String, required: true },
   unitRate: { type: Schema.Types.Decimal128, required: true },
   description: { type: String, required: true },
-  image: { type: String, required: true },
+  image: { type: Schema.Types.ObjectId, ref: "Medias" },
   requirement: { type: Schema.Types.ObjectId, ref: "Requirements" },
 });
 

@@ -3,18 +3,18 @@
 import Link from 'next/link';
 import { useFormState } from 'react-dom';
 import { Button } from '../../button';
-import { updateRefinementLevel } from '@/app/actions/refinementLevel';
+import { updateRequirementLevel } from '@/app/actions/requirementLevel';
 
-export default function EditRefinementLevelForm({
-  refinement,
-  refinements
+export default function EditRequirementLevelForm({
+  requirement,
+  requirements
 }: {
-  refinement: any;
-  refinements: any[]
+  requirement: any;
+  requirements: any[]
 }) {
 
-  const updateRefinementLevelWithId = updateRefinementLevel.bind(null, refinement._id);
-  const [state, dispatch] = useFormState(updateRefinementLevelWithId, undefined);
+  const updateRequirementLevelWithId = updateRequirementLevel.bind(null, requirement._id);
+  const [state, dispatch] = useFormState(updateRequirementLevelWithId, undefined);
 
 
   return (<form action={dispatch}>
@@ -29,7 +29,7 @@ export default function EditRefinementLevelForm({
               id="level"
               name="level"
               type="text"
-              defaultValue={refinement.level}
+              defaultValue={requirement.level}
               placeholder="Enter level"
               className="peer block w-full rounded-md border border-gray-200 py-2 pl-3 text-sm outline-2 placeholder:text-gray-500"
             />
@@ -47,7 +47,7 @@ export default function EditRefinementLevelForm({
               id="unitRate"
               name="unitRate"
               type="number"
-              defaultValue={refinement.unitRate}
+              defaultValue={requirement.unitRate}
               placeholder="Enter unit rate"
               className="peer block w-full rounded-md border border-gray-200 py-2 pl-3 text-sm outline-2 placeholder:text-gray-500"
             />
@@ -61,7 +61,7 @@ export default function EditRefinementLevelForm({
         </label>
         <div className="relative mt-2 rounded-md">
           <div className="relative">
-            <textarea id="description" name="description" defaultValue={refinement.description} className="peer block w-full rounded-md border border-gray-200 py-2 pl-3 text-sm outline-2 placeholder:text-gray-500">
+            <textarea id="description" name="description" defaultValue={requirement.description} className="peer block w-full rounded-md border border-gray-200 py-2 pl-3 text-sm outline-2 placeholder:text-gray-500">
             </textarea>
             {state?.errors?.description && <div>{state.errors.description}</div>}
           </div>
@@ -78,7 +78,7 @@ export default function EditRefinementLevelForm({
               name="image"
               type="text"
               placeholder="Paste image media"
-              defaultValue={refinement.image}
+              defaultValue={requirement.image}
               className="peer block w-full rounded-md border border-gray-200 py-2 pl-3 text-sm outline-2 placeholder:text-gray-500"
             />
             {state?.errors?.image && <div>{state.errors.image}</div>}
@@ -86,22 +86,22 @@ export default function EditRefinementLevelForm({
         </div>
       </div>
       <div className="mb-4">
-        <label htmlFor="category" className="mb-2 block text-sm font-medium">
-          Choose refinement
+        <label htmlFor="requirement" className="mb-2 block text-sm font-medium">
+          Choose requirement
         </label>
         <div className="relative">
           <select
-            id="refinement"
-            name="refinementId"
+            id="requirement"
+            name="requirementId"
             className="peer block w-full cursor-pointer rounded-md border border-gray-200 py-2 pl-2 text-sm outline-2 placeholder:text-gray-500"
-            defaultValue={refinement.refinementId}
+            defaultValue={requirement.requirementId}
           >
             <option value="" disabled>
-              Select a refinement
+              Select a requirement
             </option>
-            {refinements.map((refinement) => (
-              <option key={refinement._id} value={refinement._id}>
-                {refinement.name}
+            {requirements.map((requirement) => (
+              <option key={requirement._id} value={requirement._id}>
+                {requirement.name}
               </option>
             ))}
           </select>
@@ -111,7 +111,7 @@ export default function EditRefinementLevelForm({
 
     <div className="mt-6 flex justify-end gap-4">
       <Link
-        href="/setting/refinement-levels"
+        href="/setting/requirement-levels"
         className="flex h-10 items-center rounded-lg bg-gray-100 px-4 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-200" >
         Cancel
       </Link>

@@ -13,6 +13,7 @@ import Refinement from "../models/Refinement";
 import RefinementLevel from "../models/RefinementLevel";
 import path from "path";
 import Media from "../models/Media";
+import RequirementLevel from "../models/RequirementLevel";
 
 export async function fetchProjects() {
   noStore();
@@ -496,6 +497,65 @@ export async function fetchRequirementById(id: string) {
   const transformItem = {
     _id: item._id.toString(),
     name: item.name,
+  };
+
+  return transformItem;
+}
+
+export async function fetchRequirementLevels() {
+  noStore();
+
+  connect();
+
+  const items = await RequirementLevel.find({})
+    .populate("image")
+    .populate("requirement")
+    .exec();
+
+  const transformItems = items.map((item) => {
+    return {
+      _id: item._id.toString(),
+      level: item.level,
+      unitRate: item.unitRate.toString(),
+      description: item.description,
+      image: item.image,
+      requirement: item.requirement,
+    };
+  });
+
+  return transformItems;
+}
+
+export async function deleteRequirementLevel(id: string) {
+  noStore();
+
+  connect();
+
+  await RequirementLevel.findOneAndDelete({ _id: id }).exec();
+
+  revalidatePath("/setting/requirement-levels");
+
+  return { message: "Deleted requirement level." };
+}
+
+export async function fetchRequirementlevelById(id: string) {
+  noStore();
+
+  connect();
+
+  const item = await RequirementLevel.findOne({ _id: id })
+    .populate("image")
+    .populate("requirement")
+    .exec();
+
+    console.log(item);
+  const transformItem = {
+    _id: item._id.toString(),
+    level: item.level,
+    unitRate: item.unitRate.toString(),
+    description: item.description,
+    image: item.image._id.toString(),
+    requirementId: item.requirement._id.toString(),
   };
 
   return transformItem;
