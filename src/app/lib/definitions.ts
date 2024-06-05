@@ -286,10 +286,18 @@ export const MediaLibraryFormSchema = z.object({
     ),
 });
 
+export const UpdateMediaLibraryFormSchema = z.object({
+  id: z.string(),
+  title: z.string(),
+  alternativeText: z.string(),
+});
+
 export type MediaLibraryFormState =
   | {
       errors?: {
         image?: string[];
+        title?: string[];
+        alternativeText?: string[];
       };
       message?: string;
     }

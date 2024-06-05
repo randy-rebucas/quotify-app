@@ -5,6 +5,7 @@ import { revalidatePath } from "next/cache";
 import {
   MediaLibraryFormSchema,
   MediaLibraryFormState,
+  UpdateMediaLibraryFormSchema,
 } from "@/app/lib/definitions";
 import RefinementLevel from "../models/RefinementLevel";
 import { unlink, writeFile } from "fs/promises";
@@ -13,7 +14,7 @@ import Media from "../models/Media";
 import { decrypt } from "./session";
 import { cookies } from "next/headers";
 
-const UpdateSchema = MediaLibraryFormSchema.omit({ id: true });
+const UpdateSchema = UpdateMediaLibraryFormSchema.omit({ id: true });
 
 export async function updateMedia(
   id: string,
@@ -21,7 +22,8 @@ export async function updateMedia(
   formData: FormData
 ) {
   const validatedFields = UpdateSchema.safeParse({
-    image: formData.get("image"),
+    title: formData.get("title"),
+    alternativeText: formData.get("alternativeText"),
   });
 
   if (!validatedFields.success) {
@@ -30,11 +32,14 @@ export async function updateMedia(
     };
   }
 
-  const { image } = validatedFields.data;
+  const { title, alternativeText } = validatedFields.data;
 
   try {
     const update = {
-      image: image,
+      metaData: {
+        title: title,
+        alternativeText: alternativeText,
+      },
     };
     const filter = { _id: id };
 
