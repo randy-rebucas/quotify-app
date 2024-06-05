@@ -13,6 +13,7 @@ export default async function Page({ params }: { params: { id: string } }) {
 
     const refinement = await fetchRefinementlevelById(id);
     const refinements = await fetchRefinements();
+
     if (!refinement) {
         notFound();
     }

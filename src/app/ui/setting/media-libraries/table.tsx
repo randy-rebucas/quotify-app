@@ -27,7 +27,7 @@ export default function Table({ medias }: { medias: IMedia[] }) {
                                 {medias.map((media: any, index: number) => (
                                     <tr key={index}
                                         className="w-full border-b py-1 text-sm last-of-type:border-none [&:first-child>td:first-child]:rounded-tl-lg [&:first-child>td:last-child]:rounded-tr-lg [&:last-child>td:first-child]:rounded-bl-lg [&:last-child>td:last-child]:rounded-br-lg" >
-                                        <td className="whitespace-nowrap px-3 py-1">
+                                        <td className="whitespace-nowrap px-3 py-1 align-middle">
                                             <Link key={media._id} href={`/media/${media._id}`}>
                                                 <Image
                                                     src={`/uploads/${media.fileName}`}
@@ -36,11 +36,11 @@ export default function Table({ medias }: { medias: IMedia[] }) {
                                                     alt={media.level}
                                                 /></Link>
                                         </td>
-                                        <td className="whitespace-nowrap px-3 py-1">{media.uploadedBy.name}</td>
-                                        <td className="whitespace-nowrap px-3 py-1">{media.fileName}</td>
-                                        <td className="whitespace-nowrap px-3 py-1">{media.fileType}</td>
-                                        <td className="px-3 py-1">{filesize(media.fileSize, { standard: "jedec" })}</td>
-                                        <td className="whitespace-nowrap py-1 pl-6 pr-3">
+                                        <td className="whitespace-nowrap px-3 py-1 align-middle">{media.uploadedBy.name}</td>
+                                        <td className="whitespace-nowrap px-3 py-1 align-middle">{media.fileName}</td>
+                                        <td className="whitespace-nowrap px-3 py-1 align-middle">{media.fileType}</td>
+                                        <td className="px-3 py-1 align-middle">{filesize(media.fileSize, { standard: "jedec" })}</td>
+                                        <td className="whitespace-nowrap py-1 pl-6 pr-3 align-middle">
                                             <div className="flex justify-end gap-3">
                                                 <Update id={media._id.toString()} />
                                                 <Delete id={media._id.toString()} />

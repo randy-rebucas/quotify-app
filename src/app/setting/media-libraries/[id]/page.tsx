@@ -1,14 +1,13 @@
+import Form from '@/app/ui/setting/media-libraries/edit-form';
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 import { fetchMediaLibraryById } from '@/app/lib/data';
-import Image from "next/image";
-import { Delete, Update } from '@/app/ui/setting/media-libraries/buttons';
-import Actions from '@/app/ui/setting/media-libraries/actions';
+import Breadcrumbs from '@/app/ui/breadcrumbs';
+
 
 export const metadata: Metadata = {
-    title: 'Detail',
+    title: 'Media Edit',
 };
-
 export default async function Page({ params }: { params: { id: string } }) {
     const id = params.id;
 
@@ -19,18 +18,18 @@ export default async function Page({ params }: { params: { id: string } }) {
     }
 
     return (
-        <>
-            <div className='drop-shadow-xl ring-offset-2 ring-2 ring-blue-500/[.55] rounded'>
-                <Image
-                    src={`/uploads/${media.fileName}`}
-                    width={0}
-                    height={0}
-                    sizes="100vw"
-                    className="w-full h-auto rounded-lg border hover:border-indigo-600"
-                    alt={media.metaData.alternativeText}
-                />
-            </div>
-            {/* <Actions media={media} /> */}
-        </>
+        <main>
+            <Breadcrumbs
+                breadcrumbs={[
+                    { label: 'Media Libraries', href: '/setting/media-libraries' },
+                    {
+                        label: 'Edit Media',
+                        href: `/setting/media-libraries/${id}/edit`,
+                        active: true,
+                    },
+                ]}
+            />
+            <Form media={media}/>
+        </main>
     );
 }

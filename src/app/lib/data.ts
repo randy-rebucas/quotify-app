@@ -596,7 +596,7 @@ export async function fetchRefinementlevelById(id: string) {
     level: item.level,
     unitRate: item.unitRate.toString(),
     description: item.description,
-    image: item.image,
+    image: item.image._id.toString(),
     refinementId: item.refinement._id.toString(),
   };
 
@@ -646,9 +646,10 @@ export async function fetchMediaLibraryById(id: string) {
 
   const transformItem = {
     _id: item._id.toString(),
-    metaData: item.metaData,
+    title: item.metaData.title,
+    alternativeText: item.metaData.alternativeText,
     uploadedDate: item.uploadedDate,
-    uploadedBy: item.uploadedBy,
+    uploadedBy: item.uploadedBy.toString(),
     fileName: item.fileName,
     fileType: item.fileType,
     fileSize: item.fileSize,

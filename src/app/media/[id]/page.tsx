@@ -16,7 +16,7 @@ export default async function MediaPage({ params }: { params: { id: string } }) 
                     height={0}
                     sizes="100vw"
                     className="w-full h-auto rounded-lg border hover:border-indigo-600"
-                    alt={media.metaData.alternativeText}
+                    alt={media.alternativeText}
                 />
             </div>
         </>
