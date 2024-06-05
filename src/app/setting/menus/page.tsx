@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 
 export default async function Page() {
     const menus = await fetchMenus();
-    console.log(menus);
+
     return (
         <div className="w-full">
             <div className="mb-3 mt-4 flex items-center justify-between gap-2 md:mt-8">

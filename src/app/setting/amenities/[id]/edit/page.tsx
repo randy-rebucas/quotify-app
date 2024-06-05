@@ -17,7 +17,7 @@ export default async function Page({ params }: { params: { id: string } }) {
     if (!amenity) {
         notFound();
     }
-    console.log(amenity);
+
     return (
         <main>
             <Breadcrumbs

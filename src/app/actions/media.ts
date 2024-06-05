@@ -95,7 +95,7 @@ export async function createMedia(
 export async function deleteMedia(id: string) {
   try {
     let media = await Media.findOne({ _id: id }).exec();
-    let filename = media.image;
+    let filename = media.fileName;
 
     await unlink(path.join(process.cwd(), "public/uploads/" + filename));
 

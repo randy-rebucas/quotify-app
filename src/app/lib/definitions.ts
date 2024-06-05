@@ -243,36 +243,12 @@ export type RefinementFormState =
     }
   | undefined;
 
-const MAX_FILE_SIZE = 5000000;
-const ACCEPTED_IMAGE_TYPES = [
-  "image/jpeg",
-  "image/jpg",
-  "image/png",
-  "image/webp",
-];
-
 export const RefinementLevelFormSchema = z.object({
   id: z.string(),
   level: z.string(),
   unitRate: z.string(),
   description: z.string(),
-  image: z
-    .any()
-    .refine((file) => file?.size <= MAX_FILE_SIZE, `Max image size is 5MB.`)
-    .refine(
-      (file) => ACCEPTED_IMAGE_TYPES.includes(file?.type),
-      "Only .jpg, .jpeg, .png and .webp formats are supported."
-    ),
-  refinementId: z.string({
-    invalid_type_error: "Please select a refinement.",
-  }),
-});
-
-export const UpdateRefinementLevelFormSchema = z.object({
-  id: z.string(),
-  level: z.string(),
-  unitRate: z.string(),
-  description: z.string(),
+  image: z.string(),
   refinementId: z.string({
     invalid_type_error: "Please select a refinement.",
   }),
@@ -290,6 +266,14 @@ export type RefinementLevelFormState =
       message?: string;
     }
   | undefined;
+
+const MAX_FILE_SIZE = 5000000;
+const ACCEPTED_IMAGE_TYPES = [
+  "image/jpeg",
+  "image/jpg",
+  "image/png",
+  "image/webp",
+];
 
 export const MediaLibraryFormSchema = z.object({
   id: z.string(),

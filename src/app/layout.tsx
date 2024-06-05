@@ -14,15 +14,17 @@ export const metadata: Metadata = {
 };
 
 export default async function RootLayout({
-  children,
+  children, modal
 }: {
   children: React.ReactNode;
+  modal: React.ReactNode;
 }) {
 
   return (
     <html lang="en">
       <body className={`${lato.className} antialiased`}>
         {children}
+        {modal}
       </body>
     </html>
   );

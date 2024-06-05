@@ -1,8 +1,5 @@
 
-
-import { deleteAmenity } from '@/app/actions/amenity';
-import { deleteMenu } from '@/app/actions/menu';
-import { deleteMediaLibrary } from '@/app/lib/data';
+import { deleteMedia } from '@/app/actions/media';
 import { PencilIcon, PlusIcon, TrashIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 
@@ -29,7 +26,7 @@ export function Update({ id }: { id: string }) {
 }
 
 export async function Delete({ id }: { id: string }) {
-  const deleteMediaLibraryWithId = deleteMediaLibrary.bind(null, id);
+  const deleteMediaLibraryWithId = deleteMedia.bind(null, id);
 
   return (
     <form action={deleteMediaLibraryWithId}>

@@ -1,12 +1,13 @@
 import mongoose, { Schema, Types, model } from "mongoose";
 import { IRefinement } from "./Refinement";
+import { IMedia } from "./Media";
 
 // 1. Create an interface representing a document in MongoDB.
 export interface IRefinementLevel {
   level: string;
   unitRate: Types.Decimal128;
   description: string;
-  image?: string;
+  image?: Types.ObjectId | IMedia;
   refinement?: Types.ObjectId | IRefinement;
 }
 
@@ -15,7 +16,7 @@ const refinementLevelSchema = new Schema<IRefinementLevel>({
   level: { type: String, required: true },
   unitRate: { type: Schema.Types.Decimal128, required: true },
   description: { type: String, required: true },
-  image: { type: String },
+  image: { type: Schema.Types.ObjectId, ref: "Medias" },
   refinement: { type: Schema.Types.ObjectId, ref: "Refinements" },
 });
 

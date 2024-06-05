@@ -550,7 +550,10 @@ export async function fetchRefinementLevels() {
 
   connect();
 
-  const items = await RefinementLevel.find({}).populate("refinement").exec();
+  const items = await RefinementLevel.find({})
+    .populate("image")
+    .populate("refinement")
+    .exec();
 
   const transformItems = items.map((item) => {
     return {
@@ -584,6 +587,7 @@ export async function fetchRefinementlevelById(id: string) {
   connect();
 
   const item = await RefinementLevel.findOne({ _id: id })
+    .populate("image")
     .populate("refinement")
     .exec();
 

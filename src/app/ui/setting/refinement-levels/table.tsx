@@ -7,6 +7,8 @@ export default function Table({ refinementLevels }: { refinementLevels: IRefinem
     const financial = (x: string) => {
         return Number.parseFloat(x).toFixed(2);
     }
+
+    console.log(refinementLevels);
     return (
         <div className="flex flex-col">
             <div className="-m-1.5 overflow-x-auto">
@@ -29,16 +31,16 @@ export default function Table({ refinementLevels }: { refinementLevels: IRefinem
                                         className="w-full border-b py-1 text-sm last-of-type:border-none [&:first-child>td:first-child]:rounded-tl-lg [&:first-child>td:last-child]:rounded-tr-lg [&:last-child>td:first-child]:rounded-bl-lg [&:last-child>td:last-child]:rounded-br-lg" >
                                         <td className="whitespace-nowrap px-3 py-1">
                                             <Image
-                                                src={`/uploads/${refinementLevel.image}`}
+                                                src={`/uploads/${refinementLevel.image.fileName}`}
                                                 width={50}
                                                 height={50}
                                                 alt={refinementLevel.level}
                                             />
                                         </td>
-                                        <td className="whitespace-nowrap px-3 py-1 align-middle">{refinementLevel.refinement.name}</td>
-                                        <td className="whitespace-nowrap px-3 py-1 align-middle">{refinementLevel.level}</td>
-                                        <td className="whitespace-nowrap px-3 py-1 align-middle">{financial(refinementLevel.unitRate.toString())}</td>
-                                        <td className="px-3 py-1 align-middle">{refinementLevel.description}</td>
+                                        <td className="whitespace-nowrap px-3 py-1">{refinementLevel.refinement.name}</td>
+                                        <td className="whitespace-nowrap px-3 py-1">{refinementLevel.level}</td>
+                                        <td className="whitespace-nowrap px-3 py-1">{financial(refinementLevel.unitRate.toString())}</td>
+                                        <td className="px-3 py-1">{refinementLevel.description}</td>
                                         <td className="whitespace-nowrap py-1 pl-6 pr-3">
                                             <div className="flex justify-end gap-3">
                                                 <Update id={refinementLevel._id.toString()} />
