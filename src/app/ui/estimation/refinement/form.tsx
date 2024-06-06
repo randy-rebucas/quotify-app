@@ -11,8 +11,9 @@ import clsx from "clsx";
 import TabForm from "./tab-form";
 import { v4 as uuid } from 'uuid';
 import { useRouter } from "next/navigation";
+import { IRefinement } from "@/app/models/Refinement";
 
-export default function Form({ menus, project_id }: { menus: any[], project_id: string }) {
+export default function Form({ refinements, project_id }: { refinements: any[], project_id: string }) {
     const router = useRouter();
 
     const [isLoading, setIsLoading] = useState<boolean>(false)
@@ -118,7 +119,6 @@ export default function Form({ menus, project_id }: { menus: any[], project_id: 
         return refinement;
     }
 
-    console.log(stimates);
     return (
         <>
             <div data-col={last_stimate + 1} className={clsx(
@@ -196,7 +196,7 @@ export default function Form({ menus, project_id }: { menus: any[], project_id: 
                                     <div className="estimation-col__bar bg-black mt-6 mb-6"></div>
                                 </div>
                                 <div className="js-main-menu__content estimation-col__content">
-                                    {menus.map((menu, index) => (
+                                    {refinements.map((refinement: IRefinement, index: number) => (
                                         <div key={index} className={clsx(
                                             'js-step-indicator step-indicator js-has-sub-step',
                                             {
@@ -204,11 +204,11 @@ export default function Form({ menus, project_id }: { menus: any[], project_id: 
                                             },
                                         )}>
                                             <span className="font-latoblack">04.{index + 1}:</span> <br />
-                                            {menu.title}
-                                            {getSelectedRequirement(stimate.id, menu.title) && <div className="js-step-indicator step-indicator pl-3 checked" style={{
+                                            {refinement.name}
+                                            {getSelectedRequirement(stimate.id, refinement.name) && <div className="js-step-indicator step-indicator pl-3 checked" style={{
                                                 paddingBottom: 'unset'
                                             }} data-category="03.1.1">
-                                                {getSelectedRequirement(stimate.id, menu.title)}
+                                                {getSelectedRequirement(stimate.id, refinement.name)}
                                             </div>}
                                         </div>
                                     ))}

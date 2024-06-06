@@ -1,4 +1,4 @@
-import Requirement from "@/app/models/Requirement";
+import Refinement from "@/app/models/Refinement";
 import type { NextApiRequest, NextApiResponse } from "next";
 
 export default async function handler(
@@ -8,8 +8,8 @@ export default async function handler(
   const { rname } = req.query;
 
   try {
-    const requirement = await Requirement.findOne({ name: rname }).exec();
-    res.status(200).json(requirement);
+    const refinement = await Refinement.findOne({ name: rname }).exec();
+    res.status(200).json(refinement);
   } catch (err) {
     console.log(err);
     res.status(500).json(err);

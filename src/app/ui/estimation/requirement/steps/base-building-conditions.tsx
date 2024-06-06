@@ -74,7 +74,7 @@ export default function BaseBuildingConditions({
 
     return (
         <>
-            {requirementLevels.map((requirementLevel: any, index: any) => (
+            {requirementLevels.map((requirementLevel: any, index: number) => (
                 <div data-category={`03.1.${index + 1}`} key={requirementLevel._id.toString()} data-value={requirementLevel.level} data-col={index + 1}
                     className={`js-select-option col-start-${index + 1} row-start-2 col-span-1 flex flex-col justify-between items-start w-full h-full`}>
                     <div className="p-30 estimation">

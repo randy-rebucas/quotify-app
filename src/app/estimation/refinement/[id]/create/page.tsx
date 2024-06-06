@@ -1,5 +1,6 @@
 import { ProjectRequirementContextProvider } from "@/app/context/ProjectRequirementMenuContext";
-import { fetchMenuByPageHandled } from "@/app/lib/data";
+import { fetchMenuByPageHandled, fetchRefinements } from "@/app/lib/data";
+import { IRefinement } from "@/app/models/Refinement";
 import IntroWrapper from "@/app/ui/estimation/intro-wrapper";
 import MainWrapper from "@/app/ui/estimation/main-wrapper";
 import Popup from "@/app/ui/estimation/popup";
@@ -16,7 +17,8 @@ export default async function Page({ params }: { params: { id: string } }) {
         notFound();
     }
     
-    const menus = await fetchMenuByPageHandled('refinement');
+    // const menus = await fetchMenuByPageHandled('refinement');
+    const refinements = await fetchRefinements();
 
     const introductionColors: string[] = ['bg-yellow1', 'bg-yellow2', 'bg-yellow3', 'bg-yellow4', 'bg-yellow5'];
 
@@ -42,10 +44,10 @@ export default async function Page({ params }: { params: { id: string } }) {
                                         </h4>
                                         <div className="estimation-col__bar bg-black mt-6 mb-6"></div>
                                         <div className="estimation-col__content">
-                                            {menus.map((menu, index) => (
+                                            {refinements.map((refinement: IRefinement, index: number) => (
                                                 <div key={index} className='step-indicator'>
                                                     <span className="font-latoblack">04.{index + 1}:</span> <br />
-                                                    {menu.title}
+                                                    {refinement.name}
                                                 </div>
                                             ))}
                                         </div>
@@ -58,7 +60,7 @@ export default async function Page({ params }: { params: { id: string } }) {
 
                 <MainWrapper>
 
-                    <Form menus={menus} project_id={id}/>
+                    <Form refinements={refinements} project_id={id}/>
 
                 </MainWrapper>
 

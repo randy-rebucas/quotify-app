@@ -14,6 +14,7 @@ import { useRouter } from "next/navigation";
 import { INITIAL_DATA, menuMapping, RequirementData, StimateData, tabMapping } from "./entities";
 import { v4 as uuid } from 'uuid'
 import TabForm from "./tab-form";
+import { IRequirement } from "@/app/models/Requirement";
 
 export default function Form({ requirements, project_id }: { requirements: any[], project_id: string }) {
     const router = useRouter();
@@ -214,7 +215,7 @@ export default function Form({ requirements, project_id }: { requirements: any[]
                                 </div>
 
                                 <div className="js-main-menu__content estimation-col__content">
-                                    {requirements.map((requirement, index) => (
+                                    {requirements.map((requirement: IRequirement, index: number) => (
                                         <div key={index} className={clsx(
                                             'js-step-indicator step-indicator',
                                             {

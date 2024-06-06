@@ -1,4 +1,4 @@
-import RequirementLevel from "@/app/models/RequirementLevel";
+import RefinementLevel from "@/app/models/RefinementLevel";
 import type { NextApiRequest, NextApiResponse } from "next";
 
 export default async function handler(
@@ -8,11 +8,11 @@ export default async function handler(
   const { rlid } = req.query;
 
   try {
-    const requirementLevel = await RequirementLevel.find({ requirement: rlid })
+    const refinementLevel = await RefinementLevel.find({ refinement: rlid })
       .populate("image")
       .exec();
 
-    res.status(200).json(requirementLevel);
+    res.status(200).json(refinementLevel);
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
