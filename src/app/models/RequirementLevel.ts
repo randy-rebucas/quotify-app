@@ -9,6 +9,7 @@ export interface IRequirementLevel {
   description: string;
   image?: Types.ObjectId | IMedia;
   requirement?: Types.ObjectId | IRequirement;
+  _id?: Types.ObjectId;
 }
 
 // 2. Create a Schema corresponding to the document interface.

@@ -1,8 +1,9 @@
-import mongoose, { Schema } from "mongoose";
+import mongoose, { Schema, Types } from "mongoose";
 
 // 1. Create an interface representing a document in MongoDB.
 export interface IRefinement {
   name: string;
+  _id?: Types.ObjectId;
 }
 
 // 2. Create a Schema corresponding to the document interface.

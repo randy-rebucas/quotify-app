@@ -9,6 +9,7 @@ export interface IRefinementLevel {
   description: string;
   image?: Types.ObjectId | IMedia;
   refinement?: Types.ObjectId | IRefinement;
+  _id?: Types.ObjectId;
 }
 
 // 2. Create a Schema corresponding to the document interface.

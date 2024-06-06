@@ -12,7 +12,6 @@ export default async function handler(
 
   connect();
 
-  console.log(req.body);
   const { stimates, projectId, section } = req.body;
 
   try {
