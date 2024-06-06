@@ -3,7 +3,6 @@
 import Image from "next/image";
 import { RequirementData } from "../entities";
 import { ChangeEvent, useEffect, useMemo, useState } from "react";
-import { finishType, requirementData } from "../mock";
 import { IRequirementLevel } from "@/app/models/RequirementLevel";
 
 type ReviewFormProps = RequirementData & {
@@ -47,7 +46,7 @@ export default function Review({
     useEffect(() => {
 
         const getRequirementLevels = async (id: string) => {
-            const response = await fetch(`/api/requirement-level/${id}`, {
+            const response = await fetch(`/api/requirement-level/by-requirement/${id}`, {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',

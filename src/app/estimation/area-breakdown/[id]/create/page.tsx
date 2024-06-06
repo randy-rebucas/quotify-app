@@ -1,5 +1,4 @@
-import { fetchAmenities, fetchCustomSpaces, fetchCustomSpacesByGroup, fetchMenuByPageHandled } from "@/app/lib/data";
-import { IAmenity } from "@/app/models/Amenity";
+import { fetchAmenities, fetchCustomSpacesByGroup, fetchMenuByPageHandled } from "@/app/lib/data";
 import Form from "@/app/ui/estimation/area-breakdown/form";
 import IntroWrapper from "@/app/ui/estimation/intro-wrapper";
 import MainWrapper from "@/app/ui/estimation/main-wrapper";
@@ -18,7 +17,7 @@ export default async function Page({ params }: { params: { id: string } }) {
     const menus = await fetchMenuByPageHandled('area-breakdown');
     const amenities = await fetchAmenities();
     const custom_spaces = await fetchCustomSpacesByGroup();
-    // const custom_spaces = await fetchCustomSpaces();
+
     const introductionColors: string[] = ['bg-blue1', 'bg-blue2', 'bg-blue3', 'bg-blue4', 'bg-blue5'];
 
     const mainColors: string[] = ['bg-blue2', 'bg-gray4A', 'bg-gray4A', 'bg-white', 'bg-white'];
@@ -45,14 +44,12 @@ export default async function Page({ params }: { params: { id: string } }) {
                                     </h4>
                                     <div className="estimation-col__bar mt-6 mb-6"></div>
                                     <div className="estimation-col__content">
-                                        <div className="step-indicator">
-                                            <span className="font-latoblack">02.1:</span> <br />
-                                            area definition
-                                        </div>
-                                        <div className="step-indicator">
-                                            <span className="font-latoblack">02.2:</span> <br />
-                                            proportion breakdown
-                                        </div>
+                                        {menus.map((menu, index) => (
+                                            <div key={menu._id} className='step-indicator'>
+                                                <span className="font-latoblack">02.{index + 1}:</span> <br />
+                                                {menu.title}
+                                            </div>
+                                        ))}
                                     </div>
                                 </div>
                             </div>
@@ -62,7 +59,7 @@ export default async function Page({ params }: { params: { id: string } }) {
             </IntroWrapper>
 
             <MainWrapper>
-                <Form menus={menus} amenities={amenities} custom_spaces={custom_spaces} project_id={id}/>
+                <Form menus={menus} amenities={amenities} custom_spaces={custom_spaces} project_id={id} />
             </MainWrapper>
 
             <LinearCover colors={introductionColors} target={2} className="introduction" />

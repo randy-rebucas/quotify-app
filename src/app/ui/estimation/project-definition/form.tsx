@@ -16,12 +16,29 @@ export default function Form({ project }: { project: any }) {
 
     const share = () => { }
 
-    function onSubmit(e: FormEvent) {
-        e.preventDefault()
-        router.push(`/estimation/requirement/${project._id}`)
+    async function onSubmit(e: FormEvent) {
+        e.preventDefault();
+
+        const response = await fetch('/api/project/information', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ projectId: project._id }),
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to submit the data. Please try again.')
+        }
+
+        let projectResponse = await response.json();
+
+        if (response.status === 200) {
+            router.push(`/estimation/requirement/${projectResponse.id}`)
+        }
     }
 
-    console.log(project);
     return (
         <form onSubmit={onSubmit} className="col-span-4 row-span-2 h-full w-full overflow-y-scroll overflow-x-hidden">
             <div className="grid grid-cols-4 h-full">

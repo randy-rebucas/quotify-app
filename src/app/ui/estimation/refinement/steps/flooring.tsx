@@ -3,7 +3,6 @@
 import Image from "next/image";
 import { RefinementData } from "../entities";
 import { ChangeEvent, useEffect, useMemo, useState } from "react";
-import { refinementData, refinementType } from "../mock";
 import { IRefinementLevel } from "@/app/models/RefinementLevel";
 
 type MepFormProps = RefinementData & {

@@ -15,9 +15,11 @@ import { INITIAL_DATA, menuMapping, RequirementData, StimateData, tabMapping } f
 import { v4 as uuid } from 'uuid'
 import TabForm from "./tab-form";
 import { IRequirement } from "@/app/models/Requirement";
+import { IRequirementLevel } from "@/app/models/RequirementLevel";
 
 export default function Form({ requirements, project_id }: { requirements: any[], project_id: string }) {
     const router = useRouter();
+    const [selectedRequirement, setSelectedRequirement] = useState<IRequirementLevel>()
     const [isLoading, setIsLoading] = useState<boolean>(false)
     const [isExpanded, setIsExpanded] = useState<boolean>(true)
     const [activeTab, setActiveTab] = useState<number>(0)
@@ -134,8 +136,30 @@ export default function Form({ requirements, project_id }: { requirements: any[]
             default:
                 break;
         }
+
+        // getRequirementLabel(requirement);
+
         return requirement;
     }
+
+    const getRequirementLabel = async (id?: string) => {
+        if (id) {
+
+            const response = await fetch(`/api/requirement-level/${id}`, {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                }
+            });
+
+            let requirementLabelResponse = await response.json();
+
+            setSelectedRequirement(requirementLabelResponse);
+        }
+    }
+
+    console.log(data);
 
     return (
         <>

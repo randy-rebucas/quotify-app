@@ -1,3 +1,4 @@
+import Project from "@/app/models/Project";
 import ProjectAmenity from "@/app/models/ProjectAmenity";
 import ProjectCustomSpace from "@/app/models/ProjectCustomSpace";
 import connect from "@/app/utils/db";
@@ -8,7 +9,6 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-
   connect();
 
   const { selectedAmenityIds, selectedCustomSpaces, projectId } = req.body;
@@ -37,6 +37,13 @@ export default async function handler(
       }
     );
 
+    const update = { lastUri: "project-definition" };
+
+    const filterProject = { _id: projectId };
+
+    await Project.findOneAndUpdate(filterProject, update);
+
+    //
     res.status(200).json({ id: projectId });
   } catch (err) {
     console.log(err);

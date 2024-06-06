@@ -46,7 +46,7 @@ export default function Technology({
     useEffect(() => {
 
         const getRequirementLevels = async (id: string) => {
-            const response = await fetch(`/api/requirement-level/${id}`, {
+            const response = await fetch(`/api/requirement-level/by-requirement/${id}`, {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
