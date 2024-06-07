@@ -4,10 +4,11 @@ import Image from "next/image";
 import clsx from "clsx";
 import { MouseEventHandler, useEffect } from "react";
 import { IProject } from "@/app/models/Project";
+import Link from "next/link";
 
 export default function Result({ isMore, files, onClick }: { isMore: boolean, files: IProject[], onClick: MouseEventHandler<HTMLAnchorElement> }) {
 
-    const data = !isMore ? files.slice(0, 4) : files;
+    const projects = !isMore ? files.slice(0, 4) : files;
 
     return (
         <div className={clsx(
@@ -19,12 +20,12 @@ export default function Result({ isMore, files, onClick }: { isMore: boolean, fi
             <div className="lg:col-start-2 h-full">
                 <div className="grid lg:grid-cols-4 lg:grid-flow-col relative h-full">
 
-                    {data.map((file, index) => (
+                    {projects.map((project: IProject, index: number) => (
                         <div className={`file file-${index + 1} lg:col-${index % 4 == 0 ? 'span' : 'start'}-${index % 4 + 1}`} key={index}>
                             <div className="file-map"></div>
                             <div className="file-img" data-lat="48.895651" data-long="2.290569" data-color="#383A64">
                                 <div className="flex flex-col justify-start relative z-10">
-                                    <a href="#" className="absolute js-open-results right-0" data-file={file._id} onClick={onClick}>
+                                    <a href="#" className="absolute js-open-results right-0" data-file={project._id} onClick={onClick}>
                                         <Image
                                             src="/images/icon-settings.svg"
                                             width={25}
@@ -40,12 +41,12 @@ export default function Result({ isMore, files, onClick }: { isMore: boolean, fi
                                             className="mb-5"
                                             alt="file"
                                         />
-                                        <h2>{file.spaceName}</h2>
+                                        <h2>{project.spaceName}</h2>
 
                                         <div className="file__border bg-black"></div>
 
                                         <div className="file__address">
-                                            {file.address}
+                                            {project.address}
                                         </div>
 
                                         <div className="file__est">
@@ -54,7 +55,11 @@ export default function Result({ isMore, files, onClick }: { isMore: boolean, fi
                                     </div>
                                 </div>
                                 <div className="file__updated text-black">
-                                    last edited 20th August, 2020
+                                    {/* last edited 20th August, 2020 */}
+                                    {!project.isCompleted && <Link
+                                        href={`/estimation/${project.lastUri}/${project._id}/create`}
+                                        className={`text-black `}>Continue to create...
+                                    </Link>}
                                 </div>
                             </div>
                         </div>

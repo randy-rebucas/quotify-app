@@ -13,7 +13,7 @@ export interface IProject {
   seatingPercentage: Types.Decimal128;
   isCompleted: boolean;
   user: Types.ObjectId | IUser;
-  lastUri?: string;
+  lastUri: string;
   _id?: Types.ObjectId;
 }
 

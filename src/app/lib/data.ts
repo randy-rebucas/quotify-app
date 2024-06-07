@@ -57,6 +57,8 @@ export async function fetchProjectsByUserId(id: any) {
       headCount: project.headCount,
       averageOfficeAttendance: project.averageOfficeAttendance,
       seatingPercentage: project.seatingPercentage.toString(),
+      isCompleted: project.isCompleted,
+      lastUri: project.lastUri,
     };
   });
 
