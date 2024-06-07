@@ -1,10 +1,28 @@
 type StimateRequirementData = {
-  finish?: string;
-  sustainabilityCertification?: string;
-  mepFeatures?: string;
-  buildingCondition?: string;
-  technology?: string;
-  furniture?: string;
+  finish?: {
+    label: string;
+    value: string
+  };
+  sustainabilityCertification?: {
+    label: string;
+    value: string
+  };
+  mepFeatures?: {
+    label: string;
+    value: string
+  };
+  buildingCondition?: {
+    label: string;
+    value: string
+  };
+  technology?: {
+    label: string;
+    value: string
+  };
+  furniture?: {
+    label: string;
+    value: string
+  };
 };
 
 export type StimateData = {
@@ -23,12 +41,30 @@ export const INITIAL_DATA: RequirementData = {
       id: 0,
       name: "Main estimation",
       requirement: {
-        finish: "",
-        sustainabilityCertification: "",
-        mepFeatures: "",
-        buildingCondition: "",
-        technology: "",
-        furniture: "",
+        finish: {
+          label: "",
+          value: "",
+        },
+        sustainabilityCertification: {
+          label: "",
+          value: "",
+        },
+        mepFeatures: {
+          label: "",
+          value: "",
+        },
+        buildingCondition: {
+          label: "",
+          value: "",
+        },
+        technology: {
+          label: "",
+          value: "",
+        },
+        furniture: {
+          label: "",
+          value: "",
+        },
       },
     },
   ],

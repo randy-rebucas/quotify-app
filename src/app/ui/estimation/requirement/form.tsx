@@ -116,22 +116,22 @@ export default function Form({ requirements, project_id }: { requirements: any[]
         let requirement;
         switch (menuMapping.get(lookup)) {
             case 'finish':
-                requirement = selectedValue?.requirement.finish;
+                requirement = selectedValue?.requirement.finish?.label;
                 break;
             case 'sustainabilityCertification':
-                requirement = selectedValue?.requirement.sustainabilityCertification;
+                requirement = selectedValue?.requirement.sustainabilityCertification?.label;
                 break;
             case 'mepFeatures':
-                requirement = selectedValue?.requirement.mepFeatures;
+                requirement = selectedValue?.requirement.mepFeatures?.label;
                 break;
             case 'buildingCondition':
-                requirement = selectedValue?.requirement.buildingCondition;
+                requirement = selectedValue?.requirement.buildingCondition?.label;
                 break;
             case 'technology':
-                requirement = selectedValue?.requirement.technology;
+                requirement = selectedValue?.requirement.technology?.label;
                 break;
             case 'furniture':
-                requirement = selectedValue?.requirement.furniture;
+                requirement = selectedValue?.requirement.furniture?.label;
                 break;
             default:
                 break;
@@ -142,22 +142,22 @@ export default function Form({ requirements, project_id }: { requirements: any[]
         return requirement;
     }
 
-    const getRequirementLabel = async (id?: string) => {
-        if (id) {
+    // const getRequirementLabel = async (id?: string) => {
+    //     if (id) {
 
-            const response = await fetch(`/api/requirement-level/${id}`, {
-                method: 'POST',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-                }
-            });
+    //         const response = await fetch(`/api/requirement-level/${id}`, {
+    //             method: 'POST',
+    //             headers: {
+    //                 'Accept': 'application/json',
+    //                 'Content-Type': 'application/json',
+    //             }
+    //         });
 
-            let requirementLabelResponse = await response.json();
+    //         let requirementLabelResponse = await response.json();
 
-            setSelectedRequirement(requirementLabelResponse);
-        }
-    }
+    //         setSelectedRequirement(requirementLabelResponse);
+    //     }
+    // }
 
     console.log(data);
 

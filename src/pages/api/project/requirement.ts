@@ -15,6 +15,7 @@ export default async function handler(
   const { stimates, projectId, section } = req.body;
 
   try {
+
     stimates.map(async (stimate: StimateData) => {
       const estimate = new Estimate({
         name: stimate.name,
@@ -26,12 +27,14 @@ export default async function handler(
 
       const requirement = new EstimateRequirement({
         estimate: estimateId,
-        finish: stimate.requirement.finish,
-        sustainabilityCertification: stimate.requirement.sustainabilityCertification,
-        mepFeatures: stimate.requirement.mepFeatures,
-        buildingCondition: stimate.requirement.buildingCondition,
-        technology: stimate.requirement.technology,
-        furniture: stimate.requirement.furniture
+        requirements: {
+          finish: stimate.requirement.finish?.value,
+          sustainabilityCertification: stimate.requirement.sustainabilityCertification?.value,
+          mepFeatures: stimate.requirement.mepFeatures?.value,
+          buildingCondition: stimate.requirement.buildingCondition?.value,
+          technology: stimate.requirement.technology?.value,
+          furniture: stimate.requirement.furniture?.value
+        }
       });
       await requirement.save();
     });
