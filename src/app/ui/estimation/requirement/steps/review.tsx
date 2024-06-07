@@ -67,10 +67,13 @@ export default function Review({
     
     const handleRadioChange = (index: number, event: ChangeEvent<HTMLInputElement>) => {
         let data = [...stimates];
-        data[tabiIndex].requirement.sustainabilityCertification = {
-            label: event.currentTarget.dataset.label,
-            value: event.target.value
-        };
+        // data[tabiIndex].requirement.sustainabilityCertification = {
+        //     label: event.currentTarget.dataset.label,
+        //     value: event.target.value
+        // };
+        let requirementObj = data[tabiIndex].requirement;
+        // requirementObj.set('sustainabilityCertification', event.target.value);
+        Object.assign(requirementObj, { 'sustainabilityCertification': event.target.value });
         updateFields({ stimates: data });
     }
     return (

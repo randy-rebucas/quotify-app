@@ -67,10 +67,13 @@ export default function FurnitureAndFurnishing({
     
     const handleRadioChange = (index: number, event: ChangeEvent<HTMLInputElement>) => {
         let data = [...stimates];
-        data[tabiIndex].requirement.furniture = {
-            label: event.currentTarget.dataset.label,
-            value: event.target.value
-        };
+        // data[tabiIndex].requirement.furniture = {
+        //     label: event.currentTarget.dataset.label,
+        //     value: event.target.value
+        // };
+        let requirementObj = data[tabiIndex].requirement;
+        // requirementObj.set('furniture', event.target.value);
+        Object.assign(requirementObj, { 'furniture': event.target.value });
         updateFields({ stimates: data });
     }
     return (

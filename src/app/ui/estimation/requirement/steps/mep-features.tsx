@@ -67,10 +67,13 @@ export default function MepFeatures({
 
     const handleRadioChange = (index: number, event: ChangeEvent<HTMLInputElement>) => {
         let data = [...stimates];
-        data[tabiIndex].requirement.mepFeatures = {
-            label: event.currentTarget.dataset.label,
-            value: event.target.value
-        };
+        // data[tabiIndex].requirement.mepFeatures = {
+        //     label: event.currentTarget.dataset.label,
+        //     value: event.target.value
+        // };
+        let requirementObj = data[tabiIndex].requirement;
+        // requirementObj.set('mepFeatures', event.target.value);
+        Object.assign(requirementObj, { 'mepFeatures': event.target.value });
         updateFields({ stimates: data });
     }
     return (

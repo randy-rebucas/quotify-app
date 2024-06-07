@@ -28,7 +28,7 @@ type StimateRequirementData = {
 export type StimateData = {
   id: number;
   name: string;
-  requirement: StimateRequirementData;
+  requirement: {} | null;
 };
 
 export type RequirementData = {
@@ -40,32 +40,7 @@ export const INITIAL_DATA: RequirementData = {
     {
       id: 0,
       name: "Main estimation",
-      requirement: {
-        finish: {
-          label: "",
-          value: "",
-        },
-        sustainabilityCertification: {
-          label: "",
-          value: "",
-        },
-        mepFeatures: {
-          label: "",
-          value: "",
-        },
-        buildingCondition: {
-          label: "",
-          value: "",
-        },
-        technology: {
-          label: "",
-          value: "",
-        },
-        furniture: {
-          label: "",
-          value: "",
-        },
-      },
+      requirement: new Object(),
     },
   ],
 };

@@ -26,15 +26,7 @@ export default async function handler(
 
       const requirement = new EstimateRequirement({
         estimate: estimateId,
-        requirements: {
-          finish: stimate.requirement.finish?.value,
-          sustainabilityCertification:
-            stimate.requirement.sustainabilityCertification?.value,
-          mepFeatures: stimate.requirement.mepFeatures?.value,
-          buildingCondition: stimate.requirement.buildingCondition?.value,
-          technology: stimate.requirement.technology?.value,
-          furniture: stimate.requirement.furniture?.value,
-        },
+        requirements: stimate.requirement,
       });
       await requirement.save();
     });

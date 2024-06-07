@@ -67,10 +67,13 @@ export default function Technology({
 
     const handleRadioChange = (index: number, event: ChangeEvent<HTMLInputElement>) => {
         let data = [...stimates];
-        data[tabiIndex].requirement.technology = {
-            label: event.currentTarget.dataset.label,
-            value: event.target.value
-        };
+        // data[tabiIndex].requirement.technology = {
+        //     label: event.currentTarget.dataset.label,
+        //     value: event.target.value
+        // };
+        let requirementObj = data[tabiIndex].requirement;
+        // requirementObj.set('technology', event.target.value);
+        Object.assign(requirementObj, { 'technology': event.target.value });
         updateFields({ stimates: data });
     }
     return (

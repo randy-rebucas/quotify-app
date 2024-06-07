@@ -26,32 +26,7 @@ export default function FinishAndCertification({
             {
                 id: 0,
                 name: 'Main estimation',
-                requirement: {
-                    finish: {
-                        label: '',
-                        value: ''
-                    },
-                    sustainabilityCertification: {
-                        label: '',
-                        value: ''
-                    },
-                    mepFeatures: {
-                        label: '',
-                        value: ''
-                    },
-                    buildingCondition: {
-                        label: '',
-                        value: ''
-                    },
-                    technology: {
-                        label: '',
-                        value: ''
-                    },
-                    furniture: {
-                        label: '',
-                        value: ''
-                    }
-                }
+                requirement: new Object()
             }
         ];
 
@@ -109,10 +84,13 @@ export default function FinishAndCertification({
         event.preventDefault();
 
         let data = [...stimates];
-        data[tabiIndex].requirement.finish = {
-            label: event.currentTarget.dataset.label,
-            value: event.target.value
-        };
+        // data[tabiIndex].requirement.finish = {
+        //     label: event.currentTarget.dataset.label,
+        //     value: event.target.value
+        // };
+        let requirementObj = data[tabiIndex].requirement;
+        // requirementObj.set('finish', event.target.value);
+        Object.assign(requirementObj, { 'finish': event.target.value });
         updateFields({ stimates: data });
     }
 

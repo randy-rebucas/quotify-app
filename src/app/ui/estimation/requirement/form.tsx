@@ -54,14 +54,15 @@ export default function Form({ requirements, project_id }: { requirements: any[]
         const initialRequirement = {
             id: stimates.length,
             name: e.target.title.value,
-            requirement: {
-                finish: source?.requirement.finish,
-                sustainabilityCertification: source?.requirement.sustainabilityCertification,
-                mepFeatures: source?.requirement.mepFeatures,
-                buildingCondition: source?.requirement.buildingCondition,
-                technology: source?.requirement.technology,
-                furniture: source?.requirement.furniture
-            }
+            requirement: new Object()
+            // requirement: {
+            //     finish: source?.requirement.finish,
+            //     sustainabilityCertification: source?.requirement.sustainabilityCertification,
+            //     mepFeatures: source?.requirement.mepFeatures,
+            //     buildingCondition: source?.requirement.buildingCondition,
+            //     technology: source?.requirement.technology,
+            //     furniture: source?.requirement.furniture
+            // }
         };
 
         setData(prev => {
@@ -85,6 +86,7 @@ export default function Form({ requirements, project_id }: { requirements: any[]
                     section: 'requirement'
                 }
             };
+            console.log(form_data);
 
             const response = await fetch('/api/project/requirement', {
                 method: 'POST',
@@ -114,30 +116,32 @@ export default function Form({ requirements, project_id }: { requirements: any[]
     const getSelectedRequirement = (index: number, lookup: string) => {
         let selectedValue = stimates.find((stimate) => stimate.id == index);
         let requirement;
-        switch (menuMapping.get(lookup)) {
-            case 'finish':
-                requirement = selectedValue?.requirement.finish?.label;
-                break;
-            case 'sustainabilityCertification':
-                requirement = selectedValue?.requirement.sustainabilityCertification?.label;
-                break;
-            case 'mepFeatures':
-                requirement = selectedValue?.requirement.mepFeatures?.label;
-                break;
-            case 'buildingCondition':
-                requirement = selectedValue?.requirement.buildingCondition?.label;
-                break;
-            case 'technology':
-                requirement = selectedValue?.requirement.technology?.label;
-                break;
-            case 'furniture':
-                requirement = selectedValue?.requirement.furniture?.label;
-                break;
-            default:
-                break;
-        }
-
-        // getRequirementLabel(requirement);
+        const requirementMap = selectedValue?.requirement;
+        // for (let key of requirementMap.keys()) {
+        //     console.log(key);                   //Lokesh Raj John
+        // }
+        // switch (menuMapping.get(lookup)) {
+        //     case 'finish':
+        //         requirement = selectedValue?.requirement.finish?.label;
+        //         break;
+        //     case 'sustainabilityCertification':
+        //         requirement = selectedValue?.requirement.sustainabilityCertification?.label;
+        //         break;
+        //     case 'mepFeatures':
+        //         requirement = selectedValue?.requirement.mepFeatures?.label;
+        //         break;
+        //     case 'buildingCondition':
+        //         requirement = selectedValue?.requirement.buildingCondition?.label;
+        //         break;
+        //     case 'technology':
+        //         requirement = selectedValue?.requirement.technology?.label;
+        //         break;
+        //     case 'furniture':
+        //         requirement = selectedValue?.requirement.furniture?.label;
+        //         break;
+        //     default:
+        //         break;
+        // }
 
         return requirement;
     }
