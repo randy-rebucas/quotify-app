@@ -29,7 +29,7 @@ export default function Detail({ project }: { project: any }) {
                     <Form project={project} isEdit={edit} />
                 </div>
             </div>
-            <Actions isEdit={edit} onClickEdit={handleClickEdit} />
+            <Actions isEdit={edit} projectId={project._id} onClickEdit={handleClickEdit} />
         </>
     )
 }

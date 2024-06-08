@@ -1,11 +1,53 @@
 'use client';
 
 import Image from "next/image";
+import { FormEvent, useState } from "react";
 
 export default function Form({ isEdit, project }: { isEdit: boolean, project: any }) {
+    const [isLoading, setIsLoading] = useState<boolean>(false)
+    const [error, setError] = useState<string | null>(null)
+
+    async function onSubmit(event: FormEvent<HTMLFormElement>) {
+        event.preventDefault()
+        setIsLoading(true)
+        setError(null) // Clear previous errors when a new request starts
+
+        console.log('updated');
+        // try {
+        //     // let form_data = {
+        //     //     ...data, ...{
+        //     //         projectId: project_id,
+        //     //         section: 'refinement'
+        //     //     }
+        //     // };
+
+        //     const response = await fetch('/api/project/refinement', {
+        //         method: 'POST',
+        //         headers: {
+        //             'Accept': 'application/json',
+        //             'Content-Type': 'application/json',
+        //         },
+        //         // body: JSON.stringify(form_data),
+        //     });
+
+        //     if (!response.ok) {
+        //         throw new Error('Failed to submit the data. Please try again.')
+        //     }
+
+        //     let projectResponse = await response.json();
+
+        //     if (response.status === 200) {
+                
+        //     }
+        // } catch (error: any) {
+        //     setError(error.message)
+        // } finally {
+        //     setIsLoading(false) // Set loading to false when the request completes
+        // }
+    }
 
     return (
-        <form className="main-form">
+        <form onSubmit={onSubmit} className="main-form">
             <ul>
                 <li className="font-latolight pb-2 mb-3">
                     <div className="flex pb-1">

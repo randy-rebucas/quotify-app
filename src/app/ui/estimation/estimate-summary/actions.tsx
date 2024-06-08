@@ -1,6 +1,51 @@
-import { MouseEventHandler } from "react";
+import { useRouter } from "next/navigation";
+import { FormEvent, MouseEventHandler, useState } from "react";
 
-export default function Actions({ isEdit, onClickEdit }: { isEdit: boolean, onClickEdit: MouseEventHandler<HTMLAnchorElement> }) {
+export default function Actions({ isEdit, projectId, onClickEdit }: {
+    isEdit: boolean;
+    projectId: string;
+    onClickEdit: MouseEventHandler<HTMLAnchorElement>
+}) {
+    const router = useRouter();
+    
+    const [isLoading, setIsLoading] = useState<boolean>(false)
+    const [error, setError] = useState<string | null>(null)
+
+    async function onSubmit(event: FormEvent<HTMLFormElement>) {
+        event.preventDefault()
+        setIsLoading(true)
+        setError(null) // Clear previous errors when a new request starts
+
+        try {
+            let form_data = {
+                projectId: projectId
+            };
+
+            const response = await fetch('/api/project/summary', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(form_data),
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to submit the data. Please try again.')
+            }
+
+            await response.json();
+
+            if (response.status === 200) {
+                router.push(`/file-management`)
+            }
+        } catch (error: any) {
+            setError(error.message)
+        } finally {
+            setIsLoading(false) // Set loading to false when the request completes
+        }
+    }
+
     return (
         <div>
             <a href="#" onClick={onClickEdit} className="text-[24px] font-latobold flex items-center mb-[10px]">
@@ -24,11 +69,13 @@ export default function Actions({ isEdit, onClickEdit }: { isEdit: boolean, onCl
                 <div className="text-white ml-3 text-opacity-50 hover:text-opacity-100">share</div>
             </a>
             <div className="pt-[10px] px-0 pb-0 w-full flex items-end justify-end">
-                <a className="js-close-project focus:shadow-outline focus:outline-none" type="submit">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="78" height="63" viewBox="0 0 78 63" fill="none">
-                        <path d="M46.4 0L44.3 2.1L71.9 29.8H0V32.8H71.5L44.1 60.2L46.2 62.4L77.5 31.1L46.4 0Z" fill="white" />
-                    </svg>
-                </a>
+                <form onSubmit={onSubmit} >
+                    <button className="js-close-project focus:shadow-outline focus:outline-none" type="submit">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="78" height="63" viewBox="0 0 78 63" fill="none">
+                            <path d="M46.4 0L44.3 2.1L71.9 29.8H0V32.8H71.5L44.1 60.2L46.2 62.4L77.5 31.1L46.4 0Z" fill="white" />
+                        </svg>
+                    </button>
+                </form>
             </div>
         </div>
     )
