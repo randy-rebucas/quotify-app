@@ -25,7 +25,7 @@ export default function Form({ menus, amenities, custom_spaces, project_id }: { 
     const { steps, currentStepIndex, step, isFirstStep, isLastStep, back, next } =
         useMultistepForm([
             <AreaDefination {...data} updateFields={updateFields} amenities={amenities} custom_spaces={custom_spaces} key={uuid()} />,
-            <ProportionBreakdown {...data} updateFields={updateFields} key={uuid()} />
+            <ProportionBreakdown {...data} updateFields={updateFields} amenities={amenities} custom_spaces={custom_spaces} key={uuid()} />
         ])
 
     // update this to action and implement dispatch

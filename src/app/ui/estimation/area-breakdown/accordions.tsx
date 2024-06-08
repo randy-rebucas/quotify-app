@@ -1,24 +1,51 @@
 'use client';
 
-import { MouseEventHandler, useState } from "react";
+import { MouseEventHandler, useEffect, useState } from "react";
 import { accordions } from "./accordion";
 import clsx from "clsx";
+import { IAmenity } from "@/app/models/Amenity";
+import { ICustomSpace } from "@/app/models/CustomSpace";
 
-type AccordionProps = {
-    title: string;
-    value: number;
-    color: string;
-    isOpen: boolean;
-    onClick: MouseEventHandler<HTMLButtonElement>
-};
+const colors: string[] = ["#005A92", "#3179A6", "#6298BA", "#93B7CD", "#C4D6E1"];
 
-export default function Accordions() {
+export default function Accordions({
+    amenities,
+    customSpaces,
+    selectedAmenities,
+    selectedCustomSpaces
+}: {
+    amenities: IAmenity[],
+    customSpaces: ICustomSpace[],
+    selectedAmenities: any[],
+    selectedCustomSpaces: any[]
+}) {
 
+    const [breakdowns, setBreakdowns] = useState<any[]>([]);
     const [activeIndex, setActiveIndex] = useState(null);
 
     const handleItemClick = (index: any) => {
         setActiveIndex((prevIndex) => (prevIndex === index ? null : index));
     };
+
+    useEffect(() => {
+        let newAmenities: (IAmenity | undefined)[] = [];
+
+        selectedAmenities.map((selectedAmenity: any) => {
+            const foundAmenity = amenities.find(item => item._id === selectedAmenity);
+            newAmenities.push(foundAmenity);
+        })
+
+        const groupItemRestById = (collector: any, item: any) => {
+            const { categoryName, ...rest } = item;
+            const groupList = collector[categoryName] || (collector[categoryName] = []);
+
+            groupList.push(rest);
+
+            return collector;
+        }
+        setBreakdowns(Object.entries(newAmenities.reduce(groupItemRestById, {})));
+
+    }, [amenities, selectedAmenities])
 
     return (
         <>
@@ -27,11 +54,10 @@ export default function Accordions() {
             </div> */}
 
             <div id="custom-accordion" className="custom-accordion mt-[11.852vh]" data-accordion="collapse" >
-                {accordions.map((accordion: any, index: any) => (
+                {breakdowns.map((breakdown: any, index: any) => (
                     <Accordion
-                        title={accordion.title}
-                        value={accordion.value}
-                        color={accordion.color}
+                        title={breakdown[0]}
+                        amenities={breakdown[1]}
                         key={index}
                         isOpen={activeIndex === index}
                         onClick={() => handleItemClick(index)}
@@ -42,7 +68,21 @@ export default function Accordions() {
     )
 }
 
-export function Accordion({ title, value, color, isOpen, onClick }: AccordionProps) {
+type AccordionProps = {
+    title: string;
+    amenities: any[];
+    isOpen: boolean;
+    onClick: MouseEventHandler<HTMLButtonElement>
+};
+
+export function Accordion({ title, amenities, isOpen, onClick }: AccordionProps) {
+
+    const shuffle = (array: string[]) => {
+        return array.sort(() => Math.random() - 0.5);
+    }
+
+    const shuffledArray = shuffle(colors);
+
     return (
         <>
             <h4 id="custom-accordion-heading-1">
@@ -50,12 +90,12 @@ export function Accordion({ title, value, color, isOpen, onClick }: AccordionPro
                     <div className="custom-accordion__header">
                         <div className="w-[170px] text-[18px]">
                             <div className="flex">
-                                <div className="text-[24px] font-latobold mr-[30px]">{value}%</div>
+                                <div className="text-[24px] font-latobold mr-[30px]">0%</div>
                                 <div className="text-[12px] font-light">3,000 sqft</div>
                             </div>
                             <div className="text-left text-[18px] leading-[18px]">{title}</div>
                         </div>
-                        <div className={`custom-accordion__legend bg-[${color}]`}></div>
+                        <div className={`custom-accordion__legend bg-[${shuffledArray[0]}]`}></div>
                         <svg xmlns="http://www.w3.org/2000/svg" width="12" height="13" viewBox="0 0 12 13" fill="none">
                             <path d="M10 5.41667V3.25C10 1.45546 8.20867 0 6 0C3.79133 0 2 1.45546 2 3.25V5.41667H0V13H12V5.41667H10ZM3.33333 5.41667V3.25C3.33333 2.05508 4.52933 1.08333 6 1.08333C7.47067 1.08333 8.66667 2.05508 8.66667 3.25V5.41667H3.33333Z" fill="#2C2B2B"></path>
                         </svg>
@@ -73,10 +113,13 @@ export function Accordion({ title, value, color, isOpen, onClick }: AccordionPro
             </h4>
             <div id="custom-accordion-body-1" className={isOpen ? '' : 'hidden'} aria-labelledby="custom-accordion-heading-1">
                 <div className="pt-0 py-[40px] border-b border-gray-200 dark:border-gray-700">
-                    <ul className="ps-[40px] list-none">
-                        <li><span>80%</span> - Open workspaces</li>
-                        <li><span>20%</span> - Enclosed offices</li>
-                    </ul>
+                    {amenities.map((amenity: any, index: number) => (
+                        <ul className="ps-[40px] list-none" key={index}>
+                            <li><span>80%</span> - {amenity.amenityName}</li>
+                            {/* <li><span>80%</span> - Open workspaces</li>
+                        <li><span>20%</span> - Enclosed offices</li> */}
+                        </ul>
+                    ))}
                 </div>
             </div>
         </>

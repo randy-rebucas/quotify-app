@@ -15,6 +15,7 @@ export default async function Page({ params }: { params: { id: string } }) {
     }
 
     const menus = await fetchMenuByPageHandled('area-breakdown');
+    
     const amenities = await fetchAmenities();
     const custom_spaces = await fetchCustomSpacesByGroup();
 

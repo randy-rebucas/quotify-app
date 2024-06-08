@@ -2,7 +2,7 @@ import { IAmenity } from "@/app/models/Amenity";
 import { DeleteAmenity, UpdateAmenity } from "./buttons";
 
 export default function Table({ amenities }: { amenities: any[] }) {
-
+    console.log(amenities);
     return (
         <div className="flex flex-col">
             <div className="-m-1.5 overflow-x-auto">
@@ -12,6 +12,7 @@ export default function Table({ amenities }: { amenities: any[] }) {
                             <thead className="bg-gray-50 dark:bg-neutral-700">
                                 <tr>
                                     <th scope="col" className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">Amenity Name</th>
+                                    <th scope="col" className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">Category</th>
                                     <th scope="col" className="px-6 py-3 text-end text-xs font-medium text-gray-500 uppercase dark:text-neutral-50">Action</th>
                                 </tr>
                             </thead>
@@ -20,6 +21,7 @@ export default function Table({ amenities }: { amenities: any[] }) {
                                     <tr key={index}
                                         className="w-full border-b py-1 text-sm last-of-type:border-none [&:first-child>td:first-child]:rounded-tl-lg [&:first-child>td:last-child]:rounded-tr-lg [&:last-child>td:first-child]:rounded-bl-lg [&:last-child>td:last-child]:rounded-br-lg" >
                                         <td className="px-6 py-1 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-neutral-200">{amenity.amenityName}</td>
+                                        <td className="px-6 py-1 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-neutral-200">{amenity.categoryName}</td>
                                         <td className="px-6 py-1 whitespace-nowrap text-end text-sm font-medium">
                                             <div className="flex justify-end gap-3">
                                                 <UpdateAmenity id={amenity._id.toString()} />

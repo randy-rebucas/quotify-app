@@ -133,12 +133,14 @@ export async function fetchAmenities() {
 
   connect();
 
-  const amenities = await Amenity.find({}).exec();
+  const amenities = await Amenity.find({}).populate('category').exec();
 
   const transformData = amenities.map((amenity) => {
     return {
       _id: amenity._id.toString(),
       amenityName: amenity.amenityName,
+      categoryName: amenity.category.name,
+      categoryId: amenity.category._id.toString()
     };
   });
 

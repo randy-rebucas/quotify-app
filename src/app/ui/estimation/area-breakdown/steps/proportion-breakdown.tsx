@@ -1,14 +1,28 @@
 import Accordions from "../accordions"
-import { FormData } from "../entities"
 import { PieChartPresentation } from "../../pie-chart-presentation"
 import Tooltip from "@/app/ui/tooltip"
-import { pieColors, pieData } from "@/app/ui/data"
+import { pieColors } from "@/app/ui/data"
+import { ProjectCustomSpaceData } from "./area-defination"
+import { DataItem } from "@/app/ui/data"
 
-type AreaFormProps = FormData & {
-    updateFields: (fields: Partial<FormData>) => void
+export type AreaData = {
+    selectedAmenityIds: any[]
+    selectedCustomSpaces: ProjectCustomSpaceData[]
+}
+// { name: "Individual spaces", value: 60 }
+const pieData: DataItem[] = [];
+
+type AreaFormProps = AreaData & {
+    amenities: any;
+    custom_spaces: any;
+    updateFields: (fields: Partial<AreaData>) => void
 }
 
 export default function ProportionBreakdown({
+    selectedAmenityIds,
+    selectedCustomSpaces,
+    amenities,
+    custom_spaces,
     updateFields
 }: AreaFormProps) {
 
@@ -31,7 +45,7 @@ export default function ProportionBreakdown({
                                         adjust the percentages to freflect your specific spaces.</p>
                                 </div>
 
-                                <Accordions />
+                                <Accordions amenities={amenities} customSpaces={custom_spaces} selectedAmenities={selectedAmenityIds} selectedCustomSpaces={selectedCustomSpaces} />
 
                             </div>
                         </div>
