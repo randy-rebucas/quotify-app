@@ -86,7 +86,6 @@ export default function Form({ requirements, project_id }: { requirements: any[]
                     section: 'requirement'
                 }
             };
-            console.log(form_data);
 
             const response = await fetch('/api/project/requirement', {
                 method: 'POST',

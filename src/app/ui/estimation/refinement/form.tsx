@@ -46,11 +46,12 @@ export default function Form({ refinements, project_id }: { refinements: any[], 
         const initialRefinement = {
             id: stimates.length,
             name: e.target.title.value,
-            refinement: {
-                flooring: source?.refinement.flooring,
-                furniture: source?.refinement.furniture,
-                partitions: source?.refinement.partitions
-            }
+            refinement: new Object()
+            // refinement: {
+            //     flooring: source?.refinement.flooring,
+            //     furniture: source?.refinement.furniture,
+            //     partitions: source?.refinement.partitions
+            // }
         };
 
         setData(prev => {
@@ -103,19 +104,19 @@ export default function Form({ refinements, project_id }: { refinements: any[], 
     const getSelectedRequirement = (index: number, lookup: string) => {
         let selectedValue = stimates.find((stimate) => stimate.id == index);
         let refinement;
-        switch (menuMapping.get(lookup)) {
-            case 'flooring':
-                refinement = selectedValue?.refinement.flooring;
-                break;
-            case 'furniture':
-                refinement = selectedValue?.refinement.furniture;
-                break;
-            case 'partitions':
-                refinement = selectedValue?.refinement.partitions;
-                break;
-            default:
-                break;
-        }
+        // switch (menuMapping.get(lookup)) {
+        //     case 'flooring':
+        //         refinement = selectedValue?.refinement.flooring;
+        //         break;
+        //     case 'furniture':
+        //         refinement = selectedValue?.refinement.furniture;
+        //         break;
+        //     case 'partitions':
+        //         refinement = selectedValue?.refinement.partitions;
+        //         break;
+        //     default:
+        //         break;
+        // }
         return refinement;
     }
 

@@ -4,6 +4,7 @@ import connect from "@/app/utils/db";
 
 import type { NextApiRequest, NextApiResponse } from "next";
 import EstimateRefinement from "@/app/models/EstimateRefinement";
+import Project from "@/app/models/Project";
 
 export default async function handler(
   req: NextApiRequest,
@@ -25,13 +26,17 @@ export default async function handler(
 
       const refinement = new EstimateRefinement({
         estimate: estimateId,
-        flooring: stimate.refinement.flooring,
-        furniture: stimate.refinement.furniture,
-        partition: stimate.refinement.partitions,
+        refinements: stimate.refinement,
       });
       await refinement.save();
     });
 
+    const update = { lastUri: "estimate-summary" };
+
+    const filterProject = { _id: projectId };
+
+    await Project.findOneAndUpdate(filterProject, update);
+    
     res.status(200).json({ id: projectId });
   } catch (err) {
     console.log(err);

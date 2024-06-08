@@ -70,7 +70,11 @@ export default function Furniture({
 
     const handleRadioChange = (index: number, event: ChangeEvent<HTMLInputElement>) => {
         let data = [...stimates];
-        data[tabiIndex].refinement.furniture = event.target.value;
+        // data[tabiIndex].refinement.furniture = event.target.value;
+
+        let refinementObj = data[tabiIndex].refinement;
+        Object.assign(refinementObj, { 'furniture': event.target.value });
+
         updateFields({ stimates: data });
     }
 
@@ -81,7 +85,7 @@ export default function Furniture({
                     <div data-value={refinementLevel.level} data-col={index + 1} key={refinementLevel._id.toString()}
                         className={`js-select-option col-start-${index + 1} row-start-2 col-span-1 flex flex-col justify-between items-start w-full h-full`}>
                         <div className="p-30 estimation">
-                            <input type="radio" name="refinement" value={refinementLevel.level} id={`refinement-${index + 1}`} onChange={e => handleRadioChange(index, e)} checked={stimates[tabiIndex].refinement.furniture == refinementLevel.level} />
+                            <input type="radio" name="refinement" value={refinementLevel._id.toString()} id={`refinement-${index + 1}`} onChange={e => handleRadioChange(index, e)} checked={stimates[tabiIndex].refinement.furniture == refinementLevel.level} />
                             <label htmlFor={`refinement-${index + 1}`}>
                                 <Image
                                     src={`/uploads/${refinementLevel.image?.fileName}`}

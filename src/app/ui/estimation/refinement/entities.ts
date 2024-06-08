@@ -7,7 +7,7 @@ type StimateRefinementData = {
 export type StimateData = {
   id: number;
   name: string;
-  refinement: StimateRefinementData;
+  refinement:  {} | null;
 };
 
 export type RefinementData = {
@@ -19,11 +19,7 @@ export const INITIAL_DATA: RefinementData = {
     {
       id: 0,
       name: "Main estimation",
-      refinement: {
-        flooring: "",
-        furniture: "",
-        partitions: "",
-      },
+      refinement: new Object(),
     },
   ],
 };
