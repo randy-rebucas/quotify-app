@@ -1,16 +1,26 @@
 'use client';
 
 
-import { FormEvent } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import Tooltip from "../../tooltip";
 import { PieChartPresentation } from "../pie-chart-presentation";
 import { common } from "../../mock";
 import { pieColors, pieData } from "../../data";
 import PieChartData from "../pie-chart-data";
 import { useRouter } from "next/navigation";
+import { IAmenity } from "@/app/models/Amenity";
 
-export default function Form({ project }: { project: any }) {
+export default function Form({ project, amenities, customeSpaces, selectedAmenities, selectedCustomSpaces }: {
+    project: any;
+    amenities: any;
+    customeSpaces: any;
+    selectedAmenities: any[],
+    selectedCustomSpaces: any[]
+}) {
     const router = useRouter();
+    const [workspaceAssigned, setWorkspanceAssigned] = useState<number>(0);
+    const [staffWorkingRemotely, setStaffWorkingRemotely] = useState<number>(0);
+    const [breakdowns, setBreakdowns] = useState<any[]>([]);
 
     const download = () => { }
 
@@ -39,6 +49,29 @@ export default function Form({ project }: { project: any }) {
         }
     }
 
+    useEffect(() => {
+        const seatingPercentage = +project.seatingPercentage;
+        setWorkspanceAssigned(seatingPercentage);
+        setStaffWorkingRemotely(100 - seatingPercentage);
+    }, [project])
+
+    // console.log(selectedAmenities)
+
+    useEffect(() => {
+        
+        const groupItemRestById = (collector: any, item: any) => {
+            const { categoryName, ...rest } = item;
+            const groupList = collector[categoryName] || (collector[categoryName] = []);
+
+            groupList.push(rest);
+
+            return collector;
+        }
+        setBreakdowns(Object.entries(selectedAmenities.reduce(groupItemRestById, {})));
+
+    }, [selectedAmenities])
+
+    console.log(breakdowns)
     return (
         <form onSubmit={onSubmit} className="col-span-4 row-span-2 h-full w-full overflow-y-scroll overflow-x-hidden">
             <div className="grid grid-cols-4 h-full">
@@ -72,7 +105,7 @@ export default function Form({ project }: { project: any }) {
                                             <PieChartPresentation data={pieData} width={280} height={280} colors={pieColors} />
                                         </div>
 
-                                        <PieChartData data={pieData} colors={pieColors} />
+                                        <PieChartData data={pieData} />
 
                                     </div>
                                     <div className="col-span-1 flex flex-col justify-end h-full">
@@ -114,13 +147,13 @@ export default function Form({ project }: { project: any }) {
                                                     <div className="flex pb-1">
                                                         <div className="text-[14px]">workspace assigned</div>
                                                     </div>
-                                                    <div className="font-latobold text-[24px]">25%</div>
+                                                    <div className="font-latobold text-[24px]">{workspaceAssigned}%</div>
                                                 </li>
                                                 <li className="font-latolight pb-2 mb-3">
                                                     <div className="flex pb-1">
                                                         <div className="text-[14px]">staff working remotely</div>
                                                     </div>
-                                                    <div className="font-latobold text-[24px]">25%</div>
+                                                    <div className="font-latobold text-[24px]">{staffWorkingRemotely}%</div>
                                                 </li>
                                             </ul>
                                             <div className="h-[1px] w-[101px] bg-black mb-[10px]"></div>

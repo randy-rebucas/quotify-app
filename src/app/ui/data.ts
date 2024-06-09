@@ -12,7 +12,6 @@ export type PieChartProps = {
 
 export type PieChartDataProps = {
   data: DataItem[];
-  colors: string[]
 };
 
 export const pieData: DataItem[] = [

@@ -6,7 +6,7 @@ import clsx from "clsx";
 import { IAmenity } from "@/app/models/Amenity";
 import { ICustomSpace } from "@/app/models/CustomSpace";
 
-const colors: string[] = ["#005A92", "#3179A6", "#6298BA", "#93B7CD", "#C4D6E1"];
+export const colors: string[] = ['#005A92', '#3179A6', '#6298BA', '#93B7CD', '#C4D6E1'];
 
 export default function Accordions({
     amenities,
@@ -60,6 +60,7 @@ export default function Accordions({
                         amenities={breakdown[1]}
                         key={index}
                         isOpen={activeIndex === index}
+                        index={index}
                         onClick={() => handleItemClick(index)}
                     />
                 ))}
@@ -72,16 +73,11 @@ type AccordionProps = {
     title: string;
     amenities: any[];
     isOpen: boolean;
+    index: number;
     onClick: MouseEventHandler<HTMLButtonElement>
 };
 
-export function Accordion({ title, amenities, isOpen, onClick }: AccordionProps) {
-
-    const shuffle = (array: string[]) => {
-        return array.sort(() => Math.random() - 0.5);
-    }
-
-    const shuffledArray = shuffle(colors);
+export function Accordion({ title, amenities, isOpen, index, onClick }: AccordionProps) {
 
     return (
         <>
@@ -95,7 +91,7 @@ export function Accordion({ title, amenities, isOpen, onClick }: AccordionProps)
                             </div>
                             <div className="text-left text-[18px] leading-[18px]">{title}</div>
                         </div>
-                        <div className={`custom-accordion__legend bg-[${shuffledArray[0]}]`}></div>
+                        <div className={`custom-accordion__legend bg-[${colors[index]}]`}></div>
                         <svg xmlns="http://www.w3.org/2000/svg" width="12" height="13" viewBox="0 0 12 13" fill="none">
                             <path d="M10 5.41667V3.25C10 1.45546 8.20867 0 6 0C3.79133 0 2 1.45546 2 3.25V5.41667H0V13H12V5.41667H10ZM3.33333 5.41667V3.25C3.33333 2.05508 4.52933 1.08333 6 1.08333C7.47067 1.08333 8.66667 2.05508 8.66667 3.25V5.41667H3.33333Z" fill="#2C2B2B"></path>
                         </svg>

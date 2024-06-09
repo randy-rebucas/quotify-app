@@ -1,6 +1,7 @@
-import { DataItem, PieChartDataProps } from "../data";
+import { PieChartDataProps } from "../data";
+import { colors } from "./area-breakdown/accordions";
 
-export default function PieChartData({ data, colors }: PieChartDataProps) {
+export default function PieChartData({ data }: PieChartDataProps) {
     return (
         <ul className="flex flex-col gap-[20px]">
             {data.map((item: any, index: any) => (

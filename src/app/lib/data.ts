@@ -14,6 +14,9 @@ import RefinementLevel from "../models/RefinementLevel";
 import path from "path";
 import Media from "../models/Media";
 import RequirementLevel from "../models/RequirementLevel";
+import ProjectAmenity from "../models/ProjectAmenity";
+import { select } from "d3";
+import ProjectCustomSpace from "../models/ProjectCustomSpace";
 
 export async function fetchProjects() {
   noStore();
@@ -133,14 +136,14 @@ export async function fetchAmenities() {
 
   connect();
 
-  const amenities = await Amenity.find({}).populate('category').exec();
+  const amenities = await Amenity.find({}).populate("category").exec();
 
   const transformData = amenities.map((amenity) => {
     return {
       _id: amenity._id.toString(),
       amenityName: amenity.amenityName,
       categoryName: amenity.category.name,
-      categoryId: amenity.category._id.toString()
+      categoryId: amenity.category._id.toString(),
     };
   });
 
@@ -161,6 +164,53 @@ export async function fetchAmenityById(id: string) {
     amenity_name: amenity.amenityName,
     category_id: amenity.category ? amenity.category._id.toString() : null,
   };
+
+  return transformData;
+}
+
+export async function fetchProjectAmenitiesByProject(id: string) {
+  noStore();
+
+  connect();
+
+  const projectAmenities = await ProjectAmenity.find({ project: id })
+    .populate({
+      path: "amenity",
+      populate: { path: "category", select: "_id name" },
+    })
+    .exec();
+
+  const transformData = projectAmenities.map((projectAmenity) => {
+    return {
+      _id: projectAmenity._id.toString(),
+      amenityName: projectAmenity.amenity.amenityName,
+      categoryName: projectAmenity.amenity.category.name,
+      categoryId: projectAmenity.amenity.category._id.toString(),
+    };
+  });
+
+  return transformData;
+}
+
+export async function fetchProjectCustomSpacesByProject(id: string) {
+  noStore();
+
+  connect();
+
+  const projectCustomSpaces = await ProjectCustomSpace.find({ project: id })
+    .populate("customSpace")
+    .exec();
+
+  const transformData = projectCustomSpaces.map((projectCustomSpace) => {
+    return {
+      _id: projectCustomSpace._id.toString(),
+      quantity: projectCustomSpace.quantity,
+      customSpaceId: projectCustomSpace.customSpace._id.toString(),
+      customSpaceName: projectCustomSpace.customSpace.customSpaceName,
+      customSpaceGroupName: projectCustomSpace.customSpace.customSpaceGroupName,
+      customSpaceCapacity: projectCustomSpace.customSpace.capacity,
+    };
+  });
 
   return transformData;
 }
@@ -552,7 +602,7 @@ export async function fetchRequirementlevelById(id: string) {
     .populate("requirement")
     .exec();
 
-    console.log(item);
+  console.log(item);
   const transformItem = {
     _id: item._id.toString(),
     level: item.level,
