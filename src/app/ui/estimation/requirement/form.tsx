@@ -54,15 +54,7 @@ export default function Form({ requirements, project_id }: { requirements: any[]
         const initialRequirement = {
             id: stimates.length,
             name: e.target.title.value,
-            requirement: new Object()
-            // requirement: {
-            //     finish: source?.requirement.finish,
-            //     sustainabilityCertification: source?.requirement.sustainabilityCertification,
-            //     mepFeatures: source?.requirement.mepFeatures,
-            //     buildingCondition: source?.requirement.buildingCondition,
-            //     technology: source?.requirement.technology,
-            //     furniture: source?.requirement.furniture
-            // }
+            requirement: source?.requirement
         };
 
         setData(prev => {
