@@ -65,7 +65,7 @@ export default async function Page({ params }: { params: { id: string } }) {
             </IntroWrapper>
 
             <MainWrapper>
-                <Form menus={menus} amenities={amenities} custom_spaces={custom_spaces} selectedAmenities={selected_amenities} selectedCustomSpaces={selected_custom_spaces} project_id={id} />
+                <Form menus={menus} amenities={amenities} custom_spaces={custom_spaces} project_id={id} />
             </MainWrapper>
 
             <LinearCover colors={introductionColors} target={2} className="introduction" />

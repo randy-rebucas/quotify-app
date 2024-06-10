@@ -1,7 +1,6 @@
 'use client';
 
 import { MouseEventHandler, useEffect, useMemo, useState } from "react";
-import { accordions } from "./accordion";
 import clsx from "clsx";
 import { IAmenity } from "@/app/models/Amenity";
 import { ICustomSpace } from "@/app/models/CustomSpace";

@@ -1,16 +1,12 @@
 import Accordions from "../accordions"
 import { PieChartPresentation } from "../../pie-chart-presentation"
 import Tooltip from "@/app/ui/tooltip"
-import { pieColors, pieData } from "@/app/ui/data"
 import { ProjectCustomSpaceData } from "./area-defination"
-import { DataItem } from "@/app/ui/data"
 
 export type AreaData = {
     selectedAmenityIds: any[]
     selectedCustomSpaces: ProjectCustomSpaceData[]
 }
-// { name: "Individual spaces", value: 60 }
-
 
 type AreaFormProps = AreaData & {
     amenities: any;
