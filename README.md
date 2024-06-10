@@ -40,3 +40,9 @@ menu requirements
 
 [approximate siez of new space] 5000 * per squirefoot
 ------------
+
+100 / number amenties
+---
+project defination
+    only address/ remove other
+    

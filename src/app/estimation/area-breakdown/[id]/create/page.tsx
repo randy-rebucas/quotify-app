@@ -1,4 +1,4 @@
-import { fetchAmenities, fetchCustomSpacesByGroup, fetchMenuByPageHandled } from "@/app/lib/data";
+import { fetchAmenities, fetchCustomSpacesByGroup, fetchMenuByPageHandled, fetchProjectAmenitiesByProject, fetchProjectCustomSpacesByProject } from "@/app/lib/data";
 import Form from "@/app/ui/estimation/area-breakdown/form";
 import IntroWrapper from "@/app/ui/estimation/intro-wrapper";
 import MainWrapper from "@/app/ui/estimation/main-wrapper";
@@ -15,9 +15,14 @@ export default async function Page({ params }: { params: { id: string } }) {
     }
 
     const menus = await fetchMenuByPageHandled('area-breakdown');
-    
+
     const amenities = await fetchAmenities();
     const custom_spaces = await fetchCustomSpacesByGroup();
+
+    // Get all project amenitties
+    const selected_amenities = await fetchProjectAmenitiesByProject(id);
+    // Get all project custom spaces 
+    const selected_custom_spaces = await fetchProjectCustomSpacesByProject(id);
 
     const introductionColors: string[] = ['bg-blue1', 'bg-blue2', 'bg-blue3', 'bg-blue4', 'bg-blue5'];
 
@@ -60,7 +65,7 @@ export default async function Page({ params }: { params: { id: string } }) {
             </IntroWrapper>
 
             <MainWrapper>
-                <Form menus={menus} amenities={amenities} custom_spaces={custom_spaces} project_id={id} />
+                <Form menus={menus} amenities={amenities} custom_spaces={custom_spaces} selectedAmenities={selected_amenities} selectedCustomSpaces={selected_custom_spaces} project_id={id} />
             </MainWrapper>
 
             <LinearCover colors={introductionColors} target={2} className="introduction" />

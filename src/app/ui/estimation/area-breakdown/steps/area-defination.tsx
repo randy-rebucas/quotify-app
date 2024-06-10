@@ -1,5 +1,5 @@
 import Tooltip from "@/app/ui/tooltip";
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useMemo, useState } from "react";
 import { IAmenity } from "@/app/models/Amenity";
 import clsx from "clsx";
 
@@ -27,6 +27,7 @@ export default function AreaDefination({
     custom_spaces,
     updateFields
 }: AreaFormProps) {
+
     const MAX_QUANTITY = 10;
     const [openOption, setOpenOption] = useState<boolean>(false);
     const handleCheckboxChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -47,6 +48,13 @@ export default function AreaDefination({
             updateFields({ selectedCustomSpaces: initialCustomSpace });
         }
     }, [selectedCustomSpaces, updateFields])
+
+    // useEffect(() => {
+    //     const ids = amenityIds.map((amenityId: { _id: string; amenityName: string; categoryName: string; categoryId: string }) => amenityId._id);
+    //     if (amenityIds.length === 0) {
+    //         updateFields({ selectedAmenityIds: ids });
+    //     }
+    // }, [amenityIds, updateFields])
 
     const handleSelectChange = (index: number, event: ChangeEvent<HTMLSelectElement>) => {
         let data = [...selectedCustomSpaces];
@@ -80,6 +88,7 @@ export default function AreaDefination({
     const toggleOption = () => {
         setOpenOption(!openOption)
     }
+    console.log(selectedAmenityIds);
     return (
         <>
             <div className="lg:col-span-2 col-span-12 flex flex-col justify-start items-start w-full h-full">
