@@ -19,7 +19,7 @@ export default function Accordions({
     selectedAmenities: any[],
     selectedCustomSpaces: any[]
 }) {
-
+    const [slice, setSlice] = useState<number>(0);
     const [breakdowns, setBreakdowns] = useState<any[]>([]);
     const [activeIndex, setActiveIndex] = useState(null);
 
@@ -47,6 +47,10 @@ export default function Accordions({
 
     }, [amenities, selectedAmenities])
 
+    useEffect(() => {
+        setSlice(100 / selectedAmenities.length);
+    }, [selectedAmenities]);
+
     return (
         <>
             {/* <div className="mt-[5.556vh] text-[#505050] flex text-[12px] items-center justify-end border-b-gray-100">
@@ -61,6 +65,7 @@ export default function Accordions({
                         key={index}
                         isOpen={activeIndex === index}
                         index={index}
+                        amenityPercentage={slice}
                         onClick={() => handleItemClick(index)}
                     />
                 ))}
@@ -74,10 +79,11 @@ type AccordionProps = {
     amenities: any[];
     isOpen: boolean;
     index: number;
+    amenityPercentage: number;
     onClick: MouseEventHandler<HTMLButtonElement>
 };
 
-export function Accordion({ title, amenities, isOpen, index, onClick }: AccordionProps) {
+export function Accordion({ title, amenities, isOpen, index, amenityPercentage, onClick }: AccordionProps) {
 
     return (
         <>
@@ -86,7 +92,7 @@ export function Accordion({ title, amenities, isOpen, index, onClick }: Accordio
                     <div className="custom-accordion__header">
                         <div className="w-[170px] text-[18px]">
                             <div className="flex">
-                                <div className="text-[24px] font-latobold mr-[30px]">0%</div>
+                                <div className="text-[24px] font-latobold mr-[30px]">{amenityPercentage * amenities.length}%</div>
                                 <div className="text-[12px] font-light">3,000 sqft</div>
                             </div>
                             <div className="text-left text-[18px] leading-[18px]">{title}</div>
@@ -109,13 +115,11 @@ export function Accordion({ title, amenities, isOpen, index, onClick }: Accordio
             </h4>
             <div id="custom-accordion-body-1" className={isOpen ? '' : 'hidden'} aria-labelledby="custom-accordion-heading-1">
                 <div className="pt-0 py-[40px] border-b border-gray-200 dark:border-gray-700">
-                    {amenities.map((amenity: any, index: number) => (
-                        <ul className="ps-[40px] list-none" key={index}>
-                            <li><span>80%</span> - {amenity.amenityName}</li>
-                            {/* <li><span>80%</span> - Open workspaces</li>
-                        <li><span>20%</span> - Enclosed offices</li> */}
-                        </ul>
-                    ))}
+                    <ul className="ps-[40px] list-none">
+                        {amenities.map((amenity: any, index: number) => (
+                            <li key={index}><span>{amenityPercentage}%</span> - {amenity.amenityName}</li>
+                        ))}
+                    </ul>
                 </div>
             </div>
         </>
