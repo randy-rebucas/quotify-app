@@ -28,7 +28,7 @@ type StimateRequirementData = {
 export type StimateData = {
   id: number;
   name: string;
-  requirement: {} | null;
+  requirement: any | null;
 };
 
 export type RequirementData = {

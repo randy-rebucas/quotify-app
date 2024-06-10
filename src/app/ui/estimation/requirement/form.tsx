@@ -114,53 +114,38 @@ export default function Form({ requirements, project_id }: { requirements: any[]
 
     const getSelectedRequirement = (index: number, lookup: string) => {
         let selectedValue = stimates.find((stimate) => stimate.id == index);
+
         let requirement;
+
         const requirementMap = selectedValue?.requirement;
-        // for (let key of requirementMap.keys()) {
-        //     console.log(key);                   //Lokesh Raj John
-        // }
-        // switch (menuMapping.get(lookup)) {
-        //     case 'finish':
-        //         requirement = selectedValue?.requirement.finish?.label;
-        //         break;
-        //     case 'sustainabilityCertification':
-        //         requirement = selectedValue?.requirement.sustainabilityCertification?.label;
-        //         break;
-        //     case 'mepFeatures':
-        //         requirement = selectedValue?.requirement.mepFeatures?.label;
-        //         break;
-        //     case 'buildingCondition':
-        //         requirement = selectedValue?.requirement.buildingCondition?.label;
-        //         break;
-        //     case 'technology':
-        //         requirement = selectedValue?.requirement.technology?.label;
-        //         break;
-        //     case 'furniture':
-        //         requirement = selectedValue?.requirement.furniture?.label;
-        //         break;
-        //     default:
-        //         break;
-        // }
+
+        if (requirementMap) {
+            switch (menuMapping.get(lookup)) {
+                case 'finish':
+                    requirement = Object.hasOwn(requirementMap, 'finish') ? requirementMap.finish : '';
+                    break;
+                case 'sustainabilityCertification':
+                    requirement = Object.hasOwn(requirementMap, 'sustainabilityCertification') ? requirementMap.sustainabilityCertification : '';
+                    break;
+                case 'mepFeatures':
+                    requirement = Object.hasOwn(requirementMap, 'mepFeatures') ? requirementMap.mepFeatures : '';
+                    break;
+                case 'buildingCondition':
+                    requirement = Object.hasOwn(requirementMap, 'buildingCondition') ? requirementMap.buildingCondition : '';
+                    break;
+                case 'technology':
+                    requirement = Object.hasOwn(requirementMap, 'technology') ? requirementMap.technology : '';
+                    break;
+                case 'furniture':
+                    requirement = Object.hasOwn(requirementMap, 'furniture') ? requirementMap.furniture : '';
+                    break;
+                default:
+                    break;
+            }
+        }
 
         return requirement;
     }
-
-    // const getRequirementLabel = async (id?: string) => {
-    //     if (id) {
-
-    //         const response = await fetch(`/api/requirement-level/${id}`, {
-    //             method: 'POST',
-    //             headers: {
-    //                 'Accept': 'application/json',
-    //                 'Content-Type': 'application/json',
-    //             }
-    //         });
-
-    //         let requirementLabelResponse = await response.json();
-
-    //         setSelectedRequirement(requirementLabelResponse);
-    //     }
-    // }
 
     console.log(data);
 
@@ -254,7 +239,7 @@ export default function Form({ requirements, project_id }: { requirements: any[]
                                             {getSelectedRequirement(stimate.id, requirement.name) && <div className="js-step-indicator step-indicator pl-3 checked" style={{
                                                 paddingBottom: 'unset'
                                             }} data-category="03.1.1">
-                                                {getSelectedRequirement(stimate.id, requirement.name)}
+                                                <Indicator requirementId={getSelectedRequirement(stimate.id, requirement.name)} />
                                             </div>}
                                         </div>
                                     ))}
@@ -279,3 +264,32 @@ export default function Form({ requirements, project_id }: { requirements: any[]
         </>
     )
 }
+
+export function Indicator({ requirementId }: { requirementId: string }) {
+    const [requirementName, setRequirementname] = useState<string>('')
+
+    useEffect(() => {
+        const getRequirementLabel = async (id?: string) => {
+            if (id) {
+
+                const response = await fetch(`/api/requirement-level/${id}`, {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json',
+                    }
+                });
+
+                let requirementLabelResponse = await response.json();
+                setRequirementname(requirementLabelResponse.level);
+            }
+        }
+
+        if (requirementId) {
+            getRequirementLabel(requirementId);
+        }
+    }, [requirementId])
+
+
+    return requirementName;
+} 
