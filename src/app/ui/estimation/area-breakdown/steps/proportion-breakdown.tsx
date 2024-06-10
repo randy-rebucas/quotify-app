@@ -1,7 +1,7 @@
 import Accordions from "../accordions"
 import { PieChartPresentation } from "../../pie-chart-presentation"
 import Tooltip from "@/app/ui/tooltip"
-import { pieColors } from "@/app/ui/data"
+import { pieColors, pieData } from "@/app/ui/data"
 import { ProjectCustomSpaceData } from "./area-defination"
 import { DataItem } from "@/app/ui/data"
 
@@ -10,7 +10,7 @@ export type AreaData = {
     selectedCustomSpaces: ProjectCustomSpaceData[]
 }
 // { name: "Individual spaces", value: 60 }
-const pieData: DataItem[] = [];
+
 
 type AreaFormProps = AreaData & {
     amenities: any;
@@ -60,7 +60,7 @@ export default function ProportionBreakdown({
                     <div className="pt-[100px] px-30 w-full flex items-center justify-center">
                         {/* <!--pie chart--> */}
                         <div id="pie-example-1" className="py-[60px] w-[500px] flex items-center justify-center">
-                            <PieChartPresentation data={pieData} width={480} height={480} colors={pieColors} />
+                            <PieChartPresentation width={480} height={480} amenities={amenities} customSpaces={custom_spaces} selectedAmenities={selectedAmenityIds} selectedCustomSpaces={selectedCustomSpaces}/>
                         </div>
                     </div>
                 </div>

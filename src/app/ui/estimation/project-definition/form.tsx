@@ -71,7 +71,6 @@ export default function Form({ project, amenities, customeSpaces, selectedAmenit
 
     }, [selectedAmenities])
 
-    console.log(breakdowns)
     return (
         <form onSubmit={onSubmit} className="col-span-4 row-span-2 h-full w-full overflow-y-scroll overflow-x-hidden">
             <div className="grid grid-cols-4 h-full">

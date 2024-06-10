@@ -1,10 +1,11 @@
 'use client';
 
-import { MouseEventHandler, useEffect, useState } from "react";
+import { MouseEventHandler, useEffect, useMemo, useState } from "react";
 import { accordions } from "./accordion";
 import clsx from "clsx";
 import { IAmenity } from "@/app/models/Amenity";
 import { ICustomSpace } from "@/app/models/CustomSpace";
+import { colorMapping } from "../refinement/entities";
 
 export const colors: string[] = ['#005A92', '#3179A6', '#6298BA', '#93B7CD', '#C4D6E1'];
 
@@ -64,7 +65,6 @@ export default function Accordions({
                         amenities={breakdown[1]}
                         key={index}
                         isOpen={activeIndex === index}
-                        index={index}
                         amenityPercentage={slice}
                         onClick={() => handleItemClick(index)}
                     />
@@ -78,12 +78,16 @@ type AccordionProps = {
     title: string;
     amenities: any[];
     isOpen: boolean;
-    index: number;
     amenityPercentage: number;
     onClick: MouseEventHandler<HTMLButtonElement>
 };
 
-export function Accordion({ title, amenities, isOpen, index, amenityPercentage, onClick }: AccordionProps) {
+export function Accordion({ title, amenities, isOpen, amenityPercentage, onClick }: AccordionProps) {
+    const [percentage, setPercentage] = useState<number>(0);
+
+    useMemo(() => {
+        setPercentage(amenityPercentage * amenities.length)
+    }, [amenities.length, amenityPercentage])
 
     return (
         <>
@@ -92,12 +96,12 @@ export function Accordion({ title, amenities, isOpen, index, amenityPercentage, 
                     <div className="custom-accordion__header">
                         <div className="w-[170px] text-[18px]">
                             <div className="flex">
-                                <div className="text-[24px] font-latobold mr-[30px]">{amenityPercentage * amenities.length}%</div>
+                                <div className="text-[24px] font-latobold mr-[30px]">{percentage}%</div>
                                 <div className="text-[12px] font-light">3,000 sqft</div>
                             </div>
                             <div className="text-left text-[18px] leading-[18px]">{title}</div>
                         </div>
-                        <div className={`custom-accordion__legend bg-[${colors[index]}]`}></div>
+                        <div className={`custom-accordion__legend bg-[${colorMapping.get(percentage)}]`}></div>
                         <svg xmlns="http://www.w3.org/2000/svg" width="12" height="13" viewBox="0 0 12 13" fill="none">
                             <path d="M10 5.41667V3.25C10 1.45546 8.20867 0 6 0C3.79133 0 2 1.45546 2 3.25V5.41667H0V13H12V5.41667H10ZM3.33333 5.41667V3.25C3.33333 2.05508 4.52933 1.08333 6 1.08333C7.47067 1.08333 8.66667 2.05508 8.66667 3.25V5.41667H3.33333Z" fill="#2C2B2B"></path>
                         </svg>

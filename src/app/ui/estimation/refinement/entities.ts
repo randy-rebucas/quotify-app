@@ -40,3 +40,15 @@ titleMapping.set(0, "Main estimation");
 titleMapping.set(1, "High end estimate");
 titleMapping.set(2, "Low end estimate");
 titleMapping.set(3, "Not as env. friendly");
+
+export let colorMapping = new Map<number, string>();
+colorMapping.set(10, "#dbe6ed");
+colorMapping.set(20, "#C4D6E1");
+colorMapping.set(30, "#93B7CD");
+colorMapping.set(40, "#6298BA");
+colorMapping.set(50, "#3179A6");
+colorMapping.set(60, "#3a91c7");
+colorMapping.set(70, "#0377bf");
+colorMapping.set(80, "#218bcd");
+colorMapping.set(90, "#005A92");
+colorMapping.set(100, "#004a78");

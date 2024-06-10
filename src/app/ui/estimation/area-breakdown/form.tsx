@@ -9,15 +9,13 @@ import ProportionBreakdown from "./steps/proportion-breakdown";
 import clsx from "clsx";
 import { v4 as uuid } from 'uuid'
 import { useRouter } from "next/navigation";
-// selectedAmenities={selected_amenities} selectedCustomSpaces={selected_custom_spaces}
+
 export default function Form({
-    menus, amenities, custom_spaces, selectedAmenities, selectedCustomSpaces, project_id
+    menus, amenities, custom_spaces, project_id
 }: {
     menus: any[];
     amenities: any[];
     custom_spaces: any[],
-    selectedAmenities: any[],
-    selectedCustomSpaces: any[],
     project_id: string
 }) {
     const router = useRouter();
