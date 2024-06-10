@@ -5,10 +5,9 @@ import { FormEvent, useEffect, useState } from "react";
 import Tooltip from "../../tooltip";
 import { PieChartPresentation } from "../pie-chart-presentation";
 import { common } from "../../mock";
-import { pieColors, pieData } from "../../data";
+import { pieData } from "../../data";
 import PieChartData from "../pie-chart-data";
 import { useRouter } from "next/navigation";
-import { IAmenity } from "@/app/models/Amenity";
 
 export default function Form({ project, amenities, customeSpaces, selectedAmenities, selectedCustomSpaces }: {
     project: any;
@@ -55,8 +54,6 @@ export default function Form({ project, amenities, customeSpaces, selectedAmenit
         setStaffWorkingRemotely(100 - seatingPercentage);
     }, [project])
 
-    // console.log(selectedAmenities)
-
     useEffect(() => {
         
         const groupItemRestById = (collector: any, item: any) => {
@@ -70,6 +67,7 @@ export default function Form({ project, amenities, customeSpaces, selectedAmenit
         setBreakdowns(Object.entries(selectedAmenities.reduce(groupItemRestById, {})));
 
     }, [selectedAmenities])
+
 
     return (
         <form onSubmit={onSubmit} className="col-span-4 row-span-2 h-full w-full overflow-y-scroll overflow-x-hidden">
@@ -101,10 +99,10 @@ export default function Form({ project, amenities, customeSpaces, selectedAmenit
                                         <h3 className="text-[18px] text-black">area distribution</h3>
 
                                         <div id="pie-example-1" className="w-[220px] my-[30px]">
-                                            <PieChartPresentation data={pieData} width={280} height={280} colors={pieColors} />
+                                            <PieChartPresentation width={280} height={280} breakdowns={breakdowns} selectedAmenities={selectedAmenities} selectedCustomSpaces={selectedCustomSpaces} />
                                         </div>
 
-                                        <PieChartData data={pieData} />
+                                        <PieChartData data={pieData} breakdowns={breakdowns} selectedAmenities={selectedAmenities}/>
 
                                     </div>
                                     <div className="col-span-1 flex flex-col justify-end h-full">
@@ -117,7 +115,8 @@ export default function Form({ project, amenities, customeSpaces, selectedAmenit
                                             tabIndex={0}>
                                         </iframe>
                                         <div className="mt-[15px] max-w-[150px] text-black font-latolight">
-                                            <strong className="font-latobold">Mmoser - Vancouver office</strong>
+                                            {/* <strong className="font-latobold">Mmoser - Vancouver office</strong> */}
+                                            <strong className="font-latobold">Address</strong>
                                             <p>{project.address}</p>
                                         </div>
                                     </div>

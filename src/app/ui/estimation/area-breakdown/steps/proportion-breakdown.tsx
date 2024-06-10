@@ -2,6 +2,8 @@ import Accordions from "../accordions"
 import { PieChartPresentation } from "../../pie-chart-presentation"
 import Tooltip from "@/app/ui/tooltip"
 import { ProjectCustomSpaceData } from "./area-defination"
+import { useEffect, useState } from "react"
+import { IAmenity } from "@/app/models/Amenity"
 
 export type AreaData = {
     selectedAmenityIds: any[]
@@ -21,6 +23,28 @@ export default function ProportionBreakdown({
     custom_spaces,
     updateFields
 }: AreaFormProps) {
+    
+    const [breakdowns, setBreakdowns] = useState<any[]>([]);
+
+    useEffect(() => {
+        let newAmenities: (IAmenity | undefined)[] = [];
+
+        selectedAmenityIds.map((selectedAmenity: any) => {
+            const foundAmenity = amenities.find((item: any) => item._id === selectedAmenity);
+            newAmenities.push(foundAmenity);
+        })
+
+        const groupItemRestById = (collector: any, item: any) => {
+            const { categoryName, ...rest } = item;
+            const groupList = collector[categoryName] || (collector[categoryName] = []);
+
+            groupList.push(rest);
+
+            return collector;
+        }
+        setBreakdowns(Object.entries(newAmenities.reduce(groupItemRestById, {})));
+
+    }, [amenities, selectedAmenityIds])
 
     return (
         <>
@@ -56,7 +80,7 @@ export default function ProportionBreakdown({
                     <div className="pt-[100px] px-30 w-full flex items-center justify-center">
                         {/* <!--pie chart--> */}
                         <div id="pie-example-1" className="py-[60px] w-[500px] flex items-center justify-center">
-                            <PieChartPresentation width={480} height={480} amenities={amenities} customSpaces={custom_spaces} selectedAmenities={selectedAmenityIds} selectedCustomSpaces={selectedCustomSpaces}/>
+                            <PieChartPresentation width={480} height={480} breakdowns={breakdowns} selectedAmenities={selectedAmenityIds} selectedCustomSpaces={selectedCustomSpaces}/>
                         </div>
                     </div>
                 </div>
