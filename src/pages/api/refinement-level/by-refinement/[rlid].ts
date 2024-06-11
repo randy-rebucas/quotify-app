@@ -6,7 +6,7 @@ export default async function handler(
   res: NextApiResponse
 ) {
   const { rlid } = req.query;
-
+ 
   try {
     const refinementLevel = await RefinementLevel.find({ refinement: rlid })
       .populate("image")

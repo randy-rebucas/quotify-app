@@ -17,7 +17,7 @@ const estimateRefinementSchema = new Schema<IEstimateRefinement>({
     type: Schema.Types.Map,
     of: {
       type: Schema.Types.ObjectId,
-      ref: "RequirementLevels"
+      ref: "RefinementLevels"
     }
   },
   estimate: {

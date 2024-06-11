@@ -47,7 +47,7 @@ export default function Partition({
     useEffect(() => {
 
         const getRefinementLevels = async (id: string) => {
-            const response = await fetch(`/api/refinement-level/${id}`, {
+            const response = await fetch(`/api/refinement-level/by-refinement/${id}`, {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
@@ -82,7 +82,7 @@ export default function Partition({
                     <div data-value={refinementLevel.level} data-col={index + 1} key={refinementLevel._id.toString()}
                         className={`js-select-option col-start-${index + 1} row-start-2 col-span-1 flex flex-col justify-between items-start w-full h-full`}>
                         <div className="p-30 estimation">
-                            <input type="radio" name="refinement" value={refinementLevel._id.toString()} id={`refinement-${index + 1}`} onChange={e => handleRadioChange(index, e)} checked={stimates[tabiIndex].refinement.partitions == refinementLevel.level} />
+                            <input type="radio" name="refinement" value={refinementLevel._id.toString()} id={`refinement-${index + 1}`} onChange={e => handleRadioChange(index, e)} checked={stimates[tabiIndex].refinement.partitions == refinementLevel._id.toString()} />
                             <label htmlFor={`refinement-${index + 1}`}>
                                 <Image
                                     src={`/uploads/${refinementLevel.image?.fileName}`}

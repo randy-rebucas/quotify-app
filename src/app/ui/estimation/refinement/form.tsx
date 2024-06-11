@@ -1,7 +1,7 @@
 'use client';
 
 import { useMultistepForm } from "@/app/hooks/useMultistepForm";
-import { FormEvent, useContext, useState } from "react";
+import { FormEvent, useContext, useEffect, useState } from "react";
 import { INITIAL_DATA, menuMapping, RefinementData, StimateData, tabMapping } from "./entities";
 import Wrapper from "./wrapper";
 import Flooring from "./steps/flooring";
@@ -46,12 +46,7 @@ export default function Form({ refinements, project_id }: { refinements: any[], 
         const initialRefinement = {
             id: stimates.length,
             name: e.target.title.value,
-            refinement: new Object()
-            // refinement: {
-            //     flooring: source?.refinement.flooring,
-            //     furniture: source?.refinement.furniture,
-            //     partitions: source?.refinement.partitions
-            // }
+            refinement: source?.refinement
         };
 
         setData(prev => {
@@ -103,23 +98,30 @@ export default function Form({ refinements, project_id }: { refinements: any[], 
 
     const getSelectedRequirement = (index: number, lookup: string) => {
         let selectedValue = stimates.find((stimate) => stimate.id == index);
+        
         let refinement;
-        // switch (menuMapping.get(lookup)) {
-        //     case 'flooring':
-        //         refinement = selectedValue?.refinement.flooring;
-        //         break;
-        //     case 'furniture':
-        //         refinement = selectedValue?.refinement.furniture;
-        //         break;
-        //     case 'partitions':
-        //         refinement = selectedValue?.refinement.partitions;
-        //         break;
-        //     default:
-        //         break;
-        // }
+
+        const refinementMap = selectedValue?.refinement;
+
+        if (refinementMap) {
+            switch (menuMapping.get(lookup)) {
+                case 'flooring':
+                    refinement = Object.hasOwn(refinementMap, 'flooring') ? refinementMap.flooring : '';
+                    break;
+                case 'furniture':
+                    refinement = Object.hasOwn(refinementMap, 'furniture') ? refinementMap.furniture : '';
+                    break;
+                case 'partitions':
+                    refinement = Object.hasOwn(refinementMap, 'partitions') ? refinementMap.partitions : '';
+                    break;
+                default:
+                    break;
+            }
+        }
         return refinement;
     }
 
+    console.log(data)
     return (
         <>
             <div data-col={last_stimate + 1} className={clsx(
@@ -209,7 +211,7 @@ export default function Form({ refinements, project_id }: { refinements: any[], 
                                             {getSelectedRequirement(stimate.id, refinement.name) && <div className="js-step-indicator step-indicator pl-3 checked" style={{
                                                 paddingBottom: 'unset'
                                             }} data-category="03.1.1">
-                                                {getSelectedRequirement(stimate.id, refinement.name)}
+                                                <Indicator refinementId={getSelectedRequirement(stimate.id, refinement.name)} />
                                             </div>}
                                         </div>
                                     ))}
@@ -235,3 +237,33 @@ export default function Form({ refinements, project_id }: { refinements: any[], 
         </>
     )
 }
+
+export function Indicator({ refinementId }: { refinementId: string }) {
+    const [refinemantName, setRefinementname] = useState<string>('')
+
+    useEffect(() => {
+        const getRequirementLabel = async (id?: string) => {
+            if (id) {
+
+                const response = await fetch(`/api/refinement-level/${id}`, {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json',
+                    }
+                });
+
+                let refinementLabelResponse = await response.json();
+                console.log(refinementLabelResponse);
+                setRefinementname(refinementLabelResponse.level);
+            }
+        }
+
+        if (refinementId) {
+            getRequirementLabel(refinementId);
+        }
+    }, [refinementId])
+
+
+    return refinemantName;
+} 

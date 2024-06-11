@@ -19,7 +19,7 @@ import { IRequirementLevel } from "@/app/models/RequirementLevel";
 
 export default function Form({ requirements, project_id }: { requirements: any[], project_id: string }) {
     const router = useRouter();
-    const [selectedRequirement, setSelectedRequirement] = useState<IRequirementLevel>()
+
     const [isLoading, setIsLoading] = useState<boolean>(false)
     const [isExpanded, setIsExpanded] = useState<boolean>(true)
     const [activeTab, setActiveTab] = useState<number>(0)
@@ -138,8 +138,6 @@ export default function Form({ requirements, project_id }: { requirements: any[]
 
         return requirement;
     }
-
-    console.log(data);
 
     return (
         <>

@@ -49,7 +49,7 @@ export default function Furniture({
     useEffect(() => {
 
         const getRefinementLevels = async (id: string) => {
-            const response = await fetch(`/api/refinement-level/${id}`, {
+            const response = await fetch(`/api/refinement-level/by-refinement/${id}`, {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',

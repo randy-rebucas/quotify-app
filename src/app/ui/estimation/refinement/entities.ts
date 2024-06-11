@@ -7,7 +7,7 @@ type StimateRefinementData = {
 export type StimateData = {
   id: number;
   name: string;
-  refinement:  {} | null;
+  refinement:  any | null;
 };
 
 export type RefinementData = {

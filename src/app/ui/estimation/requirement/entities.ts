@@ -1,30 +1,3 @@
-type StimateRequirementData = {
-  finish?: {
-    label: string;
-    value: string
-  };
-  sustainabilityCertification?: {
-    label: string;
-    value: string
-  };
-  mepFeatures?: {
-    label: string;
-    value: string
-  };
-  buildingCondition?: {
-    label: string;
-    value: string
-  };
-  technology?: {
-    label: string;
-    value: string
-  };
-  furniture?: {
-    label: string;
-    value: string
-  };
-};
-
 export type StimateData = {
   id: number;
   name: string;
