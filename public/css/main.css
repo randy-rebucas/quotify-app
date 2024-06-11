@@ -10308,8 +10308,10 @@ __updated.file {
 * {
   --transition: 0.15s;
   --border-radius: 0.5rem;
-  --background: #02c8b6;
-  --box-shadow: #02c8b6;
+  --background-green: #01a092;
+  --box-shadow-green: #00877b;
+  --background-yellow: #f4b300;
+  --box-shadow-yellow: #ffce49;
 }
 
 .estimation {
@@ -10322,16 +10324,26 @@ __updated.file {
 
 .estimation input:checked + label {
   opacity: 1;
-  box-shadow: 0 0 0 3px var(--background);
 }
+
+.estimation.estimation-green input:checked + label {
+  box-shadow: 0 0 0 3px var(--background-green);
+}
+
+.estimation.estimation-yellow input:checked + label {
+  box-shadow: 0 0 0 3px var(--background-yellow);
+}
+
 .estimation input:checked + label img {
   -webkit-filter: none; /* Safari 6.0 - 9.0 */
   filter: none;
 }
+
 .estimation input:checked + label .cover-checkbox {
   opacity: 1;
   transform: scale(1);
 }
+
 .estimation label {
   display: inline-block;
   cursor: pointer;
@@ -10341,6 +10353,7 @@ __updated.file {
   position: relative;
   opacity: 0.6;
 }
+
 .estimation label img {
   width: 100%;
   height: 70%;
@@ -10357,12 +10370,19 @@ __updated.file {
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  background: var(--box-shadow);
   border: 2px solid #fff;
   transition: transform 0.15s,
     opacity calc(0.15s * 1.2) linear;
   opacity: 0;
   transform: scale(0);
+}
+
+.estimation.estimation-green label .cover-checkbox {
+  background: var(--box-shadow-green);
+}
+
+.estimation.estimation-yellow label .cover-checkbox {
+  background: var(--box-shadow-yellow);
 }
 
 .estimation label .cover-checkbox svg {

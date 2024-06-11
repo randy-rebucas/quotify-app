@@ -81,7 +81,7 @@ export default function Partition({
                 {refinementLevels.map((refinementLevel: any, index: number) => (
                     <div data-value={refinementLevel.level} data-col={index + 1} key={refinementLevel._id.toString()}
                         className={`js-select-option col-start-${index + 1} row-start-2 col-span-1 flex flex-col justify-between items-start w-full h-full`}>
-                        <div className="p-30 estimation">
+                        <div className="p-30 estimation estimation-yellow">
                             <input type="radio" name="refinement" value={refinementLevel._id.toString()} id={`refinement-${index + 1}`} onChange={e => handleRadioChange(index, e)} checked={stimates[tabiIndex].refinement.partitions == refinementLevel._id.toString()} />
                             <label htmlFor={`refinement-${index + 1}`}>
                                 <Image

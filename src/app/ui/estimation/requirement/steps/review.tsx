@@ -67,12 +67,7 @@ export default function Review({
     
     const handleRadioChange = (index: number, event: ChangeEvent<HTMLInputElement>) => {
         let data = [...stimates];
-        // data[tabiIndex].requirement.sustainabilityCertification = {
-        //     label: event.currentTarget.dataset.label,
-        //     value: event.target.value
-        // };
         let requirementObj = data[tabiIndex].requirement;
-        // requirementObj.set('sustainabilityCertification', event.target.value);
         Object.assign(requirementObj, { 'sustainabilityCertification': event.target.value });
         updateFields({ stimates: data });
     }
@@ -81,7 +76,7 @@ export default function Review({
             {requirementLevels.map((requirementLevel: any, index: any) => (
                 <div data-category={`03.1.${index + 1}`} key={requirementLevel._id.toString()} data-value={requirementLevel.level} data-col={index + 1}
                     className={`js-select-option col-start-${index + 1} row-start-2 col-span-1 flex flex-col justify-between items-start w-full h-full`}>
-                    <div className="p-30 estimation">
+                    <div className="p-30 estimation estimation-green">
                         <input type="radio" name="finish" value={requirementLevel._id.toString()} data-label={requirementLevel.level} id={`finish-${index + 1}`} onChange={e => handleRadioChange(index, e)} checked={stimates[tabiIndex].requirement.sustainabilityCertification == requirementLevel._id.toString()} />
                         <label htmlFor={`finish-${index + 1}`}>
                             <Image
