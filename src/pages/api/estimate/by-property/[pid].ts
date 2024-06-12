@@ -1,0 +1,23 @@
+import Estimate from "@/app/models/Estimate";
+import type { NextApiRequest, NextApiResponse } from "next";
+
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
+  const { pid } = req.query;
+
+  try {
+    const estimate = await Estimate.find({
+      project: pid,
+      section: "requirement",
+    })
+      .populate("project")
+      .exec();
+
+    res.status(200).json(estimate);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
+  }
+}

@@ -163,7 +163,7 @@ export default function Detail({ projectId, onClick }: { projectId: string, onCl
                     </div>
 
                     <div className="grid lg:grid-cols-3 lg:grid-flow-col relative h-full">
-
+                                   
                         <div className="file file-1 overflow-x-hidden overflow-y-scroll relative col-span-1 bg-black1 flex flex-col justify-between">
                             <div className="px-30 pb-30 pt-10 h-full flex flex-col justify-between">
                                 <div className="flex flex-col justify-start relative z-10">
