@@ -9,6 +9,7 @@ const protectedRoutes = [
   "/file-management",
   "/estimation",
   "/estimation/*",
+  "/setting/*",
 ];
 const publicRoutes = ["/", "/login", "/signup"];
 

@@ -42,7 +42,7 @@ export default async function Page() {
                                 await logout();
                             }}>
                                 <button className="hover:text-red-500 md:p-2 text-red text-sm w-full">
-                                    <PowerIcon className="w-6" />
+                                    <PowerIcon className="w-[43px]" />
                                     <div className="hidden md:block">Sign Out</div>
                                 </button>
                             </form>

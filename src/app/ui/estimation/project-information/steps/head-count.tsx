@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react"
+
 type HeadCountData = {
     targetHeadCount: string
     averageAttendance: string
@@ -14,6 +16,8 @@ export default function HeadCount({
     assignedSeat,
     updateFields
 }: HeadCountFormProps) {
+    const [headCount, setHeadCount] = useState<string>('');
+    console.log(headCount);
     return (
         <>
             <div className="lg:col-span-3 col-span-12 flex flex-col justify-start items-start w-full">
@@ -41,7 +45,7 @@ export default function HeadCount({
                                     <div className="custom-input flex flex-col justify-start mt-[5.556vh]">
                                         <input className="bg-transparent focus:outline-none border-b-2 border-blue" type="number" name="targetHeadCount"
                                             min={10} max={100}
-                                            value={targetHeadCount} onChange={e => updateFields({ targetHeadCount: e.target.value })} />
+                                            value={headCount} onChange={e => setHeadCount(e.target.value)} />
                                         <div className="mt-[20px] font-latobold text-[30px]">people</div>
                                     </div>
                                 </div>
