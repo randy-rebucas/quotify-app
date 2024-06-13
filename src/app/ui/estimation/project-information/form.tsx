@@ -10,7 +10,7 @@ import Wrapper from "./wrapper";
 import clsx from "clsx";
 import { useRouter } from "next/navigation";
 import { v4 as uuid } from 'uuid'
-import { useProjectInformationStore } from "@/app/lib/store";
+import { useProjectInformationStore } from "@/app/lib/projectInformationStore";
 
 
 export default function Form({ menus }: { menus: any[] }) {

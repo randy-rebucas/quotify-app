@@ -1,4 +1,4 @@
-import { useProjectInformationStore } from "@/app/lib/store";
+import { useProjectInformationStore } from "@/app/lib/projectInformationStore";
 
 export default function Address() {
     
