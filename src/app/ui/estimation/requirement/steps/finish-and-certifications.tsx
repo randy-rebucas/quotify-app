@@ -5,35 +5,22 @@ import Image from "next/image";
 import { RequirementData } from "../entities";
 import { ChangeEvent, useEffect, useMemo, useState } from "react";
 import { IRequirementLevel } from "@/app/models/RequirementLevel";
+import { useRequirementStore } from "@/app/lib/requirementStore";
 
-type RequirementFormProps = RequirementData & {
-    stimates: any,
-    tabiIndex: number,
-    updateFields: (fields: Partial<RequirementData>) => void
+type Props = {
+    tabiIndex: number
 }
 
 export default function FinishAndCertification({
-    stimates,
     tabiIndex,
-    updateFields
-}: RequirementFormProps) {
+}: Props) {
+
+    const { estimates } = useRequirementStore(state => state.estimates);
+
+    const updateFields = useRequirementStore(state => state.updateFields)
 
     const [requirementId, setRequirementId] = useState<string>()
     const [requirementLevels, setRequirementLevels] = useState<IRequirementLevel[]>([])
-
-    useEffect(() => {
-        const initialRequirement = [
-            {
-                id: 0,
-                name: 'Main estimation',
-                requirement: new Object()
-            }
-        ];
-
-        if (stimates.length === 0) {
-            updateFields({ stimates: initialRequirement });
-        }
-    }, [stimates, updateFields])
 
     useMemo(async () => {
 
@@ -81,11 +68,11 @@ export default function FinishAndCertification({
     }, [requirementId, requirementLevels])
 
     const handleRadioChange = (index: number, event: ChangeEvent<HTMLInputElement>) => {
-        event.preventDefault();
-        let data = [...stimates];
+        let data = [...estimates];
         let requirementObj = data[tabiIndex].requirement;
+        console.log(requirementObj)
         Object.assign(requirementObj, { 'finish': event.target.value });
-        updateFields({ stimates: data });
+        updateFields({ estimates: data });
     }
 
     return (
@@ -94,7 +81,7 @@ export default function FinishAndCertification({
                 <div data-category={`03.1.${index + 1}`} key={requirementLevel._id.toString()} data-value={requirementLevel.level} data-col={index + 1}
                     className={`js-select-option col-start-${index + 1} row-start-2 col-span-1 flex flex-col justify-between items-start w-full h-full`}>
                     <div className="p-30 estimation estimation-green">
-                        <input type="radio" name="finish" value={requirementLevel._id.toString()} data-label={requirementLevel.level} id={`finish-${index + 1}`} onChange={e => handleRadioChange(index, e)} checked={stimates[tabiIndex].requirement.finish == requirementLevel._id.toString()} />
+                        <input type="radio" name="finish" value={requirementLevel._id.toString()} data-label={requirementLevel.level} id={`finish-${index + 1}`} onChange={e => handleRadioChange(index, e)} checked={estimates[tabiIndex].requirement.finish == requirementLevel._id.toString()} />
                         <label htmlFor={`finish-${index + 1}`}>
                             <Image
                                 src={`/uploads/${requirementLevel.image?.fileName}`}
