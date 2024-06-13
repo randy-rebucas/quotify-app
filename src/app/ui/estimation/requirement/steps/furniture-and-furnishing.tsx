@@ -4,18 +4,20 @@ import Image from "next/image";
 import { RequirementData } from "../entities";
 import { ChangeEvent, useEffect, useMemo, useState } from "react";
 import { IRequirementLevel } from "@/app/models/RequirementLevel";
+import { useRequirementStore } from "@/app/lib/requirementStore";
 
-type FurnishingFormProps = RequirementData & {
-    stimates: any,
-    tabiIndex: number,
-    updateFields: (fields: Partial<RequirementData>) => void
+type Props = {
+    tabiIndex: number
 }
 
 export default function FurnitureAndFurnishing({
-    stimates,
-    tabiIndex,
-    updateFields
-}: FurnishingFormProps) {
+    tabiIndex
+}: Props) {
+    console.log(tabiIndex)
+    const estimates = useRequirementStore(state => state.estimates);
+
+    const updateFields = useRequirementStore(state => state.updateFields)
+    
     const [requirementId, setRequirementId] = useState<string>()
     const [requirementLevels, setRequirementLevels] = useState<IRequirementLevel[]>([])
 
@@ -66,10 +68,10 @@ export default function FurnitureAndFurnishing({
     }, [requirementId, requirementLevels])
     
     const handleRadioChange = (index: number, event: ChangeEvent<HTMLInputElement>) => {
-        let data = [...stimates];
+        let data = [...estimates.estimates];
         let requirementObj = data[tabiIndex].requirement;
         Object.assign(requirementObj, { 'furniture': event.target.value });
-        updateFields({ stimates: data });
+        updateFields({ estimates: data });
     }
     return (
         <>
@@ -77,7 +79,7 @@ export default function FurnitureAndFurnishing({
                 <div data-category={`03.1.${index + 1}`} key={requirementLevel._id.toString()} data-value={requirementLevel.level} data-col={index + 1}
                     className={`js-select-option col-start-${index + 1} row-start-2 col-span-1 flex flex-col justify-between items-start w-full h-full`}>
                     <div className="p-30 estimation estimation-green">
-                        <input type="radio" name="finish" value={requirementLevel._id.toString()} data-label={requirementLevel.level} id={`finish-${index + 1}`} onChange={e => handleRadioChange(index, e)} checked={stimates[tabiIndex].requirement.furniture == requirementLevel._id.toString()} />
+                        <input type="radio" name="finish" value={requirementLevel._id.toString()} data-label={requirementLevel.level} id={`finish-${index + 1}`} onChange={e => handleRadioChange(index, e)} checked={estimates.estimates[tabiIndex].requirement.furniture == requirementLevel._id.toString()} />
                         <label htmlFor={`finish-${index + 1}`}>
                             <Image
                                 src={`/uploads/${requirementLevel.image?.fileName}`}

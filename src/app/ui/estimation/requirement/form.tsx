@@ -1,7 +1,7 @@
 'use client';
 
 import { useMultistepForm } from "@/app/hooks/useMultistepForm";
-import { FormEvent, useContext, useEffect, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import Wrapper from "./wrapper";
 import FinishAndCertification from "./steps/finish-and-certifications";
 import MepFeatures from "./steps/mep-features";
@@ -11,58 +11,49 @@ import FurnitureAndFurnishing from "./steps/furniture-and-furnishing";
 import Review from "./steps/review";
 import clsx from "clsx";
 import { useRouter } from "next/navigation";
-import { INITIAL_DATA, menuMapping, RequirementData, StimateData, tabMapping } from "./entities";
+import { menuMapping, StimateData, tabMapping } from "./entities";
 import { v4 as uuid } from 'uuid'
 import TabForm from "./tab-form";
 import { IRequirement } from "@/app/models/Requirement";
-import { IRequirementLevel } from "@/app/models/RequirementLevel";
+import { useRequirementStore } from "@/app/lib/requirementStore";
 
 export default function Form({ requirements, project_id }: { requirements: any[], project_id: string }) {
     const router = useRouter();
+
+    const { estimates } = useRequirementStore(state => state.estimates);
+    const addEstimate = useRequirementStore(state => state.addEstimate);
 
     const [isLoading, setIsLoading] = useState<boolean>(false)
     const [isExpanded, setIsExpanded] = useState<boolean>(true)
     const [activeTab, setActiveTab] = useState<number>(0)
     const [error, setError] = useState<string | null>(null)
 
-    const [data, setData] = useState(INITIAL_DATA)
-
-    function updateFields(fields: Partial<RequirementData>) {
-        setData(prev => {
-            return { ...prev, ...fields }
-        })
-    }
-
-    const { stimates } = data;
-
     const { steps, currentStepIndex, step, isFirstStep, isLastStep, back, next } =
         useMultistepForm([
-            <FinishAndCertification {...data} updateFields={updateFields} tabiIndex={activeTab} key={uuid()} />,
-            <MepFeatures {...data} updateFields={updateFields} tabiIndex={activeTab} key={uuid()} />,
-            <BaseBuildingConditions {...data} updateFields={updateFields} tabiIndex={activeTab} key={uuid()} />,
-            <Technology {...data} updateFields={updateFields} tabiIndex={activeTab} key={uuid()} />,
-            <FurnitureAndFurnishing {...data} updateFields={updateFields} tabiIndex={activeTab} key={uuid()} />,
-            <Review {...data} updateFields={updateFields} tabiIndex={activeTab} key={uuid()} />
+            <FinishAndCertification tabiIndex={activeTab} key={uuid()} />,
+            <MepFeatures tabiIndex={activeTab} key={uuid()} />,
+            <BaseBuildingConditions tabiIndex={activeTab} key={uuid()} />,
+            <Technology tabiIndex={activeTab} key={uuid()} />,
+            <FurnitureAndFurnishing tabiIndex={activeTab} key={uuid()} />,
+            <Review tabiIndex={activeTab} key={uuid()} />
         ])
 
     const handleTabFormSubmit = (e: any) => {
         e.preventDefault()
         let sourceId = e.target.source.value;
 
-        let source = stimates.find((stimate) => stimate.id == sourceId);
+        let source = estimates.find((stimate) => stimate.id == sourceId);
 
         const initialRequirement = {
-            id: stimates.length,
+            id: estimates.length,
             name: e.target.title.value,
             requirement: source?.requirement
         };
 
-        setData(prev => {
-            return { ...prev, ...{ stimates: [...stimates, initialRequirement] } }
-        })
+        addEstimate(initialRequirement)
     }
 
-    let last_stimate = stimates.length - 1;
+    let last_stimate = estimates.length - 1;
 
     // update this to action and implement dispatch
     async function onSubmit(event: FormEvent<HTMLFormElement>) {
@@ -73,7 +64,7 @@ export default function Form({ requirements, project_id }: { requirements: any[]
         if (!isLastStep) return next()
         try {
             let form_data = {
-                ...data, ...{
+                ...estimates, ...{
                     projectId: project_id,
                     section: 'requirement'
                 }
@@ -105,7 +96,7 @@ export default function Form({ requirements, project_id }: { requirements: any[]
     }
 
     const getSelectedRequirement = (index: number, lookup: string) => {
-        let selectedValue = stimates.find((stimate) => stimate.id == index);
+        let selectedValue = estimates.find((stimate) => stimate.id == index);
 
         let requirement;
 
@@ -139,16 +130,17 @@ export default function Form({ requirements, project_id }: { requirements: any[]
         return requirement;
     }
 
+    console.log(estimates)
     return (
         <>
             <div data-col={last_stimate + 1} className={clsx(
-                `js-tabs absolute z-30 ${isExpanded ? `right-${stimates.length * 2}0` : 'right-20'}`,
+                `js-tabs absolute z-30 ${isExpanded ? `right-${estimates.length * 2}0` : 'right-20'}`,
                 {
-                    'top-[52px]': stimates.length == 1,
-                    'top-[14px]': stimates.length > 1,
+                    'top-[52px]': estimates.length == 1,
+                    'top-[14px]': estimates.length > 1,
                 }
             )}>
-                {stimates.length > 1 && <div className={clsx(
+                {estimates.length > 1 && <div className={clsx(
                     'bg-darkgreen mb-1 h-[55px] w-[43px] flex items-center justify-center',
                     {
                         'rotate-180': isExpanded
@@ -161,7 +153,7 @@ export default function Form({ requirements, project_id }: { requirements: any[]
                     </a>
                 </div>}
                 <h3>
-                    {stimates.map((stimate: StimateData, index: number) => (
+                    {estimates.map((stimate: StimateData, index: number) => (
                         <a key={index} data-menu={tabMapping.get(stimate.id)} className={clsx(
                             'js-tabs-tab tabs-tab',
                             {
@@ -173,10 +165,10 @@ export default function Form({ requirements, project_id }: { requirements: any[]
                         </a>
                     ))}
                 </h3>
-                {stimates.length < 4 && <TabForm stimates={stimates} onSubmit={handleTabFormSubmit} />}
+                {estimates.length < 4 && <TabForm stimates={estimates} onSubmit={handleTabFormSubmit} />}
             </div>
 
-            {stimates.map((stimate: StimateData, index: number) => (
+            {estimates.map((stimate: StimateData, index: number) => (
                 <div key={index} data-menu={tabMapping.get(stimate.id)}
                     className={clsx(
                         `menu animate fade-in-2 bg-green1 flex flex-col justify-start items-start w-full h-full overflow-y-scroll`,
