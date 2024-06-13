@@ -99,7 +99,7 @@ export default function Form({ project, amenities, customeSpaces, selectedAmenit
                                         <h3 className="text-[18px] text-black">area distribution</h3>
 
                                         <div id="pie-example-1" className="w-[220px] my-[30px]">
-                                            <PieChartPresentation width={280} height={280} breakdowns={breakdowns} selectedAmenities={selectedAmenities} selectedCustomSpaces={selectedCustomSpaces} />
+                                            <PieChartPresentation width={280} height={280} breakdowns={breakdowns} />
                                         </div>
 
                                         <PieChartData data={pieData} breakdowns={breakdowns} selectedAmenities={selectedAmenities}/>
