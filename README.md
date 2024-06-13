@@ -41,4 +41,4 @@ menu requirements
 [approximate siez of new space] 5000 * per squirefoot
 ------------
 
-    
+chadcn/ui

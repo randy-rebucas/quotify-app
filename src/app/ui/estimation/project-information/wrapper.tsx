@@ -5,19 +5,14 @@ import clsx from "clsx";
 import DropzoneUploadedFile from "./results/dropzone-uploaded-file";
 import Address from "./results/address";
 import Tooltip from "../../tooltip";
-import { ProjectData } from "./entities";
-import { PlanData } from "./steps/plan";
 
 type FormWrapperProps = {
     stepIndex: number;
     isLoading: boolean;
-    project: ProjectData;
-    updateFields: (fields: Partial<PlanData>) => void
     children: ReactNode
 }
 
-export default function Wrapper({ stepIndex, isLoading, project, updateFields, children }: FormWrapperProps) {
-    const { floorPlans, address } = project;
+export default function Wrapper({ stepIndex, isLoading, children }: FormWrapperProps) {
 
     return (
         <div className="js-step step active">
@@ -35,11 +30,9 @@ export default function Wrapper({ stepIndex, isLoading, project, updateFields, c
 
                 <div className="flex flex-col justify-start items-end w-full h-full">
 
-                    {(stepIndex + 1) === 1 && <DropzoneUploadedFile floorPlans={floorPlans} updateFields={updateFields}/>}
+                    {(stepIndex + 1) === 1 && <DropzoneUploadedFile />}
 
-
-
-                    {(stepIndex + 1) === 2 && <Address address={address}/>}
+                    {(stepIndex + 1) === 2 && <Address />}
 
                 </div>
                 <div className="p-30 w-full flex items-end justify-end">

@@ -1,32 +1,20 @@
+import { useProjectInformationStore } from "@/app/lib/store";
 import Upload from "../upload"
 
-export type PlanData = {
-    spaceName: string;
-    floorPlans: any[];
-    hasFloorPlan: boolean;
-}
+export default function Plan() {
+    
+    const projectInformation = useProjectInformationStore(state => state.projectInformation);
 
-type PlanFormProps = PlanData & {
-    updateFields: (fields: Partial<PlanData>) => void
-}
-
-export default function Plan({
-    spaceName,
-    floorPlans,
-    hasFloorPlan,
-    updateFields
-}: PlanFormProps) {
+    const updateFields = useProjectInformationStore(state => state.updateFields)
 
     const handleChange = (e: any) => {
-        e.preventDefault();
-        console.log("File has been added");
         if (e.target.files && e.target.files[0]) {
             for (let i = 0; i < e.target.files["length"]; i++) {
-                updateFields({ floorPlans: [...floorPlans, e.target.files[i]] });
+                updateFields({ floorPlans: [...projectInformation?.floorPlans, e.target.files[i]] });
             }
         }
     }
-
+    
     return (
 
         <div className="lg:col-span-2 col-span-12 flex flex-col justify-start items-start w-full h-full">
@@ -42,7 +30,7 @@ export default function Plan({
                             <div className="mt-[9.259vh] w-full">
                                 <input
                                     className="block border-b border-0 bg-transparent py-1 text-darkblue border-darkblue w-full outline-none "
-                                    placeholder="give you a space name" type="text" value={spaceName} onChange={e => updateFields({ spaceName: e.target.value })} autoFocus required/>
+                                    placeholder="give you a space name" type="text" value={projectInformation?.spaceName} onChange={e => updateFields({ spaceName: e.target.value })} autoFocus required />
 
                                 <p className="pt-[5.926vh]">To be able to define areas and square
                                     footage in future sections, start by uploading your floorplans.</p>
@@ -50,7 +38,7 @@ export default function Plan({
                                 <Upload onChange={handleChange} />
 
                                 <div className="custom-checkbox mb-4 mt-2">
-                                    <input id="tmp-1" type="checkbox" className="promoted-input-checkbox" value={1} checked={hasFloorPlan} onChange={e => updateFields({ hasFloorPlan: e.target.checked })} />
+                                    <input id="tmp-1" type="checkbox" className="promoted-input-checkbox" value={1} checked={projectInformation?.hasFloorPlan} onChange={e => updateFields({ hasFloorPlan: e.target.checked })} />
                                     <svg>
                                         <use href="#checkmark-1" xlinkHref="#checkmark-1" />
                                     </svg>
@@ -72,8 +60,4 @@ export default function Plan({
             </div>
         </div>
     )
-}
-
-function setProjectFloorPlans() {
-    throw new Error("Function not implemented.");
 }

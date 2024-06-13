@@ -1,13 +1,15 @@
-import { ChangeEventHandler, useEffect, useRef, useState } from "react";
-import { LatLong } from "./entities";
+import { useEffect, useRef, useState } from "react";
 import { useJsApiLoader } from '@react-google-maps/api';
-import { Libraries, Library } from '@googlemaps/js-api-loader';
+import { Libraries } from '@googlemaps/js-api-loader';
+import { useProjectInformationStore } from "@/app/lib/store";
+import { LatLong } from "./steps/address";
 
 const libraries = ["core", "maps", "places", "marker", 'geometry'];
 
-export default function CustomMap({ location }: {
-    location: google.maps.LatLng | undefined
-}) {
+export default function CustomMap() {
+
+    const projectInformation = useProjectInformationStore(state => state.projectInformation);
+    const location = projectInformation.address.location;
 
     const [coords, setCoords] = useState<number[]>([14.599512, 120.984222]);
 
@@ -48,9 +50,6 @@ export default function CustomMap({ location }: {
                 position: location,
                 title: name
             });
-
-            // console.log(location.lat());
-            // console.log(location.lng());
         }
 
         if (location) {

@@ -1,23 +1,10 @@
-import { useEffect, useState } from "react"
+import { useProjectInformationStore } from "@/app/lib/store"
 
-type HeadCountData = {
-    targetHeadCount: string
-    averageAttendance: string
-    assignedSeat: string
-}
+export default function HeadCount() {
 
-type HeadCountFormProps = HeadCountData & {
-    updateFields: (fields: Partial<HeadCountData>) => void
-}
-
-export default function HeadCount({
-    targetHeadCount,
-    averageAttendance,
-    assignedSeat,
-    updateFields
-}: HeadCountFormProps) {
-    const [headCount, setHeadCount] = useState<string>('');
-    console.log(headCount);
+    const projectInformation = useProjectInformationStore(state => state.projectInformation);
+    const updateFields = useProjectInformationStore(state => state.updateFields)
+    
     return (
         <>
             <div className="lg:col-span-3 col-span-12 flex flex-col justify-start items-start w-full">
@@ -43,9 +30,8 @@ export default function HeadCount({
                                     <p>what is your target headcount?</p>
 
                                     <div className="custom-input flex flex-col justify-start mt-[5.556vh]">
-                                        <input className="bg-transparent focus:outline-none border-b-2 border-blue" type="number" name="targetHeadCount"
-                                            min={10} max={100}
-                                            value={headCount} onChange={e => setHeadCount(e.target.value)} />
+                                        <input className="bg-transparent focus:outline-none border-b-2 border-blue" type="text"
+                                            value={projectInformation.targetHeadCount} onChange={e => updateFields({ targetHeadCount: e.target.value })} />
                                         <div className="mt-[20px] font-latobold text-[30px]">people</div>
                                     </div>
                                 </div>
@@ -65,9 +51,8 @@ export default function HeadCount({
                                     <p>for the remaning headcount, what is the average attendance per week?</p>
 
                                     <div className="custom-input flex flex-col justify-start mt-[5.556vh]">
-                                        <input className="bg-transparent focus:outline-none border-b-2 border-blue" type="number" name="averageAttendance"
-                                            min={10} max={100}
-                                            value={averageAttendance} onChange={e => updateFields({ averageAttendance: e.target.value })} />
+                                        <input className="bg-transparent focus:outline-none border-b-2 border-blue" type="tesxt" 
+                                            value={projectInformation.averageAttendance} onChange={e => updateFields({ averageAttendance: e.target.value })} />
                                         <div className="mt-[20px] font-latobold text-[30px]">people</div>
                                     </div>
                                 </div>
@@ -92,12 +77,12 @@ export default function HeadCount({
                                                 min={0}
                                                 max={100}
                                                 step={10}
-                                                value={assignedSeat} onChange={e => updateFields({ assignedSeat: e.target.value })}
+                                                value={projectInformation.assignedSeat} onChange={e => updateFields({ assignedSeat: e.target.value })}
                                                 className="w-full h-1 mb-6 bg-gray-200 rounded-lg appearance-none cursor-pointer range-sm dark:bg-gray-700" />
                                             <span className="text-sm text-gray-500 dark:text-gray-400 absolute start-0 -bottom-3">0%</span>
                                             <span className="text-sm text-gray-500 dark:text-gray-400 absolute end-0 -bottom-3">100%</span>
                                         </div>
-                                        <div className="mt-[40px] font-latobold text-[30px]"><span>{assignedSeat}</span>%</div>
+                                        <div className="mt-[40px] font-latobold text-[30px]"><span>{projectInformation.assignedSeat}</span>%</div>
                                     </div>
                                 </div>
                             </div>

@@ -1,14 +1,18 @@
 import Image from "next/image";
-import { PlanData } from "../steps/plan";
 import { filesize } from "filesize";
+import { useProjectInformationStore } from "@/app/lib/store";
 
-export default function DropzoneUploadedFile({ floorPlans, updateFields }: { floorPlans: any[], updateFields: (fields: Partial<PlanData>) => void }) {
+export default function DropzoneUploadedFile() {
+  const isImageType = ['image/jpeg', 'image/jpg', 'image/png'];
+  
+  const projectInformation = useProjectInformationStore(state => state.projectInformation);
+  const updateFields = useProjectInformationStore(state => state.updateFields);
+
+  const floorPlans = projectInformation.floorPlans;
 
   const removeFile = (idx: number) => {
     updateFields({ floorPlans: floorPlans.filter((file: any, id: number) => id !== idx) })
   }
-
-  const isImageType = ['image/jpeg', 'image/jpg', 'image/png'];
 
   return (
     <>
@@ -16,7 +20,7 @@ export default function DropzoneUploadedFile({ floorPlans, updateFields }: { flo
         <div className="dropzone-uploads">
           <p className="text-darkblue font-latobold">my floorplans</p>
           <div className="flex flex-col gap-3 mt-10">
-            {floorPlans.map((file: any, idx: any) => (
+            {floorPlans && floorPlans.map((file: any, idx: any) => (
               <div key={idx} className="flex gap-3 relative">
                 {isImageType.includes(file.type) && <Image src={URL.createObjectURL(file)} alt={""} width={100} height={100} />}
                 {!isImageType.includes(file.type) && <div className="icon-upload"></div>}

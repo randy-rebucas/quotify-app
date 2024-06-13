@@ -1,25 +1,19 @@
 import { useEffect, useRef, useState } from "react";
-import { Address as CustomAddress } from "../entities";
 import { useJsApiLoader } from '@react-google-maps/api';
 import { Libraries } from '@googlemaps/js-api-loader';
 import CustomMap from "../map";
-
-type AddressData = {
-    address: CustomAddress
-    hasAddress: boolean
-}
-
-type AddressFormProps = AddressData & {
-    updateFields: (fields: Partial<AddressData>) => void
-}
+import { useProjectInformationStore } from "@/app/lib/store";
 
 const libraries = ["core", "maps", "places", "marker", 'geometry'];
 
-export default function Address({
-    address,
-    hasAddress,
-    updateFields,
-}: AddressFormProps) {
+export type LatLong = {
+    coordinates: number[]
+}
+
+export default function Address() {
+    const projectInformation = useProjectInformationStore(state => state.projectInformation);
+    const updateFields = useProjectInformationStore(state => state.updateFields)
+
     const [autoComplete, setAutoComplete] = useState<google.maps.places.Autocomplete | null>(null);
     const { isLoaded: scriptLoaded, loadError } = useJsApiLoader({
         id: 'google-map-script',
@@ -73,10 +67,10 @@ export default function Address({
                                     className="block border-b border-0 bg-transparent py-1 text-darkblue border-darkblue w-full outline-none "
                                     placeholder="enter building address here" type="text"/>
 
-                                <CustomMap location={address.location} />
+                                <CustomMap />
 
                                 <div className="custom-checkbox mb-4 mt-10">
-                                    <input id="tmp-4" type="checkbox" className="promoted-input-checkbox" value={1} checked={hasAddress} onChange={e => updateFields({ hasAddress: e.target.checked })} />
+                                    <input id="tmp-4" type="checkbox" className="promoted-input-checkbox" value={1} checked={projectInformation.hasAddress} onChange={e => updateFields({ hasAddress: e.target.checked })} />
                                     <svg>
                                         <use href="#checkmark-4" xlinkHref="#checkmark-4" />
                                     </svg>

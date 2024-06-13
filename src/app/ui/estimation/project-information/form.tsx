@@ -1,7 +1,6 @@
 'use client';
 
 import { FormEvent, useState } from "react";
-import { ProjectData, INITIAL_DATA } from "./entities";
 import Plan from "./steps/plan";
 import Address from "./steps/address";
 import Area from "./steps/area";
@@ -11,26 +10,23 @@ import Wrapper from "./wrapper";
 import clsx from "clsx";
 import { useRouter } from "next/navigation";
 import { v4 as uuid } from 'uuid'
+import { useProjectInformationStore } from "@/app/lib/store";
 
 
 export default function Form({ menus }: { menus: any[] }) {
     const router = useRouter();
+    const projectInformation = useProjectInformationStore(state => state.projectInformation);
+    
     const [isLoading, setIsLoading] = useState<boolean>(false)
     const [error, setError] = useState<string | null>(null)
-    const [data, setData] = useState<ProjectData>(INITIAL_DATA)
 
-    function updateFields(fields: Partial<ProjectData>) {
-        setData(prev => {
-            return { ...prev, ...fields }
-        })
-    }
 
     const { steps, currentStepIndex, step, isFirstStep, isLastStep, back, next } =
         useMultistepForm([
-            <Plan {...data} updateFields={updateFields} key={uuid()} />,
-            <Address {...data} updateFields={updateFields} key={uuid()} />,
-            <Area {...data} updateFields={updateFields} key={uuid()} />,
-            <HeadCount {...data} updateFields={updateFields} key={uuid()} />
+            <Plan key={uuid()} />,
+            <Address key={uuid()} />,
+            <Area key={uuid()} />,
+            <HeadCount key={uuid()} />
         ])
 
     // update this to action and implement dispatch
@@ -41,19 +37,19 @@ export default function Form({ menus }: { menus: any[] }) {
         if (!isLastStep) return next()
         try {
             const formData = new FormData();
-            formData.append('spaceName', data.spaceName);
-            formData.append('address', data.address.place);
-            formData.append('approximateSize', data.approximateSize);
-            formData.append('rentableArea', data.rentableArea);
-            formData.append('targetHeadCount', data.targetHeadCount);
-            formData.append('averageAttendance', data.averageAttendance);
-            formData.append('assignedSeat', data.assignedSeat);
-            formData.append('hasFloorPlan', data.hasFloorPlan ? 'true' : 'false');
-            formData.append('hasAddress', data.hasAddress ? 'true' : 'false');
-            formData.append('isBaseOnHeadCount', data.isBaseOnHeadCount ? 'true' : 'false');
+            formData.append('spaceName', projectInformation.spaceName);
+            formData.append('address', projectInformation.address.place);
+            formData.append('approximateSize', projectInformation.approximateSize);
+            formData.append('rentableArea', projectInformation.rentableArea);
+            formData.append('targetHeadCount', projectInformation.targetHeadCount);
+            formData.append('averageAttendance', projectInformation.averageAttendance);
+            formData.append('assignedSeat', projectInformation.assignedSeat);
+            formData.append('hasFloorPlan', projectInformation.hasFloorPlan ? 'true' : 'false');
+            formData.append('hasAddress', projectInformation.hasAddress ? 'true' : 'false');
+            formData.append('isBaseOnHeadCount', projectInformation.isBaseOnHeadCount ? 'true' : 'false');
 
-            for (let index = 0; index < data.floorPlans.length; index++) {
-                const element = data.floorPlans[index];
+            for (let index = 0; index < projectInformation.floorPlans.length; index++) {
+                const element = projectInformation.floorPlans[index];
                 formData.append(element.name, element);
             }
 
@@ -78,7 +74,7 @@ export default function Form({ menus }: { menus: any[] }) {
         }
     }
 
-    console.log(data);
+    console.log(projectInformation);
     return (
         <>
             <div className="flex flex-col justify-start items-start w-full h-full">
@@ -123,7 +119,7 @@ export default function Form({ menus }: { menus: any[] }) {
                     </div>
                 )}
 
-                <Wrapper stepIndex={currentStepIndex} isLoading={isLoading} project={data} updateFields={updateFields}>
+                <Wrapper stepIndex={currentStepIndex} isLoading={isLoading}>
                     {/* {error && <div style={{ color: 'red' }}>{error}</div>} */}
                     {step}
                 </Wrapper>
