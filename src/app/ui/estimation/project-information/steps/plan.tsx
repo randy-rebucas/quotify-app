@@ -10,7 +10,7 @@ export default function Plan() {
     const handleChange = (e: any) => {
         if (e.target.files && e.target.files[0]) {
             for (let i = 0; i < e.target.files["length"]; i++) {
-                updateFields({ floorPlans: [...projectInformation?.floorPlans, e.target.files[i]] });
+                updateFields({ floorPlans: [...projectInformation.floorPlans, e.target.files[i]] });
             }
         }
     }

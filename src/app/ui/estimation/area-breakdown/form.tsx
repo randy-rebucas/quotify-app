@@ -1,7 +1,7 @@
 'use client';
 
 import { FormEvent, useState } from "react";
-import { FormData, INITIAL_DATA } from "./entities";
+
 import { useMultistepForm } from "@/app/hooks/useMultistepForm";
 import Wrapper from "./wrapper";
 import AreaDefination from "./steps/area-defination";
@@ -9,6 +9,7 @@ import ProportionBreakdown from "./steps/proportion-breakdown";
 import clsx from "clsx";
 import { v4 as uuid } from 'uuid'
 import { useRouter } from "next/navigation";
+import { useAreaBreakdownStore } from "@/app/lib/areaBreakdownStore";
 
 export default function Form({
     menus, amenities, custom_spaces, project_id
@@ -19,20 +20,15 @@ export default function Form({
     project_id: string
 }) {
     const router = useRouter();
+    const areaBreakdown = useAreaBreakdownStore(state => state.areaBreakdown);
+
     const [isLoading, setIsLoading] = useState<boolean>(false)
     const [error, setError] = useState<string | null>(null)
-    const [data, setData] = useState(INITIAL_DATA)
-
-    function updateFields(fields: Partial<FormData>) {
-        setData((prev: any) => {
-            return { ...prev, ...fields }
-        })
-    }
 
     const { steps, currentStepIndex, step, isFirstStep, isLastStep, back, next } =
         useMultistepForm([
-            <AreaDefination {...data} updateFields={updateFields} amenities={amenities} custom_spaces={custom_spaces} key={uuid()} />,
-            <ProportionBreakdown {...data} updateFields={updateFields} amenities={amenities} custom_spaces={custom_spaces} key={uuid()} />
+            <AreaDefination amenities={amenities} custom_spaces={custom_spaces} key={uuid()} />,
+            <ProportionBreakdown amenities={amenities} custom_spaces={custom_spaces} key={uuid()} />
         ])
 
     // update this to action and implement dispatch
@@ -44,7 +40,7 @@ export default function Form({
         if (!isLastStep) return next()
 
         try {
-            let form_data = { ...data, ...{ projectId: project_id } };
+            let form_data = { ...areaBreakdown, ...{ projectId: project_id } };
 
             const response = await fetch('/api/project/definition', {
                 method: 'POST',

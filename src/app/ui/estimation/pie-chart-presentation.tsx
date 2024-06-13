@@ -2,29 +2,27 @@ import { useEffect, useMemo, useState } from "react";
 import * as d3 from "d3";
 import { DataItem } from "../data";
 import { colorMapping } from "./refinement/entities";
+import { useAreaBreakdownStore } from "@/app/lib/areaBreakdownStore";
 
 const MARGIN = 10;
 export type ChartProps = {
     width: number;
     height: number;
-    breakdowns: any[],
-    selectedAmenities: any[],
-    selectedCustomSpaces: any[]
+    breakdowns: any[]
 };
 
 export const PieChartPresentation = ({
     width,
     height,
-    breakdowns,
-    selectedAmenities,
-    selectedCustomSpaces
+    breakdowns
 }: ChartProps) => {
+    const areaBreakdown = useAreaBreakdownStore(state => state.areaBreakdown);
 
     const [slice, setSlice] = useState<number>(0);
 
     useEffect(() => {
-        setSlice(100 / selectedAmenities.length);
-    }, [selectedAmenities]);
+        setSlice(100 / areaBreakdown.selectedAmenityIds.length);
+    }, [areaBreakdown]);
 
     const data = breakdowns.map((breakdown: any, index: any) => (
         { name: breakdown[0], value: slice * breakdown[1].length }
@@ -53,7 +51,8 @@ export const PieChartPresentation = ({
         <svg width={width} height={height} style={{ display: "inline-block" }}>
             <g transform={`translate(${width / 2}, ${height / 2})`}>
                 {arcs.map((arc: any, i: any) => {
-                    return <path key={i} d={arc} fill={colorMapping.get(pie[i].value)} />;
+                    console.log(Math.round(pie[i].value))
+                    return <path key={i} d={arc} fill={colorMapping.get(Math.round(pie[i].value))} />;
                 })}
             </g>
         </svg>

@@ -1,35 +1,27 @@
 import Accordions from "../accordions"
 import { PieChartPresentation } from "../../pie-chart-presentation"
 import Tooltip from "@/app/ui/tooltip"
-import { ProjectCustomSpaceData } from "./area-defination"
 import { useEffect, useState } from "react"
 import { IAmenity } from "@/app/models/Amenity"
+import { useAreaBreakdownStore } from "@/app/lib/areaBreakdownStore"
 
-export type AreaData = {
-    selectedAmenityIds: any[]
-    selectedCustomSpaces: ProjectCustomSpaceData[]
-}
-
-type AreaFormProps = AreaData & {
+type Props = {
     amenities: any;
     custom_spaces: any;
-    updateFields: (fields: Partial<AreaData>) => void
 }
 
 export default function ProportionBreakdown({
-    selectedAmenityIds,
-    selectedCustomSpaces,
     amenities,
-    custom_spaces,
-    updateFields
-}: AreaFormProps) {
-    
+    custom_spaces
+}: Props) {
+    const areaBreakdown = useAreaBreakdownStore(state => state.areaBreakdown);
+
     const [breakdowns, setBreakdowns] = useState<any[]>([]);
 
     useEffect(() => {
         let newAmenities: (IAmenity | undefined)[] = [];
 
-        selectedAmenityIds.map((selectedAmenity: any) => {
+        areaBreakdown.selectedAmenityIds.map((selectedAmenity: any) => {
             const foundAmenity = amenities.find((item: any) => item._id === selectedAmenity);
             newAmenities.push(foundAmenity);
         })
@@ -44,7 +36,7 @@ export default function ProportionBreakdown({
         }
         setBreakdowns(Object.entries(newAmenities.reduce(groupItemRestById, {})));
 
-    }, [amenities, selectedAmenityIds])
+    }, [amenities, areaBreakdown])
 
     return (
         <>
@@ -65,7 +57,7 @@ export default function ProportionBreakdown({
                                         adjust the percentages to freflect your specific spaces.</p>
                                 </div>
 
-                                <Accordions amenities={amenities} customSpaces={custom_spaces} selectedAmenities={selectedAmenityIds} selectedCustomSpaces={selectedCustomSpaces} />
+                                <Accordions amenities={amenities} customSpaces={custom_spaces} />
 
                             </div>
                         </div>
@@ -80,7 +72,7 @@ export default function ProportionBreakdown({
                     <div className="pt-[100px] px-30 w-full flex items-center justify-center">
                         {/* <!--pie chart--> */}
                         <div id="pie-example-1" className="py-[60px] w-[500px] flex items-center justify-center">
-                            <PieChartPresentation width={480} height={480} breakdowns={breakdowns} selectedAmenities={selectedAmenityIds} selectedCustomSpaces={selectedCustomSpaces}/>
+                            <PieChartPresentation width={480} height={480} breakdowns={breakdowns} />
                         </div>
                     </div>
                 </div>

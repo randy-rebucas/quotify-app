@@ -1,41 +1,30 @@
 import Tooltip from "@/app/ui/tooltip";
-import { ChangeEvent, useEffect, useMemo, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { IAmenity } from "@/app/models/Amenity";
 import clsx from "clsx";
+import { ProjectCustomSpaceData, useAreaBreakdownStore } from "@/app/lib/areaBreakdownStore";
 
-export type ProjectCustomSpaceData = {
-    id: number;
-    space: string;
-    quantity: number;
-};
-
-type AreaData = {
-    selectedAmenityIds: any[]
-    selectedCustomSpaces: ProjectCustomSpaceData[]
-}
-
-type AreaFormProps = AreaData & {
+type Props =  {
     amenities: any;
     custom_spaces: any;
-    updateFields: (fields: Partial<AreaData>) => void
 }
 
 export default function AreaDefination({
-    selectedAmenityIds,
-    selectedCustomSpaces,
     amenities,
-    custom_spaces,
-    updateFields
-}: AreaFormProps) {
+    custom_spaces
+}: Props) {
+
+    const areaBreakdown = useAreaBreakdownStore(state => state.areaBreakdown);
+    const updateFields = useAreaBreakdownStore(state => state.updateFields)
 
     const MAX_QUANTITY = 10;
     const [openOption, setOpenOption] = useState<boolean>(false);
     const handleCheckboxChange = (event: ChangeEvent<HTMLInputElement>) => {
         const checkedId = event.target.value;
         if (event.target.checked) {
-            updateFields({ selectedAmenityIds: [...selectedAmenityIds, checkedId] });
+            updateFields({ selectedAmenityIds: [...areaBreakdown.selectedAmenityIds, checkedId] });
         } else {
-            updateFields({ selectedAmenityIds: selectedAmenityIds.filter((_id: string) => _id !== checkedId) });
+            updateFields({ selectedAmenityIds: areaBreakdown.selectedAmenityIds.filter((_id: string) => _id !== checkedId) });
         }
     }
 
@@ -44,40 +33,33 @@ export default function AreaDefination({
             { id: 0, space: '', quantity: 0 }
         ];
 
-        if (selectedCustomSpaces.length === 0) {
+        if (areaBreakdown.selectedCustomSpaces.length === 0) {
             updateFields({ selectedCustomSpaces: initialCustomSpace });
         }
-    }, [selectedCustomSpaces, updateFields])
-
-    // useEffect(() => {
-    //     const ids = amenityIds.map((amenityId: { _id: string; amenityName: string; categoryName: string; categoryId: string }) => amenityId._id);
-    //     if (amenityIds.length === 0) {
-    //         updateFields({ selectedAmenityIds: ids });
-    //     }
-    // }, [amenityIds, updateFields])
+    }, [areaBreakdown, updateFields])
 
     const handleSelectChange = (index: number, event: ChangeEvent<HTMLSelectElement>) => {
-        let data = [...selectedCustomSpaces];
+        let data = [...areaBreakdown.selectedCustomSpaces];
         data[index].space = event.target.value;
         updateFields({ selectedCustomSpaces: data });
     }
 
     const handleQuantityChange = (index: number, event: ChangeEvent<HTMLInputElement>) => {
-        let data = [...selectedCustomSpaces];
+        let data = [...areaBreakdown.selectedCustomSpaces];
         data[index].quantity = +event.target.value;
         updateFields({ selectedCustomSpaces: data });
     }
 
     const removeFields = (id: number) => {
-        updateFields({ selectedCustomSpaces: selectedCustomSpaces.filter((customSpace: ProjectCustomSpaceData) => customSpace.id !== id) });
+        updateFields({ selectedCustomSpaces: areaBreakdown.selectedCustomSpaces.filter((customSpace: ProjectCustomSpaceData) => customSpace.id !== id) });
     }
 
     const addFields = () => {
-        updateFields({ selectedCustomSpaces: [...selectedCustomSpaces, { id: selectedCustomSpaces.length, space: '', quantity: 0 }] });
+        updateFields({ selectedCustomSpaces: [...areaBreakdown.selectedCustomSpaces, { id: areaBreakdown.selectedCustomSpaces.length, space: '', quantity: 0 }] });
     }
 
     const updateQuantity = (index: number, position: string) => {
-        let data = [...selectedCustomSpaces];
+        let data = [...areaBreakdown.selectedCustomSpaces];
         let newQuantity = position === 'increment' ?
             (data[index].quantity == MAX_QUANTITY) ? data[index].quantity : data[index].quantity + 1 :
             (data[index].quantity == 0) ? 0 : data[index].quantity - 1;
@@ -88,7 +70,8 @@ export default function AreaDefination({
     const toggleOption = () => {
         setOpenOption(!openOption)
     }
-    console.log(selectedAmenityIds);
+
+    console.log(areaBreakdown.selectedAmenityIds);
     return (
         <>
             <div className="lg:col-span-2 col-span-12 flex flex-col justify-start items-start w-full h-full">
@@ -103,10 +86,10 @@ export default function AreaDefination({
                                 <div className="w-full">
                                     <p className="mt-[11.111vh] mb-[1.852vh]">select your amenity spaces</p>
 
-                                    {amenities.map((amenity: IAmenity, index: any) => (
+                                    {amenities.map((amenity: any, index: any) => (
                                         <div className="custom-checkbox mb-4" key={amenity.amenityName}>
                                             <input id={`tmp-${amenity._id}`} type="checkbox" className="promoted-input-checkbox"
-                                                value={`${amenity._id}`} checked={selectedAmenityIds.includes(amenity._id)} onChange={e => handleCheckboxChange(e)}
+                                                value={`${amenity._id}`} checked={areaBreakdown.selectedAmenityIds.includes(amenity._id)} onChange={e => handleCheckboxChange(e)}
                                             />
                                             <svg>
                                                 <use xlinkHref={`#checkmark-${index}`}></use>
@@ -135,7 +118,7 @@ export default function AreaDefination({
 
                     <div className="pt-[29.63vh] px-30 w-full">
                         <p className="text-[#005A92]">add your custom spaces here</p>
-                        {selectedCustomSpaces.map((input: { id: number, space: string, quantity: number }, index: number) => (
+                        {areaBreakdown.selectedCustomSpaces.map((input: { id: number, space: string, quantity: number }, index: number) => (
                             <div className="flex gap-5 items-center js-more-space justify-start mt-[3.704vh]" id={`group-${input.id}`} key={`group-${input.id}`}>
                                 <div className="js-more-space__block flex items-center justify-start gap-5">
                                     <select name="space" id={`space-${index}`}
@@ -187,7 +170,7 @@ export default function AreaDefination({
                                         </div>
                                     </div>
                                 </div>
-                                {selectedCustomSpaces.length > 1 && <button type="button" className="bg-red/40 px-3 py-3 shadow text-white" onClick={() => removeFields(index)}>
+                                {areaBreakdown.selectedCustomSpaces.length > 1 && <button type="button" className="bg-red/40 px-3 py-3 shadow text-white" onClick={() => removeFields(index)}>
                                     Remove
                                 </button>}
                             </div>

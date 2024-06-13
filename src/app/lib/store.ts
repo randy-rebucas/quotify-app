@@ -20,11 +20,11 @@ export type ProjectInformation = {
   assignedSeat: string;
 };
 
-export type State = {
+export type ProjectInformationState = {
   projectInformation: ProjectInformation;
 };
 
-export type Actions = {
+export type ProjectInformationActions = {
   updateFields: (fields: Partial<ProjectInformation>) => void;
 };
 
@@ -45,7 +45,7 @@ export const INITIAL_PROJECT_INFORMATION_DATA: ProjectInformation = {
   assignedSeat: "30",
 };
 
-export const useProjectInformationStore = create<State & Actions>()(
+export const useProjectInformationStore = create<ProjectInformationState & ProjectInformationActions>()(
   persist(
     (set) => ({
       projectInformation: INITIAL_PROJECT_INFORMATION_DATA,
@@ -55,5 +55,43 @@ export const useProjectInformationStore = create<State & Actions>()(
         })),
     }),
     { name: "project-information", skipHydration: true }
+  )
+);
+// ====================
+
+export type ProjectCustomSpaceData = {
+  id: number;
+  space: string;
+  quantity: number;
+};
+
+export type AreaBreakdown = {
+  selectedAmenityIds: string[];
+  selectedCustomSpaces: ProjectCustomSpaceData[];
+}
+
+export type AreaBreakdownState = {
+  areaBreakdown: AreaBreakdown;
+};
+
+export type AreaBreakdownActions = {
+  updateFields: (fields: Partial<AreaBreakdown>) => void;
+};
+
+export const INITIAL_AREA_BREAKDOWN_DATA: AreaBreakdown = {
+  selectedAmenityIds: [],
+  selectedCustomSpaces: [],
+};
+
+export const useAreaBreakdownStore = create<AreaBreakdownState & AreaBreakdownActions>()(
+  persist(
+    (set) => ({
+      areaBreakdown: INITIAL_AREA_BREAKDOWN_DATA,
+      updateFields: (fields) =>
+        set((state) => ({
+          areaBreakdown: { ...state.areaBreakdown, ...fields },
+        })),
+    }),
+    { name: "area-breakdown", skipHydration: true }
   )
 );
