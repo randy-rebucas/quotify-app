@@ -2,7 +2,6 @@
 'use client';
 
 import Image from "next/image";
-import { RequirementData } from "../entities";
 import { ChangeEvent, useEffect, useMemo, useState } from "react";
 import { IRequirementLevel } from "@/app/models/RequirementLevel";
 import { useRequirementStore } from "@/app/lib/requirementStore";
@@ -70,8 +69,8 @@ export default function FinishAndCertification({
     const handleRadioChange = (index: number, event: ChangeEvent<HTMLInputElement>) => {
         let data = [...estimates];
         let requirementObj = data[tabiIndex].requirement;
-        console.log(requirementObj)
         Object.assign(requirementObj, { 'finish': event.target.value });
+        console.log(data)
         updateFields({ estimates: data });
     }
 

@@ -13,11 +13,11 @@ type Props = {
 export default function FurnitureAndFurnishing({
     tabiIndex
 }: Props) {
-    console.log(tabiIndex)
-    const estimates = useRequirementStore(state => state.estimates);
+
+    const { estimates } = useRequirementStore(state => state.estimates);
 
     const updateFields = useRequirementStore(state => state.updateFields)
-    
+
     const [requirementId, setRequirementId] = useState<string>()
     const [requirementLevels, setRequirementLevels] = useState<IRequirementLevel[]>([])
 
@@ -66,9 +66,9 @@ export default function FurnitureAndFurnishing({
         }
 
     }, [requirementId, requirementLevels])
-    
+
     const handleRadioChange = (index: number, event: ChangeEvent<HTMLInputElement>) => {
-        let data = [...estimates.estimates];
+        let data = [...estimates];
         let requirementObj = data[tabiIndex].requirement;
         Object.assign(requirementObj, { 'furniture': event.target.value });
         updateFields({ estimates: data });
@@ -79,7 +79,7 @@ export default function FurnitureAndFurnishing({
                 <div data-category={`03.1.${index + 1}`} key={requirementLevel._id.toString()} data-value={requirementLevel.level} data-col={index + 1}
                     className={`js-select-option col-start-${index + 1} row-start-2 col-span-1 flex flex-col justify-between items-start w-full h-full`}>
                     <div className="p-30 estimation estimation-green">
-                        <input type="radio" name="finish" value={requirementLevel._id.toString()} data-label={requirementLevel.level} id={`finish-${index + 1}`} onChange={e => handleRadioChange(index, e)} checked={estimates.estimates[tabiIndex].requirement.furniture == requirementLevel._id.toString()} />
+                        <input type="radio" name="finish" value={requirementLevel._id.toString()} data-label={requirementLevel.level} id={`finish-${index + 1}`} onChange={e => handleRadioChange(index, e)} checked={estimates[tabiIndex].requirement.furniture == requirementLevel._id.toString()} />
                         <label htmlFor={`finish-${index + 1}`}>
                             <Image
                                 src={`/uploads/${requirementLevel.image?.fileName}`}
