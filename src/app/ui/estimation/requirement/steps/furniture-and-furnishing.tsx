@@ -1,7 +1,6 @@
 'use client';
 
 import Image from "next/image";
-import { RequirementData } from "../entities";
 import { ChangeEvent, useEffect, useMemo, useState } from "react";
 import { IRequirementLevel } from "@/app/models/RequirementLevel";
 import { useRequirementStore } from "@/app/lib/requirementStore";

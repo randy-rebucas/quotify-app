@@ -1,10 +1,11 @@
 import Estimate from "@/app/models/Estimate";
-import { StimateData } from "@/app/ui/estimation/refinement/entities";
+
 import connect from "@/app/utils/db";
 
 import type { NextApiRequest, NextApiResponse } from "next";
 import EstimateRefinement from "@/app/models/EstimateRefinement";
 import Project from "@/app/models/Project";
+import { StimateData } from "@/app/ui/estimation/refinement/form";
 
 export default async function handler(
   req: NextApiRequest,

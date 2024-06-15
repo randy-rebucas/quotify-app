@@ -1,4 +1,22 @@
+export type StimateData = {
+  id: number;
+  name: string;
+  requirement: any | null;
+};
 
+export type RequirementData = {
+  stimates: StimateData[];
+};
+
+export const INITIAL_DATA: RequirementData = {
+  stimates: [
+    {
+      id: 0,
+      name: "Main estimation",
+      requirement: new Object(),
+    },
+  ],
+};
 
 export let menuMapping = new Map<string, string>();
 menuMapping.set("finish and certifications", "finish");

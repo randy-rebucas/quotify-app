@@ -5,20 +5,20 @@ import Image from "next/image";
 import { RefinementData } from "../entities";
 import { ChangeEvent, useEffect, useMemo, useState } from "react";
 import { IRefinementLevel } from "@/app/models/RefinementLevel";
+import { useRefinementStore } from "@/app/lib/refinementStore";
 
 
-type MepFormProps = RefinementData & {
-    stimates: any,
-    tabiIndex: number,
-    updateFields: (fields: Partial<RefinementData>) => void
+type Props = {
+    tabiIndex: number
 }
 
 export default function Furniture({
-    stimates,
-    tabiIndex,
-    updateFields
-}: MepFormProps) {
+    tabiIndex
+}: Props) {
+    const { estimates } = useRefinementStore(state => state.estimates);
 
+    const updateFields = useRefinementStore(state => state.updateFields)
+    
     const [refinementId, setRefinementId] = useState<string>()
     const [refinementLevels, setRefinementLevels] = useState<IRefinementLevel[]>([])
 
@@ -69,13 +69,13 @@ export default function Furniture({
     }, [refinementId, refinementLevels])
 
     const handleRadioChange = (index: number, event: ChangeEvent<HTMLInputElement>) => {
-        let data = [...stimates];
+        let data = [...estimates];
         // data[tabiIndex].refinement.furniture = event.target.value;
 
         let refinementObj = data[tabiIndex].refinement;
         Object.assign(refinementObj, { 'furniture': event.target.value });
 
-        updateFields({ stimates: data });
+        updateFields({ estimates: data });
     }
 
     return (
@@ -85,7 +85,7 @@ export default function Furniture({
                     <div data-value={refinementLevel.level} data-col={index + 1} key={refinementLevel._id.toString()}
                         className={`js-select-option col-start-${index + 1} row-start-2 col-span-1 flex flex-col justify-between items-start w-full h-full`}>
                         <div className="p-30 estimation estimation-yellow">
-                            <input type="radio" name="refinement" value={refinementLevel._id.toString()} id={`refinement-${index + 1}`} onChange={e => handleRadioChange(index, e)} checked={stimates[tabiIndex].refinement.furniture == refinementLevel._id.toString()} />
+                            <input type="radio" name="refinement" value={refinementLevel._id.toString()} id={`refinement-${index + 1}`} onChange={e => handleRadioChange(index, e)} checked={estimates[tabiIndex].refinement.furniture == refinementLevel._id.toString()} />
                             <label htmlFor={`refinement-${index + 1}`}>
                                 <Image
                                     src={`/uploads/${refinementLevel.image?.fileName}`}

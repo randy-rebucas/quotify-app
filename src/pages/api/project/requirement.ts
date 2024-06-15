@@ -1,7 +1,8 @@
 import Estimate from "@/app/models/Estimate";
 import EstimateRequirement from "@/app/models/EstimateRequirement";
 import Project from "@/app/models/Project";
-import { StimateData } from "@/app/ui/estimation/requirement/entities";
+import { StimateData } from "@/app/ui/estimation/requirement/form";
+
 import connect from "@/app/utils/db";
 
 import type { NextApiRequest, NextApiResponse } from "next";

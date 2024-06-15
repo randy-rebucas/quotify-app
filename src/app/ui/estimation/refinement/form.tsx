@@ -1,8 +1,8 @@
 'use client';
 
 import { useMultistepForm } from "@/app/hooks/useMultistepForm";
-import { FormEvent, useContext, useEffect, useState } from "react";
-import { INITIAL_DATA, menuMapping, RefinementData, StimateData, tabMapping } from "./entities";
+import { FormEvent, useEffect, useState } from "react";
+import { menuMapping, tabMapping } from "./entities";
 import Wrapper from "./wrapper";
 import Flooring from "./steps/flooring";
 import Furniture from "./steps/furniture";
@@ -12,49 +12,48 @@ import TabForm from "./tab-form";
 import { v4 as uuid } from 'uuid';
 import { useRouter } from "next/navigation";
 import { IRefinement } from "@/app/models/Refinement";
+import { useRefinementStore } from "@/app/lib/refinementStore";
+
+export type StimateData = {
+    id: number;
+    name: string;
+    refinement: any | null;
+};
 
 export default function Form({ refinements, project_id }: { refinements: any[], project_id: string }) {
     const router = useRouter();
+
+    const { estimates } = useRefinementStore(state => state.estimates);
+    const addEstimate = useRefinementStore(state => state.addEstimate);
 
     const [isLoading, setIsLoading] = useState<boolean>(false)
     const [isExpanded, setIsExpanded] = useState<boolean>(true)
     const [activeTab, setActiveTab] = useState<number>(0)
     const [error, setError] = useState<string | null>(null)
-    const [data, setData] = useState(INITIAL_DATA)
-
-    function updateFields(fields: Partial<RefinementData>) {
-        setData(prev => {
-            return { ...prev, ...fields }
-        })
-    }
-
-    const { stimates } = data;
 
     const { steps, currentStepIndex, step, isFirstStep, isLastStep, back, next } =
         useMultistepForm([
-            <Flooring {...data} updateFields={updateFields} tabiIndex={activeTab} key={uuid()} />,
-            <Furniture {...data} updateFields={updateFields} tabiIndex={activeTab} key={uuid()} />,
-            <Partition {...data} updateFields={updateFields} tabiIndex={activeTab} key={uuid()} />
+            <Flooring tabiIndex={activeTab} key={uuid()} />,
+            <Furniture tabiIndex={activeTab} key={uuid()} />,
+            <Partition tabiIndex={activeTab} key={uuid()} />
         ])
 
     const handleTabFormSubmit = (e: any) => {
         e.preventDefault()
         let sourceId = e.target.source.value;
 
-        let source = stimates.find((stimate) => stimate.id == sourceId);
+        let source = estimates.find((estimate) => estimate.id == sourceId);
 
         const initialRefinement = {
-            id: stimates.length,
+            id: estimates.length,
             name: e.target.title.value,
             refinement: source?.refinement
         };
 
-        setData(prev => {
-            return { ...prev, ...{ stimates: [...stimates, initialRefinement] } }
-        })
+        addEstimate(initialRefinement)
     }
 
-    let last_stimate = stimates.length - 1;
+    let last_stimate = estimates.length - 1;
 
     // update this to action and implement dispatch
     async function onSubmit(event: FormEvent<HTMLFormElement>) {
@@ -65,7 +64,7 @@ export default function Form({ refinements, project_id }: { refinements: any[], 
         if (!isLastStep) return next()
         try {
             let form_data = {
-                ...data, ...{
+                ...estimates, ...{
                     projectId: project_id,
                     section: 'refinement'
                 }
@@ -97,8 +96,8 @@ export default function Form({ refinements, project_id }: { refinements: any[], 
     }
 
     const getSelectedRequirement = (index: number, lookup: string) => {
-        let selectedValue = stimates.find((stimate) => stimate.id == index);
-        
+        let selectedValue = estimates.find((estimate) => estimate.id == index);
+
         let refinement;
 
         const refinementMap = selectedValue?.refinement;
@@ -121,17 +120,16 @@ export default function Form({ refinements, project_id }: { refinements: any[], 
         return refinement;
     }
 
-    console.log(data)
     return (
         <>
             <div data-col={last_stimate + 1} className={clsx(
-                `js-tabs absolute z-30 ${isExpanded ? `right-${stimates.length * 2}0` : 'right-20'}`,
+                `js-tabs absolute z-30 ${isExpanded ? `right-${estimates.length * 2}0` : 'right-20'}`,
                 {
-                    'top-[52px]': stimates.length == 1,
-                    'top-[14px]': stimates.length > 1,
+                    'top-[52px]': estimates.length == 1,
+                    'top-[14px]': estimates.length > 1,
                 }
             )}>
-                {stimates.length > 1 && <div className={clsx(
+                {estimates.length > 1 && <div className={clsx(
                     'bg-darkyellow mb-1 h-[55px] w-[43px] flex items-center justify-center',
                     {
                         'rotate-180': isExpanded
@@ -144,7 +142,7 @@ export default function Form({ refinements, project_id }: { refinements: any[], 
                     </a>
                 </div>}
                 <h3>
-                    {stimates.map((stimate: StimateData, index: number) => (
+                    {estimates.map((stimate: StimateData, index: number) => (
                         <a key={index} data-menu={tabMapping.get(stimate.id)} className={clsx(
                             'js-tabs-tab tabs-tab',
                             {
@@ -157,9 +155,9 @@ export default function Form({ refinements, project_id }: { refinements: any[], 
                     ))}
                 </h3>
 
-                {stimates.length < 4 && <TabForm stimates={stimates} onSubmit={handleTabFormSubmit} />}
+                {estimates.length < 4 && <TabForm stimates={estimates} onSubmit={handleTabFormSubmit} />}
             </div>
-            {stimates.map((stimate: StimateData, index: number) => (
+            {estimates.map((stimate: StimateData, index: number) => (
                 <div key={index} data-menu={tabMapping.get(stimate.id)}
                     className={clsx(
                         `menu animate fade-in-2 bg-yellow flex flex-col justify-start items-start w-full h-full overflow-y-scroll`,
