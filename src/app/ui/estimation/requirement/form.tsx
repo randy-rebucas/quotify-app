@@ -11,11 +11,17 @@ import FurnitureAndFurnishing from "./steps/furniture-and-furnishing";
 import Review from "./steps/review";
 import clsx from "clsx";
 import { useRouter } from "next/navigation";
-import { menuMapping, StimateData, tabMapping } from "./entities";
+import { menuMapping, tabMapping } from "./entities";
 import { v4 as uuid } from 'uuid'
 import TabForm from "./tab-form";
 import { IRequirement } from "@/app/models/Requirement";
 import { useRequirementStore } from "@/app/lib/requirementStore";
+
+export type StimateData = {
+    id: number;
+    name: string;
+    requirement: any | null;
+};
 
 export default function Form({ requirements, project_id }: { requirements: any[], project_id: string }) {
     const router = useRouter();
