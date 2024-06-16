@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import * as d3 from "d3";
 import { DataItem } from "../data";
-import { colorMapping } from "./refinement/entities";
 import { useAreaBreakdownStore } from "@/app/lib/areaBreakdownStore";
 
 const MARGIN = 10;
@@ -47,12 +46,33 @@ export const PieChartPresentation = ({
         );
     }, [radius, pie]);
 
+    const color = (roundPercentage: number) => {
+        let hex;
+        if (roundPercentage > 0 && roundPercentage <= 15) {
+            hex = '#D2D2D2';
+        } else if (roundPercentage > 15 && roundPercentage <= 35) {
+            hex = '#C4D6E1';
+        } else if (roundPercentage > 35 && roundPercentage <= 45) {
+            hex = '#93B7CD';
+        } else if (roundPercentage > 45 && roundPercentage <= 60) {
+            hex = '#6298BA';
+        } else if (roundPercentage > 60 && roundPercentage <= 80) {
+            hex = '#3179A6';
+        } else if (roundPercentage > 80 && roundPercentage <= 90) {
+            hex = '#186a9c';
+        } else if (roundPercentage > 90 && roundPercentage <= 100) {
+            hex = '#005A92';
+        } else {
+            hex = '#F2F2F2';
+        }
+        return hex;
+    }
+
     return (
         <svg width={width} height={height} style={{ display: "inline-block" }}>
             <g transform={`translate(${width / 2}, ${height / 2})`}>
                 {arcs.map((arc: any, i: any) => {
-                    console.log(Math.round(pie[i].value))
-                    return <path key={i} d={arc} fill={colorMapping.get(Math.round(pie[i].value))} />;
+                    return <path key={i} d={arc} fill={color(Math.round(pie[i].value))} />;
                 })}
             </g>
         </svg>
