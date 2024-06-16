@@ -13,12 +13,12 @@ export default async function handler(
 ) {
   connect();
 
-  const { stimates, projectId, section } = req.body;
+  const { estimates, projectId, section } = req.body;
 
   try {
-    stimates.map(async (stimate: StimateData) => {
+    estimates.map(async (item: StimateData) => {
       const estimate = new Estimate({
-        name: stimate.name,
+        name: item.name,
         section: section,
         project: projectId,
       });
@@ -27,7 +27,7 @@ export default async function handler(
 
       const refinement = new EstimateRefinement({
         estimate: estimateId,
-        refinements: stimate.refinement,
+        refinements: item.refinement,
       });
       await refinement.save();
     });

@@ -23,7 +23,7 @@ export type StimateData = {
 export default function Form({ refinements, project_id }: { refinements: any[], project_id: string }) {
     const router = useRouter();
 
-    const { estimates } = useRefinementStore(state => state.estimates);
+    const estimates = useRefinementStore(state => state.estimates);
     const addEstimate = useRefinementStore(state => state.addEstimate);
 
     const [isLoading, setIsLoading] = useState<boolean>(false)
@@ -64,7 +64,7 @@ export default function Form({ refinements, project_id }: { refinements: any[], 
         if (!isLastStep) return next()
         try {
             let form_data = {
-                ...estimates, ...{
+                estimates, ...{
                     projectId: project_id,
                     section: 'refinement'
                 }

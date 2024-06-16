@@ -7,40 +7,36 @@ export type Estimate = {
   requirement: any | null;
 };
 
-export type PartialData = {
+export type State = {
   estimates: Estimate[];
 };
 
-export type State = {
-  estimates: PartialData;
-};
-
 export type Actions = {
-  updateFields: (fields: Partial<PartialData>) => void;
   addEstimate: (estimate: Estimate) => void;
+  updateEstimateRequirement: (id: number, requirement: any) => void;
 };
 
-export const INITIAL_DATA: PartialData = {
-  estimates: [
-    {
-      id: 0,
-      name: "Main estimation",
-      requirement: new Object(),
-    },
-  ],
+export const INITIAL_DATA: Estimate = {
+  id: 0,
+  name: "Main estimation",
+  requirement: new Object(),
 };
 
 export const useRequirementStore = create<State & Actions>()(
   persist(
     (set) => ({
-      estimates: INITIAL_DATA,
-      updateFields: (fields) =>
-        set((state) => ({
-          estimates: { ...state.estimates, ...fields },
-        })),
+      estimates: [INITIAL_DATA],
       addEstimate: (estimate) =>
         set((state) => ({
-          estimates: { estimates: [...state.estimates.estimates, estimate] },
+          estimates: [...state.estimates, estimate],
+        })),
+      updateEstimateRequirement: (id: number, requirement: any) =>
+        set((state) => ({
+          estimates: state.estimates.map((estimate: Estimate) =>
+            estimate.id === id
+              ? { ...estimate, requirement }
+              : estimate
+          ),
         })),
     }),
     { name: "requirement", skipHydration: true }

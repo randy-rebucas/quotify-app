@@ -7,18 +7,25 @@ import connect from "@/app/utils/db";
 
 import type { NextApiRequest, NextApiResponse } from "next";
 
+
+export const config = {
+  api: {
+    bodyParser: true,
+  },
+};
+
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
   connect();
-
-  const { stimates, projectId, section } = req.body;
+  console.log(req.body);
+  const { estimates, projectId, section } = req.body;
 
   try {
-    stimates.map(async (stimate: StimateData) => {
+    estimates.map(async (item: StimateData) => {
       const estimate = new Estimate({
-        name: stimate.name,
+        name: item.name,
         section: section,
         project: projectId,
       });
@@ -27,7 +34,7 @@ export default async function handler(
 
       const requirement = new EstimateRequirement({
         estimate: estimateId,
-        requirements: stimate.requirement,
+        requirements: item.requirement,
       });
       await requirement.save();
     });

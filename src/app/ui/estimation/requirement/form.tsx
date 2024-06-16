@@ -1,7 +1,7 @@
 'use client';
 
 import { useMultistepForm } from "@/app/hooks/useMultistepForm";
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useEffect, useMemo, useState } from "react";
 import Wrapper from "./wrapper";
 import FinishAndCertification from "./steps/finish-and-certifications";
 import MepFeatures from "./steps/mep-features";
@@ -15,7 +15,7 @@ import { menuMapping, tabMapping } from "./entities";
 import { v4 as uuid } from 'uuid'
 import TabForm from "./tab-form";
 import { IRequirement } from "@/app/models/Requirement";
-import { useRequirementStore } from "@/app/lib/requirementStore";
+import { INITIAL_DATA, useRequirementStore } from "@/app/lib/requirementStore";
 
 export type StimateData = {
     id: number;
@@ -26,7 +26,7 @@ export type StimateData = {
 export default function Form({ requirements, project_id }: { requirements: any[], project_id: string }) {
     const router = useRouter();
 
-    const { estimates } = useRequirementStore(state => state.estimates);
+    const estimates = useRequirementStore(state => state.estimates);
     const addEstimate = useRequirementStore(state => state.addEstimate);
 
     const [isLoading, setIsLoading] = useState<boolean>(false)
@@ -44,6 +44,7 @@ export default function Form({ requirements, project_id }: { requirements: any[]
             <Review tabiIndex={activeTab} key={uuid()} />
         ])
 
+    // 
     const handleTabFormSubmit = (e: any) => {
         e.preventDefault()
         let sourceId = e.target.source.value;
@@ -70,12 +71,12 @@ export default function Form({ requirements, project_id }: { requirements: any[]
         if (!isLastStep) return next()
         try {
             let form_data = {
-                ...estimates, ...{
+                estimates, ...{
                     projectId: project_id,
                     section: 'requirement'
                 }
             };
-
+         
             const response = await fetch('/api/project/requirement', {
                 method: 'POST',
                 headers: {
