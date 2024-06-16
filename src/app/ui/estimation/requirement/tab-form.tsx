@@ -2,7 +2,8 @@
 
 import clsx from 'clsx';
 import { FormEventHandler, useEffect, useState } from 'react';
-import { StimateData, tabMapping, titleMapping } from './entities';
+import { tabMapping, titleMapping } from './entities';
+import { StimateData } from './form';
 
 
 export default function TabForm({ stimates, onSubmit }: { stimates: StimateData[], onSubmit: FormEventHandler<HTMLFormElement> }) {
