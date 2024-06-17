@@ -227,7 +227,7 @@ export default function Form({ requirements, project_id }: { requirements: any[]
                                             {requirement.name}
                                             {getSelectedRequirement(stimate.id, requirement.name) && <div className="js-step-indicator step-indicator pl-3 checked" style={{
                                                 paddingBottom: 'unset'
-                                            }} data-category="03.1.1">
+                                            }} data-category={`03.1.${index + 1}`}>
                                                 <Indicator requirementId={getSelectedRequirement(stimate.id, requirement.name)} />
                                             </div>}
                                         </div>

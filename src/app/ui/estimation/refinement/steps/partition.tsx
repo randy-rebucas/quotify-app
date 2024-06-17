@@ -13,57 +13,22 @@ type Props = {
 export default function Partition({
     tabiIndex
 }: Props) {
-    const estimates = useRefinementStore(state => state.estimates);
     const updateEstimateRefinement = useRefinementStore(state => state.updateEstimateRefinement);
-    
-    const [refinementId, setRefinementId] = useState<string>()
-    const [refinementLevels, setRefinementLevels] = useState<IRefinementLevel[]>([])
+    const getRefinementsByName = useRefinementStore(state => state.getRefinementsByName);
+    const getRefinementLevelByRefinement = useRefinementStore(state => state.getRefinementLevelByRefinement);
 
-    // 
-    useMemo(async () => {
-
-        const getRefinement = async (filter: string) => {
-            const response = await fetch(`/api/refinement/${filter}`, {
-                method: 'POST',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-                }
-            });
-            let refinementResponse = await response.json();
-
-            setRefinementId(refinementResponse._id);
-        }
-
-        if (refinementId === undefined) {
-            const filter = 'partitions';
-            getRefinement(filter)
-        }
-
-        return refinementId;
-    }, [refinementId]);
+    const estimates = useRefinementStore(state => state.estimates);
+    const refinementId = useRefinementStore(state => state.refinementId);
+    const refinementLevels = useRefinementStore(state => state.refinementLevels);
 
     useEffect(() => {
+        getRefinementsByName('partitions');
 
-        const getRefinementLevels = async (id: string) => {
-            const response = await fetch(`/api/refinement-level/by-refinement/${id}`, {
-                method: 'POST',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-                }
-            });
-
-            let refinementLevelResponse = await response.json();
-
-            setRefinementLevels(refinementLevelResponse);
+        if (refinementId) {
+            getRefinementLevelByRefinement(refinementId)
         }
 
-        if (refinementId && refinementLevels.length === 0) {
-            getRefinementLevels(refinementId);
-        }
-
-    }, [refinementId, refinementLevels])
+    }, [getRefinementLevelByRefinement, getRefinementsByName, refinementId])
 
     const handleRadioChange = (event: ChangeEvent<HTMLInputElement>) => {
         let data = [...estimates];

@@ -12,57 +12,22 @@ type Props = {
 export default function Review({
     tabiIndex
 }: Props) {
-    const estimates = useRequirementStore(state => state.estimates);
     const updateEstimateRequirement = useRequirementStore(state => state.updateEstimateRequirement);
+    const getRequirementsByName = useRequirementStore(state => state.getRequirementsByName);
+    const getRequirementLevelByRequirement = useRequirementStore(state => state.getRequirementLevelByRequirement);
 
-    const [requirementId, setRequirementId] = useState<string>()
-    const [requirementLevels, setRequirementLevels] = useState<IRequirementLevel[]>([])
-
-    // 
-    useMemo(async () => {
-
-        const getRequirement = async (filter: string) => {
-            const response = await fetch(`/api/requirement/${filter}`, {
-                method: 'POST',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-                }
-            });
-            let requirementResponse = await response.json();
-
-            setRequirementId(requirementResponse._id);
-        }
-
-        if (requirementId === undefined) {
-            const filter = 'review';
-            getRequirement(filter)
-        }
-
-        return requirementId;
-    }, [requirementId]);
+    const estimates = useRequirementStore(state => state.estimates);
+    const requirementId = useRequirementStore(state => state.requirementId);
+    const requirementLevels = useRequirementStore(state => state.requirementLevels);
 
     useEffect(() => {
+        getRequirementsByName('review');
 
-        const getRequirementLevels = async (id: string) => {
-            const response = await fetch(`/api/requirement-level/by-requirement/${id}`, {
-                method: 'POST',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-                }
-            });
-
-            let requirementLevelResponse = await response.json();
-
-            setRequirementLevels(requirementLevelResponse);
+        if (requirementId) {
+            getRequirementLevelByRequirement(requirementId)
         }
 
-        if (requirementId && requirementLevels.length === 0) {
-            getRequirementLevels(requirementId);
-        }
-
-    }, [requirementId, requirementLevels])
+    }, [getRequirementLevelByRequirement, getRequirementsByName, requirementId])
 
     const handleRadioChange = (event: ChangeEvent<HTMLInputElement>) => {
         let data = [...estimates];
@@ -85,7 +50,7 @@ export default function Review({
                                 sizes="100vw"
                                 alt={requirementLevel.image.metaData?.alternativeText ?? requirementLevel.level}
                                 priority
-                                className="grayscale w-full h-auto"
+                                className='grayscale w-full h-auto'
                             />
                             <span className="cover-checkbox">
                                 <svg viewBox="0 0 12 10">
