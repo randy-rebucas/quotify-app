@@ -41,7 +41,7 @@ export default function PieChartData({ data, breakdowns, selectedAmenities }: {
                     <div className={`w-[33px] h-[12px] bg-[${color(Math.round(slice * breakdown[1].length))}]`} ></div>
                     <div className="w-[170px] text-[18px]">
                         <div className="flex items-center">
-                            <div className="text-[24px] font-latobold mr-[15px]">{slice * breakdown[1].length}%
+                            <div className="text-[24px] font-latobold mr-[15px]">{Math.round(slice * breakdown[1].length)}%
                             </div>
                             <div className="text-[12px] font-light">3,000 sqft</div>
                         </div>
