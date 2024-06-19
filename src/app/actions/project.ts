@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import Project from "../models/Project";
 import { ProjectFormSchema, ProjectFormState } from "../lib/definitions";
 import { redirect } from "next/navigation";
+import { useProjectInformationStore } from "../lib/projectInformationStore";
 
 const CreateProject = ProjectFormSchema.omit({ id: true });
 
@@ -11,6 +12,7 @@ export async function createProject(
   prevState: ProjectFormState,
   formData: FormData
 ) {
+  // const spaceName = useProjectInformationStore(state => state.spaceName);
   // Validate form using Zod
   const validatedFields = CreateProject.safeParse({
     space_name: formData.get("space_name"),
@@ -23,6 +25,8 @@ export async function createProject(
     average_attendance: formData.get("average_attendance"),
     assigned_seat: formData.get("assigned_seat"),
   });
+
+  console.log(validatedFields);
   // If any form fields are invalid, return early
   if (!validatedFields.success) {
     return {
@@ -39,19 +43,19 @@ export async function createProject(
     assigned_seat,
   } = validatedFields.data;
 
-  const project = new Project({
-    spaceName: space_name,
-    spaceSize: approximate_size,
-    rentableArea: rentable_area,
-    headCount: target_head_count,
-    averageOfficeAttendance: average_attendance,
-    seatingPercentage: assigned_seat,
-  });
-  let projectResponse = await project.save();
-  console.log(projectResponse);
-  // Revalidate the cache for the invoices page and redirect the user.
-  revalidatePath("/estimation/area-breakdown");
-  redirect("/estimation/area-breakdown");
+  // const project = new Project({
+  //   spaceName: space_name,
+  //   spaceSize: approximate_size,
+  //   rentableArea: rentable_area,
+  //   headCount: target_head_count,
+  //   averageOfficeAttendance: average_attendance,
+  //   seatingPercentage: assigned_seat,
+  // });
+  // let projectResponse = await project.save();
+  // console.log(projectResponse);
+  // // Revalidate the cache for the invoices page and redirect the user.
+  // revalidatePath("/estimation/area-breakdown");
+  // redirect("/estimation/area-breakdown");
 }
 
 export async function deleteProject(id: string) {

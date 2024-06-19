@@ -8,10 +8,8 @@ const libraries = ["core", "maps", "places", "marker", 'geometry'];
 
 export default function CustomMap() {
 
-    const projectInformation = useProjectInformationStore(state => state.projectInformation);
-    const location = projectInformation.address.location;
-
-    const [coords, setCoords] = useState<number[]>([14.599512, 120.984222]);
+    const address = useProjectInformationStore(state => state.address);
+    const location = address.location;
 
     const [map, setMap] = useState<google.maps.Map | null>(null);
     const { isLoaded: scriptLoaded, loadError } = useJsApiLoader({
@@ -22,6 +20,7 @@ export default function CustomMap() {
     const mapRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
+        const coords = [14.599512, 120.984222];
         let latlong: LatLong = { coordinates: coords };
 
         if (scriptLoaded) {
@@ -37,7 +36,7 @@ export default function CustomMap() {
             const gMap = new google.maps.Map(mapRef.current as HTMLDivElement, options);
             setMap(gMap);
         }
-    }, [coords, scriptLoaded])
+    }, [scriptLoaded])
 
     useEffect(() => {
 

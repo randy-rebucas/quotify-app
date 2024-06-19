@@ -11,8 +11,10 @@ export type LatLong = {
 }
 
 export default function Address() {
-    const projectInformation = useProjectInformationStore(state => state.projectInformation);
-    const updateFields = useProjectInformationStore(state => state.updateFields)
+
+    const toggleAddress = useProjectInformationStore(state => state.toggleAddress)
+    const addressed = useProjectInformationStore(state => state.addressed);
+    const hasAddress = useProjectInformationStore(state => state.hasAddress);
 
     const [autoComplete, setAutoComplete] = useState<google.maps.places.Autocomplete | null>(null);
     const { isLoaded: scriptLoaded, loadError } = useJsApiLoader({
@@ -40,12 +42,7 @@ export default function Address() {
         autoComplete.addListener('place_changed', () => {
             const { formatted_address, geometry, name } = autoComplete.getPlace();
             const position = geometry?.location;
-            updateFields({
-                address: {
-                    place: formatted_address as string,
-                    location: position
-                }
-            });
+            addressed(formatted_address as string, position)
         });
     }
 
@@ -65,12 +62,12 @@ export default function Address() {
 
                                 <input id="map-search" ref={placeAutoCompleteRef}
                                     className="block border-b border-0 bg-transparent py-1 text-darkblue border-darkblue w-full outline-none "
-                                    placeholder="enter building address here" type="text"/>
+                                    placeholder="enter building address here" type="text" value={placeAutoCompleteRef.current?.value}/>
 
                                 <CustomMap />
 
                                 <div className="custom-checkbox mb-4 mt-10">
-                                    <input id="tmp-4" type="checkbox" className="promoted-input-checkbox" value={1} checked={projectInformation.hasAddress} onChange={e => updateFields({ hasAddress: e.target.checked })} />
+                                    <input id="tmp-4" type="checkbox" className="promoted-input-checkbox" name="hasAddress" value={1} checked={hasAddress} onChange={e => toggleAddress(e.target.checked)} />
                                     <svg>
                                         <use href="#checkmark-4" xlinkHref="#checkmark-4" />
                                     </svg>

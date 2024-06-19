@@ -1,10 +1,14 @@
 import { useProjectInformationStore } from "@/app/lib/projectInformationStore"
 
 export default function Area() {
+    const approximateSize = useProjectInformationStore(state => state.approximateSize)
+    const approximateSized = useProjectInformationStore(state => state.approximateSized)
 
-    const projectInformation = useProjectInformationStore(state => state.projectInformation);
-    const updateFields = useProjectInformationStore(state => state.updateFields)
+    const rentableArea = useProjectInformationStore(state => state.rentableArea)
+    const rentabledArea = useProjectInformationStore(state => state.rentabledArea)
 
+    const isBaseOnHeadCount = useProjectInformationStore(state => state.isBaseOnHeadCount)
+    const toggleBaseOnHeadCount = useProjectInformationStore(state => state.toggleBaseOnHeadCount)
     return (
         <>
             <div className="lg:col-span-2 col-span-12 flex flex-col justify-start items-start w-full h-full">
@@ -28,7 +32,7 @@ export default function Area() {
                                                 min={1000}
                                                 max={300000}
                                                 step={1000}
-                                                value={projectInformation.approximateSize} onChange={e => updateFields({ approximateSize: e.target.value })}
+                                                value={approximateSize} name="approximateSize" onChange={e => approximateSized(e.target.value)}
                                                 className="w-full h-1 mb-6 bg-gray-200 rounded-lg appearance-none cursor-pointer range-sm dark:bg-gray-700" />
                                             <span
                                                 className="text-sm text-gray-500 dark:text-gray-400 absolute start-0 -bottom-3">1,000
@@ -37,11 +41,11 @@ export default function Area() {
                                                 className="text-sm text-gray-500 dark:text-gray-400 absolute end-0 -bottom-3">300,000
                                                 sqft</span>
                                         </div>
-                                        <div className="mt-[3.704vh] font-latobold text-[30px]"><span>{Number(projectInformation.approximateSize).toLocaleString()}</span> sqft</div>
+                                        <div className="mt-[3.704vh] font-latobold text-[30px]"><span>{Number(approximateSize).toLocaleString()}</span> sqft</div>
                                     </div>
 
                                     <div className="custom-checkbox mb-4 mt-[21.204vh]">
-                                        <input id="tmp-5" type="checkbox" className="promoted-input-checkbox" value={1} checked={projectInformation.isBaseOnHeadCount} onChange={e => updateFields({ isBaseOnHeadCount: e.target.checked })} />
+                                        <input id="tmp-5" type="checkbox" className="promoted-input-checkbox" name="isBaseOnHeadCount" value={1} checked={isBaseOnHeadCount} onChange={e => toggleBaseOnHeadCount(e.target.checked)} />
                                         <svg>
                                             <use href="#checkmark-5" xlinkHref="#checkmark-5" />
                                         </svg>
@@ -101,7 +105,7 @@ export default function Area() {
                                     min={1000}
                                     max={300000}
                                     step={1000}
-                                    value={projectInformation.rentableArea} onChange={e => updateFields({ rentableArea: e.target.value })}
+                                    value={rentableArea} name="rentableArea" onChange={e => rentabledArea(e.target.value)}
                                     className="w-full h-1 mb-6 bg-gray-200 rounded-lg appearance-none cursor-pointer range-sm dark:bg-gray-700" />
                                 <span
                                     className="text-sm text-gray-500 dark:text-gray-400 absolute start-0 -bottom-3">1,000
@@ -110,7 +114,7 @@ export default function Area() {
                                     className="text-sm text-gray-500 dark:text-gray-400 absolute end-0 -bottom-3">300,000
                                     sqft</span>
                             </div>
-                            <div className="mt-[3.704vh] font-latobold text-[30px]"><span>{Number(projectInformation.rentableArea).toLocaleString()}</span> sqft</div>
+                            <div className="mt-[3.704vh] font-latobold text-[30px]"><span>{Number(rentableArea).toLocaleString()}</span> sqft</div>
                         </div>
                     </div>
                 </div>

@@ -3,15 +3,14 @@ import { filesize } from "filesize";
 import { useProjectInformationStore } from "@/app/lib/projectInformationStore";
 
 export default function DropzoneUploadedFile() {
-  const isImageType = ['image/jpeg', 'image/jpg', 'image/png'];
   
-  const projectInformation = useProjectInformationStore(state => state.projectInformation);
-  const updateFields = useProjectInformationStore(state => state.updateFields);
+  const isImageType = ['image/jpeg', 'image/jpg', 'image/png'];
 
-  const floorPlans = projectInformation.floorPlans;
+  const floorPlans = useProjectInformationStore(state => state.floorPlans);
+  const removeFloorPlan = useProjectInformationStore(state => state.removeFloorPlan);
 
-  const removeFile = (idx: number) => {
-    updateFields({ floorPlans: floorPlans.filter((file: any, id: number) => id !== idx) })
+  const removeFile = (idx: string) => {
+    removeFloorPlan(idx)
   }
 
   return (
@@ -30,7 +29,7 @@ export default function DropzoneUploadedFile() {
                   <p>{filesize(file.size, { standard: "jedec" })}</p>
                 </div>
                 <span className="absolute cursor-pointer right-0 text-red-500"
-                  onClick={() => removeFile(idx)} >
+                  onClick={() => removeFile(file.name)} >
                   remove
                 </span>
               </div>

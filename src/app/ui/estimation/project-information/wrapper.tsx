@@ -8,11 +8,10 @@ import Tooltip from "../../tooltip";
 
 type FormWrapperProps = {
     stepIndex: number;
-    isLoading: boolean;
     children: ReactNode
 }
 
-export default function Wrapper({ stepIndex, isLoading, children }: FormWrapperProps) {
+export default function Wrapper({ stepIndex, children }: FormWrapperProps) {
 
     return (
         <div className="js-step step active">

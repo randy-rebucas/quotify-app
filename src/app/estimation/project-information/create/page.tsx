@@ -1,10 +1,10 @@
 import Popup from "@/app/ui/estimation/popup";
-import Form from "@/app/ui/estimation/project-information/form";
 import IntroWrapper from "@/app/ui/estimation/intro-wrapper";
 import MainWrapper from "@/app/ui/estimation/main-wrapper";
 import LinearCover from "@/app/ui/linear-cover";
 import StaggerCover from "@/app/ui/stagger-cover";
 import { fetchMenuByPageHandled } from "@/app/lib/data";
+import Menu from "@/app/ui/estimation/project-information/menu";
 
 export default async function Page() {
     const menus = await fetchMenuByPageHandled('project-information');
@@ -14,6 +14,7 @@ export default async function Page() {
     const mainColors: string[] = ['bg-darkblue1', 'bg-gray4A', 'bg-gray4A', 'bg-white', 'bg-white'];
 
     return (
+
         <div className="wrapper theme theme-darkblue">
             <Popup />
 
@@ -47,7 +48,7 @@ export default async function Page() {
 
             <MainWrapper>
 
-                <Form menus={menus}/>
+                <Menu menus={menus} />
 
             </MainWrapper>
 
@@ -55,5 +56,6 @@ export default async function Page() {
 
             <StaggerCover colors={mainColors} target={2} className="main" />
         </div>
+
     )
 }

@@ -5,51 +5,56 @@ import Plan from "./steps/plan";
 import Address from "./steps/address";
 import Area from "./steps/area";
 import HeadCount from "./steps/head-count";
-import { useMultistepForm } from "@/app/hooks/useMultistepForm";
 import Wrapper from "./wrapper";
 import clsx from "clsx";
 import { useRouter } from "next/navigation";
-import { v4 as uuid } from 'uuid'
 import { useProjectInformationStore } from "@/app/lib/projectInformationStore";
+import { useMultiFormStore } from "@/providers/multiform-store-provider";
 
-
-export default function Form({ menus }: { menus: any[] }) {
+export default function Menu({ menus }: { menus: any[] }) {
     const router = useRouter();
-    const projectInformation = useProjectInformationStore(state => state.projectInformation);
-    
+
+    const spaceName = useProjectInformationStore(state => state.spaceName);
+    const address = useProjectInformationStore(state => state.address);
+    const approximateSize = useProjectInformationStore(state => state.approximateSize);
+    const rentableArea = useProjectInformationStore(state => state.rentableArea);
+    const targetHeadCount = useProjectInformationStore(state => state.targetHeadCount);
+    const averageAttendance = useProjectInformationStore(state => state.averageAttendance);
+    const assignedSeat = useProjectInformationStore(state => state.assignedSeat);
+    const hasFloorPlan = useProjectInformationStore(state => state.hasFloorPlan);
+    const hasAddress = useProjectInformationStore(state => state.hasAddress);
+    const isBaseOnHeadCount = useProjectInformationStore(state => state.isBaseOnHeadCount);
+    const floorPlans = useProjectInformationStore(state => state.floorPlans);
+
     const [isLoading, setIsLoading] = useState<boolean>(false)
     const [error, setError] = useState<string | null>(null)
 
-
-    const { steps, currentStepIndex, step, isFirstStep, isLastStep, back, next } =
-        useMultistepForm([
-            <Plan key={uuid()} />,
-            <Address key={uuid()} />,
-            <Area key={uuid()} />,
-            <HeadCount key={uuid()} />
-        ])
+    const { steps, currentStepIndex, isFirstStep, isLastStep, back, next } = useMultiFormStore(
+        (state) => state,
+    )
 
     // update this to action and implement dispatch
     async function onSubmit(event: FormEvent<HTMLFormElement>) {
         event.preventDefault();
         setIsLoading(true)
         setError(null) // Clear previous errors when a new request starts
+        console.log(isLastStep);
         if (!isLastStep) return next()
         try {
             const formData = new FormData();
-            formData.append('spaceName', projectInformation.spaceName);
-            formData.append('address', projectInformation.address.place);
-            formData.append('approximateSize', projectInformation.approximateSize);
-            formData.append('rentableArea', projectInformation.rentableArea);
-            formData.append('targetHeadCount', projectInformation.targetHeadCount);
-            formData.append('averageAttendance', projectInformation.averageAttendance);
-            formData.append('assignedSeat', projectInformation.assignedSeat);
-            formData.append('hasFloorPlan', projectInformation.hasFloorPlan ? 'true' : 'false');
-            formData.append('hasAddress', projectInformation.hasAddress ? 'true' : 'false');
-            formData.append('isBaseOnHeadCount', projectInformation.isBaseOnHeadCount ? 'true' : 'false');
+            formData.append('spaceName', spaceName);
+            formData.append('address', address.place);
+            formData.append('approximateSize', approximateSize);
+            formData.append('rentableArea', rentableArea);
+            formData.append('targetHeadCount', targetHeadCount);
+            formData.append('averageAttendance', averageAttendance);
+            formData.append('assignedSeat', assignedSeat);
+            formData.append('hasFloorPlan', hasFloorPlan ? 'true' : 'false');
+            formData.append('hasAddress', hasAddress ? 'true' : 'false');
+            formData.append('isBaseOnHeadCount', isBaseOnHeadCount ? 'true' : 'false');
 
-            for (let index = 0; index < projectInformation.floorPlans.length; index++) {
-                const element = projectInformation.floorPlans[index];
+            for (let index = 0; index < floorPlans.length; index++) {
+                const element = floorPlans[index];
                 formData.append(element.name, element);
             }
 
@@ -74,7 +79,6 @@ export default function Form({ menus }: { menus: any[] }) {
         }
     }
 
-    console.log(projectInformation);
     return (
         <>
             <div className="flex flex-col justify-start items-start w-full h-full">
@@ -108,7 +112,9 @@ export default function Form({ menus }: { menus: any[] }) {
                     </div>
                 </div>
             </div>
+
             <form onSubmit={onSubmit} className="lg:col-span-4 col-span-12 h-full w-full overflow-y-scroll overflow-x-hidden" encType="multipart/form-data">
+
                 {!isFirstStep && (
                     <div className="absolute top-0 left-0 flex flex-col items-end p-30">
                         <button type="button" onClick={back} className="focus:shadow-outline focus:outline-none">
@@ -119,9 +125,11 @@ export default function Form({ menus }: { menus: any[] }) {
                     </div>
                 )}
 
-                <Wrapper stepIndex={currentStepIndex} isLoading={isLoading}>
-                    {/* {error && <div style={{ color: 'red' }}>{error}</div>} */}
-                    {step}
+                <Wrapper stepIndex={currentStepIndex} >
+                    {currentStepIndex === 0 && <Plan />}
+                    {currentStepIndex === 1 && <Address />}
+                    {currentStepIndex === 2 && <Area />}
+                    {currentStepIndex === 3 && <HeadCount />}
                 </Wrapper>
             </form>
         </>
