@@ -1,6 +1,6 @@
+import { IRefinementLevel } from "@/app/models/RefinementLevel";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import { IRefinementLevel } from "../models/RefinementLevel";
 
 export type Estimate = {
   id: number;
@@ -19,6 +19,7 @@ export type Actions = {
   getRefinementLevelByRefinement: (id: string) => void;
   addEstimate: (estimate: Estimate) => void;
   updateEstimateRefinement: (id: number, refinement: any) => void;
+  reset: () => void;
 };
 
 export const INITIAL_DATA: Estimate = {
@@ -72,6 +73,12 @@ export const useRefinementStore = create<State & Actions>()(
           estimates: state.estimates.map((estimate: Estimate) =>
             estimate.id === id ? { ...estimate, refinement } : estimate
           ),
+        })),
+      reset: () =>
+        set(() => ({
+          estimates: [INITIAL_DATA],
+          refinementLevels: [],
+          refinementId: null,
         })),
     }),
     { name: "refinement", skipHydration: true }

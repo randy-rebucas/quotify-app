@@ -1,6 +1,6 @@
 'use client';
 
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 
 import { useMultistepForm } from "@/app/hooks/useMultistepForm";
 import Wrapper from "./wrapper";
@@ -8,7 +8,6 @@ import AreaDefination from "./steps/area-defination";
 import ProportionBreakdown from "./steps/proportion-breakdown";
 import clsx from "clsx";
 import { v4 as uuid } from 'uuid'
-import { useRouter } from "next/navigation";
 import { useAreaBreakdownStore } from "@/app/lib/store/areaBreakdownStore";
 
 export default function Form({

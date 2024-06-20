@@ -19,6 +19,7 @@ export default function ProportionBreakdown({
 }: Props) {
     const router = useRouter();
     const areaBreakdown = useAreaBreakdownStore(state => state.areaBreakdown);
+    const reset = useAreaBreakdownStore(state => state.reset);
 
     const [isLoading, setIsLoading] = useState<boolean>(false)
     const [error, setError] = useState<string | null>(null)
@@ -70,6 +71,8 @@ export default function ProportionBreakdown({
             let projectResponse = await response.json();
 
             if (response.status === 200) {
+                reset();
+                
                 router.push(`/estimation/project-definition/${projectResponse.id}`)
             }
         } catch (error: any) {

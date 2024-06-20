@@ -10,7 +10,7 @@ export type ProjectCustomSpaceData = {
 export type PartialData = {
   selectedAmenityIds: string[];
   selectedCustomSpaces: ProjectCustomSpaceData[];
-}
+};
 
 export type State = {
   areaBreakdown: PartialData;
@@ -18,6 +18,7 @@ export type State = {
 
 export type Actions = {
   updateFields: (fields: Partial<PartialData>) => void;
+  reset: () => void;
 };
 
 export const INITIAL_DATA: PartialData = {
@@ -32,6 +33,10 @@ export const useAreaBreakdownStore = create<State & Actions>()(
       updateFields: (fields) =>
         set((state) => ({
           areaBreakdown: { ...state.areaBreakdown, ...fields },
+        })),
+      reset: () =>
+        set(() => ({
+          areaBreakdown: INITIAL_DATA,
         })),
     }),
     { name: "area-breakdown", skipHydration: true }

@@ -1,6 +1,6 @@
+import { IRequirementLevel } from "@/app/models/RequirementLevel";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import { IRequirementLevel } from "../models/RequirementLevel";
 
 export type Estimate = {
   id: number;
@@ -19,6 +19,7 @@ export type Actions = {
   getRequirementLevelByRequirement: (id: string) => void;
   addEstimate: (estimate: Estimate) => void;
   updateEstimateRequirement: (id: number, requirement: any) => void;
+  reset: () => void;
 };
 
 export const INITIAL_DATA: Estimate = {
@@ -72,6 +73,12 @@ export const useRequirementStore = create<State & Actions>()(
           estimates: state.estimates.map((estimate: Estimate) =>
             estimate.id === id ? { ...estimate, requirement } : estimate
           ),
+        })),
+      reset: () =>
+        set(() => ({
+          estimates: [INITIAL_DATA],
+          requirementLevels: [],
+          requirementId: null,
         })),
     }),
     { name: "requirement", skipHydration: true }
