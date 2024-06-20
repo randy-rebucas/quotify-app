@@ -2,7 +2,7 @@ import Tooltip from "@/app/ui/tooltip";
 import { ChangeEvent, useEffect, useState } from "react";
 import { IAmenity } from "@/app/models/Amenity";
 import clsx from "clsx";
-import { ProjectCustomSpaceData, useAreaBreakdownStore } from "@/app/lib/areaBreakdownStore";
+import { ProjectCustomSpaceData, useAreaBreakdownStore } from "@/app/lib/store/areaBreakdownStore";
 
 type Props =  {
     amenities: any;
