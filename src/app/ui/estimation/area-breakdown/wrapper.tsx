@@ -1,14 +1,16 @@
 import clsx from "clsx";
-import { ReactNode } from "react";
+import { MouseEventHandler, ReactNode } from "react";
 import Tooltip from "../../tooltip";
 
 type FormWrapperProps = {
     stepIndex: number;
-    children: ReactNode
+    isLastStep: boolean;
+    children: ReactNode;
+    onClick: MouseEventHandler<HTMLButtonElement> | undefined
 }
 
 
-export default function Wrapper({ stepIndex, children }: FormWrapperProps) {
+export default function Wrapper({ stepIndex, isLastStep, children, onClick }: FormWrapperProps) {
     return (
         <div className="js-step step active">
 
@@ -24,9 +26,9 @@ export default function Wrapper({ stepIndex, children }: FormWrapperProps) {
                 <Tooltip />
 
                 <div className="flex flex-col justify-start items-end w-full h-full"></div>
-                
-                <div className="p-30 w-full flex items-end justify-end">
-                    <button className="focus:shadow-outline focus:outline-none" type="submit">
+
+                {!isLastStep && <div className="p-30 w-full flex items-end justify-end">
+                    <button className="focus:shadow-outline focus:outline-none" type="button" onClick={onClick}>
                         <svg xmlns="http://www.w3.org/2000/svg" width="78" height="63" viewBox="0 0 78 63"
                             fill="none">
                             <path
@@ -34,7 +36,7 @@ export default function Wrapper({ stepIndex, children }: FormWrapperProps) {
                                 fill="#003855" />
                         </svg>
                     </button>
-                </div>
+                </div>}
             </div>
         </div>
     )

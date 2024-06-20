@@ -19,52 +19,15 @@ export default function Form({
     custom_spaces: any[],
     project_id: string
 }) {
-    const router = useRouter();
-    const areaBreakdown = useAreaBreakdownStore(state => state.areaBreakdown);
-
-    const [isLoading, setIsLoading] = useState<boolean>(false)
-    const [error, setError] = useState<string | null>(null)
 
     const { steps, currentStepIndex, step, isFirstStep, isLastStep, back, next } =
         useMultistepForm([
             <AreaDefination amenities={amenities} custom_spaces={custom_spaces} key={uuid()} />,
-            <ProportionBreakdown amenities={amenities} custom_spaces={custom_spaces} key={uuid()} />
+            <ProportionBreakdown amenities={amenities} custom_spaces={custom_spaces} project_id={project_id} key={uuid()} />
         ])
 
-    // update this to action and implement dispatch
-    async function onSubmit(event: FormEvent<HTMLFormElement>) {
-        event.preventDefault()
-        setIsLoading(true)
-        setError(null) // Clear previous errors when a new request starts
-
-        if (!isLastStep) return next()
-
-        try {
-            let form_data = { ...areaBreakdown, ...{ projectId: project_id } };
-
-            const response = await fetch('/api/project/definition', {
-                method: 'POST',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(form_data),
-            });
-
-            if (!response.ok) {
-                throw new Error('Failed to submit the data. Please try again.')
-            }
-
-            let projectResponse = await response.json();
-
-            if (response.status === 200) {
-                router.push(`/estimation/project-definition/${projectResponse.id}`)
-            }
-        } catch (error: any) {
-            setError(error.message)
-        } finally {
-            setIsLoading(false) // Set loading to false when the request completes
-        }
+    const handleClick = () => {
+        if (!isLastStep) return next();
     }
 
     return (
@@ -106,7 +69,7 @@ export default function Form({
                     </div>
                 </div>
             </div>
-            <form onSubmit={onSubmit} className="lg:col-span-4 col-span-12 h-full w-full overflow-y-scroll overflow-x-hidden">
+            <div className="lg:col-span-4 col-span-12 h-full w-full overflow-y-scroll overflow-x-hidden">
                 {!isFirstStep && (
                     <div className="absolute top-0 left-0 flex flex-col items-end p-30">
                         <button type="button" onClick={back} className="focus:shadow-outline focus:outline-none">
@@ -116,11 +79,10 @@ export default function Form({
                         </button>
                     </div>
                 )}
-                <Wrapper stepIndex={currentStepIndex}>
-                    {error && <div style={{ color: 'red' }}>{error}</div>}
+                <Wrapper stepIndex={currentStepIndex} isLastStep={isLastStep} onClick={handleClick}>
                     {step}
                 </Wrapper>
-            </form>
+            </div>
         </>
     );
 }
