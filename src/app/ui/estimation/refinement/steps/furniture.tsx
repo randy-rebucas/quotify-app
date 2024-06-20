@@ -5,7 +5,7 @@ import Image from "next/image";
 import { RefinementData } from "../entities";
 import { ChangeEvent, useEffect, useMemo, useState } from "react";
 import { IRefinementLevel } from "@/app/models/RefinementLevel";
-import { useRefinementStore } from "@/app/lib/refinementStore";
+import { useRefinementStore } from "@/app/lib/store/refinementStore";
 
 
 type Props = {

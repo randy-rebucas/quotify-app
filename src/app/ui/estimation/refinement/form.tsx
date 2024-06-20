@@ -12,7 +12,7 @@ import TabForm from "./tab-form";
 import { v4 as uuid } from 'uuid';
 import { useRouter } from "next/navigation";
 import { IRefinement } from "@/app/models/Refinement";
-import { useRefinementStore } from "@/app/lib/refinementStore";
+import { useRefinementStore } from "@/app/lib/store/refinementStore";
 
 export type StimateData = {
     id: number;
