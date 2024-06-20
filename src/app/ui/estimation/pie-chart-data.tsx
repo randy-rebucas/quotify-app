@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
-import { DataItem } from "../data";
 
-export default function PieChartData({ data, breakdowns, selectedAmenities }: {
-    data: DataItem[];
+export default function PieChartData({ breakdowns, selectedAmenities }: {
     breakdowns: any[];
     selectedAmenities: any[],
 }) {

@@ -5,7 +5,6 @@ import { FormEvent, useEffect, useState } from "react";
 import Tooltip from "../../tooltip";
 import { PieChartPresentation } from "../pie-chart-presentation";
 import { common } from "../../mock";
-import { pieData } from "../../data";
 import PieChartData from "../pie-chart-data";
 import { useRouter } from "next/navigation";
 
@@ -102,7 +101,7 @@ export default function Form({ project, amenities, customeSpaces, selectedAmenit
                                             <PieChartPresentation width={280} height={280} breakdowns={breakdowns} />
                                         </div>
 
-                                        <PieChartData data={pieData} breakdowns={breakdowns} selectedAmenities={selectedAmenities}/>
+                                        <PieChartData breakdowns={breakdowns} selectedAmenities={selectedAmenities}/>
 
                                     </div>
                                     <div className="col-span-1 flex flex-col justify-end h-full">
