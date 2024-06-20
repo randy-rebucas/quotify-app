@@ -3,6 +3,7 @@ import "/public/css/main.css";
 
 import { Metadata } from 'next';
 import { lato } from './ui/fonts';
+import StoreProvider from './StoreProvider';
 
 export const metadata: Metadata = {
   title: {
@@ -21,11 +22,13 @@ export default async function RootLayout({
 }) {
 
   return (
-    <html lang="en">
-      <body className={`${lato.className} antialiased`}>
-        {children}
-        {modal}
-      </body>
-    </html>
+    <StoreProvider>
+      <html lang="en">
+        <body className={`${lato.className} antialiased`}>
+          {children}
+          {modal}
+        </body>
+      </html>
+    </StoreProvider>
   );
 }

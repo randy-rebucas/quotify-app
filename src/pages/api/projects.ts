@@ -66,7 +66,7 @@ export default async function handler(
         headCount: fieldMap.get("targetHeadCount"),
         averageOfficeAttendance: fieldMap.get("averageAttendance"),
         seatingPercentage: fieldMap.get("assignedSeat"),
-        lastUri: 'area-breakdown',
+        lastUri: "area-breakdown",
         user: session?.userId,
       });
 
@@ -79,11 +79,15 @@ export default async function handler(
         files.map(async (element: FileProps) => {
           const { fieldName, file } = element;
           const oldPath = file.filepath;
-          const newPath = path.join(process.cwd(), "public/uploads", `${Date.now()}${file.originalFilename?.substring(
-            file.originalFilename?.lastIndexOf(".")
-          )}`);
+          const newPath = path.join(
+            process.cwd(),
+            "public/uploads",
+            `${Date.now()}${file.originalFilename?.substring(
+              file.originalFilename?.lastIndexOf(".")
+            )}`
+          );
           fs.renameSync(oldPath, newPath);
-          
+
           const floorPlan = new FloorPlan({
             filename: file.originalFilename,
             type: file.mimetype,
@@ -108,8 +112,21 @@ export default async function handler(
     default:
       try {
         const projects = await Project.find({}).exec();
-
-        res.status(200).json({ projects });
+        const transformData = projects.map((project) => {
+          return {
+            _id: project._id.toString(),
+            spaceName: project.spaceName,
+            floorPlan: project.floorPlan,
+            address: project.address,
+            spaceSize: project.spaceSize.toString(),
+            rentableArea: project.rentableArea.toString(),
+            headCount: project.headCount,
+            averageOfficeAttendance: project.averageOfficeAttendance,
+            seatingPercentage: project.seatingPercentage.toString(),
+          };
+        });
+      
+        res.status(200).json({ transformData });
       } catch (err) {
         res.status(500).json(err);
       }

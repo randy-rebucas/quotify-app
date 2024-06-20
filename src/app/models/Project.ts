@@ -14,6 +14,8 @@ export interface IProject {
   isCompleted: boolean;
   user: Types.ObjectId | IUser;
   lastUri: string;
+  createdAt: Date;
+  updatedAt?: Date;
   _id?: Types.ObjectId;
 }
 
@@ -29,6 +31,13 @@ const projectSchema = new Schema<IProject>({
   isCompleted: { type: Schema.Types.Boolean, default: false },
   lastUri: { type: String },
   user: { type: Schema.Types.ObjectId, ref: "Users", required: true },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
+  updatedAt: {
+    type: Date,
+  },
 });
 
 // 3. Create a Model.

@@ -6,6 +6,8 @@ export interface IEstimate {
   name: string;
   section: string;
   project?: Types.ObjectId | IProject;
+  createdAt: Date;
+  updatedAt?: Date;
   _id?: Types.ObjectId;
 }
 
@@ -14,6 +16,13 @@ const estimateSchema = new Schema<IEstimate>({
   name: { type: String, required: true },
   section: { type: String, required: true },
   project: { type: Schema.Types.ObjectId, ref: "Projects", required: true },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
+  updatedAt: {
+    type: Date,
+  },
 });
 
 // 3. Create a Model.

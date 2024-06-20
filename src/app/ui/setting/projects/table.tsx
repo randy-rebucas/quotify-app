@@ -1,10 +1,11 @@
 import { IProject } from "@/app/models/Project";
 import { DeleteProject } from "./buttons";
 
+export const financial = (x: string) => {
+    return Number.parseFloat(x).toFixed(2);
+}
+
 export default function Table({ projects }: { projects: any[] }) {
-    const financial = (x: string) => {
-        return Number.parseFloat(x).toFixed(2);
-    }
 
     if (projects.length === 0) {
         return (

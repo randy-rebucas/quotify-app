@@ -1,6 +1,6 @@
 'use client';
 
-import { ReactNode } from "react";
+import { MouseEventHandler, ReactNode } from "react";
 import clsx from "clsx";
 import DropzoneUploadedFile from "./results/dropzone-uploaded-file";
 import Address from "./results/address";
@@ -8,11 +8,12 @@ import Tooltip from "../../tooltip";
 
 type FormWrapperProps = {
     stepIndex: number;
-    isLoading: boolean;
-    children: ReactNode
+    isLastStep: boolean;
+    children: ReactNode;
+    onClick: MouseEventHandler<HTMLButtonElement> | undefined
 }
 
-export default function Wrapper({ stepIndex, isLoading, children }: FormWrapperProps) {
+export default function Wrapper({ stepIndex, isLastStep, children, onClick }: FormWrapperProps) {
 
     return (
         <div className="js-step step active">
@@ -36,14 +37,14 @@ export default function Wrapper({ stepIndex, isLoading, children }: FormWrapperP
 
                 </div>
                 <div className="p-30 w-full flex items-end justify-end">
-                    <button className="focus:shadow-outline focus:outline-none" type="submit">
+                    {!isLastStep && <button className="focus:shadow-outline focus:outline-none" type="button" onClick={onClick}>
                         <svg xmlns="http://www.w3.org/2000/svg" width="78" height="63" viewBox="0 0 78 63"
                             fill="none">
                             <path
                                 d="M46.4 0L44.3 2.1L71.9 29.8H0V32.8H71.5L44.1 60.2L46.2 62.4L77.5 31.1L46.4 0Z"
                                 fill="#003855" />
                         </svg>
-                    </button>
+                    </button>}
                 </div>
             </div>
         </div>

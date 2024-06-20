@@ -1,20 +1,19 @@
-import { useProjectInformationStore } from "@/app/lib/projectInformationStore";
+import { useAppDispatch, useAppSelector } from "@/app/lib/hooks";
+import { updateFields } from "@/app/lib/slice/projectSlice";
 import Upload from "../upload"
 
 export default function Plan() {
-    
-    const projectInformation = useProjectInformationStore(state => state.projectInformation);
-
-    const updateFields = useProjectInformationStore(state => state.updateFields)
+    const project = useAppSelector(state => state.project.projectInformation)
+    const dispatch = useAppDispatch();
 
     const handleChange = (e: any) => {
         if (e.target.files && e.target.files[0]) {
             for (let i = 0; i < e.target.files["length"]; i++) {
-                updateFields({ floorPlans: [...projectInformation.floorPlans, e.target.files[i]] });
+                dispatch(updateFields({ floorPlans: [...project.floorPlans, e.target.files[i]] }));
             }
         }
     }
-    
+
     return (
 
         <div className="lg:col-span-2 col-span-12 flex flex-col justify-start items-start w-full h-full">
@@ -28,9 +27,10 @@ export default function Plan() {
                             </h5>
 
                             <div className="mt-[9.259vh] w-full">
+
                                 <input
                                     className="block border-b border-0 bg-transparent py-1 text-darkblue border-darkblue w-full outline-none "
-                                    placeholder="give you a space name" type="text" value={projectInformation?.spaceName} onChange={e => updateFields({ spaceName: e.target.value })} autoFocus required />
+                                    placeholder="give you a space name" type="text" value={project?.spaceName} onChange={e => dispatch(updateFields({ spaceName: e.target.value }))} autoFocus required />
 
                                 <p className="pt-[5.926vh]">To be able to define areas and square
                                     footage in future sections, start by uploading your floorplans.</p>
@@ -38,7 +38,7 @@ export default function Plan() {
                                 <Upload onChange={handleChange} />
 
                                 <div className="custom-checkbox mb-4 mt-2">
-                                    <input id="tmp-1" type="checkbox" className="promoted-input-checkbox" value={1} checked={projectInformation?.hasFloorPlan} onChange={e => updateFields({ hasFloorPlan: e.target.checked })} />
+                                    <input id="tmp-1" type="checkbox" className="promoted-input-checkbox" value={1} checked={project?.hasFloorPlan} onChange={e => dispatch(updateFields({ hasFloorPlan: e.target.checked }))} />
                                     <svg>
                                         <use href="#checkmark-1" xlinkHref="#checkmark-1" />
                                     </svg>

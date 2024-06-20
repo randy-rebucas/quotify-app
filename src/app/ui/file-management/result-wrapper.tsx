@@ -6,6 +6,7 @@ import Detail from "./detail";
 import Result from "./result";
 import Empty from "./empty";
 
+
 export default function ResultWrapper({ projects }: { projects: any[] }) {
     const [more, setMore] = useState<boolean>(false);
 
@@ -34,7 +35,7 @@ export default function ResultWrapper({ projects }: { projects: any[] }) {
         <>
             <Result isMore={more} files={projects} onClick={handleProjectSelectedClick} />
 
-            {selectedProjectId && <Detail projectId={selectedProjectId}  onClick={handleProjectClearedClick}/>}
+            {selectedProjectId && <Detail projectId={selectedProjectId} onClick={handleProjectClearedClick} />}
 
             {projects.length > 4 && <Action isMore={more} onClick={handleMoreLessClick} />}
         </>

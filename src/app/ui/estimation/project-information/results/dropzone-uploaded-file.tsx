@@ -1,17 +1,18 @@
 import Image from "next/image";
 import { filesize } from "filesize";
-import { useProjectInformationStore } from "@/app/lib/projectInformationStore";
+import { useAppDispatch, useAppSelector } from "@/app/lib/hooks";
+import { updateFields } from "@/app/lib/slice/projectSlice";
 
 export default function DropzoneUploadedFile() {
   const isImageType = ['image/jpeg', 'image/jpg', 'image/png'];
   
-  const projectInformation = useProjectInformationStore(state => state.projectInformation);
-  const updateFields = useProjectInformationStore(state => state.updateFields);
+  const project = useAppSelector(state => state.project.projectInformation);
+  const dispatch = useAppDispatch();
 
-  const floorPlans = projectInformation.floorPlans;
+  const floorPlans = project.floorPlans;
 
   const removeFile = (idx: number) => {
-    updateFields({ floorPlans: floorPlans.filter((file: any, id: number) => id !== idx) })
+    dispatch(updateFields({ floorPlans: floorPlans.filter((file: any, id: number) => id !== idx) }))
   }
 
   return (

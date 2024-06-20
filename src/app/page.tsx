@@ -8,6 +8,7 @@ import StaggerCover from './ui/stagger-cover';
 import { ColumnValue } from './ui/columns';
 import Columns from './ui/columns';
 import PageWrapper from './ui/page-wrapper';
+import StoreProvider from './StoreProvider';
 
 export const metadata: Metadata = {
   title: 'Welcome'
@@ -33,29 +34,30 @@ export default async function Page() {
   ];
 
   return (
-    <div className="wrapper lg:bg-transparent bg-black">
-      <QuotifyLogo />
+      <div className="wrapper lg:bg-transparent bg-black">
+        <QuotifyLogo />
 
-      <PageWrapper>
-        
-        <Intro />
+        <PageWrapper>
 
-        <div className="lg:col-start-2 lg:col-span-3 col-span-12">
+          <Intro />
 
-          <VideoWrapper src="https://quotify.mmoser.app/src/videos/flowbite.mp4" />
+          <div className="lg:col-start-2 lg:col-span-3 col-span-12">
 
-          <Columns columns={columns} />
+            <VideoWrapper src="https://quotify.mmoser.app/src/videos/flowbite.mp4" />
 
-        </div>
+            <Columns columns={columns} />
 
-        <div className="wrapper__next">
-          <Tooltip />
+          </div>
 
-          <NavButton />
-        </div>
-      </PageWrapper>
+          <div className="wrapper__next">
+            <Tooltip />
 
-      <StaggerCover colors={colors} target={null} className="opacity-1" />
-    </div>
+            <NavButton />
+          </div>
+        </PageWrapper>
+
+        <StaggerCover colors={colors} target={null} className="opacity-1" />
+      </div>
+
   );
 }

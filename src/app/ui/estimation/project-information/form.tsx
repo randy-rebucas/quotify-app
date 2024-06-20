@@ -10,71 +10,27 @@ import Wrapper from "./wrapper";
 import clsx from "clsx";
 import { useRouter } from "next/navigation";
 import { v4 as uuid } from 'uuid'
-import { useProjectInformationStore } from "@/app/lib/projectInformationStore";
+import { useAppSelector } from "@/app/lib/hooks";
+import Review from "./steps/review";
 
 
 export default function Form({ menus }: { menus: any[] }) {
-    const router = useRouter();
-    const projectInformation = useProjectInformationStore(state => state.projectInformation);
-    
-    const [isLoading, setIsLoading] = useState<boolean>(false)
-    const [error, setError] = useState<string | null>(null)
-
 
     const { steps, currentStepIndex, step, isFirstStep, isLastStep, back, next } =
         useMultistepForm([
             <Plan key={uuid()} />,
             <Address key={uuid()} />,
             <Area key={uuid()} />,
-            <HeadCount key={uuid()} />
+            <HeadCount key={uuid()} />,
+            <Review key={uuid()} />
         ])
 
-    // update this to action and implement dispatch
-    async function onSubmit(event: FormEvent<HTMLFormElement>) {
-        event.preventDefault();
-        setIsLoading(true)
-        setError(null) // Clear previous errors when a new request starts
-        if (!isLastStep) return next()
-        try {
-            const formData = new FormData();
-            formData.append('spaceName', projectInformation.spaceName);
-            formData.append('address', projectInformation.address.place);
-            formData.append('approximateSize', projectInformation.approximateSize);
-            formData.append('rentableArea', projectInformation.rentableArea);
-            formData.append('targetHeadCount', projectInformation.targetHeadCount);
-            formData.append('averageAttendance', projectInformation.averageAttendance);
-            formData.append('assignedSeat', projectInformation.assignedSeat);
-            formData.append('hasFloorPlan', projectInformation.hasFloorPlan ? 'true' : 'false');
-            formData.append('hasAddress', projectInformation.hasAddress ? 'true' : 'false');
-            formData.append('isBaseOnHeadCount', projectInformation.isBaseOnHeadCount ? 'true' : 'false');
+    const handleClick = () => {
+        if (!isLastStep) return next();
 
-            for (let index = 0; index < projectInformation.floorPlans.length; index++) {
-                const element = projectInformation.floorPlans[index];
-                formData.append(element.name, element);
-            }
-
-            const response = await fetch('/api/projects', {
-                method: 'POST',
-                body: formData,
-            });
-
-            if (!response.ok) {
-                throw new Error('Failed to submit the data. Please try again.')
-            }
-
-            let projectResponse = await response.json();
-
-            if (response.status === 200) {
-                router.push(`/estimation/area-breakdown/${projectResponse.id}`)
-            }
-        } catch (error: any) {
-            setError(error.message)
-        } finally {
-            setIsLoading(false) // Set loading to false when the request completes
-        }
+        console.log('test');
     }
 
-    console.log(projectInformation);
     return (
         <>
             <div className="flex flex-col justify-start items-start w-full h-full">
@@ -108,7 +64,7 @@ export default function Form({ menus }: { menus: any[] }) {
                     </div>
                 </div>
             </div>
-            <form onSubmit={onSubmit} className="lg:col-span-4 col-span-12 h-full w-full overflow-y-scroll overflow-x-hidden" encType="multipart/form-data">
+            <div className="lg:col-span-4 col-span-12 h-full w-full overflow-y-scroll overflow-x-hidden">
                 {!isFirstStep && (
                     <div className="absolute top-0 left-0 flex flex-col items-end p-30">
                         <button type="button" onClick={back} className="focus:shadow-outline focus:outline-none">
@@ -119,11 +75,11 @@ export default function Form({ menus }: { menus: any[] }) {
                     </div>
                 )}
 
-                <Wrapper stepIndex={currentStepIndex} isLoading={isLoading}>
+                <Wrapper stepIndex={currentStepIndex} isLastStep={isLastStep} onClick={handleClick}>
                     {/* {error && <div style={{ color: 'red' }}>{error}</div>} */}
                     {step}
                 </Wrapper>
-            </form>
+            </div>
         </>
     )
 }
