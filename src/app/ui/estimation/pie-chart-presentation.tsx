@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import * as d3 from "d3";
-import { DataItem } from "../data";
+
 import { useAreaBreakdownStore } from "@/app/lib/areaBreakdownStore";
 
 const MARGIN = 10;
@@ -30,7 +30,7 @@ export const PieChartPresentation = ({
     const radius = Math.min(width, height) / 2 - MARGIN;
 
     const pie = useMemo(() => {
-        const pieGenerator = d3.pie<any, DataItem>().value((d) => d.value);
+        const pieGenerator = d3.pie<any, any>().value((d) => d.value);
         return pieGenerator(data);
     }, [data]);
 
