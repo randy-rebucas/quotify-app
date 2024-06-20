@@ -1,5 +1,5 @@
 import Upload from "../upload"
-import { useProjectInformationStore } from "@/app/lib/projectInformationStore";
+import { useProjectInformationStore } from "@/app/lib/store/projectInformationStore";
 
 export default function Plan() {
     const project = useProjectInformationStore(state => state.projectInformation);

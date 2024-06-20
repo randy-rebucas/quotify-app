@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { useJsApiLoader } from '@react-google-maps/api';
 import { Libraries } from '@googlemaps/js-api-loader';
 import CustomMap from "../map";
-import { useProjectInformationStore } from "@/app/lib/projectInformationStore";
+import { useProjectInformationStore } from "@/app/lib/store/projectInformationStore";
 
 const libraries = ["core", "maps", "places", "marker", 'geometry'];
 

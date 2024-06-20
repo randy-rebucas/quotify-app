@@ -1,4 +1,4 @@
-import { useProjectInformationStore } from "@/app/lib/projectInformationStore";
+import { useProjectInformationStore } from "@/app/lib/store/projectInformationStore";
 
 export default function HeadCount() {
 

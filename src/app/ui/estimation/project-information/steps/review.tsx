@@ -1,7 +1,7 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { financial } from "@/app/ui/setting/projects/table";
-import { useProjectInformationStore } from "@/app/lib/projectInformationStore";
+import { useProjectInformationStore } from "@/app/lib/store/projectInformationStore";
 
 export default function Review() {
     const router = useRouter();
