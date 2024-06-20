@@ -15,7 +15,7 @@ import { menuMapping, tabMapping } from "./entities";
 import { v4 as uuid } from 'uuid'
 import TabForm from "./tab-form";
 import { IRequirement } from "@/app/models/Requirement";
-import { INITIAL_DATA, useRequirementStore } from "@/app/lib/requirementStore";
+import { INITIAL_DATA, useRequirementStore } from "@/app/lib/store/requirementStore";
 
 export type StimateData = {
     id: number;

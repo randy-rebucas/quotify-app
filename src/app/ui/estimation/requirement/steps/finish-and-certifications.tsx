@@ -4,7 +4,7 @@
 import Image from "next/image";
 import { ChangeEvent, Suspense, useEffect, useMemo, useState } from "react";
 import { IRequirementLevel } from "@/app/models/RequirementLevel";
-import { useRequirementStore } from "@/app/lib/requirementStore";
+import { useRequirementStore } from "@/app/lib/store/requirementStore";
 
 
 type Props = {
