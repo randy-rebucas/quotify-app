@@ -1,13 +1,11 @@
-import { useAppSelector } from "@/app/lib/hooks";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { filesize } from "filesize";
-import Image from "next/image";
 import { financial } from "@/app/ui/setting/projects/table";
+import { useProjectInformationStore } from "@/app/lib/projectInformationStore";
 
 export default function Review() {
     const router = useRouter();
-    const project = useAppSelector(state => state.project.projectInformation)
+    const project = useProjectInformationStore(state => state.projectInformation);
 
     const [isLoading, setIsLoading] = useState<boolean>(false)
     const [error, setError] = useState<string | null>(null)

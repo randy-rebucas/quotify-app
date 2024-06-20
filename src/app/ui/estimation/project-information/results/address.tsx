@@ -1,10 +1,9 @@
-import { useAppSelector } from "@/app/lib/hooks";
 import { useProjectInformationStore } from "@/app/lib/projectInformationStore";
 
 export default function Address() {
-    
-    const project = useAppSelector(state => state.project.projectInformation)
 
+    const project = useProjectInformationStore(state => state.projectInformation);
+    
     return (
         <>
             {project.address.place && <div className="mt-[13.333vh] px-30 w-full">

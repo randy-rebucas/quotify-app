@@ -2,12 +2,13 @@ import { useEffect, useRef, useState } from "react";
 import { useJsApiLoader } from '@react-google-maps/api';
 import { Libraries } from '@googlemaps/js-api-loader';
 import { LatLong } from "./steps/address";
-import { useAppSelector } from "@/app/lib/hooks";
+import { useProjectInformationStore } from "@/app/lib/projectInformationStore";
 
 const libraries = ["core", "maps", "places", "marker", 'geometry'];
 
 export default function CustomMap() {
-    const project = useAppSelector(state => state.project.projectInformation)
+    
+    const project = useProjectInformationStore(state => state.projectInformation);
 
     const location = project.address.location;
 

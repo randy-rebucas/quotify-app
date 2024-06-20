@@ -1,6 +1,5 @@
 'use client';
 
-import { FormEvent, useState } from "react";
 import Plan from "./steps/plan";
 import Address from "./steps/address";
 import Area from "./steps/area";
@@ -8,9 +7,7 @@ import HeadCount from "./steps/head-count";
 import { useMultistepForm } from "@/app/hooks/useMultistepForm";
 import Wrapper from "./wrapper";
 import clsx from "clsx";
-import { useRouter } from "next/navigation";
 import { v4 as uuid } from 'uuid'
-import { useAppSelector } from "@/app/lib/hooks";
 import Review from "./steps/review";
 
 
@@ -27,8 +24,6 @@ export default function Form({ menus }: { menus: any[] }) {
 
     const handleClick = () => {
         if (!isLastStep) return next();
-
-        console.log('test');
     }
 
     return (
@@ -76,7 +71,6 @@ export default function Form({ menus }: { menus: any[] }) {
                 )}
 
                 <Wrapper stepIndex={currentStepIndex} isLastStep={isLastStep} onClick={handleClick}>
-                    {/* {error && <div style={{ color: 'red' }}>{error}</div>} */}
                     {step}
                 </Wrapper>
             </div>

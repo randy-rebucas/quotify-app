@@ -1,10 +1,9 @@
-import { useAppDispatch, useAppSelector } from "@/app/lib/hooks";
-import { updateFields } from "@/app/lib/slice/projectSlice";
+import { useProjectInformationStore } from "@/app/lib/projectInformationStore";
 
 export default function HeadCount() {
 
-    const project = useAppSelector(state => state.project.projectInformation)
-    const dispatch = useAppDispatch();
+    const project = useProjectInformationStore(state => state.projectInformation);
+    const updateFields = useProjectInformationStore(state => state.updateFields)
 
     return (
         <>
@@ -32,7 +31,7 @@ export default function HeadCount() {
 
                                     <div className="custom-input flex flex-col justify-start mt-[5.556vh]">
                                         <input className="bg-transparent focus:outline-none border-b-2 border-blue" type="number"
-                                            value={project.targetHeadCount} onChange={e => dispatch(updateFields({ targetHeadCount: e.target.value }))} />
+                                            value={project.targetHeadCount} onChange={e => updateFields({ targetHeadCount: e.target.value })} />
                                         <div className="mt-[20px] font-latobold text-[30px]">people</div>
                                     </div>
                                 </div>
@@ -53,7 +52,7 @@ export default function HeadCount() {
 
                                     <div className="custom-input flex flex-col justify-start mt-[5.556vh]">
                                         <input className="bg-transparent focus:outline-none border-b-2 border-blue" type="number"
-                                            value={project.averageAttendance} onChange={e => dispatch(updateFields({ averageAttendance: e.target.value }))} />
+                                            value={project.averageAttendance} onChange={e => updateFields({ averageAttendance: e.target.value })} />
                                         <div className="mt-[20px] font-latobold text-[30px]">people</div>
                                     </div>
                                 </div>
@@ -78,7 +77,7 @@ export default function HeadCount() {
                                                 min={0}
                                                 max={100}
                                                 step={10}
-                                                value={project.assignedSeat} onChange={e => dispatch(updateFields({ assignedSeat: e.target.value }))}
+                                                value={project.assignedSeat} onChange={e => updateFields({ assignedSeat: e.target.value })}
                                                 className="w-full h-1 mb-6 bg-gray-200 rounded-lg appearance-none cursor-pointer range-sm dark:bg-gray-700" />
                                             <span className="text-sm text-gray-500 dark:text-gray-400 absolute start-0 -bottom-3">0%</span>
                                             <span className="text-sm text-gray-500 dark:text-gray-400 absolute end-0 -bottom-3">100%</span>
