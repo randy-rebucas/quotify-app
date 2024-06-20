@@ -31,7 +31,7 @@ export default function HeadCount() {
                                     <p>what is your target headcount?</p>
 
                                     <div className="custom-input flex flex-col justify-start mt-[5.556vh]">
-                                        <input className="bg-transparent focus:outline-none border-b-2 border-blue" type="text"
+                                        <input className="bg-transparent focus:outline-none border-b-2 border-blue" type="number"
                                             value={project.targetHeadCount} onChange={e => dispatch(updateFields({ targetHeadCount: e.target.value }))} />
                                         <div className="mt-[20px] font-latobold text-[30px]">people</div>
                                     </div>
@@ -52,7 +52,7 @@ export default function HeadCount() {
                                     <p>for the remaning headcount, what is the average attendance per week?</p>
 
                                     <div className="custom-input flex flex-col justify-start mt-[5.556vh]">
-                                        <input className="bg-transparent focus:outline-none border-b-2 border-blue" type="tesxt"
+                                        <input className="bg-transparent focus:outline-none border-b-2 border-blue" type="number"
                                             value={project.averageAttendance} onChange={e => dispatch(updateFields({ averageAttendance: e.target.value }))} />
                                         <div className="mt-[20px] font-latobold text-[30px]">people</div>
                                     </div>
