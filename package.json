@@ -16,7 +16,6 @@
     "@heroicons/react": "^2.1.3",
     "@next/third-parties": "^14.2.3",
     "@react-google-maps/api": "^2.19.3",
-    "@tailwindcss/forms": "^0.5.7",
     "@types/d3": "^7.4.3",
     "@types/google.maps": "^3.55.9",
     "@types/mongoose": "^5.11.97",
@@ -52,11 +51,8 @@
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "@types/uuid": "^9.0.8",
-    "autoprefixer": "^10.4.19",
     "eslint": "^8",
     "eslint-config-next": "14.1.4",
-    "postcss": "^8.4.38",
-    "tailwindcss": "^3.4.1",
     "typescript": "^5.4.3"
   }
 }
