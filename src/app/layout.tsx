@@ -1,8 +1,16 @@
 import '@/app/ui/global.css';
-import "/public/css/main.css";
 
 import { Metadata } from 'next';
-import { lato } from './ui/fonts';
+
+import { Lato } from 'next/font/google'
+const lato = Lato({
+  weight: ["100", "300", "400", "700", "900"],
+  style: ['normal', 'italic'],
+  subsets: ['latin'],
+  display: 'swap',
+})
+
+import "/public/css/main.css";
 
 export const metadata: Metadata = {
   title: {

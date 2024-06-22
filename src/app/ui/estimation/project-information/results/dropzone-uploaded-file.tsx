@@ -16,11 +16,11 @@ export default function DropzoneUploadedFile() {
 
   return (
     <>
-      <div className="mt-[30.833vh] px-30 w-full">
+      {floorPlans.length && <div className="mt-[30.833vh] px-30 w-full">
         <div className="dropzone-uploads">
-          <p className="text-darkblue font-latobold">my floorplans</p>
+          <p className="text-darkblue font-latobold">My floorplans</p>
           <div className="flex flex-col gap-3 mt-10">
-            {floorPlans && floorPlans.map((file: any, idx: any) => (
+            {floorPlans.map((file: any, idx: any) => (
               <div key={idx} className="flex gap-3 relative">
                 {isImageType.includes(file.type) && <Image src={URL.createObjectURL(file)} alt={""} width={100} height={100} />}
                 {!isImageType.includes(file.type) && <div className="icon-upload"></div>}
@@ -37,7 +37,7 @@ export default function DropzoneUploadedFile() {
             ))}
           </div>
         </div>
-      </div>
+      </div>}
     </>
   );
 }

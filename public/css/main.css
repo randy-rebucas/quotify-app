@@ -5875,23 +5875,33 @@ video {
 }
 
 .font-lato {
-  font-family: Lato-Regular, sans-serif;
+  font-family: "Lato", sans-serif;
+  font-weight: 400;
+  font-style: normal;
 }
 
 .font-latoblack {
-  font-family: Lato-Black, sans-serif;
+  font-family: "Lato", sans-serif;
+  font-weight: 900;
+  font-style: normal;
 }
 
 .font-latobold {
-  font-family: Lato-Bold, sans-serif;
+  font-family: "Lato", sans-serif;
+  font-weight: 700;
+  font-style: normal;
 }
 
 .font-latolight {
-  font-family: Lato-Light, sans-serif;
+  font-family: "Lato", sans-serif;
+  font-weight: 300;
+  font-style: normal;
 }
 
 .font-latothin {
-  font-family: Lato-Thin, sans-serif;
+  font-family: "Lato", sans-serif;
+  font-weight: 100;
+  font-style: normal;
 }
 
 .text-2xl {
@@ -8465,7 +8475,7 @@ table {
 }
 /* Typography */
 
-@font-face {
+/* @font-face {
   font-family: "Lato-BoldItalic";
   src: url(../fd32b4dea61508c37b78.ttf);
   src: url(../0d4218f5b907f4ee35db.eot?#iefix) format("embedded-opentype"), url(../d1c547b44c8f15f586db.woff) format("woff"), url(../fd32b4dea61508c37b78.ttf) format("truetype"), url(../c420373a16336bc39774.svg#Lato-BoldItalic) format("svg");
@@ -8534,7 +8544,7 @@ table {
   src: url(../f604ebd2b4fccf11b335.eot?#iefix) format("embedded-opentype"), url(../9aa4f5189c4ef1befd85.woff) format("woff"), url(../57dee8aface5572f9101.ttf) format("truetype"), url(../20b3a6064cb1f4cca179.svg#Lato-Black) format("svg");
   font-weight: normal;
   font-style: normal;
-}
+} */
 .theme .custom-upload {
   display: flex;
   width: 100%;
@@ -8627,7 +8637,9 @@ table {
 }
 
 .theme.theme-darkblue .wrapper__content.navigation .custom-upload .custom-upload__label span {
-  font-family: Lato-Black, sans-serif;
+  font-family: "Lato", sans-serif;
+  font-weight: 900;
+  font-style: normal;
   font-size: 24px;
   color: rgba(0, 56, 85, 0.5);
   color: rgba(0, 56, 85, var(--tw-text-opacity));
@@ -8741,7 +8753,9 @@ table {
 }
 
 .theme.theme-blue .wrapper__content.navigation .custom-upload .custom-upload__label span {
-  font-family: Lato-Black, sans-serif;
+  font-family: "Lato", sans-serif;
+  font-weight: 900;
+  font-style: normal;
   font-size: 24px;
   color: rgba(0, 90, 146, 0.5);
   color: rgba(0, 90, 146, var(--tw-text-opacity));
@@ -8919,7 +8933,9 @@ table {
 }
 
 .theme.theme-yellow .wrapper__content.navigation .custom-upload .custom-upload__label span {
-  font-family: Lato-Black, sans-serif;
+  font-family: "Lato", sans-serif;
+  font-weight: 900;
+  font-style: normal;
   font-size: 24px;
   color: rgba(0, 0, 0, 0.5);
   color: rgba(0, 0, 0, var(--tw-text-opacity));
@@ -9115,7 +9131,9 @@ table {
 }
 
 .theme.theme-red .wrapper__content.navigation .custom-upload .custom-upload__label span {
-  font-family: Lato-Black, sans-serif;
+  font-family: "Lato", sans-serif;
+  font-weight: 900;
+  font-style: normal;
   font-size: 24px;
   color: rgba(0, 0, 0, 0.5);
   color: rgba(0, 0, 0, var(--tw-text-opacity));
@@ -9370,7 +9388,9 @@ table {
 
 body {
   font-size: 18px;
-  font-family: Lato-Regular, sans-serif;
+  font-family: "Lato", sans-serif;
+  font-weight: 400;
+  font-style: normal;
 }
 
 /* width */
@@ -9396,7 +9416,9 @@ body {
 
 @layer focus:shadow-outline, focus:outline-none;
 h1 {
-  font-family: Lato-Black, sans-serif;
+  font-family: "Lato", sans-serif;
+  font-weight: 900;
+  font-style: normal;
   font-size: 3rem;
   line-height: 1;
   font-weight: 700;
@@ -9413,18 +9435,20 @@ h1 {
   }
 }
 h2 {
-  font-family: "Lato-Regular";
-  font-size: 35px;
+  font-family: "Lato", sans-serif;
+  font-weight: 400;
   font-style: normal;
+  font-size: 35px;
   font-weight: 400;
   line-height: 35px; 
   /* 100% */
 }
 
 h3 {
-  font-family: "Lato-Regular";
-  font-size: 30px;
+  font-family: "Lato", sans-serif;
+  font-weight: 400;
   font-style: normal;
+  font-size: 30px;
   font-weight: 700;
   line-height: normal;
 }
@@ -9446,9 +9470,10 @@ h4 {
 }
 h5 {
   /*color: #141414;*/
-  font-family: "Lato-Regular";
-  font-size: 36px;
+  font-family: "Lato", sans-serif;
+  font-weight: 400;
   font-style: normal;
+  font-size: 36px;
   font-weight: 700;
   line-height: 24px;
   /* 66.667% */
@@ -9456,9 +9481,10 @@ h5 {
 
 p {
   color: #000;
-  font-family: "Lato-Regular";
-  font-size: 18px;
+  font-family: "Lato", sans-serif;
+  font-weight: 400;
   font-style: normal;
+  font-size: 18px;
   font-weight: 400;
   line-height: 20px;
 }
@@ -9702,9 +9728,11 @@ p {
 
 .wrapper__settings {
   color: rgba(255, 255, 255, 0.5);
-  font-family: Lato;
-  font-size: 24px;
+  /* font-family: Lato; */
+  font-family: "Lato", sans-serif;
+  font-weight: 400;
   font-style: normal;
+  font-size: 24px;
   font-weight: 700;
   line-height: 24px;
 }
@@ -9742,7 +9770,9 @@ p {
   padding-right: 30px;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
-  font-family: Lato-Bold, sans-serif;
+  font-family: "Lato", sans-serif;
+  font-weight: 700;
+  font-style: normal;
   font-size: 24px;
   --tw-text-opacity: 1;
   color: rgb(255, 255, 255);
@@ -9788,7 +9818,9 @@ p {
 }
 .file h2 {
   margin-bottom: 10px;
-  font-family: Lato-Bold, sans-serif;
+  font-family: "Lato", sans-serif;
+  font-weight: 700;
+  font-style: normal;
   font-size: 1.5rem;
   /* line-height: 2rem; */
   --tw-text-opacity: 1;
@@ -9821,7 +9853,9 @@ p {
 
 __updated.file {
   z-index: 10;
-  font-family: Lato-LightItalic, sans-serif;
+  font-family: "Lato", sans-serif;
+  font-weight: 300;
+  font-style: italic;
 }
 
 .file .file-img {
@@ -9843,7 +9877,9 @@ __updated.file {
 
 .file .file__est {
   margin-top: 2.5rem;
-  font-family: Lato-Bold, sans-serif;
+  font-family: "Lato", sans-serif;
+  font-weight: 700;
+  font-style: normal;
   --tw-text-opacity: 1;
   color: rgb(0, 0, 0);
   color: rgba(0, 0, 0, var(--tw-text-opacity));
@@ -9975,7 +10011,9 @@ __updated.file {
   position: relative;
   display: block;
   padding-bottom: 0.75rem;
-  font-family: Lato-Light, sans-serif;
+  font-family: "Lato", sans-serif;
+  font-weight: 300;
+  font-style: normal;
   --tw-text-opacity: 1;
   color: rgb(255, 255, 255);
   color: rgba(255, 255, 255, var(--tw-text-opacity));
@@ -10065,7 +10103,9 @@ __updated.file {
 
 .tooltip__content {
   font-size: 14px;
-  font-family: "Lato-Regular";
+  font-family: "Lato", sans-serif;
+  font-weight: 400;
+  font-style: normal;
   line-height: 18px;
 }
 
