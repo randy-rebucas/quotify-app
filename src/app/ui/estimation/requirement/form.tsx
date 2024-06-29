@@ -76,7 +76,7 @@ export default function Form({ requirements, project_id }: { requirements: any[]
                     section: 'requirement'
                 }
             };
-         
+
             const response = await fetch('/api/project/requirement', {
                 method: 'POST',
                 headers: {
@@ -102,11 +102,14 @@ export default function Form({ requirements, project_id }: { requirements: any[]
         }
     }
 
-    const getSelectedRequirement = (index: number, lookup: string) => {
+    const getSelectedRequirement = (index: number, requirementId: string | undefined, lookup: string) => {
+        // console.log(index); // 0,1,2,3
+        // console.log(requirementId); // 665aa9359cd783ddb318bd00
+        // console.log(lookup); // furniture and furnishing
         let selectedValue = estimates.find((stimate) => stimate.id == index);
 
         let requirement;
-
+        // console.log(selectedValue);
         const requirementMap = selectedValue?.requirement;
 
         if (requirementMap) {
@@ -137,7 +140,8 @@ export default function Form({ requirements, project_id }: { requirements: any[]
         return requirement;
     }
 
-    console.log(estimates)
+    // console.log('active tab:' + activeTab)
+    // console.log(estimates);
     return (
         <>
             <div data-col={last_stimate + 1} className={clsx(
@@ -220,15 +224,15 @@ export default function Form({ requirements, project_id }: { requirements: any[]
                                         <div key={index} className={clsx(
                                             'js-step-indicator step-indicator',
                                             {
-                                                'active': index === currentStepIndex,
+                                                'active': index === currentStepIndex && activeTab === stimate.id,
                                             },
                                         )}>
                                             <span className="font-latoblack">03.{index + 1}:</span> <br />
                                             {requirement.name}
-                                            {getSelectedRequirement(stimate.id, requirement.name) && <div className="js-step-indicator step-indicator pl-3 checked" style={{
+                                            {getSelectedRequirement(stimate.id, requirement._id?.toString(), requirement.name) && <div className="js-step-indicator step-indicator pl-3 checked" style={{
                                                 paddingBottom: 'unset'
                                             }} data-category={`03.1.${index + 1}`}>
-                                                <Indicator requirementId={getSelectedRequirement(stimate.id, requirement.name)} />
+                                                <Indicator requirementId={getSelectedRequirement(stimate.id, requirement._id?.toString(), requirement.name)} />
                                             </div>}
                                         </div>
                                     ))}

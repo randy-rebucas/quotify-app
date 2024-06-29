@@ -30,10 +30,10 @@ export default function Technology({
     }, [getRequirementLevelByRequirement, getRequirementsByName, requirementId])
 
     const handleRadioChange = (event: ChangeEvent<HTMLInputElement>) => {
-        let data = [...estimates];
-        let requirementObj = data[tabiIndex].requirement;
-        requirementObj.technology = event.target.value;
-        updateEstimateRequirement(tabiIndex, requirementObj);
+        const currentEstimateIndex = estimates.findIndex((estimate) => estimate.id === tabiIndex);
+        const newEstimates = [...estimates];
+        newEstimates[currentEstimateIndex].requirement = { ...estimates[currentEstimateIndex].requirement, technology: event.target.value };
+        updateEstimateRequirement(newEstimates);
     }
     return (
         <>

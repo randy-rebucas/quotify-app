@@ -31,10 +31,10 @@ export default function BaseBuildingConditions({
       }, [getRequirementLevelByRequirement, getRequirementsByName, requirementId])
    
     const handleRadioChange = (event: ChangeEvent<HTMLInputElement>) => {
-        let data = [...estimates];
-        let requirementObj = data[tabiIndex].requirement;
-        requirementObj.buildingCondition = event.target.value;
-        updateEstimateRequirement(tabiIndex, requirementObj);
+        const currentEstimateIndex = estimates.findIndex((estimate) => estimate.id === tabiIndex);
+        const newEstimates = [...estimates];
+        newEstimates[currentEstimateIndex].requirement = { ...estimates[currentEstimateIndex].requirement, buildingCondition: event.target.value };
+        updateEstimateRequirement(newEstimates);
     }
 
     return (

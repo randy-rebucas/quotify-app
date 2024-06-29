@@ -18,10 +18,10 @@ export default function FinishAndCertification({
     const updateEstimateRequirement = useRequirementStore(state => state.updateEstimateRequirement);
     const getRequirementsByName = useRequirementStore(state => state.getRequirementsByName);
     const getRequirementLevelByRequirement = useRequirementStore(state => state.getRequirementLevelByRequirement);
-    
+
     const estimates = useRequirementStore(state => state.estimates);
     const requirementId = useRequirementStore(state => state.requirementId);
-    const requirementLevels  = useRequirementStore(state => state.requirementLevels);
+    const requirementLevels = useRequirementStore(state => state.requirementLevels);
 
     useEffect(() => {
         getRequirementsByName('finish and certifications');
@@ -29,14 +29,14 @@ export default function FinishAndCertification({
         if (requirementId) {
             getRequirementLevelByRequirement(requirementId)
         }
-        
-      }, [getRequirementLevelByRequirement, getRequirementsByName, requirementId])
+
+    }, [getRequirementLevelByRequirement, getRequirementsByName, requirementId])
 
     const handleRadioChange = (event: ChangeEvent<HTMLInputElement>) => {
-        let data = [...estimates];
-        let requirementObj = data[tabiIndex].requirement;
-        requirementObj.finish = event.target.value;
-        updateEstimateRequirement(tabiIndex, requirementObj);
+        const currentEstimateIndex = estimates.findIndex((estimate) => estimate.id === tabiIndex);
+        const newEstimates = [...estimates];
+        newEstimates[currentEstimateIndex].requirement = { ...estimates[currentEstimateIndex].requirement, finish: event.target.value };
+        updateEstimateRequirement(newEstimates);
     }
 
     return (

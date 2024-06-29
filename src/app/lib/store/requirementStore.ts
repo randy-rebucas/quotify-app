@@ -18,7 +18,7 @@ export type Actions = {
   getRequirementsByName: (filter: string) => void;
   getRequirementLevelByRequirement: (id: string) => void;
   addEstimate: (estimate: Estimate) => void;
-  updateEstimateRequirement: (id: number, requirement: any) => void;
+  updateEstimateRequirement: (estimates: Estimate[]) => void;
   reset: () => void;
 };
 
@@ -68,11 +68,9 @@ export const useRequirementStore = create<State & Actions>()(
         set((state) => ({
           estimates: [...state.estimates, estimate],
         })),
-      updateEstimateRequirement: (id: number, requirement: any) =>
-        set((state) => ({
-          estimates: state.estimates.map((estimate: Estimate) =>
-            estimate.id === id ? { ...estimate, requirement } : estimate
-          ),
+      updateEstimateRequirement: (estimates: Estimate[]) =>
+        set(() => ({
+          estimates: estimates,
         })),
       reset: () =>
         set(() => ({

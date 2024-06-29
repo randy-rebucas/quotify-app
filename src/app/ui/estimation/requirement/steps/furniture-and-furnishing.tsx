@@ -31,10 +31,10 @@ export default function FurnitureAndFurnishing({
     }, [getRequirementLevelByRequirement, getRequirementsByName, requirementId])
 
     const handleRadioChange = (event: ChangeEvent<HTMLInputElement>) => {
-        let data = [...estimates];
-        let requirementObj = data[tabiIndex].requirement;
-        requirementObj.furniture = event.target.value;
-        updateEstimateRequirement(tabiIndex, requirementObj);
+        const currentEstimateIndex = estimates.findIndex((estimate) => estimate.id === tabiIndex);
+        const newEstimates = [...estimates];
+        newEstimates[currentEstimateIndex].requirement = { ...estimates[currentEstimateIndex].requirement, furniture: event.target.value };
+        updateEstimateRequirement(newEstimates);
     }
     return (
         <>
