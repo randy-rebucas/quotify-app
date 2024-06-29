@@ -18,7 +18,7 @@ export type Actions = {
   getRefinementsByName: (filter: string) => void;
   getRefinementLevelByRefinement: (id: string) => void;
   addEstimate: (estimate: Estimate) => void;
-  updateEstimateRefinement: (id: number, refinement: any) => void;
+  updateEstimateRefinement: (estimates: Estimate[]) => void;
   reset: () => void;
 };
 
@@ -68,11 +68,9 @@ export const useRefinementStore = create<State & Actions>()(
         set((state) => ({
           estimates: [...state.estimates, estimate],
         })),
-      updateEstimateRefinement: (id: number, refinement: any) =>
-        set((state) => ({
-          estimates: state.estimates.map((estimate: Estimate) =>
-            estimate.id === id ? { ...estimate, refinement } : estimate
-          ),
+      updateEstimateRefinement: (estimates: Estimate[]) =>
+        set(() => ({
+          estimates: estimates,
         })),
       reset: () =>
         set(() => ({

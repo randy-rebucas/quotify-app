@@ -33,10 +33,10 @@ export default function Furniture({
     }, [getRefinementLevelByRefinement, getRefinementsByName, refinementId])
 
     const handleRadioChange = (event: ChangeEvent<HTMLInputElement>) => {
-        let data = [...estimates];
-        let refinementObj = data[tabiIndex].refinement;
-        refinementObj.furniture = event.target.value;
-        updateEstimateRefinement(tabiIndex, refinementObj);
+        const currentEstimateIndex = estimates.findIndex((estimate) => estimate.id === tabiIndex);
+        const newEstimates = [...estimates];
+        newEstimates[currentEstimateIndex].refinement = { ...estimates[currentEstimateIndex].refinement, furniture: event.target.value };
+        updateEstimateRefinement(newEstimates);
     }
 
     return (
