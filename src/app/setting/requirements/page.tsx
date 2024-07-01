@@ -11,6 +11,7 @@ export const metadata: Metadata = {
 
 export default async function Page() {
     const requirements = await fetchRequirements();
+
     return (
         <div className="w-full">
             <div className="mb-3 mt-4 flex items-center justify-between gap-2 md:mt-8">

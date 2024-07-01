@@ -10,7 +10,7 @@ requirement
             what well certification does your space require?
                 [silver,gold,platinum,whs]
 
-requirement 
+refinement 
     flooring
         office space 
             [silver,gold,platinum,whs]

@@ -1,7 +1,7 @@
 
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
-import { fetchRequirementById } from '@/app/lib/data';
+import { fetchRequirementById, fetchRequirements } from '@/app/lib/data';
 import Breadcrumbs from '@/app/ui/breadcrumbs';
 import Form from '@/app/ui/setting/requirements/edit-form';
 
@@ -12,7 +12,8 @@ export default async function Page({ params }: { params: { id: string } }) {
     const id = params.id;
 
     const requirement = await fetchRequirementById(id);
-
+    const requirements = await fetchRequirements();
+    
     if (!requirement) {
         notFound();
     }
@@ -28,7 +29,7 @@ export default async function Page({ params }: { params: { id: string } }) {
                     },
                 ]}
             />
-            <Form requirement={requirement} />
+            <Form requirement={requirement} requirements={requirements}/>
         </main>
     );
 }

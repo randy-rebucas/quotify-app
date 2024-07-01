@@ -523,10 +523,51 @@ export async function fetchRequirements() {
     return {
       _id: item._id.toString(),
       name: item.name,
+      groupName: item.groupName,
     };
   });
 
   return transformItems;
+}
+
+export async function fetchRequirementsByGroup() {
+  noStore();
+
+  connect();
+
+  const requirements = await Requirement.aggregate([
+    {
+      $group: {
+        _id: "$groupName",
+        requirements: {
+          $push: {
+            id: "$_id",
+            name: "$name",
+          },
+        },
+      },
+    },
+  ]);
+
+  const transformData = requirements
+    .filter((v) => {
+      return v._id !== "";
+    })
+    .map((x) => {
+      const transformRequirements = x.requirements.map((y: any) => {
+        return {
+          ...y,
+          id: y.id.toString(),
+        };
+      });
+
+      return {
+        _id: x._id,
+        requirements: transformRequirements,
+      };
+    }).filter((data) => data._id != null);
+
+  return transformData;
 }
 
 export async function deleteRequirement(id: string) {
@@ -551,6 +592,7 @@ export async function fetchRequirementById(id: string) {
   const transformItem = {
     _id: item._id.toString(),
     name: item.name,
+    groupName: item.groupName,
   };
 
   return transformItem;
