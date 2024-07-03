@@ -1,4 +1,4 @@
-import { fetchRequirements } from '@/app/lib/data';
+import { fetchRequirements, fetchRequirementsByGroup } from '@/app/lib/data';
 import Breadcrumbs from '@/app/ui/breadcrumbs';
 import Form from '@/app/ui/setting/requirement-levels/create-form';
 import { Metadata } from 'next';
@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 export default async function Page() {
 
     const requirements = await fetchRequirements();
-
+    const requirements_groups = await fetchRequirementsByGroup();
     return (
         <main>
             <Breadcrumbs
@@ -22,7 +22,7 @@ export default async function Page() {
                     },
                 ]}
             />
-            <Form requirements={requirements} />
+            <Form requirements_groups={requirements_groups} />
         </main>
     );
 }

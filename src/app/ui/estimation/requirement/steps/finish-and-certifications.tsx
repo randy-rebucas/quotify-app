@@ -18,19 +18,29 @@ export default function FinishAndCertification({
     const updateEstimateRequirement = useRequirementStore(state => state.updateEstimateRequirement);
     const getRequirementsByName = useRequirementStore(state => state.getRequirementsByName);
     const getRequirementLevelByRequirement = useRequirementStore(state => state.getRequirementLevelByRequirement);
-
+    const getRequirementSubLevel = useRequirementStore(state => state.getRequirementSubLevel);
+    const updateRequirementLevel = useRequirementStore(state => state.updateRequirementLevel);
     const estimates = useRequirementStore(state => state.estimates);
     const requirementId = useRequirementStore(state => state.requirementId);
     const requirementLevels = useRequirementStore(state => state.requirementLevels);
+    const requirementLevel = useRequirementStore(state => state.requirementLevel);
+    const requirementSubLevels = useRequirementStore(state => state.requirementSubLevels);
 
     useEffect(() => {
-        getRequirementsByName('finish and certifications');
-
-        if (requirementId) {
-            getRequirementLevelByRequirement(requirementId)
+        // this will return requirementId
+        // getRequirementsByName('finish and certifications');
+        if (requirementLevel) {
+            getRequirementLevelByRequirement(requirementLevel?._id?.toString())
         }
+    }, [getRequirementLevelByRequirement, requirementId, requirementLevel])
 
-    }, [getRequirementLevelByRequirement, getRequirementsByName, requirementId])
+    useMemo(() => {
+        getRequirementSubLevel('finish and certifications');
+    }, [getRequirementSubLevel])
+
+    if (requirementSubLevels.length) {
+        updateRequirementLevel(requirementSubLevels.at(0))
+    }
 
     const handleRadioChange = (event: ChangeEvent<HTMLInputElement>) => {
         const currentEstimateIndex = estimates.findIndex((estimate) => estimate.id === tabiIndex);

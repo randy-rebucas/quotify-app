@@ -5,7 +5,7 @@ import { Button } from '@/app/ui/button';
 import { useFormState } from 'react-dom';
 import { createRequirementLevel } from '@/app/actions/requirementLevel';
 
-export default function Form({ requirements }: { requirements: any[] }) {
+export default function Form({ requirements_groups }: { requirements_groups: any[] }) {
 
   const [state, dispatch] = useFormState(createRequirementLevel, undefined);
 
@@ -79,19 +79,17 @@ export default function Form({ requirements }: { requirements: any[] }) {
             Choose Requirement
           </label>
           <div className="relative">
-            <select
-              id="requirement"
+            <select id="requirement"
               name="requirementId"
               className="peer block w-full cursor-pointer rounded-md border border-gray-200 py-2 pl-2 text-sm outline-2 placeholder:text-gray-500"
-              defaultValue=""
-            >
-              <option value="" disabled>
-                Select a requirement
-              </option>
-              {requirements.map((requirement) => (
-                <option key={requirement._id} value={requirement._id}>
-                  {requirement.name}
-                </option>
+              defaultValue="">
+              <option key={`option-group-X`} disabled>Select a requirement</option>
+              {requirements_groups.map((requirements_group: any, index: number) => (
+                <optgroup key={`option-group-${index}`} className="py-3 text-gray-700 dark:text-gray-200" label={requirements_group._id}>
+                  {requirements_group.requirements.map((requirement: { id: string; name: string }, index: number) => (
+                    <option key={`option-${index}`} value={requirement.id} className="py-3 text-[#005A92] hover:bg-[#D0D0D0]">{requirement.name}</option>
+                  ))}
+                </optgroup>
               ))}
             </select>
           </div>

@@ -15,8 +15,8 @@ export default function EditAmenityCategoryForm({
   requirements: IRequirement[]
 }) {
 
-  const updateRefinementWithId = updateRequirement.bind(null, requirement._id);
-  const [state, dispatch] = useFormState(updateRefinementWithId, undefined);
+  const updateRequirementWithId = updateRequirement.bind(null, requirement._id);
+  const [state, dispatch] = useFormState(updateRequirementWithId, undefined);
 
   return (
     <form action={dispatch}>
@@ -49,6 +49,7 @@ export default function EditAmenityCategoryForm({
           <div className="relative mt-2 rounded-md">
             <div className="relative">
               <select name="group_name" id="group_name"
+                defaultValue={requirement.groupName}
                 className="peer block w-full rounded-md border border-gray-200 py-2 pl-3 text-sm outline-2 placeholder:text-gray-500">
                 <option value='' className="py-3 text-[#005A92] hover:bg-[#D0D0D0]">Select</option>
                 {requirements.map((requirement: IRequirement, index: number) => (
@@ -59,11 +60,30 @@ export default function EditAmenityCategoryForm({
           </div>
         </div>
 
+        <div className="mb-4">
+          <label htmlFor="name" className="mb-2 block text-sm font-medium">
+            Sort
+          </label>
+          <div className="relative mt-2 rounded-md">
+            <div className="relative">
+              <input
+                id="sort"
+                name="sort"
+                type="text"
+                placeholder="0"
+                defaultValue={requirement.sort}
+                className="peer block w-full rounded-md border border-gray-200 py-2 pl-3 text-sm outline-2 placeholder:text-gray-500"
+              />
+              {state?.errors?.sort && <div>{state.errors.sort}</div>}
+            </div>
+          </div>
+        </div>
+
       </div>
 
       <div className="mt-6 flex justify-end gap-4">
         <Link
-          href="/setting/refinements"
+          href="/setting/requirements"
           className="flex h-10 items-center rounded-lg bg-gray-100 px-4 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-200" >
           Cancel
         </Link>

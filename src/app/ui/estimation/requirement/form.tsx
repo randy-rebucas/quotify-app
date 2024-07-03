@@ -104,7 +104,7 @@ export default function Form({ requirements_groups, project_id }: { requirements
 
     const getSelectedRequirement = (index: number, requirementId: string | undefined, lookup: string) => {
         // console.log(index); // 0,1,2,3
-        // console.log(requirementId); // 665aa9359cd783ddb318bd00
+        console.log(requirementId); // 665aa9359cd783ddb318bd00
         // console.log(lookup); // furniture and furnishing
         let selectedValue = estimates.find((stimate) => stimate.id == index);
 
@@ -140,8 +140,8 @@ export default function Form({ requirements_groups, project_id }: { requirements
         return requirement;
     }
 
-    // console.log('active tab:' + activeTab)
-    // console.log(estimates);
+
+    console.log(estimates);
     return (
         <>
             <div data-col={last_stimate + 1} className={clsx(
@@ -230,16 +230,14 @@ export default function Form({ requirements_groups, project_id }: { requirements
                                             <span className="font-latoblack">03.{index + 1}:</span> <br />
                                             {requirements_group._id}
                                             {requirements_group.requirements.map((requirement: { id: string; name: string }, index: number) => (
-                                                <>
-                                                    <div data-category={`03.1.${index + 1}`}>
-                                                        <div key={`option-${index}`} className="pl-3 text-sm">{requirement.name}</div>
-                                                        {getSelectedRequirement(stimate.id, requirement.id, requirement.name) && <div className="js-step-indicator step-indicator pl-3 checked" style={{
-                                                            paddingBottom: 'unset'
-                                                        }} data-category={`03.1.${index + 1}`}>
-                                                            <Indicator requirementId={getSelectedRequirement(stimate.id, requirement.id, requirement.name)} />
-                                                        </div>}
-                                                    </div>
-                                                </>
+                                                <div key={index}>
+                                                    <p className="pl-3 text-sm">{requirement.name}</p>
+                                                    {getSelectedRequirement(stimate.id, requirement.id, requirement.name) && <div className="js-step-indicator step-indicator pl-3 checked" style={{
+                                                        paddingBottom: 'unset'
+                                                    }} data-category={`03.1.${index + 1}`}>
+                                                        <Indicator requirementId={getSelectedRequirement(stimate.id, requirement.id, requirement.name)} />
+                                                    </div>}
+                                                </div>
                                             ))}
                                         </div>
                                     ))}
@@ -259,6 +257,8 @@ export default function Form({ requirements_groups, project_id }: { requirements
                     <Wrapper stepIndex={currentStepIndex} isFirstStep={isFirstStep} onClick={back}>
                         {step}
                     </Wrapper>
+
+
                 </form >
             </div>
         </>
@@ -290,6 +290,6 @@ export function Indicator({ requirementId }: { requirementId: string }) {
         }
     }, [requirementId])
 
-
+    console.log(requirementName);
     return requirementName;
 } 

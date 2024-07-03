@@ -524,6 +524,7 @@ export async function fetchRequirements() {
       _id: item._id.toString(),
       name: item.name,
       groupName: item.groupName,
+      sort: item.sort,
     };
   });
 
@@ -543,10 +544,12 @@ export async function fetchRequirementsByGroup() {
           $push: {
             id: "$_id",
             name: "$name",
+            sort: "$sort",
           },
         },
       },
     },
+    { $sort: { requirements: 1 } },
   ]);
 
   const transformData = requirements
@@ -565,8 +568,9 @@ export async function fetchRequirementsByGroup() {
         _id: x._id,
         requirements: transformRequirements,
       };
-    }).filter((data) => data._id != null);
-
+    })
+    .filter((data) => data._id != null);
+  console.log(transformData);
   return transformData;
 }
 
@@ -593,6 +597,7 @@ export async function fetchRequirementById(id: string) {
     _id: item._id.toString(),
     name: item.name,
     groupName: item.groupName,
+    sort: item.sort,
   };
 
   return transformItem;

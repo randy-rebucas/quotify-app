@@ -1,7 +1,7 @@
 
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
-import { fetchRequirementlevelById, fetchRequirements } from '@/app/lib/data';
+import { fetchRequirementlevelById, fetchRequirements, fetchRequirementsByGroup } from '@/app/lib/data';
 import Breadcrumbs from '@/app/ui/breadcrumbs';
 import Form from '@/app/ui/setting/requirement-levels/edit-form';
 
@@ -13,7 +13,8 @@ export default async function Page({ params }: { params: { id: string } }) {
 
     const requirement = await fetchRequirementlevelById(id);
     const requirements = await fetchRequirements();
-
+    const requirements_groups = await fetchRequirementsByGroup();
+    
     if (!requirement) {
         notFound();
     }
@@ -30,7 +31,7 @@ export default async function Page({ params }: { params: { id: string } }) {
                     },
                 ]}
             />
-            <Form requirement={requirement} requirements={requirements}/>
+            <Form requirement={requirement} requirements={requirements} requirements_groups={requirements_groups}/>
         </main>
     );
 }
