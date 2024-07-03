@@ -214,12 +214,14 @@ export const RequirementFormSchema = z.object({
       invalid_type_error: "Please enter a name.",
     })
     .trim(),
+  group_name: z.string().trim(),
 });
 
 export type RequirementFormState =
   | {
       errors?: {
         name?: string[];
+        group_name?: string[];
       };
       message?: string;
     }

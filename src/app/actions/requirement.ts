@@ -3,11 +3,10 @@
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import {
-    RequirementFormSchema,
-    RequirementFormState,
+  RequirementFormSchema,
+  RequirementFormState,
 } from "@/app/lib/definitions";
 import Requirement from "../models/Requirement";
-
 
 const UpdateRequirement = RequirementFormSchema.omit({ id: true });
 
@@ -17,7 +16,8 @@ export async function updateRequirement(
   formData: FormData
 ) {
   const validatedFields = UpdateRequirement.safeParse({
-    name: formData.get("name")
+    name: formData.get("name"),
+    group_name: formData.get("group_name"),
   });
 
   if (!validatedFields.success) {
@@ -26,14 +26,13 @@ export async function updateRequirement(
     };
   }
 
-  const { name } = validatedFields.data;
+  const { name, group_name } = validatedFields.data;
 
   try {
-    const update = { name: name };
+    const update = { name: name, groupName: group_name };
     const filter = { _id: id };
 
     await Requirement.findOneAndUpdate(filter, update);
-
   } catch (error) {
     return { message: "Database Error: Failed to Update requirement." };
   }
@@ -44,11 +43,14 @@ export async function updateRequirement(
 
 const CreateARequiremnt = RequirementFormSchema.omit({ id: true });
 
-export async function createRequirement(prevState: RequirementFormState, formData: FormData) {
-   
+export async function createRequirement(
+  prevState: RequirementFormState,
+  formData: FormData
+) {
   // Validate form using Zod
   const validatedFields = CreateARequiremnt.safeParse({
-    name: formData.get("name")
+    name: formData.get("name"),
+    group_name: formData.get("group_name"),
   });
 
   // If any form fields are invalid, return early
@@ -58,10 +60,11 @@ export async function createRequirement(prevState: RequirementFormState, formDat
     };
   }
 
-  const { name } = validatedFields.data;
+  const { name, group_name } = validatedFields.data;
 
   const requirement = new Requirement({
-    name: name
+    name: name,
+    groupName: group_name,
   });
   await requirement.save();
 

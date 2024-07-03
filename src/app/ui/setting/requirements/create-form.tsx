@@ -3,13 +3,13 @@
 import Link from 'next/link';
 import { Button } from '@/app/ui/button';
 import { useFormState } from 'react-dom';
-import { createRefinement } from '@/app/actions/refinement';
+import { IRequirement } from '@/app/models/Requirement';
+import { createRequirement } from '@/app/actions/requirement';
 
 
+export default function Form({ requirements }: { requirements: IRequirement[] }) {
 
-export default function Form() {
-
-  const [state, dispatch] = useFormState(createRefinement, undefined);
+  const [state, dispatch] = useFormState(createRequirement, undefined);
 
   return (
     <form action={dispatch}>
@@ -32,6 +32,25 @@ export default function Form() {
             </div>
           </div>
         </div>
+
+        {/* Custom Space Group Name */}
+        <div className="mb-4">
+          <label htmlFor="group_name" className="mb-2 block text-sm font-medium">
+            Group
+          </label>
+          <div className="relative mt-2 rounded-md">
+            <div className="relative">
+              <select name="group_name" id="group_name"
+                className="peer block w-full rounded-md border border-gray-200 py-2 pl-3 text-sm outline-2 placeholder:text-gray-500">
+                <option value='' className="py-3 text-[#005A92] hover:bg-[#D0D0D0]">Select</option>
+                {requirements.map((requirement: IRequirement, index: number) => (
+                  <option key={index} value={requirement.name} className="py-3 text-[#005A92] hover:bg-[#D0D0D0]">{requirement.name}</option>
+                ))}
+              </select>
+            </div>
+          </div>
+        </div>
+
       </div>
       <div className="mt-6 flex justify-end gap-4">
         <Link

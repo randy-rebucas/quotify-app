@@ -1,4 +1,4 @@
-import { fetchMenuByPageHandled, fetchRequirements } from "@/app/lib/data";
+import { fetchMenuByPageHandled, fetchRequirements, fetchRequirementsByGroup } from "@/app/lib/data";
 import { IRequirement } from "@/app/models/Requirement";
 import IntroWrapper from "@/app/ui/estimation/intro-wrapper";
 import MainWrapper from "@/app/ui/estimation/main-wrapper";
@@ -16,6 +16,8 @@ export default async function Page({ params }: { params: { id: string } }) {
     }
 
     const requirements = await fetchRequirements();
+
+    const requirements_groups = await fetchRequirementsByGroup();
 
     const introductionColors: string[] = ['bg-green1', 'bg-green2', 'bg-green3', 'bg-green4', 'bg-green5'];
 
@@ -41,10 +43,10 @@ export default async function Page({ params }: { params: { id: string } }) {
                                     </h4>
                                     <div className="estimation-col__bar bg-white mt-6 mb-6"></div>
                                     <div className="estimation-col__content">
-                                        {requirements.map((requirement: IRequirement, index: number) => (
+                                        {requirements_groups.map((requirements_group: { _id: string; requirements: IRequirement[] }, index: number) => (
                                             <div key={index} className="step-indicator">
                                                 <span className="font-latoblack">03.{index + 1}:</span> <br />
-                                                {requirement.name}
+                                                {requirements_group._id}
                                             </div>
                                         ))}
                                     </div>
@@ -56,7 +58,7 @@ export default async function Page({ params }: { params: { id: string } }) {
             </IntroWrapper>
 
             <MainWrapper>
-                <Form requirements={requirements} project_id={id} />
+                <Form requirements_groups={requirements_groups} project_id={id} />
             </MainWrapper>
 
             <LinearCover colors={introductionColors} target={2} className="introduction" />

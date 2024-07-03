@@ -1,3 +1,4 @@
+import { fetchRequirements } from '@/app/lib/data';
 import Breadcrumbs from '@/app/ui/breadcrumbs';
 import Form from '@/app/ui/setting/requirements/create-form';
 import { Metadata } from 'next';
@@ -7,6 +8,7 @@ export const metadata: Metadata = {
 };
 export default async function Page() {
 
+    const requirements = await fetchRequirements();
     return (
         <main>
             <Breadcrumbs
@@ -19,7 +21,8 @@ export default async function Page() {
                     },
                 ]}
             />
-            <Form  />
+            
+            <Form requirements={requirements} />
         </main>
     );
 }

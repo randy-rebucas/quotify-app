@@ -30,10 +30,10 @@ export default function Flooring({
     }, [getRefinementLevelByRefinement, getRefinementsByName, refinementId])
 
     const handleRadioChange = (event: ChangeEvent<HTMLInputElement>) => {
-        let data = [...estimates];
-        let refinementObj = data[tabiIndex].refinement;
-        refinementObj.flooring = event.target.value;
-        updateEstimateRefinement(tabiIndex, refinementObj);
+        const currentEstimateIndex = estimates.findIndex((estimate) => estimate.id === tabiIndex);
+        const newEstimates = [...estimates];
+        newEstimates[currentEstimateIndex].refinement = { ...estimates[currentEstimateIndex].refinement, flooring: event.target.value };
+        updateEstimateRefinement(newEstimates);
     }
 
     return (

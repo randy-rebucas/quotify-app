@@ -201,7 +201,7 @@ export default function Form({ refinements, project_id }: { refinements: any[], 
                                         <div key={index} className={clsx(
                                             'js-step-indicator step-indicator js-has-sub-step',
                                             {
-                                                'active': index === currentStepIndex,
+                                                'active': index === currentStepIndex  && activeTab === stimate.id,
                                             },
                                         )}>
                                             <span className="font-latoblack">04.{index + 1}:</span> <br />
