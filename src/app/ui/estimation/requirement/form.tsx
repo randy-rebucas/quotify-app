@@ -284,5 +284,5 @@ export function Indicator({ requirementId }: { requirementId: string }) {
     }, [requirementId])
 
 
-    return requirementName;
+    return requirementName.toLowerCase();
 } 

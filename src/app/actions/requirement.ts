@@ -70,7 +70,7 @@ export async function createRequirement(prevState: RequirementFormState, formDat
   redirect("/setting/requirements");
 }
 
-export async function deleteRequirememnt(id: string) {
+export async function deleteRequirement(id: string) {
   try {
     await Requirement.findOneAndDelete({ _id: id }).exec();
     revalidatePath("/setting/requirements");
