@@ -58,7 +58,7 @@ export default async function Page({ params }: { params: { id: string } }) {
             </IntroWrapper>
 
             <MainWrapper>
-                <Form requirements_groups={requirements_groups} project_id={id} />
+                <Form requirements={requirements} project_id={id} />
             </MainWrapper>
 
             <LinearCover colors={introductionColors} target={2} className="introduction" />

@@ -23,7 +23,7 @@ export type StimateData = {
     requirement: any | null;
 };
 
-export default function Form({ requirements_groups, project_id }: { requirements_groups: any[], project_id: string }) {
+export default function Form({ requirements, project_id }: { requirements: any[], project_id: string }) {
     const router = useRouter();
 
     const estimates = useRequirementStore(state => state.estimates);
@@ -220,27 +220,20 @@ export default function Form({ requirements_groups, project_id }: { requirements
                                 </div>
 
                                 <div className="js-main-menu__content estimation-col__content">
-                                    {requirements_groups.map((requirements_group: { _id: string; requirements: { id: string; name: string }[] }, index: number) => (
-                                        <div key={requirements_group._id} className={clsx(
+                                {requirements.map((requirement: IRequirement, index: number) => (
+                                        <div key={index} className={clsx(
                                             'js-step-indicator step-indicator',
                                             {
                                                 'active': index === currentStepIndex && activeTab === stimate.id,
                                             },
                                         )}>
                                             <span className="font-latoblack">03.{index + 1}:</span> <br />
-                                            {requirements_group._id}
-                                            {requirements_group.requirements.map((requirement: { id: string; name: string }, index: number) => (
-                                                <>
-                                                    <div data-category={`03.1.${index + 1}`}>
-                                                        <div key={`option-${index}`} className="pl-3 text-sm">{requirement.name}</div>
-                                                        {getSelectedRequirement(stimate.id, requirement.id, requirement.name) && <div className="js-step-indicator step-indicator pl-3 checked" style={{
-                                                            paddingBottom: 'unset'
-                                                        }} data-category={`03.1.${index + 1}`}>
-                                                            <Indicator requirementId={getSelectedRequirement(stimate.id, requirement.id, requirement.name)} />
-                                                        </div>}
-                                                    </div>
-                                                </>
-                                            ))}
+                                            {requirement.name}
+                                            {getSelectedRequirement(stimate.id, requirement._id?.toString(), requirement.name) && <div className="js-step-indicator step-indicator pl-3 checked" style={{
+                                                paddingBottom: 'unset'
+                                            }} data-category={`03.1.${index + 1}`}>
+                                                <Indicator requirementId={getSelectedRequirement(stimate.id, requirement._id?.toString(), requirement.name)} />
+                                            </div>}
                                         </div>
                                     ))}
                                 </div>
