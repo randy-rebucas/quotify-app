@@ -58,7 +58,25 @@ export default function EditAmenityCategoryForm({
             </div>
           </div>
         </div>
-
+        <div className="mb-4">
+          <label htmlFor="name" className="mb-2 block text-sm font-medium">
+            Sort
+          </label>
+          <div className="relative mt-2 rounded-md">
+            <div className="relative">
+              <input
+                id="sort"
+                name="sort"
+                type="text"
+                placeholder="0"
+                defaultValue={requirement.sort}
+                className="peer block w-full rounded-md border border-gray-200 py-2 pl-3 text-sm outline-2 placeholder:text-gray-500"
+              />
+              {state?.errors?.sort && <div>{state.errors.sort}</div>}
+            </div>
+          </div>
+        </div>
+        
       </div>
 
       <div className="mt-6 flex justify-end gap-4">

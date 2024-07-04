@@ -524,6 +524,7 @@ export async function fetchRequirements() {
       _id: item._id.toString(),
       name: item.name,
       groupName: item.groupName,
+      sort: item.sort,
     };
   });
 
@@ -543,10 +544,12 @@ export async function fetchRequirementsByGroup() {
           $push: {
             id: "$_id",
             name: "$name",
+            sort: "$sort",
           },
         },
       },
     },
+    { $sort: { requirements: 1 } },
   ]);
 
   const transformData = requirements
