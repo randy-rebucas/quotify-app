@@ -263,5 +263,5 @@ export function Indicator({ refinementId }: { refinementId: string }) {
     }, [refinementId])
 
 
-    return refinemantName;
+    return refinemantName.toLowerCase();
 } 

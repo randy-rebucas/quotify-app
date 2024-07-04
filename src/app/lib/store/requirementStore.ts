@@ -11,6 +11,7 @@ export type Estimate = {
 export type State = {
   estimates: Estimate[];
   requirementLevels: IRequirementLevel[];
+  requirementLevelUnitRate: number;
   requirementId: string | null;
 };
 
@@ -18,6 +19,9 @@ export type Actions = {
   getRequirementsByName: (filter: string) => void;
   getRequirementLevelByRequirement: (id: string) => void;
   addEstimate: (estimate: Estimate) => void;
+  updateRequirementLevelUnitRate: (
+    requirementLevelUnitRate: State["requirementLevelUnitRate"]
+  ) => void;
   updateEstimateRequirement: (estimates: Estimate[]) => void;
   reset: () => void;
 };
@@ -33,6 +37,7 @@ export const useRequirementStore = create<State & Actions>()(
     (set) => ({
       estimates: [INITIAL_DATA],
       requirementLevels: [],
+      requirementLevelUnitRate: 0,
       requirementId: null,
       getRequirementsByName: async (filter: string) => {
         const response = await fetch(`/api/requirement/${filter}`, {
@@ -68,6 +73,8 @@ export const useRequirementStore = create<State & Actions>()(
         set((state) => ({
           estimates: [...state.estimates, estimate],
         })),
+      updateRequirementLevelUnitRate: (requirementLevelUnitRate) =>
+        set(() => ({ requirementLevelUnitRate: requirementLevelUnitRate })),
       updateEstimateRequirement: (estimates: Estimate[]) =>
         set(() => ({
           estimates: estimates,

@@ -28,6 +28,8 @@ export default function Form({ requirements, project_id }: { requirements: any[]
 
     const estimates = useRequirementStore(state => state.estimates);
     const addEstimate = useRequirementStore(state => state.addEstimate);
+    const requirementLevelUnitRate = useRequirementStore(state => state.requirementLevelUnitRate);
+
 
     const [isLoading, setIsLoading] = useState<boolean>(false)
     const [isExpanded, setIsExpanded] = useState<boolean>(true)
@@ -103,9 +105,6 @@ export default function Form({ requirements, project_id }: { requirements: any[]
     }
 
     const getSelectedRequirement = (index: number, requirementId: string | undefined, lookup: string) => {
-        // console.log(index); // 0,1,2,3
-        // console.log(requirementId); // 665aa9359cd783ddb318bd00
-        // console.log(lookup); // furniture and furnishing
         let selectedValue = estimates.find((stimate) => stimate.id == index);
 
         let requirement;
@@ -140,8 +139,8 @@ export default function Form({ requirements, project_id }: { requirements: any[]
         return requirement;
     }
 
-    // console.log('active tab:' + activeTab)
-    // console.log(estimates);
+    // console.log('active tab:' + activeTab)requirementLevel.unitRate.toString()
+    console.log(requirementLevelUnitRate);
     return (
         <>
             <div data-col={last_stimate + 1} className={clsx(
@@ -220,7 +219,7 @@ export default function Form({ requirements, project_id }: { requirements: any[]
                                 </div>
 
                                 <div className="js-main-menu__content estimation-col__content">
-                                {requirements.map((requirement: IRequirement, index: number) => (
+                                    {requirements.map((requirement: IRequirement, index: number) => (
                                         <div key={index} className={clsx(
                                             'js-step-indicator step-indicator',
                                             {
@@ -240,7 +239,7 @@ export default function Form({ requirements, project_id }: { requirements: any[]
                             </div>
                             <div className="bg-darkgreen2 p-30 flex items-center sticky w-full bottom-0 justify-between text-white">
                                 <span className="text-[18px] leading-[24px] font-lato">cost estimate <br />per square foot</span>
-                                <span className="text-[53px] font-latoblack">$55</span>
+                                <span className="text-[53px] font-latoblack">${requirementLevelUnitRate ?? 0}</span>
                             </div>
                         </div>
                     </div>
@@ -260,6 +259,7 @@ export default function Form({ requirements, project_id }: { requirements: any[]
 
 export function Indicator({ requirementId }: { requirementId: string }) {
     const [requirementName, setRequirementname] = useState<string>('')
+    const updateRequirementLevelUnitRate = useRequirementStore(state => state.updateRequirementLevelUnitRate);
 
     useEffect(() => {
         const getRequirementLabel = async (id?: string) => {
@@ -274,6 +274,8 @@ export function Indicator({ requirementId }: { requirementId: string }) {
                 });
 
                 let requirementLabelResponse = await response.json();
+
+                updateRequirementLevelUnitRate(requirementLabelResponse.unitRate);
                 setRequirementname(requirementLabelResponse.level);
             }
         }
@@ -281,7 +283,7 @@ export function Indicator({ requirementId }: { requirementId: string }) {
         if (requirementId) {
             getRequirementLabel(requirementId);
         }
-    }, [requirementId])
+    }, [requirementId, updateRequirementLevelUnitRate])
 
 
     return requirementName.toLowerCase();
