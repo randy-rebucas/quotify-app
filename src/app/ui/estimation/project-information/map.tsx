@@ -60,7 +60,7 @@ export default function CustomMap() {
     }, [location, map])
 
     return (
-        <div className="relative w-full h-[37.037vh] mt-[4.63vh]">
+        <div className="relative w-full mt-[4.63vh]">
             {scriptLoaded ? <div style={{
                 height: 300
             }} ref={mapRef}></div> : <p>Loading map...</p>}
