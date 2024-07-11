@@ -1,8 +1,7 @@
 'use client';
 
 import Image from "next/image";
-import { ChangeEvent, useEffect, useMemo, useState } from "react";
-import { IRequirementLevel } from "@/app/models/RequirementLevel";
+import { ChangeEvent, useEffect} from "react";
 import { useRequirementStore } from "@/app/lib/store/requirementStore";
 
 type buildingConditionFormProps = {
