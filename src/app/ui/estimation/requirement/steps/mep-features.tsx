@@ -2,7 +2,7 @@
 
 import { ChangeEvent } from "react";
 import { useRequirementStore } from "@/app/lib/store/requirementStore";
-import FinishLevelOption from "@/app/ui/level-option/finish-level-option";
+import RequirementLevelOption from "@/app/ui/level-option/requirement-level-option";
 
 type Props = {
     tabiIndex: number
@@ -22,6 +22,6 @@ export default function MepFeatures({
         updateEstimateRequirement(newEstimates);
     }
     
-    return <FinishLevelOption requirement="MEP features" hasRequirement={estimates[tabiIndex].requirement.mepFeatures} onChange={handleRadioChange}/>
+    return <RequirementLevelOption requirement="MEP features" hasRequirement={estimates[tabiIndex].requirement.mepFeatures} onChange={handleRadioChange}/>
 
 }

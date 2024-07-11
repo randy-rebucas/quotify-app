@@ -2,7 +2,8 @@
 
 import { ChangeEvent} from "react";
 import { useRequirementStore } from "@/app/lib/store/requirementStore";
-import FinishLevelOption from "@/app/ui/level-option/finish-level-option";
+import RequirementLevelOption from "@/app/ui/level-option/requirement-level-option";
+
 
 type buildingConditionFormProps = {
     tabiIndex: number
@@ -23,6 +24,6 @@ export default function BaseBuildingConditions({
         updateEstimateRequirement(newEstimates);
     }
     
-    return <FinishLevelOption requirement="base building conditions" hasRequirement={estimates[tabiIndex].requirement.buildingCondition} onChange={handleRadioChange}/>
+    return <RequirementLevelOption requirement="base building conditions" hasRequirement={estimates[tabiIndex].requirement.buildingCondition} onChange={handleRadioChange}/>
     
 }

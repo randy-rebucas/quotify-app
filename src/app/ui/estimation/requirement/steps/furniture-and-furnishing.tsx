@@ -2,7 +2,7 @@
 
 import { ChangeEvent } from "react";
 import { useRequirementStore } from "@/app/lib/store/requirementStore"
-import FinishLevelOption from "@/app/ui/level-option/finish-level-option";
+import RequirementLevelOption from "@/app/ui/level-option/requirement-level-option";
 
 type Props = {
     tabiIndex: number
@@ -23,6 +23,6 @@ export default function FurnitureAndFurnishing({
         updateEstimateRequirement(newEstimates);
     }
 
-    return <FinishLevelOption requirement="furniture and furnishing" hasRequirement={estimates[tabiIndex].requirement.furniture} onChange={handleRadioChange}/>
+    return <RequirementLevelOption requirement="furniture and furnishing" hasRequirement={estimates[tabiIndex].requirement.furniture} onChange={handleRadioChange}/>
 
 }

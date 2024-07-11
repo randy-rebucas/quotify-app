@@ -4,7 +4,7 @@ import { useRequirementStore } from "@/app/lib/store/requirementStore";
 import Image from "next/image";
 import { ChangeEventHandler, useEffect } from "react";
 
-export default function FinishLevelOption({ requirement, hasRequirement, onChange }: { requirement: string; hasRequirement: string; onChange: ChangeEventHandler<HTMLInputElement> }) {
+export default function RequirementLevelOption({ requirement, hasRequirement, onChange }: { requirement: string; hasRequirement: string; onChange: ChangeEventHandler<HTMLInputElement> }) {
 
     const getRequirementByName = useRequirementStore(state => state.getRequirementByName);
     const requirementId = useRequirementStore(state => state.requirementId);

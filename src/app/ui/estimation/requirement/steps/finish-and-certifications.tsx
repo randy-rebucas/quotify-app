@@ -3,7 +3,7 @@
 
 import { ChangeEvent } from "react";
 import { useRequirementStore } from "@/app/lib/store/requirementStore";
-import FinishLevelOption from "@/app/ui/level-option/finish-level-option";
+import RequirementLevelOption from "@/app/ui/level-option/requirement-level-option";
 
 
 type Props = {
@@ -24,6 +24,6 @@ export default function FinishAndCertification({
         updateEstimateRequirement(newEstimates);
     }
 
-    return <FinishLevelOption requirement="finish and certifications" hasRequirement={estimates[tabiIndex].requirement.finish} onChange={handleRadioChange}/>
+    return <RequirementLevelOption requirement="finish and certifications" hasRequirement={estimates[tabiIndex].requirement.finish} onChange={handleRadioChange}/>
     
 }
