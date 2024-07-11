@@ -16,6 +16,7 @@ import { v4 as uuid } from 'uuid'
 import TabForm from "./tab-form";
 import { IRequirement } from "@/app/models/Requirement";
 import { useRequirementStore } from "@/app/lib/store/requirementStore";
+import { useRequirementLevelStore } from "@/app/lib/store/requirementLevelStore";
 
 export type StimateData = {
     id: number;
@@ -28,7 +29,8 @@ export default function Form({ requirements, project_id }: { requirements: any[]
 
     const estimates = useRequirementStore(state => state.estimates);
     const addEstimate = useRequirementStore(state => state.addEstimate);
-    const requirementLevelUnitRate = useRequirementStore(state => state.requirementLevelUnitRate);
+
+    const requirementLevelUnitRate = useRequirementLevelStore(state => state.requirementLevelUnitRate);
 
 
     const [isLoading, setIsLoading] = useState<boolean>(false)
@@ -259,7 +261,7 @@ export default function Form({ requirements, project_id }: { requirements: any[]
 
 export function Indicator({ requirementId }: { requirementId: string }) {
     const [requirementName, setRequirementname] = useState<string>('')
-    const updateRequirementLevelUnitRate = useRequirementStore(state => state.updateRequirementLevelUnitRate);
+    const updateRequirementLevelUnitRate = useRequirementLevelStore(state => state.updateRequirementLevelUnitRate);
 
     useEffect(() => {
         const getRequirementLabel = async (id?: string) => {

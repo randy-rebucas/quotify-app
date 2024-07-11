@@ -1,5 +1,4 @@
 import { IRequirement } from "@/app/models/Requirement";
-import { IRequirementLevel } from "@/app/models/RequirementLevel";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
@@ -11,20 +10,14 @@ export type Estimate = {
 
 export type State = {
   estimates: Estimate[];
-  requirementLevels: IRequirementLevel[];
-  requirementLevelUnitRate: number;
   requirementId: string | null;
   requirement: IRequirement | null;
 };
 
 export type Actions = {
-  getRequirementsByName: (filter: string) => void;
+  getRequirementByName: (filter: string) => void;
   getRequirementById: (filter: string) => void;
-  getRequirementLevelByRequirement: (id: string) => void;
   addEstimate: (estimate: Estimate) => void;
-  updateRequirementLevelUnitRate: (
-    requirementLevelUnitRate: State["requirementLevelUnitRate"]
-  ) => void;
   updateEstimateRequirement: (estimates: Estimate[]) => void;
   reset: () => void;
 };
@@ -39,12 +32,10 @@ export const useRequirementStore = create<State & Actions>()(
   persist(
     (set) => ({
       estimates: [INITIAL_DATA],
-      requirementLevels: [],
-      requirementLevelUnitRate: 0,
       requirementId: null,
       requirement: null,
-      getRequirementsByName: async (filter: string) => {
-        const response = await fetch(`/api/requirement/${filter}`, {
+      getRequirementByName: async (filter: string) => {
+        const response = await fetch(`/api/requirement/by-name/${filter}`, {
           method: "POST",
           headers: {
             Accept: "application/json",
@@ -57,7 +48,7 @@ export const useRequirementStore = create<State & Actions>()(
         });
       },
       getRequirementById: async (filter: string) => {
-        const response = await fetch(`/api/requirement/by-id/${filter}`, {
+        const response = await fetch(`/api/requirement/${filter}`, {
           method: "POST",
           headers: {
             Accept: "application/json",
@@ -69,29 +60,10 @@ export const useRequirementStore = create<State & Actions>()(
           requirement: requirementResponse,
         });
       },
-      getRequirementLevelByRequirement: async (id: string) => {
-        const response = await fetch(
-          `/api/requirement-level/by-requirement/${id}`,
-          {
-            method: "POST",
-            headers: {
-              Accept: "application/json",
-              "Content-Type": "application/json",
-            },
-          }
-        );
-
-        let requirementLevelResponse = await response.json();
-        set({
-          requirementLevels: requirementLevelResponse,
-        });
-      },
       addEstimate: (estimate) =>
         set((state) => ({
           estimates: [...state.estimates, estimate],
         })),
-      updateRequirementLevelUnitRate: (requirementLevelUnitRate) =>
-        set(() => ({ requirementLevelUnitRate: requirementLevelUnitRate })),
       updateEstimateRequirement: (estimates: Estimate[]) =>
         set(() => ({
           estimates: estimates,
@@ -99,9 +71,7 @@ export const useRequirementStore = create<State & Actions>()(
       reset: () =>
         set(() => ({
           estimates: [INITIAL_DATA],
-          requirementLevels: [],
           requirementId: null,
-          requirement: null
         })),
     }),
     { name: "requirement", skipHydration: true }

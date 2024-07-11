@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { ChangeEvent, useEffect} from "react";
 import { useRequirementStore } from "@/app/lib/store/requirementStore";
+import { useRequirementLevelStore } from "@/app/lib/store/requirementLevelStore";
 
 type buildingConditionFormProps = {
     tabiIndex: number
@@ -13,21 +14,22 @@ export default function BaseBuildingConditions({
 }: buildingConditionFormProps) {
 
     const updateEstimateRequirement = useRequirementStore(state => state.updateEstimateRequirement);
-    const getRequirementsByName = useRequirementStore(state => state.getRequirementsByName);
-    const getRequirementLevelByRequirement = useRequirementStore(state => state.getRequirementLevelByRequirement);
+    const getRequirementByName = useRequirementStore(state => state.getRequirementByName);
     
     const estimates = useRequirementStore(state => state.estimates);
     const requirementId = useRequirementStore(state => state.requirementId);
-    const requirementLevels  = useRequirementStore(state => state.requirementLevels);
+    
+    const getRequirementLevelByRequirement = useRequirementLevelStore(state => state.getRequirementLevelByRequirement);
+    const requirementLevels  = useRequirementLevelStore(state => state.requirementLevels);
 
     useEffect(() => {
-        getRequirementsByName('base building conditions');
+        getRequirementByName('base building conditions');
 
         if (requirementId) {
             getRequirementLevelByRequirement(requirementId)
         }
         
-      }, [getRequirementLevelByRequirement, getRequirementsByName, requirementId])
+      }, [getRequirementLevelByRequirement, getRequirementByName, requirementId])
    
     const handleRadioChange = (event: ChangeEvent<HTMLInputElement>) => {
         const currentEstimateIndex = estimates.findIndex((estimate) => estimate.id === tabiIndex);
