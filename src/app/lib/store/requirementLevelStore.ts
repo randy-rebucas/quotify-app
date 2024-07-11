@@ -21,7 +21,7 @@ export const useRequirementLevelStore = create<State & Actions>()(
     (set) => ({
       requirementLevels: [],
       requirementLevelUnitRate: 0,
-      getRequirementLevelByRequirement: async (id: string | null) => {
+      getRequirementLevelByRequirement: async (id: string) => {
         const response = await fetch(
           `/api/requirement-level/by-requirement/${id}`,
           {
