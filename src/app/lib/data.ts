@@ -523,7 +523,9 @@ export async function fetchRequirements() {
     return {
       _id: item._id.toString(),
       name: item.name,
+      question: item.question,
       groupName: item.groupName,
+      sort: item.sort,
     };
   });
 
@@ -592,7 +594,9 @@ export async function fetchRequirementById(id: string) {
   const transformItem = {
     _id: item._id.toString(),
     name: item.name,
+    question: item.question,
     groupName: item.groupName,
+    sort: item.sort,
   };
 
   return transformItem;

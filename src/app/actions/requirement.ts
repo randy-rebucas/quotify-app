@@ -18,6 +18,8 @@ export async function updateRequirement(
   const validatedFields = UpdateRequirement.safeParse({
     name: formData.get("name"),
     group_name: formData.get("group_name"),
+    question: formData.get("question"),
+    sort: formData.get("sort"),
   });
 
   if (!validatedFields.success) {
@@ -26,10 +28,15 @@ export async function updateRequirement(
     };
   }
 
-  const { name, group_name } = validatedFields.data;
+  const { name, question, group_name, sort } = validatedFields.data;
 
   try {
-    const update = { name: name, groupName: group_name };
+    const update = {
+      name: name,
+      question: question,
+      groupName: group_name,
+      sort: sort,
+    };
     const filter = { _id: id };
 
     await Requirement.findOneAndUpdate(filter, update);
@@ -50,7 +57,9 @@ export async function createRequirement(
   // Validate form using Zod
   const validatedFields = CreateARequiremnt.safeParse({
     name: formData.get("name"),
+    question: formData.get("question"),
     group_name: formData.get("group_name"),
+    sort: formData.get("sort"),
   });
 
   // If any form fields are invalid, return early
@@ -60,11 +69,13 @@ export async function createRequirement(
     };
   }
 
-  const { name, group_name } = validatedFields.data;
+  const { name, question, group_name, sort } = validatedFields.data;
 
   const requirement = new Requirement({
     name: name,
+    question: question,
     groupName: group_name,
+    sort: sort,
   });
   await requirement.save();
 

@@ -1,3 +1,4 @@
+
 import Upload from "../upload"
 import { useProjectInformationStore } from "@/app/lib/store/projectInformationStore";
 
@@ -26,7 +27,6 @@ export default function Plan() {
                             </h5>
 
                             <div className="mt-[9.259vh] w-full">
-
                                 <input
                                     className="block border-b border-0 bg-transparent py-1 text-darkblue border-darkblue w-full outline-none "
                                     placeholder="give you a space name" type="text" value={project?.spaceName} onChange={e => updateFields({ spaceName: e.target.value })} autoFocus required />

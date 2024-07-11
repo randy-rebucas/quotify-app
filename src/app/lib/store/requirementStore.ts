@@ -1,3 +1,4 @@
+import { IRequirement } from "@/app/models/Requirement";
 import { IRequirementLevel } from "@/app/models/RequirementLevel";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
@@ -13,10 +14,12 @@ export type State = {
   requirementLevels: IRequirementLevel[];
   requirementLevelUnitRate: number;
   requirementId: string | null;
+  requirement: IRequirement | null
 };
 
 export type Actions = {
   getRequirementsByName: (filter: string) => void;
+  getRequirementById: (filter: string) => void;
   getRequirementLevelByRequirement: (id: string) => void;
   addEstimate: (estimate: Estimate) => void;
   updateRequirementLevelUnitRate: (
@@ -39,6 +42,7 @@ export const useRequirementStore = create<State & Actions>()(
       requirementLevels: [],
       requirementLevelUnitRate: 0,
       requirementId: null,
+      requirement: null,
       getRequirementsByName: async (filter: string) => {
         const response = await fetch(`/api/requirement/${filter}`, {
           method: "POST",
@@ -50,6 +54,19 @@ export const useRequirementStore = create<State & Actions>()(
         let requirementResponse = await response.json();
         set({
           requirementId: requirementResponse._id,
+        });
+      },
+      getRequirementById: async (filter: string) => {
+        const response = await fetch(`/api/requirement/by-id/${filter}`, {
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        });
+        let requirementResponse = await response.json();
+        set({
+          requirement: requirementResponse,
         });
       },
       getRequirementLevelByRequirement: async (id: string) => {

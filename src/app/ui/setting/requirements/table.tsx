@@ -14,6 +14,7 @@ export default function Table({ requirements }: { requirements: IRequirement[] }
                                 <tr>
                                     <th scope="col" className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">Name</th>
                                     <th scope="col" className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">Group</th>
+                                    <th scope="col" className="px-6 py-3 text-middle text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">Sort</th>
                                     <th scope="col" className="px-6 py-3 text-end text-xs font-medium text-gray-500 uppercase dark:text-neutral-50">Action</th>
                                 </tr>
                             </thead>
@@ -23,6 +24,7 @@ export default function Table({ requirements }: { requirements: IRequirement[] }
                                         className="w-full border-b py-1 text-sm last-of-type:border-none [&:first-child>td:first-child]:rounded-tl-lg [&:first-child>td:last-child]:rounded-tr-lg [&:last-child>td:first-child]:rounded-bl-lg [&:last-child>td:last-child]:rounded-br-lg" >
                                         <td className="whitespace-nowrap px-3 py-1">{requirement.name}</td>
                                         <td className="whitespace-nowrap px-3 py-1">{requirement.groupName}</td>
+                                        <td className="whitespace-nowrap text-center px-3 py-1">{requirement.sort}</td>
                                         <td className="whitespace-nowrap py-1 pl-6 pr-3">
                                             <div className="flex justify-end gap-3">
                                                 <Update id={requirement._id.toString()} />
