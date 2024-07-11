@@ -108,7 +108,7 @@ export default function Form({ requirements, project_id }: { requirements: any[]
         let selectedValue = estimates.find((stimate) => stimate.id == index);
 
         let requirement;
-        // console.log(selectedValue);
+
         const requirementMap = selectedValue?.requirement;
 
         if (requirementMap) {

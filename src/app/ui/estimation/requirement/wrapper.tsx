@@ -1,7 +1,8 @@
 
-import { MouseEventHandler, ReactNode } from "react";
+import { MouseEventHandler, ReactNode, useEffect } from "react";
 import Tooltip from "../../tooltip";
 import Buttons from "./buttons";
+import { useRequirementStore } from "@/app/lib/store/requirementStore";
 
 type FormWrapperProps = {
     stepIndex: number;
@@ -12,6 +13,18 @@ type FormWrapperProps = {
 
 
 export default function Wrapper({ stepIndex, isFirstStep, children, onClick }: FormWrapperProps) {
+
+    const requirement = useRequirementStore(state => state.requirement);
+    const requirementId = useRequirementStore(state => state.requirementId);
+    const getRequirementById = useRequirementStore(state => state.getRequirementById);
+
+    useEffect(() => {
+        if (requirementId) {
+            getRequirementById(requirementId)
+        }
+    }, [getRequirementById, requirementId])
+
+    console.log(requirement);
 
     const step: any = {
         1: 'finish and certifications',
@@ -38,7 +51,7 @@ export default function Wrapper({ stepIndex, isFirstStep, children, onClick }: F
                             <div>
                                 <div className="h-1 w-20 bg-black"></div>
                                 <h5 className="font-latobold mt-1 xl:text-3xl md:text-2xl text-1xl text-black">
-                                    {step[stepIndex + 1]}
+                                    {requirement?.name}
                                 </h5>
                             </div>
                         </div>
@@ -50,7 +63,7 @@ export default function Wrapper({ stepIndex, isFirstStep, children, onClick }: F
                                 03.{stepIndex + 1}:
                                 {/* 03.1.1: */}
                             </h5>
-                            <p>what is the finish level of your space?</p>
+                            <p>{requirement?.question}</p>
                             {/* what level of leed certification do you need in your space? */}
                             {/* what well certification does your space require? */}
                         </div>
