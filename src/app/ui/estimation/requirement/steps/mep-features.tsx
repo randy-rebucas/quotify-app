@@ -22,6 +22,6 @@ export default function MepFeatures({
         updateEstimateRequirement(newEstimates);
     }
     
-    return <FinishLevelOption requirement="MEP features" hasRequirement={estimates[tabiIndex].requirement.finish} onChange={handleRadioChange}/>
+    return <FinishLevelOption requirement="MEP features" hasRequirement={estimates[tabiIndex].requirement.mepFeatures} onChange={handleRadioChange}/>
 
 }

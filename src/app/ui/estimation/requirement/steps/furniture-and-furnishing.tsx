@@ -23,6 +23,6 @@ export default function FurnitureAndFurnishing({
         updateEstimateRequirement(newEstimates);
     }
 
-    return <FinishLevelOption requirement="furniture and furnishing" hasRequirement={estimates[tabiIndex].requirement.finish} onChange={handleRadioChange}/>
+    return <FinishLevelOption requirement="furniture and furnishing" hasRequirement={estimates[tabiIndex].requirement.furniture} onChange={handleRadioChange}/>
 
 }

@@ -22,6 +22,6 @@ export default function Technology({
         updateEstimateRequirement(newEstimates);
     }
 
-    return <FinishLevelOption requirement="technology" hasRequirement={estimates[tabiIndex].requirement.finish} onChange={handleRadioChange}/>
+    return <FinishLevelOption requirement="technology" hasRequirement={estimates[tabiIndex].requirement.technology} onChange={handleRadioChange}/>
    
 }

@@ -22,6 +22,6 @@ export default function Review({
         updateEstimateRequirement(newEstimates);
     }
     
-    return <FinishLevelOption requirement="review" hasRequirement={estimates[tabiIndex].requirement.finish} onChange={handleRadioChange}/>
+    return <FinishLevelOption requirement="review" hasRequirement={estimates[tabiIndex].requirement.sustainabilityCertification} onChange={handleRadioChange}/>
     
 }

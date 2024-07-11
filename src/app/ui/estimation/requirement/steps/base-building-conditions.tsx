@@ -23,6 +23,6 @@ export default function BaseBuildingConditions({
         updateEstimateRequirement(newEstimates);
     }
     
-    return <FinishLevelOption requirement="base building conditions" hasRequirement={estimates[tabiIndex].requirement.finish} onChange={handleRadioChange}/>
+    return <FinishLevelOption requirement="base building conditions" hasRequirement={estimates[tabiIndex].requirement.buildingCondition} onChange={handleRadioChange}/>
     
 }
