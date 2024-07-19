@@ -6,6 +6,7 @@ import { IProject } from "./Project";
 export interface IProjectAmenity {
   project?: Types.ObjectId | IProject;
   amenity?: Types.ObjectId | IAmenity;
+  _id?: Types.ObjectId;
 }
 
 // 2. Create a Schema corresponding to the document interface.

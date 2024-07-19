@@ -25,7 +25,8 @@ export type Actions = {
 export const INITIAL_DATA: Estimate = {
   id: 0,
   name: "Main estimation",
-  refinement: new Object(),
+  // refinement: new Object(),
+  refinement: [],
 };
 
 export const useRefinementStore = create<State & Actions>()(
