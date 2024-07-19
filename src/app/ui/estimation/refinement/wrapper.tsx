@@ -1,7 +1,8 @@
 
-import { MouseEventHandler, ReactNode } from "react";
+import { MouseEventHandler, ReactNode, useEffect } from "react";
 import Tooltip from "../../tooltip";
 import Buttons from "./buttons";
+import { useRefinementStore } from "@/app/lib/store/refinementStore";
 
 type FormWrapperProps = {
     stepIndex: number;
@@ -12,12 +13,15 @@ type FormWrapperProps = {
 
 
 export default function Wrapper({ stepIndex, isFirstStep, children, onClick }: FormWrapperProps) {
+    const refinement = useRefinementStore(state => state.refinement);
+    const refinementId = useRefinementStore(state => state.refinementId);
+    const getRefinement = useRefinementStore(state => state.getRefinement);
 
-    const step: any = {
-        0: 'flooring',
-        1: 'furniture',
-        2: 'partitions'
-    };
+    useEffect(() => {
+        if (refinementId) {
+            getRefinement(refinementId)
+        }
+    }, [getRefinement, refinementId])
 
     return (
         <div className="js-step step active">
@@ -29,7 +33,7 @@ export default function Wrapper({ stepIndex, isFirstStep, children, onClick }: F
                                 <div>
                                     <div className="h-1 w-20 bg-black"></div>
                                     <h5 className="font-latobold mt-1 xl:text-3xl md:text-2xl text-1xl text-black">
-                                        {step[stepIndex]}
+                                        {refinement?.name}
                                     </h5>
                                 </div>
                             </div>
