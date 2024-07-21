@@ -40,8 +40,8 @@ export default function Form({
   const { steps, currentStepIndex, step, isFirstStep, isLastStep, back, next } =
     useMultistepForm([
       <Flooring tabiIndex={activeTab} key={uuid()} projectId={project_id} />,
-      <Furniture tabiIndex={activeTab} key={uuid()} />,
-      <Partition tabiIndex={activeTab} key={uuid()} />,
+      <Furniture tabiIndex={activeTab} key={uuid()} projectId={project_id} />,
+      <Partition tabiIndex={activeTab} key={uuid()} projectId={project_id}/>,
     ]);
 
   const handleTabFormSubmit = (e: any) => {
@@ -104,7 +104,7 @@ export default function Form({
 
   const getSelectedRequirement = (index: number, lookup: string) => {
     let selectedValue = estimates.find((estimate) => estimate.id == index);
-
+    console.log(selectedValue);
     let refinement;
 
     const refinementMap = selectedValue?.refinement;
@@ -133,6 +133,7 @@ export default function Form({
     return refinement;
   };
 
+  console.log(estimates);
   return (
     <>
       <div
@@ -332,14 +333,14 @@ export function SubMenu({ projectId }: { projectId: string }) {
   }, [projectId]);
 
   return (
-    <div className="js-sub-step hidden pt-3">
+    <div className="js-sub-step pt-3">
       {projectAmenities.length &&
         projectAmenities.map((projectAmenity: any, index: number) => (
           <div
             key={projectAmenity._id}
             className="js-step-indicator step-indicator pl-3"
             data-category={projectAmenity.amenityName}
-          ></div>
+          >{projectAmenity.amenityName}</div>
         ))}
     </div>
   );

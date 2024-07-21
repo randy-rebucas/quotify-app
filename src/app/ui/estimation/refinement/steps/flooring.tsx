@@ -1,9 +1,9 @@
 "use client";
 
-import { ChangeEvent, useEffect, useState } from "react";
-import { Estimate, useRefinementStore } from "@/app/lib/store/refinementStore";
+import { ChangeEvent, useEffect } from "react";
+import { useRefinementStore } from "@/app/lib/store/refinementStore";
 import RefinementLevelOption from "@/app/ui/level-option/refinement-level-option";
-import { ProjectAmenities } from "../form";
+import { useProjectAmenityStore } from "@/app/lib/store/projectAmenityStore";
 
 type Props = {
   projectId: string;
@@ -11,49 +11,35 @@ type Props = {
 };
 
 export default function Flooring({ projectId, tabiIndex }: Props) {
-  const [projectAmenities, setProjectAmenities] = useState<ProjectAmenities[]>(
-    []
+  const projectAmenities = useProjectAmenityStore(
+    (state) => state.projectAmenities
+  );
+  const getProjectAmenities = useProjectAmenityStore(
+    (state) => state.getProjectAmenities
   );
 
   useEffect(() => {
-    const getProjectAmenitiesLabel = async (id?: string) => {
-      if (id) {
-        const response = await fetch(
-          `/api/project/amenities/by-project/${id}`,
-          {
-            method: "POST",
-            headers: {
-              Accept: "application/json",
-              "Content-Type": "application/json",
-            },
-          }
-        );
-
-        let projectAmenitiesResponse = await response.json();
-        setProjectAmenities(projectAmenitiesResponse);
-      }
-    };
-
-    getProjectAmenitiesLabel(projectId);
-  }, [projectId]);
+    getProjectAmenities(projectId);
+  }, [getProjectAmenities, projectId]);
 
   return (
     <>
       {projectAmenities.length &&
-        projectAmenities.map((projectAmenity: any, index: number) => (
-          <OptionWrapper
-            key={projectAmenity._id}
-            projectAmenityId={projectAmenity._id}
-            amenityName={projectAmenity.amenityName}
-            tabiIndex={tabiIndex}
-          />
-        ))}
+        projectAmenities.map(
+          (
+            projectAmenity: { _id: string; amenityName: string },
+            index: number
+          ) => (
+            <OptionWrapper
+              key={projectAmenity._id}
+              projectAmenityId={projectAmenity._id}
+              amenityName={projectAmenity.amenityName}
+              tabiIndex={tabiIndex}
+            />
+          )
+        )}
     </>
   );
-}
-
-interface RefinementDictionary {
-  [key: string]: string;
 }
 
 export function OptionWrapper({
@@ -78,59 +64,37 @@ export function OptionWrapper({
     const newEstimates = [...estimates];
 
     const nextRefinements = newEstimates[currentEstimateIndex].refinement.find(
-      (refinement: any) =>
+      (refinement: { projectAmenity: string; refinementLevel: string }) =>
         refinement.projectAmenity ===
         event.currentTarget.dataset.property_amenity
     );
 
-    estimates.map((estimate: Estimate) => {
-      console.log(estimate.refinement.projectAmenity);
-      console.log(event.currentTarget.dataset.property_amenity);
-      return estimate.refinement.projectAmenity ===
-        event.currentTarget.dataset.property_amenity
-        ? (estimate.refinement.refinementLevel = event.target.value)
-        : [
-            ...estimates[currentEstimateIndex].refinement,
-            {
-              projectAmenity: event.currentTarget.dataset.property_amenity,
-              refinementLevel: event.target.value,
-            },
-          ];
-    });
-    console.log(estimates);
-    // if (nextRefinements) {
-    //   nextRefinements.refinementLevel = event.target.value;
-    //   console.log(nextRefinements);
-    // } else {
-    //   newEstimates[currentEstimateIndex].refinement = [
-    //     ...estimates[currentEstimateIndex].refinement,
-    //     {
-    //       projectAmenity: event.currentTarget.dataset.property_amenity,
-    //       refinementLevel: event.target.value,
-    //     },
-    //   ];
-    //   console.log(newEstimates);
-    // }
-
-    // newEstimates[currentEstimateIndex].refinement.map((refinement: any) =>
-    //   refinement.projectAmenity === event.currentTarget.dataset.property_amenity
-    //     ? {
-    //         ...refinement,
-    //         refinementLevel: event.target.value,
-    //       }
-    //     : refinement
-    // );
-
-    // newEstimates[currentEstimateIndex].refinement = [
-    //   ...estimates[currentEstimateIndex].refinement,
-    //   {
-    //     projectAmenity: event.currentTarget.dataset.property_amenity,
-    //     refinementLevel: event.target.value,
-    //   },
-    // ];
-    // console.log(newEstimates);
-
-    // updateEstimateRefinement(newEstimates);
+    if (nextRefinements) {
+      // update nested array
+      newEstimates[currentEstimateIndex].refinement.map(
+        (refinement: { projectAmenity: string; refinementLevel: string }) => {
+          if (
+            refinement.projectAmenity ===
+            event.currentTarget.dataset.property_amenity
+          ) {
+            return (refinement.refinementLevel = event.target.value);
+          } else {
+            return refinement;
+          }
+        }
+      );
+      updateEstimateRefinement(newEstimates);
+    } else {
+      // set new refinement array
+      newEstimates[currentEstimateIndex].refinement = [
+        ...estimates[currentEstimateIndex].refinement,
+        {
+          projectAmenity: event.currentTarget.dataset.property_amenity,
+          refinementLevel: event.target.value,
+        },
+      ];
+      updateEstimateRefinement(newEstimates);
+    }
   };
 
   return (
@@ -143,7 +107,10 @@ export function OptionWrapper({
           refinement="flooring"
           amenityName={amenityName}
           projectAmenityId={projectAmenityId}
-          hasRefinement={estimates[tabiIndex].refinement.flooring}
+          hasRefinement={estimates[tabiIndex].refinement.find(
+            (refinement: { projectAmenity: string; refinementLevel: string }) =>
+              refinement.projectAmenity === projectAmenityId
+          )}
           onChange={handleRadioChange}
         />
       </div>

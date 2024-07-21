@@ -15,9 +15,10 @@ export default function RefinementLevelOption({
   refinement: string;
   projectAmenityId: string;
   amenityName: string;
-  hasRefinement: string;
+  hasRefinement: { projectAmenity: string; refinementLevel: string };
   onChange: ChangeEventHandler<HTMLInputElement>;
 }) {
+
   const getRefinementIdByName = useRefinementStore(
     (state) => state.getRefinementIdByName
   );
@@ -62,7 +63,9 @@ export default function RefinementLevelOption({
               value={refinementLevel._id.toString()}
               id={`refinement-${amenityName}-${index + 1}`}
               onChange={onChange}
-              checked={hasRefinement == refinementLevel._id.toString()}
+              checked={
+                hasRefinement && hasRefinement.refinementLevel === refinementLevel._id.toString()
+              }
             />
             <label htmlFor={`refinement-${amenityName}-${index + 1}`}>
               <Image
