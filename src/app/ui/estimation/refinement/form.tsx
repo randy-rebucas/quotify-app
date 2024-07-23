@@ -12,7 +12,7 @@ import TabForm from "./tab-form";
 import { v4 as uuid } from "uuid";
 import { useRouter } from "next/navigation";
 import { IRefinement } from "@/app/models/Refinement";
-import { useRefinementStore } from "@/app/lib/store/refinementStore";
+import { Estimate, useRefinementStore } from "@/app/lib/store/refinementStore";
 
 export type StimateData = {
   id: number;
@@ -39,11 +39,12 @@ export default function Form({
 
   const { steps, currentStepIndex, step, isFirstStep, isLastStep, back, next } =
     useMultistepForm([
-      <Flooring tabiIndex={activeTab} key={uuid()} projectId={project_id} />,
-      <Furniture tabiIndex={activeTab} key={uuid()} projectId={project_id} />,
-      <Partition tabiIndex={activeTab} key={uuid()} projectId={project_id}/>,
+      <Flooring key={uuid()} tabiIndex={activeTab} projectId={project_id} refinements={refinements}/>,
+      <Furniture key={uuid()} tabiIndex={activeTab} projectId={project_id} refinements={refinements} />,
+      <Partition key={uuid()} tabiIndex={activeTab} projectId={project_id} refinements={refinements} />,
     ]);
 
+  // clone estimates data 
   const handleTabFormSubmit = (e: any) => {
     e.preventDefault();
     let sourceId = e.target.source.value;
@@ -101,37 +102,6 @@ export default function Form({
       setIsLoading(false); // Set loading to false when the request completes
     }
   }
-
-  const getSelectedRequirement = (index: number, lookup: string) => {
-    let selectedValue = estimates.find((estimate) => estimate.id == index);
-    console.log(selectedValue);
-    let refinement;
-
-    const refinementMap = selectedValue?.refinement;
-
-    if (refinementMap) {
-      switch (menuMapping.get(lookup)) {
-        case "flooring":
-          refinement = Object.hasOwn(refinementMap, "flooring")
-            ? refinementMap.flooring
-            : "";
-          break;
-        case "furniture":
-          refinement = Object.hasOwn(refinementMap, "furniture")
-            ? refinementMap.furniture
-            : "";
-          break;
-        case "partitions":
-          refinement = Object.hasOwn(refinementMap, "partitions")
-            ? refinementMap.partitions
-            : "";
-          break;
-        default:
-          break;
-      }
-    }
-    return refinement;
-  };
 
   console.log(estimates);
   return (
@@ -252,23 +222,13 @@ export default function Form({
                       <span className="font-latoblack">04.{index + 1}:</span>{" "}
                       <br />
                       {refinement.name}
-                      <SubMenu projectId={project_id} />
-                      {getSelectedRequirement(stimate.id, refinement.name) && (
-                        <div
-                          className="js-step-indicator step-indicator pl-3 checked"
-                          style={{
-                            paddingBottom: "unset",
-                          }}
-                          data-category="03.1.1"
-                        >
-                          <Indicator
-                            refinementId={getSelectedRequirement(
-                              stimate.id,
-                              refinement.name
-                            )}
-                          />
-                        </div>
-                      )}
+
+                      <SubMenu
+                        projectId={project_id}
+                        estimates={estimates}
+                        estimateId={stimate.id}
+                        refinementId={refinement._id?.toString()}
+                      />
                     </div>
                   ))}
                 </div>
@@ -305,7 +265,25 @@ export interface ProjectAmenities {
   amenityName: string;
 }
 
-export function SubMenu({ projectId }: { projectId: string }) {
+/**
+ * 
+ * @param param
+ * project id
+ * 
+ *  
+ * @returns 
+ */
+export function SubMenu({
+  projectId,
+  estimates,
+  estimateId,
+  refinementId
+}: {
+  projectId: string;
+  estimateId: number;
+  estimates: Estimate[];
+  refinementId?: string
+}) {
   const [projectAmenities, setProjectAmenities] = useState<ProjectAmenities[]>(
     []
   );
@@ -332,17 +310,53 @@ export function SubMenu({ projectId }: { projectId: string }) {
     getProjectAmenitiesLabel(projectId);
   }, [projectId]);
 
+  const getSelectedRefinementProjectAmenity = (
+    index: number,
+    projectAmenityId?: string,
+  ) => {
+    let a = estimates[index].refinement.some(
+      (refinement: { projectAmenityId: string; refinementId: string; refinementLevel: string }) => {
+        return refinement.projectAmenityId === projectAmenityId && refinement.refinementId === refinementId;
+      }
+    );
+    return a;
+  };
+
   return (
-    <div className="js-sub-step pt-3">
-      {projectAmenities.length &&
-        projectAmenities.map((projectAmenity: any, index: number) => (
-          <div
-            key={projectAmenity._id}
-            className="js-step-indicator step-indicator pl-3"
-            data-category={projectAmenity.amenityName}
-          >{projectAmenity.amenityName}</div>
-        ))}
-    </div>
+    <>
+      <div className="js-sub-step pt-3">
+        {projectAmenities.length &&
+          projectAmenities.map((projectAmenity: any, index: number) => (
+            <div
+              key={projectAmenity._id}
+              className="js-step-indicator step-indicator pl-3"
+              style={{ display: "flex", justifyContent: "space-between" }}
+              data-category={projectAmenity.amenityName}
+            >
+              <p>{projectAmenity.amenityName}</p>
+              {getSelectedRefinementProjectAmenity(
+                estimateId,
+                projectAmenity._id
+              ) && (
+                <div
+                  className="js-step-indicator step-indicator pl-3 checked"
+                  style={{
+                    paddingBottom: "unset",
+                  }}
+                  data-category="03.1.1"
+                >
+                  {/* <Indicator
+                            refinementId={getSelectedRequirement(
+                              stimate.id,
+                              refinement.name
+                            )}
+                          /> */}
+                </div>
+              )}
+            </div>
+          ))}
+      </div>
+    </>
   );
 }
 

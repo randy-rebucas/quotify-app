@@ -7,15 +7,13 @@ import { ChangeEventHandler, useEffect } from "react";
 
 export default function RefinementLevelOption({
   refinement,
-  projectAmenityId,
   amenityName,
   hasRefinement,
   onChange,
 }: {
   refinement: string;
-  projectAmenityId: string;
   amenityName: string;
-  hasRefinement: { projectAmenity: string; refinementLevel: string };
+  hasRefinement: { projectAmenityId: string; refinementLevelId: string };
   onChange: ChangeEventHandler<HTMLInputElement>;
 }) {
 
@@ -59,12 +57,11 @@ export default function RefinementLevelOption({
             <input
               type="radio"
               name={amenityName}
-              data-property_amenity={projectAmenityId}
               value={refinementLevel._id.toString()}
               id={`refinement-${amenityName}-${index + 1}`}
               onChange={onChange}
               checked={
-                hasRefinement && hasRefinement.refinementLevel === refinementLevel._id.toString()
+                hasRefinement && hasRefinement.refinementLevelId === refinementLevel._id.toString()
               }
             />
             <label htmlFor={`refinement-${amenityName}-${index + 1}`}>
