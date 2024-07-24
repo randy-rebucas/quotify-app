@@ -86,6 +86,7 @@ export function OptionWrapper({
         refinement.projectAmenityId === projectAmenityId &&
         refinement.refinementId === refinementId
     );
+    console.log(nextRefinements);
     // const updatedAmen = [ ...amen ]; // create a new array to avoid mutating the state directly
 
     // // check if an input already exists with the said type & get the index position
@@ -155,12 +156,14 @@ export function OptionWrapper({
         <RefinementLevelOption
           refinement="flooring"
           amenityName={amenityName}
-          hasRefinement={estimates[tabiIndex].refinement.find(
+          projectAmenityId={projectAmenityId}
+          refinementId={refinementId}
+          selectedRefinement={estimates[tabiIndex].refinement.find(
             (refinement: {
               projectAmenityId: string;
               refinementId: string;
               refinementLevelId: string;
-            }) => refinement.projectAmenityId === projectAmenityId
+            }) => refinement.projectAmenityId === projectAmenityId && refinement.refinementId === refinementId
           )}
           onChange={handleRadioChange}
         />

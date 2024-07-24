@@ -32,7 +32,7 @@ export default function Furniture({
 
   useEffect(() => {
     const refinementId = refinements.find(
-      (refinement) => refinement.name === "flooring"
+      (refinement) => refinement.name === "furniture"
     )._id;
     setRefinementId(refinementId);
   }, [refinements]);
@@ -124,12 +124,16 @@ export function OptionWrapper({
         <RefinementLevelOption
           refinement="furniture"
           amenityName={amenityName}
-          hasRefinement={estimates[tabiIndex].refinement.find(
+          projectAmenityId={projectAmenityId}
+          refinementId={refinementId}
+          selectedRefinement={estimates[tabiIndex].refinement.find(
             (refinement: {
               projectAmenityId: string;
               refinementId: string;
               refinementLevelId: string;
-            }) => refinement.projectAmenityId === projectAmenityId
+            }) =>
+              refinement.projectAmenityId === projectAmenityId &&
+              refinement.refinementId === refinementId
           )}
           onChange={handleRadioChange}
         />
