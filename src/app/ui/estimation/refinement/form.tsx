@@ -39,12 +39,27 @@ export default function Form({
 
   const { steps, currentStepIndex, step, isFirstStep, isLastStep, back, next } =
     useMultistepForm([
-      <Flooring key={uuid()} tabiIndex={activeTab} projectId={project_id} refinements={refinements}/>,
-      <Furniture key={uuid()} tabiIndex={activeTab} projectId={project_id} refinements={refinements} />,
-      <Partition key={uuid()} tabiIndex={activeTab} projectId={project_id} refinements={refinements} />,
+      <Flooring
+        key={uuid()}
+        tabiIndex={activeTab}
+        projectId={project_id}
+        refinements={refinements}
+      />,
+      <Furniture
+        key={uuid()}
+        tabiIndex={activeTab}
+        projectId={project_id}
+        refinements={refinements}
+      />,
+      <Partition
+        key={uuid()}
+        tabiIndex={activeTab}
+        projectId={project_id}
+        refinements={refinements}
+      />,
     ]);
 
-  // clone estimates data 
+  // clone estimates data
   const handleTabFormSubmit = (e: any) => {
     e.preventDefault();
     let sourceId = e.target.source.value;
@@ -222,7 +237,6 @@ export default function Form({
                       <span className="font-latoblack">04.{index + 1}:</span>{" "}
                       <br />
                       {refinement.name}
-
                       <SubMenu
                         projectId={project_id}
                         estimates={estimates}
@@ -266,23 +280,23 @@ export interface ProjectAmenities {
 }
 
 /**
- * 
+ *
  * @param param
  * project id
- * 
- *  
- * @returns 
+ *
+ *
+ * @returns
  */
 export function SubMenu({
   projectId,
   estimates,
   estimateId,
-  refinementId
+  refinementId,
 }: {
   projectId: string;
   estimateId: number;
   estimates: Estimate[];
-  refinementId?: string
+  refinementId?: string;
 }) {
   const [projectAmenities, setProjectAmenities] = useState<ProjectAmenities[]>(
     []
@@ -312,11 +326,18 @@ export function SubMenu({
 
   const getSelectedRefinementProjectAmenity = (
     index: number,
-    projectAmenityId?: string,
+    projectAmenityId?: string
   ) => {
     let a = estimates[index].refinement.some(
-      (refinement: { projectAmenityId: string; refinementId: string; refinementLevel: string }) => {
-        return refinement.projectAmenityId === projectAmenityId && refinement.refinementId === refinementId;
+      (refinement: {
+        projectAmenityId: string;
+        refinementId: string;
+        refinementLevel: string;
+      }) => {
+        return (
+          refinement.projectAmenityId === projectAmenityId &&
+          refinement.refinementId === refinementId
+        );
       }
     );
     return a;
@@ -345,12 +366,11 @@ export function SubMenu({
                   }}
                   data-category="03.1.1"
                 >
-                  {/* <Indicator
-                            refinementId={getSelectedRequirement(
-                              stimate.id,
-                              refinement.name
-                            )}
-                          /> */}
+                  <Indicator
+                    refinementId={refinementId}
+                    projectAmenityId={projectAmenity._id}
+                    estimateId={estimateId}
+                  />
                 </div>
               )}
             </div>
@@ -360,8 +380,27 @@ export function SubMenu({
   );
 }
 
-export function Indicator({ refinementId }: { refinementId: string }) {
+export function Indicator({
+  refinementId,
+  projectAmenityId,
+  estimateId
+}: {
+  refinementId?: string;
+  projectAmenityId: string;
+  estimateId: number;
+}) {
   const [refinemantName, setRefinementname] = useState<string>("");
+  const estimates = useRefinementStore((state) => state.estimates);
+
+  const nextRefinements = estimates[estimateId].refinement.find(
+    (refinement: {
+      projectAmenityId: string;
+      refinementId: string;
+    }) =>
+      refinement.projectAmenityId === projectAmenityId &&
+      refinement.refinementId === refinementId
+  );
+
 
   useEffect(() => {
     const getRequirementLabel = async (id?: string) => {
@@ -375,14 +414,15 @@ export function Indicator({ refinementId }: { refinementId: string }) {
         });
 
         let refinementLabelResponse = await response.json();
+  
         setRefinementname(refinementLabelResponse.level);
       }
     };
 
-    if (refinementId) {
-      getRequirementLabel(refinementId);
+    if (nextRefinements.refinementLevelId) {
+      getRequirementLabel(nextRefinements.refinementLevelId);
     }
-  }, [refinementId]);
+  }, [nextRefinements]);
 
   return refinemantName.toLowerCase();
 }
