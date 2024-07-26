@@ -6,13 +6,13 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import EstimateRefinement from "@/app/models/EstimateRefinement";
 import Project from "@/app/models/Project";
 import { StimateData } from "@/app/ui/estimation/refinement/form";
+import EstimateAmenityRefinementLevel from "@/app/models/EstimateAmenityRefinementLevel";
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
   connect();
-
   const { estimates, projectId, section } = req.body;
 
   try {
@@ -25,11 +25,26 @@ export default async function handler(
 
       let estimateId = await estimate.save();
 
-      const refinement = new EstimateRefinement({
-        estimate: estimateId,
-        refinements: item.refinement,
-      });
-      await refinement.save();
+      item.refinement.map(
+        async (refinement: {
+          refinementId: string;
+          refinementLevelId: string;
+          projectAmenityId: string;
+        }) => {
+          const estimateRefinementLevel = new EstimateAmenityRefinementLevel({
+            estimate: estimateId,
+            refinement: refinement.refinementId,
+            refinementLevel: refinement.refinementLevelId,
+            projectAmenity: refinement.projectAmenityId,
+          });
+          await estimateRefinementLevel.save();
+        }
+      );
+      // const refinement = new EstimateRefinement({
+      //   estimate: estimateId,
+      //   refinements: item.refinement,
+      // });
+      // await refinement.save();
     });
 
     const update = { lastUri: "estimate-summary" };
@@ -37,7 +52,7 @@ export default async function handler(
     const filterProject = { _id: projectId };
 
     await Project.findOneAndUpdate(filterProject, update);
-    
+
     res.status(200).json({ id: projectId });
   } catch (err) {
     console.log(err);
