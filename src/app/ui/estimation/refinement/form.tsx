@@ -350,28 +350,38 @@ export function SubMenu({
           projectAmenities.map((projectAmenity: any, index: number) => (
             <div
               key={projectAmenity._id}
-              className="js-step-indicator step-indicator pl-3"
-              style={{ display: "flex", justifyContent: "space-between" }}
+              className={clsx(
+                `js-step-indicator pl-3`,
+                getSelectedRefinementProjectAmenity(
+                  estimateId,
+                  projectAmenity._id
+                )
+                  ? "flex step-indicator "
+                  : "hidden"
+              )}
+              style={{ justifyContent: "space-between" }}
               data-category={projectAmenity.amenityName}
             >
-              <p>{projectAmenity.amenityName}</p>
+              {/* <span>{projectAmenity.amenityName}</span> */}
               {getSelectedRefinementProjectAmenity(
                 estimateId,
                 projectAmenity._id
               ) && (
-                <div
-                  className="js-step-indicator step-indicator pl-3 checked"
-                  style={{
-                    paddingBottom: "unset",
-                  }}
-                  data-category="03.1.1"
-                >
+                <>
                   <Indicator
                     refinementId={refinementId}
                     projectAmenityId={projectAmenity._id}
                     estimateId={estimateId}
                   />
-                </div>
+
+                  <div
+                    className="js-step-indicator step-indicator pl-3 checked"
+                    style={{
+                      paddingBottom: "unset",
+                    }}
+                    data-category="03.1.1"
+                  ></div>
+                </>
               )}
             </div>
           ))}
@@ -383,7 +393,7 @@ export function SubMenu({
 export function Indicator({
   refinementId,
   projectAmenityId,
-  estimateId
+  estimateId,
 }: {
   refinementId?: string;
   projectAmenityId: string;
@@ -393,14 +403,10 @@ export function Indicator({
   const estimates = useRefinementStore((state) => state.estimates);
 
   const nextRefinements = estimates[estimateId].refinement.find(
-    (refinement: {
-      projectAmenityId: string;
-      refinementId: string;
-    }) =>
+    (refinement: { projectAmenityId: string; refinementId: string }) =>
       refinement.projectAmenityId === projectAmenityId &&
       refinement.refinementId === refinementId
   );
-
 
   useEffect(() => {
     const getRequirementLabel = async (id?: string) => {
@@ -414,7 +420,7 @@ export function Indicator({
         });
 
         let refinementLabelResponse = await response.json();
-  
+
         setRefinementname(refinementLabelResponse.level);
       }
     };
