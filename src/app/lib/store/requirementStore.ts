@@ -11,21 +11,24 @@ export type Estimate = {
 export type State = {
   estimates: Estimate[];
   requirementId: string | null;
+  requirements: any[];
   requirement: IRequirement | null;
 };
 
 export type Actions = {
   getRequirementByName: (filter: string) => void;
-  getRequirementById: (filter: string) => void;
+  getRequirement: (filter: string) => void;
   addEstimate: (estimate: Estimate) => void;
   updateEstimateRequirement: (estimates: Estimate[]) => void;
+  updateRequirements: (requirements: any[]) => void;
   reset: () => void;
 };
 
 export const INITIAL_DATA: Estimate = {
   id: 0,
   name: "Main estimation",
-  requirement: new Object(),
+  // requirement: new Object(),
+  requirement: [],
 };
 
 export const useRequirementStore = create<State & Actions>()(
@@ -33,6 +36,7 @@ export const useRequirementStore = create<State & Actions>()(
     (set) => ({
       estimates: [INITIAL_DATA],
       requirementId: null,
+      requirements: [],
       requirement: null,
       getRequirementByName: async (filter: string) => {
         const response = await fetch(`/api/requirement/by-name/${filter}`, {
@@ -47,7 +51,7 @@ export const useRequirementStore = create<State & Actions>()(
           requirementId: requirementResponse._id,
         });
       },
-      getRequirementById: async (filter: string) => {
+      getRequirement: async (filter: string) => {
         const response = await fetch(`/api/requirement/${filter}`, {
           method: "POST",
           headers: {
@@ -67,6 +71,10 @@ export const useRequirementStore = create<State & Actions>()(
       updateEstimateRequirement: (estimates: Estimate[]) =>
         set(() => ({
           estimates: estimates,
+        })),
+      updateRequirements: (requirements: any[]) =>
+        set(() => ({
+          requirements: requirements,
         })),
       reset: () =>
         set(() => ({

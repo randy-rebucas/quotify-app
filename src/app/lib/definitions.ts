@@ -215,6 +215,7 @@ export const RequirementFormSchema = z.object({
     })
     .trim(),
   group_name: z.string().trim(),
+  sort: z.string(),
 });
 
 export type RequirementFormState =
@@ -222,6 +223,7 @@ export type RequirementFormState =
       errors?: {
         name?: string[];
         group_name?: string[];
+        sort?: string[];
       };
       message?: string;
     }

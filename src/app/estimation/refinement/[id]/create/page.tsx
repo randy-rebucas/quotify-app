@@ -20,9 +20,9 @@ export default async function Page({ params }: { params: { id: string } }) {
     // const menus = await fetchMenuByPageHandled('refinement');
     const refinements = await fetchRefinements();
 
-    const introductionColors: string[] = ['bg-yellow1', 'bg-yellow2', 'bg-yellow3', 'bg-yellow4', 'bg-yellow5'];
+    const mainColors: string[] = ['bg-yellow1', 'bg-yellow2', 'bg-yellow3', 'bg-yellow4', 'bg-yellow5'];
 
-    const mainColors: string[] = ['bg-gray2A', 'bg-gray3A', 'bg-gray4A', 'bg-white', 'bg-yellow'];
+    const introductionColors: string[] = ['bg-gray2A', 'bg-gray3A', 'bg-gray4A', 'bg-white', 'bg-yellow'];
 
     return (
         <ProjectRequirementContextProvider>

@@ -5,7 +5,7 @@ import { MouseEventHandler } from "react";
 export default function Buttons({ isFirstStep, onClick }: { isFirstStep: boolean; onClick: MouseEventHandler<HTMLButtonElement> }) {
     return (
         <div
-            className="row-start-3 col-span-4 flex flex-col justify-end items-start w-full h-full">
+        className="col-start-1 col-span-4 flex flex-col justify-end items-start w-full h-full">
             <div className="p-30 w-full flex items-end justify-between">
                 {!isFirstStep && <button type="button" onClick={onClick}
                     className='js-backbtn focus:shadow-outline focus:outline-none' >

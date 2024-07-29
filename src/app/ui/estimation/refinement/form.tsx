@@ -118,7 +118,6 @@ export default function Form({
     }
   }
 
-  console.log(estimates);
   return (
     <>
       <div
@@ -399,7 +398,7 @@ export function Indicator({
   projectAmenityId: string;
   estimateId: number;
 }) {
-  const [refinemantName, setRefinementname] = useState<string>("");
+  const [refinementName, setRefinementname] = useState<string>("");
   const estimates = useRefinementStore((state) => state.estimates);
 
   const nextRefinements = estimates[estimateId].refinement.find(
@@ -430,5 +429,5 @@ export function Indicator({
     }
   }, [nextRefinements]);
 
-  return refinemantName.toLowerCase();
+  return refinementName.toLowerCase();
 }

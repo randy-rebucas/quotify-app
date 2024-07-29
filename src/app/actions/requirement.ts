@@ -18,6 +18,7 @@ export async function updateRequirement(
   const validatedFields = UpdateRequirement.safeParse({
     name: formData.get("name"),
     group_name: formData.get("group_name"),
+    sort: formData.get("sort"),
   });
 
   if (!validatedFields.success) {
@@ -26,10 +27,10 @@ export async function updateRequirement(
     };
   }
 
-  const { name, group_name } = validatedFields.data;
+  const { name, group_name, sort } = validatedFields.data;
 
   try {
-    const update = { name: name, groupName: group_name };
+    const update = { name: name, groupName: group_name, sort: sort };
     const filter = { _id: id };
 
     await Requirement.findOneAndUpdate(filter, update);
@@ -51,6 +52,7 @@ export async function createRequirement(
   const validatedFields = CreateARequiremnt.safeParse({
     name: formData.get("name"),
     group_name: formData.get("group_name"),
+    sort: formData.get("sort"),
   });
 
   // If any form fields are invalid, return early
@@ -60,11 +62,12 @@ export async function createRequirement(
     };
   }
 
-  const { name, group_name } = validatedFields.data;
+  const { name, group_name, sort } = validatedFields.data;
 
   const requirement = new Requirement({
     name: name,
     groupName: group_name,
+    sort: sort,
   });
   await requirement.save();
 
@@ -77,8 +80,8 @@ export async function deleteRequirement(id: string) {
   try {
     await Requirement.findOneAndDelete({ _id: id }).exec();
     revalidatePath("/setting/requirements");
-    return { message: "Deleted Amenity Requirement." };
+    return { message: "Deleted Requirement." };
   } catch (error) {
-    return { message: "Database Error: Failed to Delete Amenity Requirement." };
+    return { message: "Database Error: Failed to Delete Requirement." };
   }
 }
