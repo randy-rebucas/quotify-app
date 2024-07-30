@@ -47,11 +47,7 @@ export default function Form({
 
   const { steps, currentStepIndex, step, isFirstStep, isLastStep, back, next } =
     useMultistepForm([
-      <FinishAndCertification
-        key={uuid()}
-        tabiIndex={activeTab}
-        requirements_groups={requirements_groups}
-      />,
+      <FinishAndCertification key={uuid()} tabiIndex={activeTab} requirements_groups={requirements_groups} />,
       <MepFeatures key={uuid()} tabiIndex={activeTab} requirements_groups={requirements_groups} />,
       <BaseBuildingConditions key={uuid()} tabiIndex={activeTab} requirements_groups={requirements_groups} />,
       <Technology key={uuid()} tabiIndex={activeTab} requirements_groups={requirements_groups} />,
