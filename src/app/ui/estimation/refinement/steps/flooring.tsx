@@ -36,12 +36,10 @@ export default function Flooring({ projectId, refinements, tabiIndex }: Props) {
 
   return (
     <>
-      {projectAmenities.length &&
+      {projectAmenities &&
         projectAmenities.map(
           (
-            projectAmenity: { _id: string; amenityName: string },
-            index: number
-          ) => (
+            projectAmenity: { _id: string; amenityName: string }) => (
             <OptionWrapper
               key={projectAmenity._id}
               refinementId={refinementId}                                               // refinement [flooring, furniture, partitions]

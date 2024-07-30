@@ -27,24 +27,17 @@ export default async function handler(
 
       item.refinement.map(
         async (refinement: {
-          refinementId: string;
           refinementLevelId: string;
           projectAmenityId: string;
         }) => {
           const estimateRefinementLevel = new EstimateAmenityRefinementLevel({
             estimate: estimateId,
-            refinement: refinement.refinementId,
             refinementLevel: refinement.refinementLevelId,
             projectAmenity: refinement.projectAmenityId,
           });
           await estimateRefinementLevel.save();
         }
       );
-      // const refinement = new EstimateRefinement({
-      //   estimate: estimateId,
-      //   refinements: item.refinement,
-      // });
-      // await refinement.save();
     });
 
     const update = { lastUri: "estimate-summary" };

@@ -39,7 +39,7 @@ export default function Furniture({
 
   return (
     <>
-      {projectAmenities.length &&
+      {projectAmenities &&
         projectAmenities.map((projectAmenity: any, index: number) => (
           <OptionWrapper
             key={projectAmenity._id}
