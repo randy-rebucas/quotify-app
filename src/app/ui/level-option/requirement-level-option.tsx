@@ -1,9 +1,9 @@
 "use client";
-import { useRequirementLevelStore } from "@/app/lib/store/requirementLevelStore";
-import { useRequirementStore } from "@/app/lib/store/requirementStore";
+
+import { IRequirementLevel } from "@/app/models/RequirementLevel";
 
 import Image from "next/image";
-import { ChangeEventHandler, useEffect } from "react";
+import { ChangeEventHandler, useEffect, useState } from "react";
 
 export default function RequirementLevelOption({
   requirementId,
@@ -16,22 +16,28 @@ export default function RequirementLevelOption({
   selectedRequirement: { requirementId: string; requirementLevelId: string };
   onChange: ChangeEventHandler<HTMLInputElement>;
 }) {
-
-  const getRequirementLevelByRequirement = useRequirementLevelStore(
-    (state) => state.getRequirementLevelByRequirement
-  );
-  const requirementLevels = useRequirementLevelStore(
-    (state) => state.requirementLevels
-  );
+  const [requirementLevels, setRequirementLevels] = useState<IRequirementLevel[]>([]);
 
   useEffect(() => {
-    if (requirementId) {
-      getRequirementLevelByRequirement(requirementId);
-    }
-  }, [
-    requirementId,
-    getRequirementLevelByRequirement,
-  ]);
+    const getRequirementLevels = async (id?: string) => {
+      const response = await fetch(
+        `/api/requirement-level/by-requirement/${id}`,
+        {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      let requirementLevelResponse = await response.json();
+      setRequirementLevels(requirementLevelResponse);
+    };
+
+    getRequirementLevels(requirementId);
+
+  }, [requirementId]);
 
   return (
     <>

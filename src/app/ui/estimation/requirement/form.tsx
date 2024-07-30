@@ -50,14 +50,13 @@ export default function Form({
       <FinishAndCertification
         key={uuid()}
         tabiIndex={activeTab}
-        projectId={project_id}
         requirements_groups={requirements_groups}
       />,
-      <MepFeatures key={uuid()} tabiIndex={activeTab} />,
-      <BaseBuildingConditions key={uuid()} tabiIndex={activeTab} />,
-      <Technology key={uuid()} tabiIndex={activeTab} />,
-      <FurnitureAndFurnishing key={uuid()} tabiIndex={activeTab} />,
-      <Review key={uuid()} tabiIndex={activeTab} />,
+      <MepFeatures key={uuid()} tabiIndex={activeTab} requirements_groups={requirements_groups} />,
+      <BaseBuildingConditions key={uuid()} tabiIndex={activeTab} requirements_groups={requirements_groups} />,
+      <Technology key={uuid()} tabiIndex={activeTab} requirements_groups={requirements_groups} />,
+      <FurnitureAndFurnishing key={uuid()} tabiIndex={activeTab} requirements_groups={requirements_groups} />,
+      <Review key={uuid()} tabiIndex={activeTab} requirements_groups={requirements_groups} />,
     ]);
 
   //
@@ -129,7 +128,6 @@ export default function Form({
     );
   };
 
-  console.log(estimates);
   return (
     <>
       <div
@@ -348,7 +346,6 @@ export function Indicator({
     };
 
     if (nextRequirement) {
-      console.log(nextRequirement);
       getRequirementLabel(nextRequirement.requirementLevelId);
     }
   }, [nextRequirement, updateRequirementLevelUnitRate]);

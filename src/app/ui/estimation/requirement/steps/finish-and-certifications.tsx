@@ -6,13 +6,11 @@ import RequirementLevelOption from "@/app/ui/level-option/requirement-level-opti
 
 type Props = {
   tabiIndex: number;
-  projectId: string;
   requirements_groups: any[];
 };
 
 export default function FinishAndCertification({
   tabiIndex,
-  projectId,
   requirements_groups,
 }: Props) {
   const requirements = useRequirementStore((state) => state.requirements);

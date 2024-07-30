@@ -86,34 +86,7 @@ export function OptionWrapper({
         refinement.projectAmenityId === projectAmenityId &&
         refinement.refinementId === refinementId
     );
-    console.log(nextRefinements);
-    // const updatedAmen = [ ...amen ]; // create a new array to avoid mutating the state directly
 
-    // // check if an input already exists with the said type & get the index position
-    // const exisitingAmenIdx = updatedAmen.findIndex((a) => a.name === type);
-
-    // if (exisitingAmenIdx >= 0) {
-    //   updatedAmen[exisitingAmenIdx].val = e.target.value;
-    // } else {
-    //   updatedAmen.push({
-    //     name: type,
-    //     val: e.target.value
-    //   })
-
-    //   // finally update the state
-    //   setAmen(updatedAmen)
-    // }
-    // ===================
-    // const index = this.state.Question.findIndex((item) => item.OpId === OpId)
-    // const newArray = [...this.state.Question]
-    // if (index !== -1) {
-    //   console.log("item exist");
-    //   newArray.splice(index, 1, item)
-    // } else {
-    //   console.log("item not exist");
-    //   newArray.push(Qobj);
-    // }
-    // this.setState({ Question: newArray })
     if (nextRefinements) {
       // update nested array
       newEstimates[currentEstimateIndex].refinement.map(

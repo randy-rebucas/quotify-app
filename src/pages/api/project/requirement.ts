@@ -19,7 +19,7 @@ export default async function handler(
   res: NextApiResponse
 ) {
   connect();
-  console.log(req.body);
+
   const { estimates, projectId, section } = req.body;
 
   try {
