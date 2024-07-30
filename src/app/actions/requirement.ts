@@ -19,6 +19,7 @@ export async function updateRequirement(
     name: formData.get("name"),
     group_name: formData.get("group_name"),
     sort: formData.get("sort"),
+    question: formData.get("question"),
   });
 
   if (!validatedFields.success) {
@@ -27,10 +28,15 @@ export async function updateRequirement(
     };
   }
 
-  const { name, group_name, sort } = validatedFields.data;
+  const { name, group_name, question, sort } = validatedFields.data;
 
   try {
-    const update = { name: name, groupName: group_name, sort: sort };
+    const update = {
+      name: name,
+      groupName: group_name,
+      question: question,
+      sort: sort,
+    };
     const filter = { _id: id };
 
     await Requirement.findOneAndUpdate(filter, update);
@@ -53,6 +59,7 @@ export async function createRequirement(
     name: formData.get("name"),
     group_name: formData.get("group_name"),
     sort: formData.get("sort"),
+    question: formData.get("question"),
   });
 
   // If any form fields are invalid, return early
@@ -62,11 +69,12 @@ export async function createRequirement(
     };
   }
 
-  const { name, group_name, sort } = validatedFields.data;
+  const { name, group_name, question, sort } = validatedFields.data;
 
   const requirement = new Requirement({
     name: name,
     groupName: group_name,
+    question: question,
     sort: sort,
   });
   await requirement.save();

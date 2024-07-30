@@ -13,6 +13,7 @@ import path from "path";
 import Media from "../models/Media";
 import { decrypt } from "./session";
 import { cookies } from "next/headers";
+import { existsSync, unlinkSync } from "fs";
 
 const UpdateSchema = UpdateMediaLibraryFormSchema.omit({ id: true });
 
@@ -101,8 +102,11 @@ export async function deleteMedia(id: string) {
   try {
     let media = await Media.findOne({ _id: id }).exec();
     let filename = media.fileName;
+    const directoryPath = path.join(process.cwd(), "public/uploads/");
 
-    await unlink(path.join(process.cwd(), "public/uploads/" + filename));
+    if (existsSync(directoryPath + filename)) {
+      unlinkSync(directoryPath + filename);
+    }
 
     await Media.findOneAndDelete({ _id: id }).exec();
     revalidatePath("/setting/media-libraries");

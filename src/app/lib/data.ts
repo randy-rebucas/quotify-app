@@ -599,6 +599,7 @@ export async function fetchRequirementById(id: string) {
     _id: item._id.toString(),
     name: item.name,
     groupName: item.groupName,
+    question: item.question,
     sort: item.sort,
   };
 
