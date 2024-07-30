@@ -11,8 +11,10 @@ export type LatLong = {
 }
 
 export default function Address() {
-    const project = useProjectInformationStore(state => state.projectInformation);
-    const updateFields = useProjectInformationStore(state => state.updateFields)
+
+    const hasAddress = useProjectInformationStore(state => state.hasAddress);
+    const updateFields = useProjectInformationStore(state => state.updateFields);
+    const updateHasAddress = useProjectInformationStore(state => state.updateHasAddress);
 
     const [autoComplete, setAutoComplete] = useState<google.maps.places.Autocomplete | null>(null);
     const { isLoaded: scriptLoaded, loadError } = useJsApiLoader({
@@ -70,7 +72,7 @@ export default function Address() {
                                 <CustomMap />
 
                                 <div className="custom-checkbox mb-4 mt-10">
-                                    <input id="tmp-4" type="checkbox" className="promoted-input-checkbox" value={1} checked={project.hasAddress} onChange={e => updateFields({ hasAddress: e.target.checked })} />
+                                    <input id="tmp-4" type="checkbox" className="promoted-input-checkbox" value={1} checked={hasAddress} onChange={e => updateHasAddress(e.target.checked)} />
                                     <svg>
                                         <use href="#checkmark-4" xlinkHref="#checkmark-4" />
                                     </svg>

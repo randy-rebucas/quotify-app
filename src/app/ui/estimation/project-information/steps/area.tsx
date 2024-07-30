@@ -2,8 +2,10 @@ import { useProjectInformationStore } from "@/app/lib/store/projectInformationSt
 
 export default function Area() {
     const project = useProjectInformationStore(state => state.projectInformation);
-    const updateFields = useProjectInformationStore(state => state.updateFields)
-    
+    const isBaseOnHeadCount = useProjectInformationStore(state => state.isBaseOnHeadCount);
+    const updateFields = useProjectInformationStore(state => state.updateFields);
+    const updateIsBaseOnHeadCount = useProjectInformationStore(state => state.updateIsBaseOnHeadCount);
+
     return (
         <>
             <div className="lg:col-span-2 col-span-12 flex flex-col justify-start items-start w-full h-full">
@@ -40,7 +42,7 @@ export default function Area() {
                                     </div>
 
                                     <div className="custom-checkbox mb-4 mt-[21.204vh]">
-                                        <input id="tmp-5" type="checkbox" className="promoted-input-checkbox" value={1} checked={project.isBaseOnHeadCount} onChange={e => updateFields({ isBaseOnHeadCount: e.target.checked })} />
+                                        <input id="tmp-5" type="checkbox" className="promoted-input-checkbox" value={1} checked={isBaseOnHeadCount} onChange={e => updateIsBaseOnHeadCount(e.target.checked)} />
                                         <svg>
                                             <use href="#checkmark-5" xlinkHref="#checkmark-5" />
                                         </svg>

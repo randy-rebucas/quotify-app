@@ -1,11 +1,14 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { financial } from "@/app/ui/setting/projects/table";
-import { useProjectInformationStore } from "@/app/lib/store/projectInformationStore";
+import { PartialData, useProjectInformationStore } from "@/app/lib/store/projectInformationStore";
 
 export default function Review() {
     const router = useRouter();
     const project = useProjectInformationStore(state => state.projectInformation);
+    const hasFloorPlan = useProjectInformationStore(state => state.hasFloorPlan);
+    const hasAddress = useProjectInformationStore(state => state.hasAddress);
+    const isBaseOnHeadCount = useProjectInformationStore(state => state.isBaseOnHeadCount);
 
     const [isLoading, setIsLoading] = useState<boolean>(false)
     const [error, setError] = useState<string | null>(null)
@@ -16,20 +19,23 @@ export default function Review() {
         setError(null) // Clear previous errors when a new request starts
         try {
             const formData = new FormData();
+
+            const size = isBaseOnHeadCount ? +project.targetHeadCount * 1000 : project.approximateSize;
+            const address = hasAddress ? project.address.place : '';
+
             formData.append('spaceName', project.spaceName);
-            formData.append('address', project.address.place);
-            formData.append('approximateSize', project.approximateSize);
+            formData.append('address', address);
+            formData.append('approximateSize', size.toString());
             formData.append('rentableArea', project.rentableArea);
             formData.append('targetHeadCount', project.targetHeadCount);
             formData.append('averageAttendance', project.averageAttendance);
             formData.append('assignedSeat', project.assignedSeat);
-            formData.append('hasFloorPlan', project.hasFloorPlan ? 'true' : 'false');
-            formData.append('hasAddress', project.hasAddress ? 'true' : 'false');
-            formData.append('isBaseOnHeadCount', project.isBaseOnHeadCount ? 'true' : 'false');
 
-            for (let index = 0; index < project.floorPlans.length; index++) {
-                const element = project.floorPlans[index];
-                formData.append(element.name, element);
+            if (hasFloorPlan) {
+                for (let index = 0; index < project.floorPlans.length; index++) {
+                    const element = project.floorPlans[index];
+                    formData.append(element.name, element);
+                }
             }
 
             const response = await fetch('/api/projects', {
@@ -81,9 +87,7 @@ export default function Review() {
                                                     Floorplan:
                                                 </th>
                                                 <td className="font-latolight">
-                                                    {project.floorPlans && project.floorPlans.map((file: any, idx: any) => (
-                                                        file.name
-                                                    ))}
+                                                    <Floorplan hasFloorPlan={hasFloorPlan} project={project}/>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -91,15 +95,7 @@ export default function Review() {
                                                     Address:
                                                 </th>
                                                 <td className="font-latolight">
-                                                    {project.address.place}
-                                                    {/* <iframe className="w-[228px] h-[152px]"
-                                                        loading="lazy"
-                                                        referrerPolicy="no-referrer-when-downgrade"
-                                                        src={`https://www.google.com/maps/embed/v1/${process.env.NEXT_PUBLIC_MAPS_MODE}?key=${process.env.NEXT_PUBLIC_MAPS_API_KEY}
-                                            &q=${project.address.place}`}
-                                                        style={{ border: 0 }} allowFullScreen={true} aria-hidden="false"
-                                                        tabIndex={0}>
-                                                    </iframe> */}
+                                                    <Address hasAddress={hasAddress} project={project}/>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -107,7 +103,7 @@ export default function Review() {
                                                     Approximate size of new space:
                                                 </th>
                                                 <td className="font-latolight">
-                                                    {financial(project.approximateSize)}
+                                                    {financial((isBaseOnHeadCount ? +project.targetHeadCount * 1000 : project.approximateSize).toString())}
                                                 </td>
                                             </tr>
                                             <tr>
@@ -155,4 +151,38 @@ export default function Review() {
             </div>
         </>
     )
+}
+
+export function Floorplan({
+    hasFloorPlan,
+    project
+}: {
+    hasFloorPlan: boolean;
+    project: PartialData
+}) {
+    if (hasFloorPlan) {
+        return <p>No Floorplan</p>
+    }
+    return project.floorPlans.map((file: any, idx: any) => file.name)
+}
+
+export function Address({
+    hasAddress,
+    project
+}: {
+    hasAddress: boolean;
+    project: PartialData
+}) {
+    if (hasAddress) {
+        return <p>No Address</p>
+    }
+    return project.address.place
+    {/* <iframe className="w-[228px] h-[152px]"
+                                                    loading="lazy"
+                                                    referrerPolicy="no-referrer-when-downgrade"
+                                                    src={`https://www.google.com/maps/embed/v1/${process.env.NEXT_PUBLIC_MAPS_MODE}?key=${process.env.NEXT_PUBLIC_MAPS_API_KEY}
+                                        &q=${project.address.place}`}
+                                                    style={{ border: 0 }} allowFullScreen={true} aria-hidden="false"
+                                                    tabIndex={0}>
+                                                </iframe> */}
 }

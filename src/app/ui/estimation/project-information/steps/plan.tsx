@@ -3,7 +3,9 @@ import { useProjectInformationStore } from "@/app/lib/store/projectInformationSt
 
 export default function Plan() {
     const project = useProjectInformationStore(state => state.projectInformation);
-    const updateFields = useProjectInformationStore(state => state.updateFields)
+    const hasFloorPlan = useProjectInformationStore(state => state.hasFloorPlan);
+    const updateFields = useProjectInformationStore(state => state.updateFields);
+    const updateHasFloorPlan = useProjectInformationStore(state => state.updateHasFloorPlan);
 
     const handleChange = (e: any) => {
         if (e.target.files && e.target.files[0]) {
@@ -37,7 +39,7 @@ export default function Plan() {
                                 <Upload onChange={handleChange} />
 
                                 <div className="custom-checkbox mb-4 mt-2">
-                                    <input id="tmp-1" type="checkbox" className="promoted-input-checkbox" value={1} checked={project?.hasFloorPlan} onChange={e => updateFields({ hasFloorPlan: e.target.checked })} />
+                                    <input id="tmp-1" type="checkbox" className="promoted-input-checkbox" value={1} checked={hasFloorPlan} onChange={e => updateHasFloorPlan(e.target.checked)} />
                                     <svg>
                                         <use href="#checkmark-1" xlinkHref="#checkmark-1" />
                                     </svg>

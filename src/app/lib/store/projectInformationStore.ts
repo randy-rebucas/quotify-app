@@ -8,13 +8,10 @@ export type Address = {
 
 export type PartialData = {
   spaceName: string;
-  floorPlans: any[];
-  hasFloorPlan: boolean;
+  floorPlans: any;
   address: Address;
-  hasAddress: boolean;
   approximateSize: string;
   rentableArea: string;
-  isBaseOnHeadCount: boolean;
   targetHeadCount: string;
   averageAttendance: string;
   assignedSeat: string;
@@ -22,26 +19,32 @@ export type PartialData = {
 
 export type State = {
   projectInformation: PartialData;
+  hasFloorPlan: boolean;
+  hasAddress: boolean;
+  isBaseOnHeadCount: boolean;
 };
 
 export type Actions = {
   updateFields: (fields: Partial<PartialData>) => void;
+  updateHasFloorPlan: (hasFloorPlan: State["hasFloorPlan"]) => void;
+  updateHasAddress: (hasAddress: State["hasAddress"]) => void;
+  updateIsBaseOnHeadCount: (
+    isBaseOnHeadCount: State["isBaseOnHeadCount"]
+  ) => void;
+  reset: () => void;
 };
 
 export const INITIAL_PROJECT_INFORMATION_DATA: PartialData = {
   spaceName: "",
   floorPlans: [],
-  hasFloorPlan: false,
   address: {
     place: "",
     location: undefined,
   },
-  hasAddress: false,
-  approximateSize: "3000",
-  rentableArea: "3000",
-  isBaseOnHeadCount: false,
-  targetHeadCount: "",
-  averageAttendance: "",
+  approximateSize: '3000',
+  rentableArea: '3000',
+  targetHeadCount: '0',
+  averageAttendance: "0",
   assignedSeat: "30",
 };
 
@@ -49,9 +52,25 @@ export const useProjectInformationStore = create<State & Actions>()(
   persist(
     (set) => ({
       projectInformation: INITIAL_PROJECT_INFORMATION_DATA,
+      hasFloorPlan: false,
+      hasAddress: false,
+      isBaseOnHeadCount: false,
       updateFields: (fields) =>
         set((state) => ({
           projectInformation: { ...state.projectInformation, ...fields },
+        })),
+      updateHasFloorPlan: (hasFloorPlan: boolean) =>
+        set(() => ({ hasFloorPlan: hasFloorPlan })),
+      updateHasAddress: (hasAddress: boolean) =>
+        set(() => ({ hasAddress: hasAddress })),
+      updateIsBaseOnHeadCount: (isBaseOnHeadCount: boolean) =>
+        set(() => ({ isBaseOnHeadCount: isBaseOnHeadCount })),
+      reset: () =>
+        set(() => ({
+          projectInformation: INITIAL_PROJECT_INFORMATION_DATA,
+          hasFloorPlan: false,
+          hasAddress: false,
+          isBaseOnHeadCount: false,
         })),
     }),
     { name: "project-information", skipHydration: true }
