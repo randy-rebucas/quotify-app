@@ -7,7 +7,6 @@ import connect from "@/app/utils/db";
 
 import type { NextApiRequest, NextApiResponse } from "next";
 
-
 export const config = {
   api: {
     bodyParser: true,
@@ -32,11 +31,13 @@ export default async function handler(
 
       let estimateId = await estimate.save();
 
-      const requirement = new EstimateRequirement({
-        estimate: estimateId,
-        requirements: item.requirement,
+      item.requirement.map(async (requirement: { requirementLevelId: string }) => {
+        const data = new EstimateRequirement({
+          estimate: estimateId,
+          requirementLevel: requirement.requirementLevelId,
+        });
+        await data.save();
       });
-      await requirement.save();
     });
 
     const update = { lastUri: "refinement" };

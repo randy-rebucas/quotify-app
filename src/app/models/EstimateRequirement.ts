@@ -4,21 +4,16 @@ import { IRequirementLevel } from "./RequirementLevel";
 
 // 1. Create an interface representing a document in MongoDB.
 export interface IEstimateRequirement {
-  requirements: {
-    type: any;
-    of: Types.ObjectId | IRequirementLevel;
-  };
+  requirementLevel?: Types.ObjectId | IRequirementLevel;
   estimate?: Types.ObjectId | IEstimate;
 }
 
 // 2. Create a Schema corresponding to the document interface.
 const estimateRequirementSchema = new Schema<IEstimateRequirement>({
-  requirements: {
-    type: Schema.Types.Map,
-    of: {
-      type: Schema.Types.ObjectId,
-      ref: "RequirementLevels"
-    }
+  requirementLevel: {
+    type: Schema.Types.ObjectId,
+    ref: "RequirementLevels",
+    required: true,
   },
   estimate: {
     type: Schema.Types.ObjectId,
