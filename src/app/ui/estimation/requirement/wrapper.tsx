@@ -28,21 +28,21 @@ export default function Wrapper({
 
   return (
     <div className="js-step step active">
-      <div className="col-start-1 col-span-4 flex flex-col justify-start items-start w-full h-full">
-        <div className="col-start-1 col-span-4 flex flex-col justify-start items-start w-full h-full">
-          <div className="h-full w-full">
-            <div className="p-30 pt-[74px]">
-              <div className="flex flex-col justify-between h-full">
-                <div>
-                  <div className="h-1 w-20 bg-black"></div>
-                  <h5 className="font-latobold mt-1 xl:text-3xl md:text-2xl text-1xl text-black">
-                    {requirement?.name}
-                  </h5>
-                </div>
+
+      <div className="col-start-1 col-span-1 flex flex-col justify-start items-start w-full h-full">
+        <div className="h-full w-full">
+          <div className="p-30 pt-[74px]">
+            <div className="flex flex-col justify-between h-full">
+              <div>
+                <div className="h-1 w-20 bg-black"></div>
+                <h5 className="font-latobold mt-1 xl:text-3xl md:text-2xl text-1xl text-black">
+                  {requirement?.name}
+                </h5>
               </div>
             </div>
           </div>
         </div>
+
 
         {/* <!--
                     /*  Tooltip
@@ -50,14 +50,7 @@ export default function Wrapper({
                     /--> */}
         <Tooltip />
       </div>
-      {/* <div className="p-30 pt-[74px]">
-                        <div className="flex flex-col justify-between h-full">
-                            <h5 className="font-latobold mt-1 xl:text-2xl text-1xl text-black">
-                                03.{stepIndex + 1}:
-                            </h5>
-                            <p>{requirement?.question}</p>
-                        </div>
-                    </div> */}
+
       {children}
 
       <Buttons isFirstStep={isFirstStep} onClick={onClick} />

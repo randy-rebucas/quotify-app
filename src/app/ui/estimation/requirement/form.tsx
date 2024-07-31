@@ -1,7 +1,7 @@
 "use client";
 
 import { useMultistepForm } from "@/app/hooks/useMultistepForm";
-import { FormEvent, useEffect, useMemo, useState } from "react";
+import { FormEvent, useState } from "react";
 import Wrapper from "./wrapper";
 import FinishAndCertification from "./steps/finish-and-certifications";
 import MepFeatures from "./steps/mep-features";
@@ -11,12 +11,12 @@ import FurnitureAndFurnishing from "./steps/furniture-and-furnishing";
 import Review from "./steps/review";
 import clsx from "clsx";
 import { useRouter } from "next/navigation";
-import { menuMapping, tabMapping } from "./entities";
+import { tabMapping } from "./entities";
 import { v4 as uuid } from "uuid";
 import TabForm from "./tab-form";
-import { IRequirement } from "@/app/models/Requirement";
 import { useRequirementStore } from "@/app/lib/store/requirementStore";
-import { useRequirementLevelStore } from "@/app/lib/store/requirementLevelStore";
+import Menu from "./menu";
+import Cost from "./cost";
 
 export type StimateData = {
   id: number;
@@ -35,10 +35,6 @@ export default function Form({
 
   const estimates = useRequirementStore((state) => state.estimates);
   const addEstimate = useRequirementStore((state) => state.addEstimate);
-
-  const requirementLevelUnitRate = useRequirementLevelStore(
-    (state) => state.requirementLevelUnitRate
-  );
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isExpanded, setIsExpanded] = useState<boolean>(true);
@@ -113,16 +109,6 @@ export default function Form({
       setIsLoading(false); // Set loading to false when the request completes
     }
   }
-
-  const getSelectedRequirementLevel = (
-    index: number,
-    requirementId?: string
-  ) => {
-    return estimates[index].requirement.some(
-      (refinement: { requirementId: string; refinementLevel: string }) =>
-        refinement.requirementId === requirementId
-    );
-  };
 
   return (
     <>
@@ -211,79 +197,10 @@ export default function Form({
             </div>
 
             <div className="flex flex-col justify-between h-full mt-[8.519vh]">
-              <div className="px-30">
-                <div
-                  className={clsx(`js-main-menu__header`, {
-                    invisible: activeTab != estimate.id,
-                  })}
-                >
-                  <h2 className="font-bold font-latobold xl:text-7xl md:text-6xl text-5xl text-white">
-                    03:
-                  </h2>
-                  <h4 className="font-latolight mt-3 xl:text-4xl md:text-3xl text-2xl text-white">
-                    Requirements
-                  </h4>
-                  <div className="estimation-col__bar bg-white mt-6 mb-6"></div>
-                </div>
 
-                <div className="js-main-menu__content estimation-col__content">
-                  {requirements_groups.map(
-                    (
-                      requirements_group: {
-                        _id: string;
-                        requirements: { id: string; name: string }[];
-                      },
-                      index: number
-                    ) => (
-                      <div
-                        key={requirements_group._id}
-                        className={clsx("js-step-indicator step-indicator", {
-                          active:
-                            index === currentStepIndex &&
-                            activeTab === estimate.id,
-                        })}
-                      >
-                        <span className="font-latoblack">03.{index + 1}:</span>{" "}
-                        <br />
-                        {requirements_group._id}
-                        {requirements_group.requirements.map(
-                          (
-                            requirement: { id: string; name: string }
-                          ) => (
-                            <div key={requirement.id}>
-                              <Indicator
-                                estimateId={estimate.id}
-                                requirementId={requirement.id}
-                              />
-                              {getSelectedRequirementLevel(
-                                estimate.id,
-                                requirement.id
-                              ) && (
-                                  <div
-                                    className="js-step-indicator step-indicator pl-3 checked"
-                                    style={{
-                                      paddingBottom: "unset",
-                                    }}
-                                    data-category={`03.1.${index + 1}`}
-                                  ></div>
-                                )}
-                            </div>
-                          )
-                        )}
-                      </div>
-                    )
-                  )}
-                </div>
-              </div>
-              <div className="bg-darkgreen2 p-30 flex items-center sticky w-full bottom-0 justify-between text-white">
-                <span className="text-[18px] leading-[24px] font-lato">
-                  cost estimate <br />
-                  per square foot
-                </span>
-                <span className="text-[53px] font-latoblack">
-                  ${requirementLevelUnitRate ?? 0}
-                </span>
-              </div>
+              <Menu menus={requirements_groups} estimateId={estimate.id} currentStepIndex={currentStepIndex} activeTab={activeTab} />
+
+              <Cost />
             </div>
           </div>
         </div>
@@ -302,49 +219,4 @@ export default function Form({
       </div>
     </>
   );
-}
-
-export function Indicator({
-  estimateId,
-  requirementId,
-}: {
-  estimateId: number;
-  requirementId: string;
-}) {
-  const [requirementName, setRequirementname] = useState<string>("");
-  const estimates = useRequirementStore((state) => state.estimates);
-
-  const nextRequirement = estimates[estimateId].requirement.find(
-    (requirement: { requirementId: string }) =>
-      requirement.requirementId === requirementId
-  );
-
-  const updateRequirementLevelUnitRate = useRequirementLevelStore(
-    (state) => state.updateRequirementLevelUnitRate
-  );
-
-  useEffect(() => {
-    const getRequirementLabel = async (id?: string) => {
-      if (id) {
-        const response = await fetch(`/api/requirement-level/${id}`, {
-          method: "POST",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-        });
-
-        let requirementLabelResponse = await response.json();
-
-        updateRequirementLevelUnitRate(requirementLabelResponse.unitRate);
-        setRequirementname(requirementLabelResponse.level);
-      }
-    };
-
-    if (nextRequirement) {
-      getRequirementLabel(nextRequirement.requirementLevelId);
-    }
-  }, [nextRequirement, updateRequirementLevelUnitRate]);
-
-  return requirementName.toLowerCase();
 }

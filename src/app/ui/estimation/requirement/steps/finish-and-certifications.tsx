@@ -41,11 +41,12 @@ export default function FinishAndCertification({
     <>
       {requirements &&
         requirements.map(
-          (requirement: { id: string; name: string }) => (
+          (requirement: { id: string; name: string; question: string; sort: string }) => (
             <OptionWrapper
               key={requirement.id}
               requirementId={requirement.id} // requirements [...dynamic]                                  // project amenity id
               requirementName={requirement.name} // requirement name
+              requirementQuestion={requirement.question}
               tabIndex={tabiIndex}
             />
           )
@@ -57,10 +58,12 @@ export default function FinishAndCertification({
 export function OptionWrapper({
   requirementId,
   requirementName,
+  requirementQuestion,
   tabIndex,
 }: {
   requirementId: string;
   requirementName: string;
+  requirementQuestion: string;
   tabIndex: number;
 }) {
   const updateEstimateRequirement = useRequirementStore(
@@ -107,9 +110,12 @@ export function OptionWrapper({
 
   return (
     <div data-col="1" className="col-start-1 col-span-4">
-      <h3 className="px-30 col-start-1 font-weight font-latobold mt-2">
-        {requirementName}
-      </h3>
+      <div className="p-30 pt-[74px]">
+        <h5 className="col-start-1 xl:text-2xl text-1xl text-black font-latobold mt-1">
+          {requirementName}
+        </h5>
+        <p>{requirementQuestion}</p>
+      </div>
       <div className="grid grid-cols-4">
         <RequirementLevelOption
           requirementId={requirementId}

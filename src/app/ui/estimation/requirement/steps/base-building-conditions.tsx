@@ -39,6 +39,7 @@ export default function BaseBuildingConditions({
 
     }, [getRequirementByName]);
 
+    console.log(requirements);
     return (
         <>
             {requirements &&
