@@ -7,17 +7,17 @@ import { ChangeEventHandler, useEffect } from "react";
 
 export default function RefinementLevelOption({
   refinement,
-  projectAmenityId,
+  id,
   refinementId,
   amenityName,
   selectedRefinement,
   onChange,
 }: {
   refinement: string;
-  projectAmenityId: string;
+  id: string;
   refinementId: string;
   amenityName: string;
-  selectedRefinement: { projectAmenityId: string; refinementLevelId: string };
+  selectedRefinement: { id: string; refinementLevelId: string };
   onChange: ChangeEventHandler<HTMLInputElement>;
 }) {
   const getRefinementIdByName = useRefinementStore(

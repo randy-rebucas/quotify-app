@@ -7,6 +7,7 @@ import EstimateRefinement from "@/app/models/EstimateRefinement";
 import Project from "@/app/models/Project";
 import { StimateData } from "@/app/ui/estimation/refinement/form";
 import EstimateAmenityRefinementLevel from "@/app/models/EstimateAmenityRefinementLevel";
+import EstimateCustomSpaceRefinementLevel from "@/app/models/EstimateCustomSpaceRefinementLevel";
 
 export default async function handler(
   req: NextApiRequest,
@@ -28,14 +29,24 @@ export default async function handler(
       item.refinement.map(
         async (refinement: {
           refinementLevelId: string;
-          projectAmenityId: string;
+          id: string;
+          type: string;
         }) => {
-          const estimateRefinementLevel = new EstimateAmenityRefinementLevel({
-            estimate: estimateId,
-            refinementLevel: refinement.refinementLevelId,
-            projectAmenity: refinement.projectAmenityId,
-          });
-          await estimateRefinementLevel.save();
+          if (refinement.type == "amenity") {
+            const estimateRefinementLevel = new EstimateAmenityRefinementLevel({
+              estimate: estimateId,
+              refinementLevel: refinement.refinementLevelId,
+              projectAmenity: refinement.id,
+            });
+            await estimateRefinementLevel.save();
+          } else {
+            const estimateRefinementLevel = new EstimateCustomSpaceRefinementLevel({
+              estimate: estimateId,
+              refinementLevel: refinement.refinementLevelId,
+              projectCustomSpace: refinement.id,
+            });
+            await estimateRefinementLevel.save();
+          }
         }
       );
     });

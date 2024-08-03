@@ -3,21 +3,21 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
 export type State = {
-  projectAmenities: ProjectAreaDefination[];
+  projectCustomSpaces: ProjectAreaDefination[];
 };
 
 export type Actions = {
-  getProjectAmenities: (id: string) => void;
+  getProjectCustomSpaces: (id: string) => void;
   reset: () => void;
 };
 
-export const useProjectAmenityStore = create<State & Actions>()(
+export const useProjectCustomSpaceStore = create<State & Actions>()(
   persist(
     (set) => ({
-      projectAmenities: [],
-      getProjectAmenities: async (id: string) => {
+      projectCustomSpaces: [],
+      getProjectCustomSpaces: async (id: string) => {
         const response = await fetch(
-          `/api/project/amenities/by-project/${id}`,
+          `/api/project/custom-space/by-project/${id}`,
           {
             method: "POST",
             headers: {
@@ -27,16 +27,16 @@ export const useProjectAmenityStore = create<State & Actions>()(
           }
         );
 
-        let projectAmenitiesResponse = await response.json();
+        let projectCustomSpaceResponse = await response.json();
         set({
-          projectAmenities: projectAmenitiesResponse,
+          projectCustomSpaces: projectCustomSpaceResponse,
         });
       },
       reset: () =>
         set(() => ({
-          projectAmenities: [],
+          projectCustomSpaces: [],
         })),
     }),
-    { name: "project-amenity", skipHydration: true }
+    { name: "project-customspace", skipHydration: true }
   )
 );

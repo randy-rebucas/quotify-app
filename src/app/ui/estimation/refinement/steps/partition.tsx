@@ -4,6 +4,8 @@ import { ChangeEvent, useEffect, useState } from "react";
 import { useRefinementStore } from "@/app/lib/store/refinementStore";
 import RefinementLevelOption from "@/app/ui/level-option/refinement-level-option";
 import { useProjectAmenityStore } from "@/app/lib/store/projectAmenityStore";
+import { ProjectAreaDefination } from "../form";
+import { useProjectCustomSpaceStore } from "@/app/lib/store/projectCustomSpaceStore";
 
 type Props = {
   projectId: string;
@@ -18,6 +20,7 @@ export default function Partition({
 }: Props) {
   // set refinement id
   const [refinementId, setRefinementId] = useState<string>("");
+  const [projectAreaDefinations, setProjectAreaDefinations] = useState<ProjectAreaDefination[]>([]);
 
   const projectAmenities = useProjectAmenityStore(
     (state) => state.projectAmenities
@@ -30,6 +33,17 @@ export default function Partition({
     getProjectAmenities(projectId);
   }, [getProjectAmenities, projectId]);
 
+  const projectCustomSpaces = useProjectCustomSpaceStore(
+    (state) => state.projectCustomSpaces
+  );
+  const getProjectCustomSpaces = useProjectCustomSpaceStore(
+    (state) => state.getProjectCustomSpaces
+  );
+
+  useEffect(() => {
+    getProjectCustomSpaces(projectId);
+  }, [getProjectCustomSpaces, projectId]);
+
   useEffect(() => {
     const refinementId = refinements.find(
       (refinement) => refinement.name === "partitions"
@@ -37,31 +51,39 @@ export default function Partition({
     setRefinementId(refinementId);
   }, [refinements]);
 
+  useEffect(() => {
+    setProjectAreaDefinations([...projectCustomSpaces, ...projectAmenities]);
+  }, [projectAmenities, projectCustomSpaces]);
+
   return (
     <>
-      {projectAmenities &&
-        projectAmenities.map((projectAmenity: any, index: number) => (
+      {projectAreaDefinations &&
+        projectAreaDefinations.map((projectAreaDefination: { _id: string; name: string, type: string }) => (
           <OptionWrapper
-            key={projectAmenity._id}
-            refinementId={refinementId} // refinement [flooring, furniture, partitions]
-            projectAmenityId={projectAmenity._id} // project amenity id
-            amenityName={projectAmenity.amenityName} // amenity name
+            key={projectAreaDefination._id}
+            refinementId={refinementId}                                               // refinement [flooring, furniture, partitions]
+            id={projectAreaDefination._id}                                     // project amenity id
+            name={projectAreaDefination.name}                                  // area name
+            type={projectAreaDefination.type}
             tabiIndex={tabiIndex}
           />
-        ))}
+        )
+        )}
     </>
   );
 }
 
 export function OptionWrapper({
-  projectAmenityId,
   refinementId,
-  amenityName,
+  id,
+  name,
+  type,
   tabiIndex,
 }: {
-  projectAmenityId: string;
   refinementId: string;
-  amenityName: string;
+  id: string;
+  name: string;
+  type: string;
   tabiIndex: number;
 }) {
   const updateEstimateRefinement = useRefinementStore(
@@ -77,8 +99,11 @@ export function OptionWrapper({
     const newEstimates = [...estimates];
 
     const nextRefinements = newEstimates[currentEstimateIndex].refinement.find(
-      (refinement: { projectAmenityId: string; refinementId: string }) =>
-        refinement.projectAmenityId === projectAmenityId &&
+      (refinement: {
+        id: string;
+        refinementId: string;
+      }) =>
+        refinement.id === id &&
         refinement.refinementId === refinementId
     );
 
@@ -86,12 +111,12 @@ export function OptionWrapper({
       // update nested array
       newEstimates[currentEstimateIndex].refinement.map(
         (refinement: {
-          projectAmenityId: string;
+          id: string;
           refinementId: string;
           refinementLevelId: string;
         }) => {
           if (
-            refinement.projectAmenityId === projectAmenityId &&
+            refinement.id === id &&
             refinement.refinementId === refinementId
           ) {
             return (refinement.refinementLevelId = event.target.value);
@@ -106,7 +131,8 @@ export function OptionWrapper({
       newEstimates[currentEstimateIndex].refinement = [
         ...estimates[currentEstimateIndex].refinement,
         {
-          projectAmenityId: projectAmenityId,
+          id: id,
+          type: type,
           refinementId: refinementId,
           refinementLevelId: event.target.value,
         },
@@ -118,22 +144,20 @@ export function OptionWrapper({
   return (
     <div data-col="1" className="col-start-1 col-span-4">
       <h3 className="px-30 col-start-1 font-weight font-latobold mt-2">
-        {amenityName}
+        {name} <span className="font-light text-gray-400 text-sm">({type})</span>
       </h3>
       <div className="grid grid-cols-4">
         <RefinementLevelOption
           refinement="partitions"
-          amenityName={amenityName}
-          projectAmenityId={projectAmenityId}
+          amenityName={name}
+          id={id}
           refinementId={refinementId}
           selectedRefinement={estimates[tabiIndex].refinement.find(
             (refinement: {
-              projectAmenityId: string;
+              id: string;
               refinementId: string;
               refinementLevelId: string;
-            }) =>
-              refinement.projectAmenityId === projectAmenityId &&
-              refinement.refinementId === refinementId
+            }) => refinement.id === id && refinement.refinementId === refinementId
           )}
           onChange={handleRadioChange}
         />
@@ -141,3 +165,4 @@ export function OptionWrapper({
     </div>
   );
 }
+

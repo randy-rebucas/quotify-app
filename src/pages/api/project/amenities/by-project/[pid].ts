@@ -20,7 +20,8 @@ export default async function handler(
     const transformData = project_amenities.map((project_amenity) => {
       return {
         _id: project_amenity._id.toString(),                                            // project amenity id
-        amenityName: project_amenity.amenity.amenityName,                               // amenity name
+        name: project_amenity.amenity.amenityName,                               // amenity name
+        type: 'amenity'
       };
     });
 

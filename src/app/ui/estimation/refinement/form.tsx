@@ -118,13 +118,13 @@ export default function Form({
     }
   }
 
+  console.log(estimates);
   return (
     <>
       <div
         data-col={last_stimate + 1}
         className={clsx(
-          `js-tabs absolute z-30 ${
-            isExpanded ? `right-${estimates.length * 2}0` : "right-20"
+          `js-tabs absolute z-30 ${isExpanded ? `right-${estimates.length * 2}0` : "right-20"
           }`,
           {
             "top-[52px]": estimates.length == 1,
@@ -278,6 +278,11 @@ export interface ProjectAmenities {
   amenityName: string;
 }
 
+export interface ProjectAreaDefination {
+  _id: string;
+  name: string;
+  type: string;
+}
 /**
  *
  * @param param
@@ -297,9 +302,13 @@ export function SubMenu({
   estimates: Estimate[];
   refinementId?: string;
 }) {
-  const [projectAmenities, setProjectAmenities] = useState<ProjectAmenities[]>(
+  const [projectAmenities, setProjectAmenities] = useState<ProjectAreaDefination[]>(
     []
   );
+  const [projectCustomSpaces, setProjectCustomSpaces] = useState<ProjectAreaDefination[]>(
+    []
+  );
+  const [projectAreaDefinations, setProjectAreaDefinations] = useState<ProjectAreaDefination[]>([]);
 
   useEffect(() => {
     const getProjectAmenitiesLabel = async (id?: string) => {
@@ -316,25 +325,48 @@ export function SubMenu({
         );
 
         let projectAmenitiesResponse = await response.json();
+
         setProjectAmenities(projectAmenitiesResponse);
       }
     };
 
+    const getProjectCustomSpaces = async (id: string) => {
+      const response = await fetch(
+        `/api/project/custom-space/by-project/${id}`,
+        {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      let projectCustomSpaceResponse = await response.json();
+
+      setProjectCustomSpaces(projectCustomSpaceResponse);
+    }
+
     getProjectAmenitiesLabel(projectId);
+    getProjectCustomSpaces(projectId);
   }, [projectId]);
+
+  useEffect(() => {
+    setProjectAreaDefinations([...projectCustomSpaces, ...projectAmenities]);
+  }, [projectAmenities, projectCustomSpaces]);
 
   const getSelectedRefinementProjectAmenity = (
     index: number,
-    projectAmenityId?: string
+    id?: string
   ) => {
     let a = estimates[index].refinement.some(
       (refinement: {
-        projectAmenityId: string;
+        id: string;
         refinementId: string;
         refinementLevel: string;
       }) => {
         return (
-          refinement.projectAmenityId === projectAmenityId &&
+          refinement.id === id &&
           refinement.refinementId === refinementId
         );
       }
@@ -342,46 +374,47 @@ export function SubMenu({
     return a;
   };
 
+  console.log(projectAreaDefinations);
   return (
     <>
       <div className="js-sub-step pt-3">
-        {projectAmenities.length &&
-          projectAmenities.map((projectAmenity: any, index: number) => (
+        {projectAreaDefinations &&
+          projectAreaDefinations.map((projectAreaDefination: { _id: string; name: string, type: string }, index: number) => (
             <div
-              key={projectAmenity._id}
+              key={projectAreaDefination._id}
               className={clsx(
                 `js-step-indicator pl-3`,
                 getSelectedRefinementProjectAmenity(
                   estimateId,
-                  projectAmenity._id
+                  projectAreaDefination._id
                 )
                   ? "flex step-indicator "
                   : "hidden"
               )}
               style={{ justifyContent: "space-between" }}
-              data-category={projectAmenity.amenityName}
+              data-category={projectAreaDefination.name}
             >
               {/* <span>{projectAmenity.amenityName}</span> */}
               {getSelectedRefinementProjectAmenity(
                 estimateId,
-                projectAmenity._id
+                projectAreaDefination._id
               ) && (
-                <>
-                  <Indicator
-                    refinementId={refinementId}
-                    projectAmenityId={projectAmenity._id}
-                    estimateId={estimateId}
-                  />
+                  <>
+                    <Indicator
+                      refinementId={refinementId}
+                      id={projectAreaDefination._id}
+                      estimateId={estimateId}
+                    />
 
-                  <div
-                    className="js-step-indicator step-indicator pl-3 checked"
-                    style={{
-                      paddingBottom: "unset",
-                    }}
-                    data-category="03.1.1"
-                  ></div>
-                </>
-              )}
+                    <div
+                      className="js-step-indicator step-indicator pl-3 checked"
+                      style={{
+                        paddingBottom: "unset",
+                      }}
+                      data-category="03.1.1"
+                    ></div>
+                  </>
+                )}
             </div>
           ))}
       </div>
@@ -391,19 +424,19 @@ export function SubMenu({
 
 export function Indicator({
   refinementId,
-  projectAmenityId,
+  id,
   estimateId,
 }: {
   refinementId?: string;
-  projectAmenityId: string;
+  id: string;
   estimateId: number;
 }) {
   const [refinementName, setRefinementname] = useState<string>("");
   const estimates = useRefinementStore((state) => state.estimates);
 
   const nextRefinements = estimates[estimateId].refinement.find(
-    (refinement: { projectAmenityId: string; refinementId: string }) =>
-      refinement.projectAmenityId === projectAmenityId &&
+    (refinement: { id: string; refinementId: string }) =>
+      refinement.id === id &&
       refinement.refinementId === refinementId
   );
 
