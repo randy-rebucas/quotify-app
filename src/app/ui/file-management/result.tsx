@@ -57,7 +57,7 @@ export default function Result({ isMore, files, onClick }: { isMore: boolean, fi
                                     {/* last edited 20th August, 2020 */}
                                     {!project.isCompleted && <p>INCOMPLETE</p>}
                                     {!project.isCompleted && <Link
-                                        href={`/estimation/${project.lastUri}/${project._id}/create`}
+                                        href={`/estimation/${project.lastUri}/${project._id}/${project.lastUri === 'estimate-summary' ? 'preview' : 'create'}`}
                                         className={`text-black `}>Continue to create...
                                     </Link>}
                                 </div>

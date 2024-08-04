@@ -1,14 +1,17 @@
 requirement
     finish and certifications
-        03.1.1:
-            what is the finish level of your space?
-                [economic,mid,high]
-        03.1.2:
-            what level of leed certification do you need in your space?
-                [certified,silver,gold,platinum]
-        03.1.3:
-            what well certification does your space require?
-                [silver,gold,platinum,whs]
+        03.1.1: what is the finish level of your space?
+            [economic,mid,high]
+        03.1.2: what level of leed certification do you need in your space?
+            [certified,silver,gold,platinum]
+        03.1.3: what well certification does your space require?
+            [silver,gold,platinum,whs]
+    MEP feature
+        
+    base building conditions
+    technology
+    furniture and furnishing
+    review
 
 refinement 
     flooring
@@ -16,6 +19,8 @@ refinement
             [silver,gold,platinum,whs]
         reception
             [silver,gold,platinum,whs]
+        phone [custom space]
+        pantry [custom space]
     furniture
         office space 
             [silver,gold,platinum,whs]
@@ -26,3 +31,22 @@ refinement
             [silver,gold,platinum,whs]
         reception
             [silver,gold,platinum,whs]
+
+            =======
+            const userSchema = new Schema({
+  // `socialMediaHandles` is a map whose values are strings. A map's
+  // keys are always strings. You specify the type of values using `of`.
+  socialMediaHandles: {
+    type: Map,
+    of: String
+  }
+});
+
+const User = mongoose.model('User', userSchema);
+// Map { 'github' => 'vkarpov15', 'twitter' => '@code_barbarian' }
+console.log(new User({
+  socialMediaHandles: {
+    github: 'vkarpov15',
+    twitter: '@code_barbarian'
+  }
+}).socialMediaHandles);

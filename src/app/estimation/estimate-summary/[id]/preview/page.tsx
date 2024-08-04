@@ -1,7 +1,7 @@
 
-import { fetchEstimatesByProjectId, fetchEstimatesBySection, fetchProject } from "@/app/lib/data";
-import Column from "@/app/ui/estimation/estimate-summary/column";
+import { fetchEstimatesByProjectId, fetchEstimatesBySection, fetchProject, fetchRefinements, fetchRequirementsByGroup } from "@/app/lib/data";
 import Detail from "@/app/ui/estimation/estimate-summary/detail";
+import Wrapper from "@/app/ui/estimation/estimate-summary/wrapper";
 import IntroWrapper from "@/app/ui/estimation/intro-wrapper";
 import MainWrapper from "@/app/ui/estimation/main-wrapper";
 import Popup from "@/app/ui/estimation/popup";
@@ -18,17 +18,24 @@ export default async function Page({ params }: { params: { id: string } }) {
     
     const project = await fetchProject(id);
 
-    const estimates = await fetchEstimatesByProjectId(id);
+    const requirements_groups = await fetchRequirementsByGroup();
 
-    const estimateRequirements = await fetchEstimatesBySection(id, 'requirement');
-    const estimateRefinements = await fetchEstimatesBySection(id, 'refinements');
+    const refinements = await fetchRefinements();
 
-    console.log(project);
     const introductionColors: string[] = ['bg-red1', 'bg-red2', 'bg-red3', 'bg-red4', 'bg-red5'];
 
     const mainColors: string[] = ['bg-gray2A', 'bg-gray3A', 'bg-gray4A', 'bg-white', 'bg-red'];
     
-
+    // const projectCustomSpaces = useProjectCustomSpaceStore(
+    //     (state) => state.projectCustomSpaces
+    //   );
+    //   const getProjectCustomSpaces = useProjectCustomSpaceStore(
+    //     (state) => state.getProjectCustomSpaces
+    //   );
+    
+    //   useEffect(() => {
+    //     getProjectCustomSpaces(projectId);
+    //   }, [getProjectCustomSpaces, projectId]);
     return (
         <div className="wrapper theme theme-red">
             <Popup />
@@ -64,79 +71,8 @@ export default async function Page({ params }: { params: { id: string } }) {
                         </div>
                     </div>
                 </div>
-
-                <div className="lg:col-span-4 col-span-12 h-full w-full relative overflow-y-scroll overflow-x-hidden">
-                    <div className="grid grid-cols-4 overflow-y-visible">
-                        <Column id={1}>
-                            <div className="estimation-col__header pt-[70px] pb-[20px] px-[30px]">
-                                <div className="flex items-end justify-start">
-                                    <h2 className="opacity-60 font-latobold"><span className="font-latoblack">A:</span>&nbsp; Main<br />estimate</h2>
-                                </div>
-                                <p className="mt-3 font-latolight text-black text-opacity-60">this is a short description for this estimate.</p>
-                            </div>
-
-                            <div className="flex flex-col justify-between text-white relative">
-                                <svg className="absolute top-[20px] left-[30px]" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 15 15" fill="none">
-                                    <path d="M6.15878 12.3176C2.74777 12.3176 0 9.5698 0 6.15878C0 2.74777 2.74777 0 6.15878 0C9.5698 0 12.3176 2.74777 12.3176 6.15878C12.3176 9.5698 9.5698 12.3176 6.15878 12.3176ZM6.15878 0.947505C3.26889 0.947505 0.947505 3.26889 0.947505 6.15878C0.947505 9.04868 3.26889 11.3701 6.15878 11.3701C9.04868 11.3701 11.3701 9.04868 11.3701 6.15878C11.3701 3.26889 9.04868 0.947505 6.15878 0.947505Z" fill="#505050" />
-                                    <path d="M10.7461 10.0732L15.0004 14.3275L14.3305 14.9974L10.0762 10.7431L10.7461 10.0732Z" fill="#505050" />
-                                </svg>
-                                <input className="pl-[50px] w-full bg-black bg-opacity-10 !text-[#505050] placeholder:!text-[#505050] p-[15px] outline-none border-none" value="" readOnly placeholder="search" />
-                            </div>
-                        </Column>
-
-                        <Column id={2}>
-                            <div className="estimation-col__header pt-[70px] pb-[20px] px-[30px]">
-                                <div className="flex items-end justify-start">
-                                    <h2 className="opacity-60 font-latobold"><span className="font-latoblack">B:</span>&nbsp; High-End<br />estimate</h2>
-                                </div>
-                                <p className="mt-3 font-latolight text-black text-opacity-60">this is a short description for this estimate.</p>
-                            </div>
-
-                            <div className="flex flex-col justify-between text-white relative">
-                                <svg className="absolute top-[20px] left-[30px]" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 15 15" fill="none">
-                                    <path d="M6.15878 12.3176C2.74777 12.3176 0 9.5698 0 6.15878C0 2.74777 2.74777 0 6.15878 0C9.5698 0 12.3176 2.74777 12.3176 6.15878C12.3176 9.5698 9.5698 12.3176 6.15878 12.3176ZM6.15878 0.947505C3.26889 0.947505 0.947505 3.26889 0.947505 6.15878C0.947505 9.04868 3.26889 11.3701 6.15878 11.3701C9.04868 11.3701 11.3701 9.04868 11.3701 6.15878C11.3701 3.26889 9.04868 0.947505 6.15878 0.947505Z" fill="#505050" />
-                                    <path d="M10.7461 10.0732L15.0004 14.3275L14.3305 14.9974L10.0762 10.7431L10.7461 10.0732Z" fill="#505050" />
-                                </svg>
-                                <input className="pl-[50px] w-full bg-black bg-opacity-10 !text-[#505050] placeholder:!text-[#505050] p-[15px] outline-none border-none" value="" readOnly placeholder="search" />
-                            </div>
-                        </Column>
-
-                        <Column id={3}>
-                            <div className="estimation-col__header pt-[70px] pb-[20px] px-[30px]">
-                                <div className="flex items-end justify-start">
-                                    <h2 className="opacity-60 font-latobold"><span className="font-latoblack">C:</span>&nbsp; Low<br />estimate</h2>
-                                </div>
-                                <p className="mt-3 font-latolight text-black text-opacity-60">this is a short description for this estimate.</p>
-                            </div>
-
-                            <div className="flex flex-col justify-between text-white relative">
-                                <svg className="absolute top-[20px] left-[30px]" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 15 15" fill="none">
-                                    <path d="M6.15878 12.3176C2.74777 12.3176 0 9.5698 0 6.15878C0 2.74777 2.74777 0 6.15878 0C9.5698 0 12.3176 2.74777 12.3176 6.15878C12.3176 9.5698 9.5698 12.3176 6.15878 12.3176ZM6.15878 0.947505C3.26889 0.947505 0.947505 3.26889 0.947505 6.15878C0.947505 9.04868 3.26889 11.3701 6.15878 11.3701C9.04868 11.3701 11.3701 9.04868 11.3701 6.15878C11.3701 3.26889 9.04868 0.947505 6.15878 0.947505Z" fill="#505050" />
-                                    <path d="M10.7461 10.0732L15.0004 14.3275L14.3305 14.9974L10.0762 10.7431L10.7461 10.0732Z" fill="#505050" />
-                                </svg>
-                                <input className="pl-[50px] w-full bg-black bg-opacity-10 !text-[#505050] placeholder:!text-[#505050] p-[15px] outline-none border-none" value="" readOnly placeholder="search" />
-                            </div>
-                        </Column>
-
-                        <Column id={4}>
-                            <div className="estimation-col__header pt-[70px] pb-[20px] px-[30px]">
-                                <div className="flex items-end justify-start">
-                                    <h2 className="opacity-60 font-latobold"><span className="font-latoblack">D:</span>&nbsp; Not as<br />env. friendly</h2>
-                                </div>
-                                <p className="mt-3 font-latolight text-black text-opacity-60">this is a short description for this estimate.</p>
-                            </div>
-
-                            <div className="flex flex-col justify-between text-white relative">
-                                <svg className="absolute top-[20px] left-[30px]" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 15 15" fill="none">
-                                    <path d="M6.15878 12.3176C2.74777 12.3176 0 9.5698 0 6.15878C0 2.74777 2.74777 0 6.15878 0C9.5698 0 12.3176 2.74777 12.3176 6.15878C12.3176 9.5698 9.5698 12.3176 6.15878 12.3176ZM6.15878 0.947505C3.26889 0.947505 0.947505 3.26889 0.947505 6.15878C0.947505 9.04868 3.26889 11.3701 6.15878 11.3701C9.04868 11.3701 11.3701 9.04868 11.3701 6.15878C11.3701 3.26889 9.04868 0.947505 6.15878 0.947505Z" fill="#505050" />
-                                    <path d="M10.7461 10.0732L15.0004 14.3275L14.3305 14.9974L10.0762 10.7431L10.7461 10.0732Z" fill="#505050" />
-                                </svg>
-                                <input className="pl-[50px] w-full bg-black bg-opacity-10 !text-[#505050] placeholder:!text-[#505050] p-[15px] outline-none border-none" value="" readOnly placeholder="search" />
-                            </div>
-                        </Column>
-
-                    </div>
-                </div>
+                <Wrapper projectId={id} requirements={requirements_groups} refinements={refinements}/>
+                
             </MainWrapper>
 
             <LinearCover colors={introductionColors} target={2} className="introduction" />

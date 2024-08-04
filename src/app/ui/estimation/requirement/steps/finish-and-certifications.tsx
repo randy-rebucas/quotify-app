@@ -28,15 +28,19 @@ export default function FinishAndCertification({
     }
   }, [requirements_groups, updateRequirements]);
 
+  const requirementId = useRequirementStore(
+    (state) => state.requirementId
+  );
+
   const getRequirementByName = useRequirementStore(
     (state) => state.getRequirementByName
   );
 
   useEffect(() => {
     getRequirementByName('finish and certifications');
-
   }, [getRequirementByName]);
 
+  // console.log(requirementId);
   return (
     <>
       {requirements &&

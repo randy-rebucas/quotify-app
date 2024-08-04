@@ -143,7 +143,7 @@ export default function AreaDefination({
                                                 id={`quantity-${index}`}
                                                 value={input.quantity}
                                                 onChange={(event) => handleQuantityChange(index, event)}
-                                                className="flex-shrink-0 text-gray-900 dark:text-white bg-transparent text-[24px] focus:outline-none focus:ring-0 max-w-[2.5rem] text-center placeholder:text-opacity-60"
+                                                className="flex-shrink-0 text-gray-900 bg-transparent text-[24px] focus:outline-none focus:ring-0 max-w-[2.5rem] text-center placeholder:text-opacity-60"
 
                                             />
                                             <div className="flex flex-col">

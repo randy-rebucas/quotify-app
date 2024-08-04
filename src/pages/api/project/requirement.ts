@@ -31,11 +31,14 @@ export default async function handler(
 
       let estimateId = await estimate.save();
 
-      item.requirement.map(async (requirement: { requirementLevelId: string }) => {
+      item.requirement.map(async (requirement: {requirementId: string, requirementLevelId: string }) => {
         const data = new EstimateRequirement({
           estimate: estimateId,
           requirementLevel: requirement.requirementLevelId,
         });
+
+        // data.requirement.set('requirementId', requirement.requirementId);
+        // data.requirement.set('requirementLevelId', requirement.requirementLevelId);
         await data.save();
       });
     });

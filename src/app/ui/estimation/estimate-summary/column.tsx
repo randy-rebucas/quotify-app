@@ -7,10 +7,13 @@ import Accordions from "./accordions";
 
 type ColumnProps = {
     id: number;
+    estimateGroups: any[];
+    requirements: any[];
+    refinements: any[];
     children: ReactNode;
 }
 
-export default function Column({id, children }: ColumnProps) {
+export default function Column({ id, estimateGroups, requirements, refinements, children }: ColumnProps) {
     // const [open, setOpen] = useState<boolean>(false);
 
     // const handleCheckboxChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -41,10 +44,11 @@ export default function Column({id, children }: ColumnProps) {
 
                     {open && <Overview />} */}
 
-
-                    <Accordions id={1} title="Requirements" data={requirements}/>
-                    
-                    <Accordions id={2} title="Refinements" data={refinements} />
+                    {estimateGroups.map((estimateGroup: any, index: number) => (
+                        estimateGroup.map((estimate: any) => (
+                            <Accordions key={estimate._id} estimate={estimate} requirements={requirements} refinements={refinements}/>
+                        ))
+                    ))}
 
                 </div>
             </div>
