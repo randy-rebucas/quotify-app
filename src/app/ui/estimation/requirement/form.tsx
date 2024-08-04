@@ -110,7 +110,6 @@ export default function Form({
     }
   }
 
-  console.log(estimates);
   return (
     <>
       <div

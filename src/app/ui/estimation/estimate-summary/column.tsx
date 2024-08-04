@@ -10,10 +10,11 @@ type ColumnProps = {
     estimateGroups: any[];
     requirements: any[];
     refinements: any[];
+    projectId: string;
     children: ReactNode;
 }
 
-export default function Column({ id, estimateGroups, requirements, refinements, children }: ColumnProps) {
+export default function Column({ id, estimateGroups, requirements, refinements,projectId, children }: ColumnProps) {
     // const [open, setOpen] = useState<boolean>(false);
 
     // const handleCheckboxChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -46,7 +47,7 @@ export default function Column({ id, estimateGroups, requirements, refinements, 
 
                     {estimateGroups.map((estimateGroup: any, index: number) => (
                         estimateGroup.map((estimate: any) => (
-                            <Accordions key={estimate._id} estimate={estimate} requirements={requirements} refinements={refinements}/>
+                            <Accordions key={estimate._id} estimate={estimate} requirements={requirements} refinements={refinements} projectId={projectId}/>
                         ))
                     ))}
 
