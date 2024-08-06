@@ -9,6 +9,7 @@ export default function Review() {
     const hasFloorPlan = useProjectInformationStore(state => state.hasFloorPlan);
     const hasAddress = useProjectInformationStore(state => state.hasAddress);
     const isBaseOnHeadCount = useProjectInformationStore(state => state.isBaseOnHeadCount);
+    const reset = useProjectInformationStore(state => state.reset);
 
     const [isLoading, setIsLoading] = useState<boolean>(false)
     const [error, setError] = useState<string | null>(null)
@@ -50,6 +51,7 @@ export default function Review() {
             let projectResponse = await response.json();
 
             if (response.status === 200) {
+                reset();
                 router.push(`/estimation/area-breakdown/${projectResponse.id}`)
             }
         } catch (error: any) {

@@ -523,6 +523,7 @@ export async function fetchRequirements() {
     return {
       _id: item._id.toString(),
       name: item.name,
+      label: item.label,
       groupName: item.groupName,
       question: item.question,
       sort: item.sort,
@@ -545,6 +546,7 @@ export async function fetchRequirementsByGroup() {
           $push: {
             id: "$_id",
             name: "$name",
+            label: "$label",
             question: "$question",
             sort: "$sort",
           },
@@ -598,6 +600,7 @@ export async function fetchRequirementById(id: string) {
   const transformItem = {
     _id: item._id.toString(),
     name: item.name,
+    label: item.label,
     groupName: item.groupName,
     question: item.question,
     sort: item.sort,

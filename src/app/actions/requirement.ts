@@ -17,6 +17,7 @@ export async function updateRequirement(
 ) {
   const validatedFields = UpdateRequirement.safeParse({
     name: formData.get("name"),
+    label: formData.get("label"),
     group_name: formData.get("group_name"),
     sort: formData.get("sort"),
     question: formData.get("question"),
@@ -28,11 +29,12 @@ export async function updateRequirement(
     };
   }
 
-  const { name, group_name, question, sort } = validatedFields.data;
+  const { name, label, group_name, question, sort } = validatedFields.data;
 
   try {
     const update = {
       name: name,
+      label: label,
       groupName: group_name,
       question: question,
       sort: sort,
@@ -57,6 +59,7 @@ export async function createRequirement(
   // Validate form using Zod
   const validatedFields = CreateARequiremnt.safeParse({
     name: formData.get("name"),
+    label: formData.get("label"),
     group_name: formData.get("group_name"),
     sort: formData.get("sort"),
     question: formData.get("question"),
@@ -69,10 +72,11 @@ export async function createRequirement(
     };
   }
 
-  const { name, group_name, question, sort } = validatedFields.data;
+  const { name, label, group_name, question, sort } = validatedFields.data;
 
   const requirement = new Requirement({
     name: name,
+    label: label,
     groupName: group_name,
     question: question,
     sort: sort,

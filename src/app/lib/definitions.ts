@@ -211,6 +211,7 @@ export const RequirementFormSchema = z.object({
       invalid_type_error: "Please enter a name.",
     })
     .trim(),
+  label: z.string(),
   group_name: z.string().trim(),
   question: z.string(),
   sort: z.string(),
@@ -220,6 +221,7 @@ export type RequirementFormState =
   | {
       errors?: {
         name?: string[];
+        label?: string[];
         group_name?: string[];
         question?: string[];
         sort?: string[];

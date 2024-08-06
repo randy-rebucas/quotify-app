@@ -1,17 +1,19 @@
 'use client';
 
+import { useEstimateSummaryStore } from "@/app/lib/store/estimateSummaryStore";
 import Image from "next/image";
 import { FormEvent, useState } from "react";
 
 export default function Form({ isEdit, project }: { isEdit: boolean, project: any }) {
     const [isLoading, setIsLoading] = useState<boolean>(false)
     const [error, setError] = useState<string | null>(null)
+    const reset = useEstimateSummaryStore(state => state.reset);
 
     async function onSubmit(event: FormEvent<HTMLFormElement>) {
         event.preventDefault()
         setIsLoading(true)
         setError(null) // Clear previous errors when a new request starts
-
+        reset();
     }
 
     return (

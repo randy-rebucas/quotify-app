@@ -31,6 +31,7 @@ export default function Form({
 
   const estimates = useRefinementStore((state) => state.estimates);
   const addEstimate = useRefinementStore((state) => state.addEstimate);
+  const reset = useRefinementStore((state) => state.reset);
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isExpanded, setIsExpanded] = useState<boolean>(true);
@@ -109,6 +110,7 @@ export default function Form({
       let projectResponse = await response.json();
 
       if (response.status === 200) {
+        reset();
         router.push(`/estimation/estimate-summary/${projectResponse.id}`);
       }
     } catch (error: any) {
@@ -118,7 +120,6 @@ export default function Form({
     }
   }
 
-  console.log(estimates);
   return (
     <>
       <div

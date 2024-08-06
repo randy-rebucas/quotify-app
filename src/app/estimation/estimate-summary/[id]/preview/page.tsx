@@ -25,17 +25,7 @@ export default async function Page({ params }: { params: { id: string } }) {
     const introductionColors: string[] = ['bg-red1', 'bg-red2', 'bg-red3', 'bg-red4', 'bg-red5'];
 
     const mainColors: string[] = ['bg-gray2A', 'bg-gray3A', 'bg-gray4A', 'bg-white', 'bg-red'];
-    
-    // const projectCustomSpaces = useProjectCustomSpaceStore(
-    //     (state) => state.projectCustomSpaces
-    //   );
-    //   const getProjectCustomSpaces = useProjectCustomSpaceStore(
-    //     (state) => state.getProjectCustomSpaces
-    //   );
-    
-    //   useEffect(() => {
-    //     getProjectCustomSpaces(projectId);
-    //   }, [getProjectCustomSpaces, projectId]);
+
     return (
         <div className="wrapper theme theme-red">
             <Popup />

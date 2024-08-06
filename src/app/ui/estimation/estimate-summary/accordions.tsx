@@ -8,6 +8,7 @@ import { useRequirementStore } from "@/app/lib/store/requirementStore";
 import { useProjectAmenityStore } from "@/app/lib/store/projectAmenityStore";
 import { ProjectAreaDefination } from "../refinement/form";
 import { useProjectCustomSpaceStore } from "@/app/lib/store/projectCustomSpaceStore";
+import { IRequirementLevel } from "@/app/models/RequirementLevel";
 
 type AccordionProps = {
     projectId: string;
@@ -156,29 +157,106 @@ export function AccordionContent({ estimateId, estimateType, projectId, requirem
         return (
             <>
                 {requirements && requirements.map((requirement: any, index: number) => (
-                    <li key={index}>{requirement.id}</li>
+                    <li key={index}><RequirementLevel requirementId={requirement.id} estimateId={estimateId} /></li>
                 ))}
             </>
         )
     }
 
-    console.log(estimateId);
     return (
         <>
             {projectAreaDefinations.map((projectAreaDefination: { _id: string; name: string, type: string }, index: number) => (
-                <li key={index}><ProjectAreaDefinationValue projectAreaDefinationId={projectAreaDefination._id} estimateId={estimateId} /></li>
+                <li key={index}><RefinementLevel projectAreaDefinationId={projectAreaDefination._id} estimateId={estimateId} type={projectAreaDefination.type} /></li>
             ))}
         </>
     )
 }
 
-export function ProjectAreaDefinationValue({ projectAreaDefinationId, estimateId }: { projectAreaDefinationId: string, estimateId: string }) {
-    //     high finish
-    // silver leed certification
-    // gold well certification
+export function RequirementLevel({ requirementId, estimateId }: { requirementId: string, estimateId: string }) {
+    const [requirementLevel, setRequirementLevel] = useState<any>();
+
+    useEffect(() => {
+        const getRequirementLevel = async (id?: string) => {
+            const response = await fetch(
+                `/api/estimate/requirement/by-requirement/${id}`,
+                {
+                    method: "POST",
+                    headers: {
+                        Accept: "application/json",
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({ estimateId: estimateId }),
+                }
+            );
+
+            let requirementLevelResponse = await response.json();
+
+            setRequirementLevel(`${requirementLevelResponse.requirementLevel.level} ${requirementLevelResponse.requirement.label}`);
+        };
+
+        getRequirementLevel(requirementId);
+
+    }, [estimateId, requirementId]);
+
     return (
         <>
-            {projectAreaDefinationId}
+            {requirementLevel}
+        </>
+    )
+}
+
+export function RefinementLevel({ projectAreaDefinationId, estimateId, type }: { projectAreaDefinationId: string, estimateId: string, type: string }) {
+
+    const [refinementLevel, setRefinementLevel] = useState<any>();
+
+    useEffect(() => {
+        const getRefinementCustomspaceLevel = async (id?: string) => {
+            const response = await fetch(
+                `/api/estimate/refinement/by-customspace/${id}`,
+                {
+                    method: "POST",
+                    headers: {
+                        Accept: "application/json",
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({ estimateId: estimateId }),
+                }
+            );
+
+            let refinementLevelResponse = await response.json();
+            // console.log(refinementLevelResponse)
+            setRefinementLevel(`${refinementLevelResponse.refinementLevel.level} ${refinementLevelResponse.projectCustomSpace.customSpace.customSpaceName}`);
+        };
+
+        const getRefinementAmenityLevel = async (id?: string) => {
+            const response = await fetch(
+                `/api/estimate/refinement/by-amenity/${id}`,
+                {
+                    method: "POST",
+                    headers: {
+                        Accept: "application/json",
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({ estimateId: estimateId }),
+                }
+            );
+
+            let refinementLevelResponse = await response.json();
+            // console.log(refinementLevelResponse)
+            setRefinementLevel(`${refinementLevelResponse.refinementLevel.level} ${refinementLevelResponse.projectAmenity.amenity.amenityName}`);
+        };
+
+        if (type === 'customspace') {
+            getRefinementCustomspaceLevel(projectAreaDefinationId);
+        } else {
+            getRefinementAmenityLevel(projectAreaDefinationId)
+        }
+
+    }, [estimateId, projectAreaDefinationId, type]);
+
+    return (
+        <>
+            {refinementLevel}
         </>
     )
 }

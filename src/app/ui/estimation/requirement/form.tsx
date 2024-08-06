@@ -35,6 +35,7 @@ export default function Form({
 
   const estimates = useRequirementStore((state) => state.estimates);
   const addEstimate = useRequirementStore((state) => state.addEstimate);
+  const reset = useRequirementStore((state) => state.reset);
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isExpanded, setIsExpanded] = useState<boolean>(true);
@@ -101,6 +102,7 @@ export default function Form({
       let projectResponse = await response.json();
 
       if (response.status === 200) {
+        reset();
         router.push(`/estimation/refinement/${projectResponse.id}`);
       }
     } catch (error: any) {

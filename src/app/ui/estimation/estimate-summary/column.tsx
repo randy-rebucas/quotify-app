@@ -6,7 +6,6 @@ import { data, refinements, requirements } from "./accordion";
 import Accordions from "./accordions";
 
 type ColumnProps = {
-    id: number;
     estimateGroups: any[];
     requirements: any[];
     refinements: any[];
@@ -14,12 +13,7 @@ type ColumnProps = {
     children: ReactNode;
 }
 
-export default function Column({ id, estimateGroups, requirements, refinements,projectId, children }: ColumnProps) {
-    // const [open, setOpen] = useState<boolean>(false);
-
-    // const handleCheckboxChange = (event: ChangeEvent<HTMLInputElement>) => {
-    //     setOpen(event.target.checked);
-    // }
+export default function Column({ estimateGroups, requirements, refinements, projectId, children }: ColumnProps) {
 
     return (
         <div className="relative h-full flex flex-col justify-between">
@@ -47,7 +41,7 @@ export default function Column({ id, estimateGroups, requirements, refinements,p
 
                     {estimateGroups.map((estimateGroup: any, index: number) => (
                         estimateGroup.map((estimate: any) => (
-                            <Accordions key={estimate._id} estimate={estimate} requirements={requirements} refinements={refinements} projectId={projectId}/>
+                            <Accordions key={estimate._id} estimate={estimate} requirements={requirements} refinements={refinements} projectId={projectId} />
                         ))
                     ))}
 

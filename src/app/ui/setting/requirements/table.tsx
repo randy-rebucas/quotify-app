@@ -13,6 +13,7 @@ export default function Table({ requirements }: { requirements: IRequirement[] }
                             <thead className="bg-gray-50 dark:bg-neutral-700">
                                 <tr>
                                     <th scope="col" className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">Name</th>
+                                    <th scope="col" className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">Label</th>
                                     <th scope="col" className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">Group</th>
                                     <th scope="col" className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">Question</th>
                                     <th scope="col" className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">Sort</th>
@@ -24,6 +25,7 @@ export default function Table({ requirements }: { requirements: IRequirement[] }
                                     <tr key={index}
                                         className="w-full border-b py-1 text-sm last-of-type:border-none [&:first-child>td:first-child]:rounded-tl-lg [&:first-child>td:last-child]:rounded-tr-lg [&:last-child>td:first-child]:rounded-bl-lg [&:last-child>td:last-child]:rounded-br-lg" >
                                         <td className="whitespace-nowrap px-3 py-1">{requirement.name}</td>
+                                        <td className="whitespace-nowrap px-3 py-1">{requirement.label}</td>
                                         <td className="whitespace-nowrap px-3 py-1">{requirement.groupName}</td>
                                         <td className="whitespace-nowrap px-3 py-1">{requirement.question}</td>
                                         <td className="whitespace-nowrap px-3 py-1">{requirement.sort}</td>
