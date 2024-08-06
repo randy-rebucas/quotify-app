@@ -7,6 +7,7 @@ import { IRefinement } from "./Refinement";
 // 1. Create an interface representing a document in MongoDB.
 export interface IEstimateAmenityRefinementLevel {
   estimate?: Types.ObjectId | IEstimate;
+  refinement?: Types.ObjectId | IRefinement;
   refinementLevel?: Types.ObjectId | IRefinementLevel;
   projectAmenity?: Types.ObjectId | IProjectAmenity;
   _id?: Types.ObjectId;
@@ -17,6 +18,11 @@ const schema = new Schema<IEstimateAmenityRefinementLevel>({
   estimate: {
     type: Schema.Types.ObjectId,
     ref: "Estimates",
+    required: true,
+  },
+  refinement: {
+    type: Schema.Types.ObjectId,
+    ref: "Refinements",
     required: true,
   },
   refinementLevel: {

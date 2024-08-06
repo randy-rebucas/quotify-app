@@ -39,10 +39,9 @@ export default function Column({ estimateGroups, requirements, refinements, proj
 
                     {open && <Overview />} */}
 
-                    {estimateGroups.map((estimateGroup: any, index: number) => (
-                        estimateGroup.map((estimate: any) => (
-                            <Accordions key={estimate._id} estimate={estimate} requirements={requirements} refinements={refinements} projectId={projectId} />
-                        ))
+
+                    {estimateGroups.map((estimate: any) => (
+                        <Accordions key={estimate._id} estimate={estimate} requirements={requirements} refinements={refinements} projectId={projectId} />
                     ))}
 
                 </div>

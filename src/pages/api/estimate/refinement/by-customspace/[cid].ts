@@ -12,11 +12,13 @@ export default async function handler(
   res: NextApiResponse
 ) {
   const { cid } = req.query;
-  const { estimateId } = req.body;
+  const { estimateId, refinementId } = req.body;
+
   try {
     const estimateProjectCustomSpace = await EstimateCustomSpaceRefinementLevel.findOne({
       projectCustomSpace: cid,
       estimate: estimateId,
+      refinement: refinementId,
     })
       .populate("refinementLevel")
       .populate({

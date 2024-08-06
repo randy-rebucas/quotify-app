@@ -25,9 +25,10 @@ export default async function handler(
       });
 
       let estimateId = await estimate.save();
-
+      
       item.refinement.map(
         async (refinement: {
+          refinementId: string;
           refinementLevelId: string;
           id: string;
           type: string;
@@ -35,6 +36,7 @@ export default async function handler(
           if (refinement.type == "amenity") {
             const estimateRefinementLevel = new EstimateAmenityRefinementLevel({
               estimate: estimateId,
+              refinement: refinement.refinementId,
               refinementLevel: refinement.refinementLevelId,
               projectAmenity: refinement.id,
             });
@@ -42,6 +44,7 @@ export default async function handler(
           } else {
             const estimateRefinementLevel = new EstimateCustomSpaceRefinementLevel({
               estimate: estimateId,
+              refinement: refinement.refinementId,
               refinementLevel: refinement.refinementLevelId,
               projectCustomSpace: refinement.id,
             });

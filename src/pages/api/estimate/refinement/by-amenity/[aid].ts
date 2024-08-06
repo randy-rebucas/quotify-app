@@ -2,22 +2,24 @@ import EstimateAmenityRefinementLevel from "@/app/models/EstimateAmenityRefineme
 import type { NextApiRequest, NextApiResponse } from "next";
 
 export const config = {
-    api: {
-      bodyParser: true,
-    },
+  api: {
+    bodyParser: true,
+  },
 };
-  
+
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
   const { aid } = req.query;
-  const { estimateId } = req.body;
+  const { estimateId, refinementId } = req.body;
+
   try {
     const estimateProjectAmenity = await EstimateAmenityRefinementLevel.findOne(
       {
         projectAmenity: aid,
         estimate: estimateId,
+        refinement: refinementId,
       }
     )
       .populate("refinementLevel")

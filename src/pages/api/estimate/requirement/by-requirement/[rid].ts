@@ -6,10 +6,11 @@ export default async function handler(
   res: NextApiResponse
 ) {
   const { rid } = req.query;
-
+  const { estimateId } = req.body;
   try {
     const estimateRequirement = await EstimateRequirement.findOne({
       requirement: rid,
+      estimate: estimateId,
     })
       .populate("requirement")
       .populate("requirementLevel")

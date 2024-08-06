@@ -21,7 +21,10 @@ type AccordionProps = {
     onClick: MouseEventHandler<HTMLButtonElement>
 };
 
-export default function Accordions({ estimate, requirements, refinements, projectId }: { estimate: any, requirements: any[], refinements: any[], projectId: string }) {
+export default function Accordions(
+    { estimate, requirements, refinements, projectId }:
+        { estimate: any, requirements: any[], refinements: any[], projectId: string }
+) {
 
     return (
         <>
@@ -40,19 +43,6 @@ export function AccordionContainer({ estimate, requirementGroups, refinements, p
     const handleItemClick = (index: any) => {
         setActiveIndex((prevIndex) => (prevIndex === index ? null : index));
     };
-
-    // const estimateRequirements = useEstimateSummaryStore((state) => state.estimateRequirements);
-    // const getProjectEstimateRequirements = useEstimateSummaryStore(
-    //     (state) => state.getProjectEstimateRequirements
-    // );
-
-    // useEffect(() => {
-    //     if (estimate) {
-    //         if (estimate.section === 'requirement') {
-    //             getProjectEstimateRequirements(estimate._id);
-    //         }
-    //     }
-    // }, [getProjectEstimateRequirements, estimate]);
 
     if (estimate.section === 'requirement') {
         return (
@@ -84,6 +74,7 @@ export function AccordionContainer({ estimate, requirementGroups, refinements, p
                     title={refinement.name}
                     isOpen={activeIndex === index}
                     index={activeIndex}
+                    data={refinement._id}
                     onClick={() => handleItemClick(index)}
                 />
             ))}
@@ -113,7 +104,7 @@ export function Accordion({ projectId, estimateId, estimateType, title, isOpen, 
                 <div className="py-5 border-b border-[#505050]">
 
                     <ul className="ml-[15px] text-[12px] text-black">
-                        <AccordionContent estimateId={estimateId} estimateType={estimateType} projectId={projectId} requirements={data} />
+                        <AccordionContent estimateId={estimateId} estimateType={estimateType} projectId={projectId} data={data} />
                     </ul>
                 </div>
             </div>
@@ -121,7 +112,7 @@ export function Accordion({ projectId, estimateId, estimateType, title, isOpen, 
     )
 }
 
-export function AccordionContent({ estimateId, estimateType, projectId, requirements }: { estimateId: string, estimateType: string, projectId: string, requirements?: any[] }) {
+export function AccordionContent({ estimateId, estimateType, projectId, data }: { estimateId: string, estimateType: string, projectId: string, data?: any[] }) {
 
     const [projectAreaDefinations, setProjectAreaDefinations] = useState<ProjectAreaDefination[]>([]);
 
@@ -156,8 +147,8 @@ export function AccordionContent({ estimateId, estimateType, projectId, requirem
     if (estimateType === 'requirement') {
         return (
             <>
-                {requirements && requirements.map((requirement: any, index: number) => (
-                    <li key={index}><RequirementLevel requirementId={requirement.id} estimateId={estimateId} /></li>
+                {data && data.map((requirement: any, index: number) => (
+                    <RequirementLevel key={index} requirementId={requirement.id} estimateId={estimateId} />
                 ))}
             </>
         )
@@ -166,7 +157,7 @@ export function AccordionContent({ estimateId, estimateType, projectId, requirem
     return (
         <>
             {projectAreaDefinations.map((projectAreaDefination: { _id: string; name: string, type: string }, index: number) => (
-                <li key={index}><RefinementLevel projectAreaDefinationId={projectAreaDefination._id} estimateId={estimateId} type={projectAreaDefination.type} /></li>
+                <RefinementLevel key={index} projectAreaDefinationId={projectAreaDefination._id} estimateId={estimateId} type={projectAreaDefination.type} refinementId={data} />
             ))}
         </>
     )
@@ -199,13 +190,11 @@ export function RequirementLevel({ requirementId, estimateId }: { requirementId:
     }, [estimateId, requirementId]);
 
     return (
-        <>
-            {requirementLevel}
-        </>
+        <li> {requirementLevel}</li>
     )
 }
 
-export function RefinementLevel({ projectAreaDefinationId, estimateId, type }: { projectAreaDefinationId: string, estimateId: string, type: string }) {
+export function RefinementLevel({ projectAreaDefinationId, estimateId, type, refinementId }: { projectAreaDefinationId: string, estimateId: string, type: string, refinementId: any }) {
 
     const [refinementLevel, setRefinementLevel] = useState<any>();
 
@@ -219,7 +208,7 @@ export function RefinementLevel({ projectAreaDefinationId, estimateId, type }: {
                         Accept: "application/json",
                         "Content-Type": "application/json",
                     },
-                    body: JSON.stringify({ estimateId: estimateId }),
+                    body: JSON.stringify({ estimateId: estimateId, refinementId: refinementId }),
                 }
             );
 
@@ -237,12 +226,12 @@ export function RefinementLevel({ projectAreaDefinationId, estimateId, type }: {
                         Accept: "application/json",
                         "Content-Type": "application/json",
                     },
-                    body: JSON.stringify({ estimateId: estimateId }),
+                    body: JSON.stringify({ estimateId: estimateId, refinementId: refinementId }),
                 }
             );
 
             let refinementLevelResponse = await response.json();
-            // console.log(refinementLevelResponse)
+
             setRefinementLevel(`${refinementLevelResponse.refinementLevel.level} ${refinementLevelResponse.projectAmenity.amenity.amenityName}`);
         };
 
@@ -252,11 +241,9 @@ export function RefinementLevel({ projectAreaDefinationId, estimateId, type }: {
             getRefinementAmenityLevel(projectAreaDefinationId)
         }
 
-    }, [estimateId, projectAreaDefinationId, type]);
+    }, [estimateId, projectAreaDefinationId, refinementId, type]);
 
     return (
-        <>
-            {refinementLevel}
-        </>
+        <li> {refinementLevel}</li>
     )
 }

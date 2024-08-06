@@ -17,12 +17,12 @@ export default function Wrapper({ projectId, requirements, refinements }: { proj
         }
     }, [getProjectEstimates, projectId]);
 
-    console.log(estimates);
     return (
+
         <div className="lg:col-span-4 col-span-12 h-full w-full relative overflow-y-scroll overflow-x-hidden">
             <div className="grid grid-cols-4 overflow-y-visible">
-                {Object.keys(estimates).map((estimateKey: string, index: number) => (
-                    <Column key={index} estimateGroups={Object.values(estimates)} requirements={requirements} refinements={refinements} projectId={projectId}>
+                {Object.keys(estimates).map((estimateKey: any, index: number) => (
+                    <Column key={index} estimateGroups={estimates[estimateKey]} requirements={requirements} refinements={refinements} projectId={projectId}>
                         <div className="estimation-col__header pt-[70px] pb-[20px] px-[30px]">
                             <div className="flex items-end justify-start">
                                 <h2 className="opacity-60 font-latobold"><span className="font-latoblack">A:</span>&nbsp; {estimateKey}</h2>
