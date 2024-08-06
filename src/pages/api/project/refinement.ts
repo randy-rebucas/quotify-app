@@ -3,7 +3,6 @@ import Estimate from "@/app/models/Estimate";
 import connect from "@/app/utils/db";
 
 import type { NextApiRequest, NextApiResponse } from "next";
-import EstimateRefinement from "@/app/models/EstimateRefinement";
 import Project from "@/app/models/Project";
 import { StimateData } from "@/app/ui/estimation/refinement/form";
 import EstimateAmenityRefinementLevel from "@/app/models/EstimateAmenityRefinementLevel";
