@@ -10,10 +10,10 @@ import { ProjectAreaDefination } from "../form";
 type Props = {
   projectId: string;
   refinements: any[];
-  tabiIndex: number;
 };
 
-export default function Flooring({ projectId, refinements, tabiIndex }: Props) {
+export default function Flooring({ projectId, refinements }: Props) {
+  const activeTab = useRefinementStore((state) => state.activeTab);
   // set refinement id
   const [refinementId, setRefinementId] = useState<string>("");
   const [projectAreaDefinations, setProjectAreaDefinations] = useState<ProjectAreaDefination[]>([]);
@@ -62,7 +62,7 @@ export default function Flooring({ projectId, refinements, tabiIndex }: Props) {
             id={projectAreaDefination._id}                                     // project amenity id
             name={projectAreaDefination.name}                                  // area name
             type={projectAreaDefination.type}
-            tabiIndex={tabiIndex}
+            tabiIndex={activeTab}
           />
         )
         )}

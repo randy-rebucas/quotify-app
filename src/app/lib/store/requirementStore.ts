@@ -89,6 +89,11 @@ export const useRequirementStore = create<State & Actions>()(
         set(() => ({
           estimates: [INITIAL_DATA],
           requirementId: null,
+          requirements: [],
+          requirement: null,
+          lastEstimate: 0,
+          isExpanded: true,
+          activeTab: 0,
         })),
     }),
     { name: "requirement", skipHydration: true }

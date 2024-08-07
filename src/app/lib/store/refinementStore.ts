@@ -12,6 +12,9 @@ export type State = {
   estimates: Estimate[];
   refinementId: string | null;
   refinement: IRefinement | null;
+  lastEstimate: number;
+  isExpanded: boolean;
+  activeTab: number;
 };
 
 export type Actions = {
@@ -19,6 +22,9 @@ export type Actions = {
   getRefinement: (filter: string) => void;
   addEstimate: (estimate: Estimate) => void;
   updateEstimateRefinement: (estimates: Estimate[]) => void;
+  updateLastEstimate: (estimates: State["estimates"]) => void;
+  updateIsExpanded: (isExpanded: boolean) => void;
+  updateActiveTab: (activeTab: number) => void;
   reset: () => void;
 };
 
@@ -35,6 +41,9 @@ export const useRefinementStore = create<State & Actions>()(
       estimates: [INITIAL_DATA],
       refinementId: null,
       refinement: null,
+      lastEstimate: 0,
+      isExpanded: true,
+      activeTab: 0,
       getRefinementIdByName: async (filter: string) => {
         const response = await fetch(`/api/refinement/by-name/${filter}`, {
           method: "POST",
@@ -62,17 +71,23 @@ export const useRefinementStore = create<State & Actions>()(
         });
       },
       addEstimate: (estimate) =>
-        set((state) => ({
-          estimates: [...state.estimates, estimate],
-        })),
+        set((state) => ({ estimates: [...state.estimates, estimate] })),
       updateEstimateRefinement: (estimates: Estimate[]) =>
-        set(() => ({
-          estimates: estimates,
-        })),
+        set(() => ({ estimates: estimates })),
+      updateLastEstimate: (estimates: Estimate[]) =>
+        set(() => ({ lastEstimate: estimates.length - 1 })),
+      updateIsExpanded: (isExpanded: boolean) =>
+        set(() => ({ isExpanded: isExpanded })),
+      updateActiveTab: (activeTab: number) =>
+        set(() => ({ activeTab: activeTab })),
       reset: () =>
         set(() => ({
           estimates: [INITIAL_DATA],
           refinementId: null,
+          refinement: null,
+          lastEstimate: 0,
+          isExpanded: true,
+          activeTab: 0,
         })),
     }),
     { name: "refinement", skipHydration: true }

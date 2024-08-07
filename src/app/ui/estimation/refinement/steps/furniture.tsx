@@ -10,14 +10,13 @@ import { useProjectCustomSpaceStore } from "@/app/lib/store/projectCustomSpaceSt
 type Props = {
   projectId: string;
   refinements: any[];
-  tabiIndex: number;
 };
 
 export default function Furniture({
   projectId,
   refinements,
-  tabiIndex,
 }: Props) {
+  const activeTab = useRefinementStore((state) => state.activeTab);
   // set refinement id
   const [refinementId, setRefinementId] = useState<string>("");
   const [projectAreaDefinations, setProjectAreaDefinations] = useState<ProjectAreaDefination[]>([]);
@@ -65,7 +64,7 @@ export default function Furniture({
             id={projectAreaDefination._id}                                     // project amenity id
             name={projectAreaDefination.name}                                  // area name
             type={projectAreaDefination.type}
-            tabiIndex={tabiIndex}
+            tabiIndex={activeTab}
           />
         )
         )}
