@@ -1,4 +1,4 @@
-import { fetchMenuByPageHandled, fetchRequirements, fetchRequirementsByGroup } from "@/app/lib/data";
+import { fetchRequirementsByGroup } from "@/app/lib/data";
 import { IRequirement } from "@/app/models/Requirement";
 import IntroWrapper from "@/app/ui/estimation/intro-wrapper";
 import MainWrapper from "@/app/ui/estimation/main-wrapper";
@@ -14,8 +14,6 @@ export default async function Page({ params }: { params: { id: string } }) {
     if (!id) {
         notFound();
     }
-
-    const requirements = await fetchRequirements();
 
     const requirements_groups = await fetchRequirementsByGroup();
 

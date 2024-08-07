@@ -169,7 +169,7 @@ export default function AreaDefination({
                                         </div>
                                     </div>
                                 </div>
-                                {areaBreakdown.selectedCustomSpaces.length > 1 && <button type="button" className="bg-red/40 px-3 py-3 shadow text-white" onClick={() => removeFields(index)}>
+                                {areaBreakdown.selectedCustomSpaces.length > 1 && <button type="button" className="bg-red/90 px-3 py-3 shadow text-white" onClick={() => removeFields(index)}>
                                     Remove
                                 </button>}
                             </div>

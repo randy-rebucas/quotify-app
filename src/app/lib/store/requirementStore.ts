@@ -13,6 +13,9 @@ export type State = {
   requirementId: string | null;
   requirements: any[];
   requirement: IRequirement | null;
+  lastEstimate: number;
+  isExpanded: boolean;
+  activeTab: number;
 };
 
 export type Actions = {
@@ -21,6 +24,9 @@ export type Actions = {
   addEstimate: (estimate: Estimate) => void;
   updateEstimateRequirement: (estimates: Estimate[]) => void;
   updateRequirements: (requirements: any[]) => void;
+  updateLastEstimate: (estimates: State["estimates"]) => void;
+  updateIsExpanded: (isExpanded: boolean) => void;
+  updateActiveTab: (activeTab: number) => void;
   reset: () => void;
 };
 
@@ -38,6 +44,9 @@ export const useRequirementStore = create<State & Actions>()(
       requirementId: null,
       requirements: [],
       requirement: null,
+      lastEstimate: 0,
+      isExpanded: true,
+      activeTab: 0,
       getRequirementByName: async (filter: string) => {
         const response = await fetch(`/api/requirement/by-name/${filter}`, {
           method: "POST",
@@ -65,17 +74,17 @@ export const useRequirementStore = create<State & Actions>()(
         });
       },
       addEstimate: (estimate) =>
-        set((state) => ({
-          estimates: [...state.estimates, estimate],
-        })),
+        set((state) => ({ estimates: [...state.estimates, estimate] })),
       updateEstimateRequirement: (estimates: Estimate[]) =>
-        set(() => ({
-          estimates: estimates,
-        })),
+        set(() => ({ estimates: estimates })),
       updateRequirements: (requirements: any[]) =>
-        set(() => ({
-          requirements: requirements,
-        })),
+        set(() => ({ requirements: requirements })),
+      updateLastEstimate: (estimates: Estimate[]) =>
+        set(() => ({ lastEstimate: estimates.length - 1 })),
+      updateIsExpanded: (isExpanded: boolean) =>
+        set(() => ({ isExpanded: isExpanded })),
+      updateActiveTab: (activeTab: number) =>
+        set(() => ({ activeTab: activeTab })),
       reset: () =>
         set(() => ({
           estimates: [INITIAL_DATA],

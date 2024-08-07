@@ -6,15 +6,13 @@ import RequirementLevelOption from "@/app/ui/level-option/requirement-level-opti
 
 
 type Props = {
-    tabiIndex: number,
     requirements_groups: any[];
 }
 
 export default function BaseBuildingConditions({
-    tabiIndex,
     requirements_groups,
 }: Props) {
-
+    const activeTab = useRequirementStore((state) => state.activeTab);
     const requirements = useRequirementStore((state) => state.requirements);
     const updateRequirements = useRequirementStore(
         (state) => state.updateRequirements
@@ -39,7 +37,6 @@ export default function BaseBuildingConditions({
 
     }, [getRequirementByName]);
 
-    console.log(requirements);
     return (
         <>
             {requirements &&
@@ -49,7 +46,7 @@ export default function BaseBuildingConditions({
                             key={requirement.id}
                             requirementId={requirement.id} // requirements [...dynamic]                                  // project amenity id
                             requirementName={requirement.name} // requirement name
-                            tabIndex={tabiIndex}
+                            tabIndex={activeTab}
                         />
                     )
                 )}

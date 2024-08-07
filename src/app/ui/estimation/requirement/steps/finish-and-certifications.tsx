@@ -5,14 +5,13 @@ import { useRequirementStore } from "@/app/lib/store/requirementStore";
 import RequirementLevelOption from "@/app/ui/level-option/requirement-level-option";
 
 type Props = {
-  tabiIndex: number;
   requirements_groups: any[];
 };
 
 export default function FinishAndCertification({
-  tabiIndex,
   requirements_groups,
 }: Props) {
+  const activeTab = useRequirementStore((state) => state.activeTab);
   const requirements = useRequirementStore((state) => state.requirements);
   const updateRequirements = useRequirementStore(
     (state) => state.updateRequirements
@@ -40,7 +39,6 @@ export default function FinishAndCertification({
     getRequirementByName('finish and certifications');
   }, [getRequirementByName]);
 
-  // console.log(requirementId);
   return (
     <>
       {requirements &&
@@ -51,7 +49,7 @@ export default function FinishAndCertification({
               requirementId={requirement.id} // requirements [...dynamic]                                  // project amenity id
               requirementName={requirement.name} // requirement name
               requirementQuestion={requirement.question}
-              tabIndex={tabiIndex}
+              tabIndex={activeTab}
             />
           )
         )}
