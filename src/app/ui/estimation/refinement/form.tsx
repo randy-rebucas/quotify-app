@@ -13,6 +13,7 @@ import { v4 as uuid } from "uuid";
 import { useRouter } from "next/navigation";
 import { IRefinement } from "@/app/models/Refinement";
 import { Estimate, useRefinementStore } from "@/app/lib/store/refinementStore";
+import { useAppStore } from "@/app/lib/store/appStore";
 
 export type StimateData = {
   id: number;
@@ -276,16 +277,19 @@ export function FormWrapper({
 
   const isExpanded = useRefinementStore((state) => state.isExpanded);
   const activeTab = useRefinementStore((state) => state.activeTab);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const isLoading = useAppStore(state => state.isLoading);
+  const updateIsLoading = useAppStore(state => state.updateIsLoading);
+
   const [error, setError] = useState<string | null>(null);
 
   // update this to action and implement dispatch
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    setIsLoading(true);
+    if (!isLastStep) return next();
+
+    updateIsLoading(true);
     setError(null); // Clear previous errors when a new request starts
 
-    if (!isLastStep) return next();
     try {
       let form_data = {
         estimates,
@@ -317,7 +321,7 @@ export function FormWrapper({
     } catch (error: any) {
       setError(error.message);
     } finally {
-      setIsLoading(false); // Set loading to false when the request completes
+      updateIsLoading(false); // Set loading to false when the request completes
     }
   }
 
