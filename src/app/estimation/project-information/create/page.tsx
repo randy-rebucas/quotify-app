@@ -7,6 +7,8 @@ import StaggerCover from "@/app/ui/stagger-cover";
 import { fetchMenuByPageHandled } from "@/app/lib/data";
 import { Suspense } from "react";
 import Intro from "@/app/ui/estimation/project-information/intro";
+import PageWrapper from "@/app/ui/page-wrapper";
+import FormWrapper from "@/app/ui/estimation/project-information/form-wrapper";
 
 export default async function Page() {
     const menus = await fetchMenuByPageHandled('project-information');
@@ -18,7 +20,7 @@ export default async function Page() {
     return (
         <div className="wrapper theme theme-darkblue">
             <Popup />
-
+ 
             <IntroWrapper>
                 <Suspense fallback={<p>Loading ...</p>}>
                     <Intro menus={menus} />
@@ -27,7 +29,7 @@ export default async function Page() {
 
             <MainWrapper>
                 <Suspense fallback={<p>Loading ...</p>}>
-                    <Form menus={menus} />
+                    <FormWrapper menus={menus} />
                 </Suspense>
             </MainWrapper>
 

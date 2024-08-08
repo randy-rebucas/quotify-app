@@ -11,7 +11,7 @@ export default function LinearCover({ colors, target, className }: {
 
     return (
         <AnimatePresence>
-            <div className={`js-wrapper__cover wrapper__cover ${className}`}>
+            <div className={`js-wrapper__cover wrapper__cover ${className}`} >
                 <motion.div
                     className='js-linear-anim linear-anim el'>
                     {colors.map((color, index) => (
