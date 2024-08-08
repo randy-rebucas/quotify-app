@@ -5,12 +5,11 @@ import Tooltip from "../../tooltip";
 type FormWrapperProps = {
     stepIndex: number;
     isLastStep: boolean;
-    children: ReactNode;
-    onClick: MouseEventHandler<HTMLButtonElement> | undefined
+    children: ReactNode
 }
 
 
-export default function Wrapper({ stepIndex, isLastStep, children, onClick }: FormWrapperProps) {
+export default function Wrapper({ stepIndex, isLastStep, children }: FormWrapperProps) {
     return (
         <div className="js-step step active">
 
@@ -27,8 +26,8 @@ export default function Wrapper({ stepIndex, isLastStep, children, onClick }: Fo
 
                 <div className="flex flex-col justify-start items-end w-full h-full"></div>
 
-                {!isLastStep && <div className="p-30 w-full flex items-end justify-end">
-                    <button className="focus:shadow-outline focus:outline-none" type="button" onClick={onClick}>
+                <div className="p-30 w-full flex items-end justify-end">
+                    <button className="focus:shadow-outline focus:outline-none" type="submit">
                         <svg xmlns="http://www.w3.org/2000/svg" width="78" height="63" viewBox="0 0 78 63"
                             fill="none">
                             <path
@@ -36,7 +35,7 @@ export default function Wrapper({ stepIndex, isLastStep, children, onClick }: Fo
                                 fill="#003855" />
                         </svg>
                     </button>
-                </div>}
+                </div>
             </div>
         </div>
     )

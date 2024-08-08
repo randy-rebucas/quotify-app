@@ -4,7 +4,7 @@ import { IAmenity } from "@/app/models/Amenity";
 import clsx from "clsx";
 import { ProjectCustomSpaceData, useAreaBreakdownStore } from "@/app/lib/store/areaBreakdownStore";
 
-type Props =  {
+type Props = {
     amenities: any;
     custom_spaces: any;
 }
@@ -73,6 +73,7 @@ export default function AreaDefination({
 
     return (
         <>
+
             <div className="lg:col-span-2 col-span-12 flex flex-col justify-start items-start w-full h-full">
                 <div className="h-full w-full">
                     <div className="p-30 pt-[6.852vh]">

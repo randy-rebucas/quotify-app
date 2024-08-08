@@ -1,32 +1,79 @@
-'use client';
-
-import { FormEvent, useEffect, useState } from "react";
-
-import { useMultistepForm } from "@/app/hooks/useMultistepForm";
-import Wrapper from "./wrapper";
-import AreaDefination from "./steps/area-defination";
-import ProportionBreakdown from "./steps/proportion-breakdown";
-import clsx from "clsx";
-import { v4 as uuid } from 'uuid'
+import { useAppStore } from "@/app/lib/store/appStore";
 import { useAreaBreakdownStore } from "@/app/lib/store/areaBreakdownStore";
+import { IAmenity } from "@/app/models/Amenity";
+import clsx from "clsx";
+import { useRouter } from "next/navigation";
+import { FormEvent, ReactNode, useEffect, useState } from "react";
+import Wrapper from "./wrapper";
 
 export default function Form({
-    menus, amenities, custom_spaces, project_id
+    currentStepIndex, isFirstStep, isLastStep, back, next, amenities, projectId, menus, children
 }: {
-    menus: any[];
-    amenities: any[];
-    custom_spaces: any[],
-    project_id: string
+    currentStepIndex: number, isFirstStep: boolean, isLastStep: boolean, back: () => void, next: () => void, amenities: any[], projectId: string, menus: any[], children: ReactNode
 }) {
+    const router = useRouter();
+    const areaBreakdown = useAreaBreakdownStore(state => state.areaBreakdown);
+    const reset = useAreaBreakdownStore(state => state.reset);
 
-    const { steps, currentStepIndex, step, isFirstStep, isLastStep, back, next } =
-        useMultistepForm([
-            <AreaDefination amenities={amenities} custom_spaces={custom_spaces} key={uuid()} />,
-            <ProportionBreakdown amenities={amenities} custom_spaces={custom_spaces} project_id={project_id} key={uuid()} />
-        ])
+    const isLoading = useAppStore(state => state.isLoading);
+    const updateIsLoading = useAppStore(state => state.updateIsLoading);
 
-    const handleClick = () => {
+    const [error, setError] = useState<string | null>(null);
+    const [breakdowns, setBreakdowns] = useState<any[]>([]);
+
+    useEffect(() => {
+        let newAmenities: (IAmenity | undefined)[] = [];
+
+        areaBreakdown.selectedAmenityIds.map((selectedAmenity: any) => {
+            const foundAmenity = amenities.find((item: any) => item._id === selectedAmenity);
+            newAmenities.push(foundAmenity);
+        })
+
+        const groupItemRestById = (collector: any, item: any) => {
+            const { categoryName, ...rest } = item;
+            const groupList = collector[categoryName] || (collector[categoryName] = []);
+
+            groupList.push(rest);
+
+            return collector;
+        }
+        setBreakdowns(Object.entries(newAmenities.reduce(groupItemRestById, {})));
+
+    }, [amenities, areaBreakdown])
+
+    async function onSubmit(event: FormEvent<HTMLFormElement>) {
+        event.preventDefault();
         if (!isLastStep) return next();
+
+        updateIsLoading(true);
+        setError(null); // Clear previous errors when a new request starts
+        try {
+            let form_data = { ...areaBreakdown, ...{ projectId: projectId } };
+
+            const response = await fetch('/api/project/definition', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(form_data),
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to submit the data. Please try again.')
+            }
+
+            let projectResponse = await response.json();
+
+            if (response.status === 200) {
+                router.push(`/estimation/project-definition/${projectResponse.id}`)
+                reset();
+            }
+        } catch (error: any) {
+            setError(error.message)
+        } finally {
+            updateIsLoading(false) // Set loading to false when the request completes
+        }
     }
 
     return (
@@ -68,7 +115,8 @@ export default function Form({
                     </div>
                 </div>
             </div>
-            <div className="lg:col-span-4 col-span-12 h-full w-full overflow-y-scroll overflow-x-hidden">
+
+            <form id="projectForm" onSubmit={onSubmit} className="lg:col-span-4 col-span-12 h-full w-full overflow-y-scroll overflow-x-hidden">
                 {!isFirstStep && (
                     <div className="absolute top-0 left-0 flex flex-col items-end p-30">
                         <button type="button" onClick={back} className="focus:shadow-outline focus:outline-none">
@@ -78,10 +126,10 @@ export default function Form({
                         </button>
                     </div>
                 )}
-                <Wrapper stepIndex={currentStepIndex} isLastStep={isLastStep} onClick={handleClick}>
-                    {step}
+                <Wrapper stepIndex={currentStepIndex} isLastStep={isLastStep}>
+                    {children}
                 </Wrapper>
-            </div>
+            </form>
         </>
     );
 }

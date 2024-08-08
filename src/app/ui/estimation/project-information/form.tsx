@@ -5,6 +5,7 @@ import clsx from "clsx";
 import { FormEvent, ReactNode, useState } from "react";
 import { useProjectInformationStore } from "@/app/lib/store/projectInformationStore";
 import { useRouter } from "next/navigation";
+import { useAppStore } from "@/app/lib/store/appStore";
 
 export default function Form({
     currentStepIndex, isFirstStep, isLastStep, back, next, menus, children
@@ -18,16 +19,18 @@ export default function Form({
     const isBaseOnHeadCount = useProjectInformationStore(state => state.isBaseOnHeadCount);
     const reset = useProjectInformationStore(state => state.reset);
 
-    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const isLoading = useAppStore(state => state.isLoading);
+    const updateIsLoading = useAppStore(state => state.updateIsLoading);
+    
     const [error, setError] = useState<string | null>(null);
 
     async function onSubmit(event: FormEvent<HTMLFormElement>) {
         event.preventDefault();
-        setIsLoading(true);
-        setError(null); // Clear previous errors when a new request starts
-
         if (!isLastStep) return next();
         
+        updateIsLoading(true);
+        setError(null); // Clear previous errors when a new request starts
+
         try {
             const formData = new FormData();
 
@@ -67,7 +70,7 @@ export default function Form({
         } catch (error: any) {
             setError(error.message)
         } finally {
-            setIsLoading(false) // Set loading to false when the request completes
+            updateIsLoading(false) // Set loading to false when the request completes
         }
     }
 

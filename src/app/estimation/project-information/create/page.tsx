@@ -9,6 +9,7 @@ import { Suspense } from "react";
 import Intro from "@/app/ui/estimation/project-information/intro";
 import PageWrapper from "@/app/ui/page-wrapper";
 import FormWrapper from "@/app/ui/estimation/project-information/form-wrapper";
+import Loader from "@/app/ui/loader";
 
 export default async function Page() {
     const menus = await fetchMenuByPageHandled('project-information');
@@ -18,24 +19,27 @@ export default async function Page() {
     const mainColors: string[] = ['bg-darkblue1', 'bg-gray4A', 'bg-gray4A', 'bg-white', 'bg-white'];
 
     return (
-        <div className="wrapper theme theme-darkblue">
-            <Popup />
- 
-            <IntroWrapper>
-                <Suspense fallback={<p>Loading ...</p>}>
-                    <Intro menus={menus} />
-                </Suspense>
-            </IntroWrapper>
+        <>
+            <div className="wrapper theme theme-darkblue">
+                <Popup />
 
-            <MainWrapper>
-                <Suspense fallback={<p>Loading ...</p>}>
-                    <FormWrapper menus={menus} />
-                </Suspense>
-            </MainWrapper>
+                <IntroWrapper>
+                    <Suspense fallback={<p>Loading ...</p>}>
+                        <Intro menus={menus} />
+                    </Suspense>
+                </IntroWrapper>
 
-            <LinearCover colors={introductionColors} target={2} className="introduction" />
+                <MainWrapper>
+                    <Suspense fallback={<p>Loading ...</p>}>
+                        <FormWrapper menus={menus} />
+                    </Suspense>
+                </MainWrapper>
 
-            <StaggerCover colors={mainColors} target={2} className="main" />
-        </div>
+                <LinearCover colors={introductionColors} target={2} className="introduction" />
+
+                <StaggerCover colors={mainColors} target={2} className="main" />
+            </div>
+            <Loader />
+        </>
     )
 }

@@ -7,6 +7,7 @@ import { PieChartPresentation } from "../pie-chart-presentation";
 import { common } from "../../mock";
 import PieChartData from "../pie-chart-data";
 import { useRouter } from "next/navigation";
+import { useAppStore } from "@/app/lib/store/appStore";
 
 export default function Form({ project, amenities, customeSpaces, selectedAmenities, selectedCustomSpaces }: {
     project: any;
@@ -20,12 +21,17 @@ export default function Form({ project, amenities, customeSpaces, selectedAmenit
     const [staffWorkingRemotely, setStaffWorkingRemotely] = useState<number>(0);
     const [breakdowns, setBreakdowns] = useState<any[]>([]);
 
+    const isLoading = useAppStore(state => state.isLoading);
+    const updateIsLoading = useAppStore(state => state.updateIsLoading);
+
     const download = () => { }
 
     const share = () => { }
 
     async function onSubmit(e: FormEvent) {
         e.preventDefault();
+
+        updateIsLoading(true);
 
         const response = await fetch('/api/project/information', {
             method: 'POST',
@@ -43,7 +49,8 @@ export default function Form({ project, amenities, customeSpaces, selectedAmenit
         let projectResponse = await response.json();
 
         if (response.status === 200) {
-            router.push(`/estimation/requirement/${projectResponse.id}`)
+            updateIsLoading(false)
+            router.push(`/estimation/requirement/${projectResponse.id}`);
         }
     }
 
@@ -54,7 +61,7 @@ export default function Form({ project, amenities, customeSpaces, selectedAmenit
     }, [project])
 
     useEffect(() => {
-        
+
         const groupItemRestById = (collector: any, item: any) => {
             const { categoryName, ...rest } = item;
             const groupList = collector[categoryName] || (collector[categoryName] = []);
@@ -101,7 +108,7 @@ export default function Form({ project, amenities, customeSpaces, selectedAmenit
                                             <PieChartPresentation width={280} height={280} breakdowns={breakdowns} />
                                         </div>
 
-                                        <PieChartData breakdowns={breakdowns} selectedAmenities={selectedAmenities}/>
+                                        <PieChartData breakdowns={breakdowns} selectedAmenities={selectedAmenities} />
 
                                     </div>
                                     <div className="col-span-1 flex flex-col justify-end h-full">
