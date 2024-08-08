@@ -41,9 +41,9 @@ export const INITIAL_PROJECT_INFORMATION_DATA: PartialData = {
     place: "",
     location: undefined,
   },
-  approximateSize: '3000',
-  rentableArea: '3000',
-  targetHeadCount: '0',
+  approximateSize: "3000",
+  rentableArea: "3000",
+  targetHeadCount: "0",
   averageAttendance: "0",
   assignedSeat: "30",
 };

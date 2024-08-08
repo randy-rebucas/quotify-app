@@ -4,18 +4,19 @@ import StaggerCover from "../ui/stagger-cover";
 import PageWrapper from "../ui/file-management/page-wrapper";
 import ResultWrapper from "../ui/file-management/result-wrapper";
 import { fetchProjectsByUserId } from "../lib/data";
-import { Metadata } from "next";
 import { getSession } from "../actions/session";
 import { PowerIcon } from "@heroicons/react/24/outline";
 import { logout } from "../actions/auth";
+import { Suspense } from "react";
 
-
-export const metadata: Metadata = {
-    title: 'File Management'
-};
+export async function generateMetadata({ }) {
+    return {
+        title: 'File Management',
+        description: '...',
+    }
+}
 
 export default async function Page() {
-
 
     const session = await getSession();
 
@@ -59,9 +60,9 @@ export default async function Page() {
                             />
                         </Link>
                     </div>
-
-                    <ResultWrapper projects={projects} />
-
+                    <Suspense fallback={<p>Loading projects...</p>}>
+                        <ResultWrapper projects={projects} />
+                    </Suspense>
                 </div>
             </PageWrapper>
 
