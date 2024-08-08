@@ -10,6 +10,7 @@ import StaggerCover from "@/app/ui/stagger-cover";
 import { notFound } from "next/navigation";
 import Loader from "@/app/ui/loader";
 import { Suspense } from "react";
+import FormWrapper from "@/app/ui/estimation/requirement/form-wrapper";
 
 export default async function Page({ params }: { params: { id: string } }) {
     const id = params.id;
@@ -38,7 +39,7 @@ export default async function Page({ params }: { params: { id: string } }) {
 
                 <MainWrapper>
                     <Suspense fallback={<p>Loading ...</p>}>
-                        <Form requirements_groups={requirements_groups} project_id={id} />
+                        <FormWrapper requirements_groups={requirements_groups} project_id={id} />
                     </Suspense>
                 </MainWrapper>
 

@@ -1,15 +1,14 @@
 import clsx from "clsx";
-import { MouseEventHandler, ReactNode } from "react";
+import { ReactNode } from "react";
 import Tooltip from "../../tooltip";
 
-type FormWrapperProps = {
+type Props = {
     stepIndex: number;
-    isLastStep: boolean;
     children: ReactNode
 }
 
 
-export default function Wrapper({ stepIndex, isLastStep, children }: FormWrapperProps) {
+export default function Wrapper({ stepIndex, children }: Props) {
     return (
         <div className="js-step step active">
 

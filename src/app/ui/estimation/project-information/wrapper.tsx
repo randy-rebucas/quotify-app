@@ -2,17 +2,16 @@
 
 import { MouseEventHandler, ReactNode } from "react";
 import clsx from "clsx";
-import DropzoneUploadedFile from "./results/dropzone-uploaded-file";
-import Address from "./results/address";
+import DropzoneUploadedFile from "./dropzone-uploaded-file";
+import Address from "./address";
 import Tooltip from "../../tooltip";
 
-type FormWrapperProps = {
+type Props = {
     stepIndex: number;
-    isLastStep: boolean;
     children: ReactNode;
 }
 
-export default function Wrapper({ stepIndex, isLastStep, children }: FormWrapperProps) {
+export default function Wrapper({ stepIndex, children }: Props) {
 
     return (
         <div className="js-step step active">

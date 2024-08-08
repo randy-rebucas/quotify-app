@@ -59,19 +59,15 @@ export default function Form({
                 body: JSON.stringify(form_data),
             });
 
-            if (!response.ok) {
-                throw new Error('Failed to submit the data. Please try again.')
-            }
-
             let projectResponse = await response.json();
 
             if (response.status === 200) {
                 router.push(`/estimation/project-definition/${projectResponse.id}`)
-                reset();
             }
         } catch (error: any) {
             setError(error.message)
         } finally {
+            reset();
             updateIsLoading(false) // Set loading to false when the request completes
         }
     }
@@ -126,7 +122,7 @@ export default function Form({
                         </button>
                     </div>
                 )}
-                <Wrapper stepIndex={currentStepIndex} isLastStep={isLastStep}>
+                <Wrapper stepIndex={currentStepIndex} >
                     {children}
                 </Wrapper>
             </form>

@@ -57,19 +57,15 @@ export default function Form({
                 body: formData,
             });
 
-            if (!response.ok) {
-                throw new Error('Failed to submit the data. Please try again.')
-            }
-
             let projectResponse = await response.json();
 
             if (response.status === 200) {
                 router.push(`/estimation/area-breakdown/${projectResponse.id}`)
-                reset();
             }
         } catch (error: any) {
             setError(error.message)
         } finally {
+            reset();
             updateIsLoading(false) // Set loading to false when the request completes
         }
     }
@@ -118,7 +114,7 @@ export default function Form({
                 </div>
             </div>
             <form id="projectForm" onSubmit={onSubmit} className="lg:col-span-4 col-span-12 h-full w-full overflow-y-scroll overflow-x-hidden">
-                <Wrapper stepIndex={currentStepIndex} isLastStep={isLastStep}>
+                <Wrapper stepIndex={currentStepIndex}>
                     {children}
                 </Wrapper>
             </form>

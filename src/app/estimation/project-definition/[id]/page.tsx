@@ -2,6 +2,7 @@ import { fetchAmenities, fetchCustomSpacesByGroup, fetchProject, fetchProjectAme
 import Popup from "@/app/ui/estimation/popup";
 import Form from "@/app/ui/estimation/project-definition/form";
 import Menu from "@/app/ui/estimation/project-definition/menu";
+import Loader from "@/app/ui/loader";
 import PageWrapper from "@/app/ui/page-wrapper";
 import StaggerCover from "@/app/ui/stagger-cover";
 import { notFound } from "next/navigation";
@@ -23,21 +24,24 @@ export default async function Page({ params }: { params: { id: string } }) {
     const selected_amenities = await fetchProjectAmenitiesByProject(id);
     // Get all project custom spaces 
     const selected_custom_spaces = await fetchProjectCustomSpacesByProject(id);
-    
+
     const colors: string[] = ['bg-blue2', 'bg-white', 'bg-white', 'bg-white', 'bg-white'];
 
     return (
-        <div className="wrapper theme theme-blue">
+        <>
+            <div className="wrapper theme theme-blue">
 
-            <Popup />
+                <Popup />
 
-            <PageWrapper >
-                <Menu />
+                <PageWrapper >
+                    <Menu />
 
-                <Form project={project} amenities={amenities} customeSpaces={custom_spaces} selectedAmenities={selected_amenities} selectedCustomSpaces={selected_custom_spaces}/>
-            </PageWrapper>
+                    <Form project={project} amenities={amenities} customeSpaces={custom_spaces} selectedAmenities={selected_amenities} selectedCustomSpaces={selected_custom_spaces} />
+                </PageWrapper>
 
-            <StaggerCover colors={colors} target={2} className="opacity-1" />
-        </div>
+                <StaggerCover colors={colors} target={2} className="opacity-1" />
+            </div>
+            <Loader />
+        </>
     )
 }
