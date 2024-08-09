@@ -54,10 +54,10 @@ export default async function handler(
       const session = await decrypt(req.cookies.session);
 
       const fieldMap = new Map();
-      fields.map((element: { fieldName: string; value: string }) =>
-        fieldMap.set(element.fieldName, element.value)
-      );
-
+      fields.map((element: { fieldName: string; value: string }) => {
+        console.log(element.fieldName, element.value);
+        return fieldMap.set(element.fieldName, element.value);
+      });
       const project = new Project({
         spaceName: fieldMap.get("spaceName"),
         address: fieldMap.get("address"),
@@ -125,7 +125,7 @@ export default async function handler(
             seatingPercentage: project.seatingPercentage.toString(),
           };
         });
-      
+
         res.status(200).json({ transformData });
       } catch (err) {
         res.status(500).json(err);

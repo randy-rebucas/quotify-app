@@ -2,7 +2,7 @@
 
 import { ChangeEvent, useEffect } from "react";
 import { useRequirementStore } from "@/app/lib/store/requirementStore"
-import RequirementLevelOption from "@/app/ui/level-option/requirement-level-option";
+import RequirementLevelOption from "../requirement-level-option";
 
 type Props = {
     requirements_groups: any[];

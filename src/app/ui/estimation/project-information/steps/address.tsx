@@ -11,7 +11,7 @@ export type LatLong = {
 }
 
 export default function Address() {
-
+    const projectInformation = useProjectInformationStore(state => state.projectInformation);
     const hasAddress = useProjectInformationStore(state => state.hasAddress);
     const updateFields = useProjectInformationStore(state => state.updateFields);
     const updateHasAddress = useProjectInformationStore(state => state.updateHasAddress);

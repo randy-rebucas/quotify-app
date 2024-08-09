@@ -21,13 +21,13 @@ export default function Form({
 
     const isLoading = useAppStore(state => state.isLoading);
     const updateIsLoading = useAppStore(state => state.updateIsLoading);
-    
+
     const [error, setError] = useState<string | null>(null);
 
     async function onSubmit(event: FormEvent<HTMLFormElement>) {
         event.preventDefault();
         if (!isLastStep) return next();
-        
+
         updateIsLoading(true);
         setError(null); // Clear previous errors when a new request starts
 
@@ -35,7 +35,7 @@ export default function Form({
             const formData = new FormData();
 
             const size = isBaseOnHeadCount ? +project.targetHeadCount * 1000 : project.approximateSize;
-            const address = hasAddress ? project.address.place : '';
+            const address = !hasAddress ? project.address.place : '';
 
             formData.append('spaceName', project.spaceName);
             formData.append('address', address);

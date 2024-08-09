@@ -1,11 +1,9 @@
 import { fetchRefinements } from "@/app/lib/data";
-import { IRefinement } from "@/app/models/Refinement";
 import IntroWrapper from "@/app/ui/estimation/intro-wrapper";
 import MainWrapper from "@/app/ui/estimation/main-wrapper";
 import Popup from "@/app/ui/estimation/popup";
-import Form from "@/app/ui/estimation/refinement/form";
+import FormWrapper from "@/app/ui/estimation/refinement/form-wrapper";
 import Intro from "@/app/ui/estimation/refinement/intro";
-import TabForm from "@/app/ui/estimation/refinement/tab-form";
 import LinearCover from "@/app/ui/linear-cover";
 import Loader from "@/app/ui/loader";
 import StaggerCover from "@/app/ui/stagger-cover";
@@ -39,7 +37,7 @@ export default async function Page({ params }: { params: { id: string } }) {
 
                 <MainWrapper>
                     <Suspense fallback={<p>Loading ...</p>}>
-                        <Form refinements={refinements} project_id={id} />
+                        <FormWrapper refinements={refinements} project_id={id} />
                     </Suspense>
                 </MainWrapper>
 
