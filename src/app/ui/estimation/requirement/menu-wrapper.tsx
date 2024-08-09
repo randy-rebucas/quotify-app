@@ -1,8 +1,7 @@
 "use client";
 
 import { useRequirementStore } from "@/app/lib/store/requirementStore";
-import { StimateData } from "./form";
-import { tabMapping } from "./entities";
+import { StimateData, tabMapping } from "./entities";
 import clsx from "clsx";
 import Menu from "./menu";
 import Cost from "./cost";

@@ -1,11 +1,9 @@
 'use client';
 
-import { useRequirementLevelStore } from "@/app/lib/store/requirementLevelStore";
 import { useRequirementStore } from "@/app/lib/store/requirementStore";
 import clsx from "clsx";
-import { useEffect, useState } from "react";
 import Indicator from "./indicator";
-// <Menu menus={requirements_groups} estimateId={estimate.id} currentStepIndex={currentStepIndex} activeTab={activeTab}/>
+
 export default function Menu({ menus, estimateId, currentStepIndex, activeTab }: { menus: any[]; estimateId: number; currentStepIndex: number; activeTab: number }) {
     const estimates = useRequirementStore((state) => state.estimates);
 

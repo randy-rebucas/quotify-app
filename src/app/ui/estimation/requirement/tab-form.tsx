@@ -2,8 +2,8 @@
 
 import clsx from 'clsx';
 import { FormEventHandler, useEffect, useState } from 'react';
-import { tabMapping, titleMapping } from './entities';
-import { StimateData } from './form';
+import { StimateData, tabMapping, titleMapping } from './entities';
+
 
 type Props = {
     stimates: StimateData[];
