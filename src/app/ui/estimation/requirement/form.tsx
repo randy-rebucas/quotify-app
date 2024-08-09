@@ -12,11 +12,19 @@ export type StimateData = {
   requirement: any | null;
 };
 
+type Props = {
+  projectId: string;
+  currentStepIndex: number;
+  isFirstStep: boolean;
+  isLastStep: boolean;
+  back: () => void;
+  next: () => void;
+  children: ReactNode;
+}
+
 export default function Form({
   projectId, currentStepIndex, isFirstStep, isLastStep, back, next, children
-}: {
-  projectId: string, currentStepIndex: number, isFirstStep: boolean, isLastStep: boolean, back: () => void, next: () => void, children: ReactNode
-}) {
+}: Props) {
   const router = useRouter();
   const estimates = useRequirementStore((state) => state.estimates);
   const reset = useRequirementStore((state) => state.reset);

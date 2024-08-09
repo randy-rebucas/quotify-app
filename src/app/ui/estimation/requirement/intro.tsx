@@ -2,7 +2,10 @@
 
 import { IRequirement } from "@/app/models/Requirement";
 
-export default function Intro({ requirementGroups }: { requirementGroups: any[] }) {
+type Props = {
+    requirementGroups: any[]
+}
+export default function Intro({ requirementGroups }: Props) {
     return (
         <div className="intro-menu col-start-3">
             <div className="h-full">

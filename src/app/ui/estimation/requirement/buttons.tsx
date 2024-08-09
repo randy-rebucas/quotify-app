@@ -2,7 +2,12 @@
 
 import { MouseEventHandler } from "react";
 
-export default function Buttons({ isFirstStep, onClick }: { isFirstStep: boolean; onClick: MouseEventHandler<HTMLButtonElement> }) {
+type Props = {
+    isFirstStep: boolean;
+    onClick: MouseEventHandler<HTMLButtonElement>
+}
+
+export default function Buttons({ isFirstStep, onClick }: Props) {
     return (
         <div
             className="col-start-1 col-span-4 flex flex-col justify-end items-start w-full h-full">

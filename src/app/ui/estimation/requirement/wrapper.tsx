@@ -3,7 +3,7 @@ import Tooltip from "../../tooltip";
 import Buttons from "./buttons";
 import { useRequirementStore } from "@/app/lib/store/requirementStore";
 
-type FormWrapperProps = {
+type Props = {
   stepIndex: number;
   isFirstStep: boolean;
   children: ReactNode;
@@ -15,7 +15,7 @@ export default function Wrapper({
   isFirstStep,
   children,
   onClick,
-}: FormWrapperProps) {
+}: Props) {
   const requirement = useRequirementStore((state) => state.requirement);
   const requirementId = useRequirementStore((state) => state.requirementId);
   const getRequirement = useRequirementStore((state) => state.getRequirement);

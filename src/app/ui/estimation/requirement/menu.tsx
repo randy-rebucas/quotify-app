@@ -4,6 +4,7 @@ import { useRequirementLevelStore } from "@/app/lib/store/requirementLevelStore"
 import { useRequirementStore } from "@/app/lib/store/requirementStore";
 import clsx from "clsx";
 import { useEffect, useState } from "react";
+import Indicator from "./indicator";
 // <Menu menus={requirements_groups} estimateId={estimate.id} currentStepIndex={currentStepIndex} activeTab={activeTab}/>
 export default function Menu({ menus, estimateId, currentStepIndex, activeTab }: { menus: any[]; estimateId: number; currentStepIndex: number; activeTab: number }) {
     const estimates = useRequirementStore((state) => state.estimates);
@@ -86,47 +87,3 @@ export default function Menu({ menus, estimateId, currentStepIndex, activeTab }:
     )
 }
 
-export function Indicator({
-    estimateId,
-    requirementId,
-}: {
-    estimateId: number;
-    requirementId: string;
-}) {
-    const [requirementName, setRequirementname] = useState<string>("");
-    const estimates = useRequirementStore((state) => state.estimates);
-
-    const nextRequirement = estimates[estimateId].requirement.find(
-        (requirement: { requirementId: string }) =>
-            requirement.requirementId === requirementId
-    );
-
-    const updateRequirementLevelUnitRate = useRequirementLevelStore(
-        (state) => state.updateRequirementLevelUnitRate
-    );
-
-    useEffect(() => {
-        const getRequirementLabel = async (id?: string) => {
-            if (id) {
-                const response = await fetch(`/api/requirement-level/${id}`, {
-                    method: "POST",
-                    headers: {
-                        Accept: "application/json",
-                        "Content-Type": "application/json",
-                    },
-                });
-
-                let requirementLabelResponse = await response.json();
-
-                updateRequirementLevelUnitRate(requirementLabelResponse.unitRate);
-                setRequirementname(requirementLabelResponse.level);
-            }
-        };
-
-        if (nextRequirement) {
-            getRequirementLabel(nextRequirement.requirementLevelId);
-        }
-    }, [nextRequirement, updateRequirementLevelUnitRate]);
-
-    return requirementName.toLowerCase();
-}

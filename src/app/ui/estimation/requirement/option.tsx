@@ -5,7 +5,7 @@ import { IRequirementLevel } from "@/app/models/RequirementLevel";
 import Image from "next/image";
 import { ChangeEventHandler, useEffect, useState } from "react";
 
-export default function RequirementLevelOption({
+export default function Option({
   requirementId,
   requirementName,
   selectedRequirement,

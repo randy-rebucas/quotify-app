@@ -5,8 +5,12 @@ import { FormEventHandler, useEffect, useState } from 'react';
 import { tabMapping, titleMapping } from './entities';
 import { StimateData } from './form';
 
+type Props = {
+    stimates: StimateData[];
+    onSubmit: FormEventHandler<HTMLFormElement>;
+}
 
-export default function TabForm({ stimates, onSubmit }: { stimates: StimateData[], onSubmit: FormEventHandler<HTMLFormElement> }) {
+export default function TabForm({ stimates, onSubmit }: Props) {
 
     const [toggle, setToggle] = useState<boolean>(false);
     const [toggleOption, setToggleOption] = useState<boolean>(false);
@@ -78,7 +82,7 @@ export default function TabForm({ stimates, onSubmit }: { stimates: StimateData[
                             className="text-white flex border-b-2 border-l-0 border-r-0 border-t-0 outline-none border-solid border-green w-full">
                             <h3 className="text-green py-2">{tabMapping.get(last_stimate + 1)}:</h3>
                             <input className="js-count-chars__field bg-transparent px-3 py-2 outline-none text-white placeholder-green"
-                                maxLength={40} type="text" name='title' placeholder="name" value={title} onChange={() => {}}/>
+                                maxLength={40} type="text" name='title' placeholder="name" value={title} onChange={() => { }} />
                         </div>
                         <div className="js-count-chars__status text-[10px] font-lato text-green mt-1">0/40</div>
                     </div>

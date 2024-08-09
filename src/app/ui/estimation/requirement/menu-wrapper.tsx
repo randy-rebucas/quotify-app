@@ -7,7 +7,11 @@ import clsx from "clsx";
 import Menu from "./menu";
 import Cost from "./cost";
 
-export default function MenuWrapper({ requirementsGroups, currentStepIndex }: { requirementsGroups: any[], currentStepIndex: any }) {
+type Props = {
+    requirementsGroups: any[];
+    currentStepIndex: any;
+}
+export default function MenuWrapper({ requirementsGroups, currentStepIndex }: Props) {
     const estimates = useRequirementStore((state) => state.estimates);
     const isExpanded = useRequirementStore((state) => state.isExpanded);
     const activeTab = useRequirementStore((state) => state.activeTab);

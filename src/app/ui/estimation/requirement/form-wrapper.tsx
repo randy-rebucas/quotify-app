@@ -12,13 +12,15 @@ import Form from "./form";
 import TabWrapper from "./tab-wrapper";
 import MenuWrapper from "./menu-wrapper";
 
+type Props = {
+    requirements_groups: any[];
+    project_id: string;
+}
+
 export default function FormWrapper({
     requirements_groups,
     project_id,
-}: {
-    requirements_groups: any[];
-    project_id: string;
-}) {
+}: Props) {
     const { steps, currentStepIndex, step, isFirstStep, isLastStep, back, next } =
         useMultistepForm([
             <FinishAndCertification key={uuid()} requirements_groups={requirements_groups} />,

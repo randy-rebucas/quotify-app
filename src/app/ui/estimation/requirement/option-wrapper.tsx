@@ -1,66 +1,18 @@
 'use client';
 
-import { ChangeEvent, useEffect } from "react";
 import { useRequirementStore } from "@/app/lib/store/requirementStore";
-import RequirementLevelOption from "../option";
+import { ChangeEvent } from "react";
+import Option from "./option";
 
-type Props = {
-    requirements_groups: any[];
-}
-
-export default function Technology({
-    requirements_groups
-}: Props) {
-    const activeTab = useRequirementStore((state) => state.activeTab);
-    const requirements = useRequirementStore((state) => state.requirements);
-    const updateRequirements = useRequirementStore(
-        (state) => state.updateRequirements
-    );
-
-    useEffect(() => {
-        const data = requirements_groups.find(
-            (requirements_group) =>
-                requirements_group._id === "technology"
-        );
-        if (requirements_groups) {
-            updateRequirements(data.requirements);
-        }
-    }, [requirements_groups, updateRequirements]);
-
-    const getRequirementByName = useRequirementStore(
-        (state) => state.getRequirementByName
-    );
-
-    useEffect(() => {
-        getRequirementByName('technology');
-
-    }, [getRequirementByName]);
-
-    return (
-        <>
-            {requirements &&
-                requirements.map(
-                    (requirement: { id: string; name: string }) => (
-                        <OptionWrapper
-                            key={requirement.id}
-                            requirementId={requirement.id} // requirements [...dynamic]                                  // project amenity id
-                            requirementName={requirement.name} // requirement name
-                            tabIndex={activeTab}
-                        />
-                    )
-                )}
-        </>
-    );
-
-}
-
-export function OptionWrapper({
+export default function OptionWrapper({
     requirementId,
     requirementName,
+    requirementQuestion,
     tabIndex,
 }: {
     requirementId: string;
     requirementName: string;
+    requirementQuestion: string;
     tabIndex: number;
 }) {
     const updateEstimateRequirement = useRequirementStore(
@@ -107,11 +59,14 @@ export function OptionWrapper({
 
     return (
         <div data-col="1" className="col-start-1 col-span-4">
-            <h3 className="px-30 col-start-1 font-weight font-latobold mt-2">
-                {requirementName}
-            </h3>
+            <div className="p-30 pt-[74px]">
+                <h5 className="col-start-1 xl:text-2xl text-1xl text-black font-latobold mt-1">
+                    {requirementName}
+                </h5>
+                <p>{requirementQuestion}</p>
+            </div>
             <div className="grid grid-cols-4">
-                <RequirementLevelOption
+                <Option
                     requirementId={requirementId}
                     requirementName={requirementName}
                     selectedRequirement={estimates[tabIndex].requirement.find(
