@@ -1,18 +1,10 @@
 "use client";
 
-import { FormEvent, ReactNode, useEffect, useState } from "react";
+import { FormEvent, ReactNode, useState } from "react";
 import Wrapper from "./wrapper";
-import clsx from "clsx";
 import { useRouter } from "next/navigation";
 import { Estimate, useRefinementStore } from "@/app/lib/store/refinementStore";
 import { useAppStore } from "@/app/lib/store/appStore";
-import Indicator from "./indicator";
-
-export type StimateData = {
-  id: number;
-  name: string;
-  refinement: any | null;
-};
 
 export interface ProjectAmenities {
   _id: string;
@@ -25,6 +17,16 @@ export interface ProjectAreaDefination {
   type: string;
 }
 
+type Props = {
+  projectId: string;
+  currentStepIndex: number;
+  isFirstStep: boolean;
+  isLastStep: boolean;
+  back: () => void;
+  next: () => void;
+  children: ReactNode
+};
+
 /**
  * 
  * @param param0 
@@ -32,9 +34,7 @@ export interface ProjectAreaDefination {
  */
 export default function Form({
   projectId, currentStepIndex, isFirstStep, isLastStep, back, next, children
-}: {
-  projectId: string, currentStepIndex: number, isFirstStep: boolean, isLastStep: boolean, back: () => void, next: () => void, children: ReactNode
-}) {
+}: Props) {
   const router = useRouter();
 
   const estimates = useRefinementStore((state) => state.estimates);

@@ -1,17 +1,18 @@
 "use client";
 
 import { useRefinementStore } from "@/app/lib/store/refinementStore";
-import { StimateData } from "./form";
-import { tabMapping } from "./entities";
+import { StimateData, tabMapping } from "./entities";
 import clsx from "clsx";
-import { IRefinement } from "@/app/models/Refinement";
 import Menu from "./menu";
 
+type Props = {
+    refinements: any[];
+    currentStepIndex: number;
+    projectId: string;
+}
 export default function MenuWrapper({
     refinements, currentStepIndex, projectId
-}: {
-    refinements: any[], currentStepIndex: number, projectId: string
-}) {
+}: Props) {
 
     const estimates = useRefinementStore((state) => state.estimates);
     const isExpanded = useRefinementStore((state) => state.isExpanded);

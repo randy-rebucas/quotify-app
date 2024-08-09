@@ -3,8 +3,7 @@
 import { useRefinementStore } from "@/app/lib/store/refinementStore";
 import clsx from "clsx";
 import { useEffect } from "react";
-import { StimateData } from "./form";
-import { tabMapping } from "./entities";
+import { StimateData, tabMapping } from "./entities";
 import TabForm from "./tab-form";
 
 export default function TabWrapper() {

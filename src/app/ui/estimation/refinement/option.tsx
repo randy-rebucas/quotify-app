@@ -5,21 +5,22 @@ import { useRefinementLevelStore } from "@/app/lib/store/refinementLevelStore";
 import { useRefinementStore } from "@/app/lib/store/refinementStore";
 import { ChangeEventHandler, useEffect } from "react";
 
-export default function RefinementLevelOption({
-  refinement,
-  id,
-  refinementId,
-  amenityName,
-  selectedRefinement,
-  onChange,
-}: {
+type Props = {
   refinement: string;
   id: string;
   refinementId: string;
   amenityName: string;
   selectedRefinement: { id: string; refinementLevelId: string };
   onChange: ChangeEventHandler<HTMLInputElement>;
-}) {
+}
+export default function Option({
+  refinement,
+  id,
+  refinementId,
+  amenityName,
+  selectedRefinement,
+  onChange,
+}: Props) {
   const getRefinementIdByName = useRefinementStore(
     (state) => state.getRefinementIdByName
   );
@@ -52,9 +53,8 @@ export default function RefinementLevelOption({
             data-value={refinementLevel.level}
             data-col={index + 1}
             key={refinementLevel._id.toString()}
-            className={`js-select-option col-start-${
-              index + 1
-            } row-start-2 col-span-1 flex flex-col justify-between items-start w-full h-full`}
+            className={`js-select-option col-start-${index + 1
+              } row-start-2 col-span-1 flex flex-col justify-between items-start w-full h-full`}
           >
             <div className="p-30 estimation estimation-yellow">
               <input
@@ -66,7 +66,7 @@ export default function RefinementLevelOption({
                 checked={
                   selectedRefinement &&
                   selectedRefinement.refinementLevelId ===
-                    refinementLevel._id.toString()
+                  refinementLevel._id.toString()
                 }
               />
               <label htmlFor={`refinement-${amenityName}-${index + 1}`}>

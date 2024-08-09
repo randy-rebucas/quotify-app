@@ -9,19 +9,15 @@ import Form from "./form";
 import TabWrapper from "./tab-wrapper";
 import MenuWrapper from "./menu-wrapper";
 
-export type StimateData = {
-    id: number;
-    name: string;
-    refinement: any | null;
+type Props = {
+    refinements: any[];
+    project_id: string;
 };
 
 export default function FormWrapper({
     refinements,
     project_id,
-}: {
-    refinements: any[];
-    project_id: string;
-}) {
+}: Props) {
 
     const { steps, currentStepIndex, step, isFirstStep, isLastStep, back, next } =
         useMultistepForm([

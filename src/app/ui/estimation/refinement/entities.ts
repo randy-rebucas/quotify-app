@@ -1,8 +1,3 @@
-type StimateRefinementData = {
-  flooring?: string;
-  furniture?: string;
-  partitions?: string;
-};
 
 export type StimateData = {
   id: number;
@@ -12,16 +7,6 @@ export type StimateData = {
 
 export type RefinementData = {
   stimates: StimateData[];
-};
-
-export const INITIAL_DATA: RefinementData = {
-  stimates: [
-    {
-      id: 0,
-      name: "Main estimation",
-      refinement: new Object(),
-    },
-  ],
 };
 
 export let menuMapping = new Map<string, string>();

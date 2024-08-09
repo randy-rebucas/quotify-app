@@ -4,15 +4,14 @@ import Tooltip from "../../tooltip";
 import Buttons from "./buttons";
 import { useRefinementStore } from "@/app/lib/store/refinementStore";
 
-type FormWrapperProps = {
+type Props = {
     stepIndex: number;
     isFirstStep: boolean;
     children: ReactNode;
     onClick: MouseEventHandler<HTMLButtonElement>
 }
 
-
-export default function Wrapper({ stepIndex, isFirstStep, children, onClick }: FormWrapperProps) {
+export default function Wrapper({ stepIndex, isFirstStep, children, onClick }: Props) {
     const refinement = useRefinementStore(state => state.refinement);
     const refinementId = useRefinementStore(state => state.refinementId);
     const getRefinement = useRefinementStore(state => state.getRefinement);

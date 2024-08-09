@@ -6,17 +6,18 @@ import { useEffect, useState } from "react";
 import clsx from "clsx";
 import Indicator from "./indicator";
 
+type Props = {
+    projectId: string;
+    estimateId: number;
+    estimates: Estimate[];
+    refinementId?: string;
+}
 export default function MenuSubLevel({
     projectId,
     estimates,
     estimateId,
     refinementId,
-}: {
-    projectId: string;
-    estimateId: number;
-    estimates: Estimate[];
-    refinementId?: string;
-}) {
+}: Props) {
     const [projectAmenities, setProjectAmenities] = useState<ProjectAreaDefination[]>(
         []
     );

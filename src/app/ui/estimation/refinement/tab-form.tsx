@@ -4,8 +4,11 @@ import clsx from 'clsx';
 import { FormEventHandler, useEffect, useState } from 'react';
 import { StimateData, tabMapping, titleMapping } from './entities';
 
-
-export default function TabForm({ stimates, onSubmit }: { stimates: StimateData[], onSubmit: FormEventHandler<HTMLFormElement> }) {
+type Props = {
+    stimates: StimateData[];
+    onSubmit: FormEventHandler<HTMLFormElement>;
+}
+export default function TabForm({ stimates, onSubmit }: Props) {
     const [toggle, setToggle] = useState<boolean>(false);
     const [toggleOption, setToggleOption] = useState<boolean>(false);
     const [source, setSource] = useState<string>('');
