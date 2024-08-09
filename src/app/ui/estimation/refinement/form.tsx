@@ -3,7 +3,7 @@
 import { FormEvent, ReactNode, useState } from "react";
 import Wrapper from "./wrapper";
 import { useRouter } from "next/navigation";
-import { Estimate, useRefinementStore } from "@/app/lib/store/refinementStore";
+import { useRefinementStore } from "@/app/lib/store/refinementStore";
 import { useAppStore } from "@/app/lib/store/appStore";
 
 export interface ProjectAmenities {
@@ -40,8 +40,6 @@ export default function Form({
   const estimates = useRefinementStore((state) => state.estimates);
   const reset = useRefinementStore((state) => state.reset);
 
-  const isExpanded = useRefinementStore((state) => state.isExpanded);
-  const activeTab = useRefinementStore((state) => state.activeTab);
   const isLoading = useAppStore(state => state.isLoading);
   const updateIsLoading = useAppStore(state => state.updateIsLoading);
 
