@@ -6,11 +6,6 @@ import { useRouter } from "next/navigation";
 import { useRequirementStore } from "@/app/lib/store/requirementStore";
 import { useAppStore } from "@/app/lib/store/appStore";
 
-export type StimateData = {
-  id: number;
-  name: string;
-  requirement: any | null;
-};
 
 type Props = {
   projectId: string;

@@ -1,4 +1,8 @@
-
+export type StimateData = {
+  id: number;
+  name: string;
+  requirement: any | null;
+};
 
 export let menuMapping = new Map<string, string>();
 menuMapping.set("finish and certifications", "finish");
