@@ -4,18 +4,11 @@ import { logout } from "@/app/actions/auth";
 import { motion } from "framer-motion";
 import { ReactNode, useEffect } from "react";
 
-type PageWrapperProps = {
+type Props = {
     children: ReactNode
 }
 
-export default function PageWrapper({ children }: PageWrapperProps) {
-    // useEffect( () => {
-    //     const doLogout = async () => {
-    //         await logout();
-    //     }
-    //     doLogout();
-    // }, []);
-
+export default function PageWrapper({ children }: Props) {
     return (
         <motion.div
             initial={{ opacity: 0 }}

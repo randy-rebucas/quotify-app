@@ -2,13 +2,20 @@
 
 import Image from "next/image";
 import clsx from "clsx";
-import { MouseEventHandler, useEffect, useState } from "react";
+import { MouseEventHandler } from "react";
 import { IProject } from "@/app/models/Project";
 import Link from "next/link";
+import EstimateCount from "./estimate-count";
 
-export default function Result({ isMore, files, onClick }: { isMore: boolean, files: IProject[], onClick: MouseEventHandler<HTMLAnchorElement> }) {
+type Props = {
+    isMore: boolean;
+    projects: IProject[];
+    onClick: MouseEventHandler<HTMLAnchorElement>
+}
 
-    const projects = !isMore ? files.slice(0, 4) : files;
+export default function Result({ isMore, projects, onClick }: Props) {
+
+    const items = !isMore ? projects.slice(0, 4) : projects;
 
     return (
         <div className={clsx(
@@ -20,7 +27,7 @@ export default function Result({ isMore, files, onClick }: { isMore: boolean, fi
             <div className="lg:col-start-2 h-full">
                 <div className="grid lg:grid-cols-4 lg:grid-flow-col relative h-full">
 
-                    {projects.map((project: any, index: number) => (
+                    {items.map((project: any, index: number) => (
                         <div className={`file file-${index + 1} lg:col-${index % 4 == 0 ? 'span' : 'start'}-${index % 4 + 1}`} key={index}>
                             <div className="file-map"></div>
                             <div className="file-img" data-lat="48.895651" data-long="2.290569" data-color="#383A64">
@@ -68,35 +75,4 @@ export default function Result({ isMore, files, onClick }: { isMore: boolean, fi
             </div>
         </div>
     )
-}
-
-export function EstimateCount({ projectId }: { projectId: string }) {
-    
-    const [estimatePropertyCount, setEstimatePropertyCount] = useState<number>(0);
-
-    useEffect(() => {
-        const getEstimateByProperty = async (projectId: string) => {
-            const response = await fetch(`/api/estimate/by-property/${projectId}`, {
-                method: 'POST',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-                }
-            });
-
-            let estimatePropertyResponse = await response.json();
-
-            setEstimatePropertyCount(estimatePropertyResponse.length);
-        }
-
-        if (projectId) {
-            getEstimateByProperty(projectId);
-        }
-    }, [projectId])
-
-    return (
-        <div className="file__est">
-            {estimatePropertyCount} estimates
-        </div>
-    );
 }

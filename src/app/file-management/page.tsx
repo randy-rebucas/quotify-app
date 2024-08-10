@@ -3,7 +3,7 @@ import Image from "next/image";
 import StaggerCover from "../ui/stagger-cover";
 import PageWrapper from "../ui/file-management/page-wrapper";
 import ResultWrapper from "../ui/file-management/result-wrapper";
-import { fetchProjectsByUserId } from "../lib/data";
+import { fetchProjectsByUserId, fetchRefinements, fetchRequirementsByGroup } from "../lib/data";
 import { getSession } from "../actions/session";
 import { PowerIcon } from "@heroicons/react/24/outline";
 import { logout } from "../actions/auth";
@@ -22,6 +22,10 @@ export default async function Page() {
 
     const projects = await fetchProjectsByUserId(session?.userId);
 
+    const requirement_groups = await fetchRequirementsByGroup();
+
+    const refinements = await fetchRefinements();
+    
     const colors: string[] = ['bg-gray1B', 'bg-gray2A', 'bg-gray3A', 'bg-gray4A', 'bg-gray5A']
 
     return (
@@ -61,7 +65,7 @@ export default async function Page() {
                         </Link>
                     </div>
                     <Suspense fallback={<p>Loading projects...</p>}>
-                        <ResultWrapper projects={projects} />
+                        <ResultWrapper projects={projects} requirementGroup={requirement_groups} refinements={refinements}/>
                     </Suspense>
                 </div>
             </PageWrapper>

@@ -6,8 +6,13 @@ import Detail from "./detail";
 import Result from "./result";
 import Empty from "./empty";
 
+type Props = {
+    projects: any[];
+    requirementGroup: any[];
+    refinements: any[];
+}
 
-export default function ResultWrapper({ projects }: { projects: any[] }) {
+export default function ResultWrapper({ projects, requirementGroup, refinements }: Props) {
     const [more, setMore] = useState<boolean>(false);
 
     const [selectedProjectId, setSelectedProjectId] = useState<any>(null);
@@ -33,9 +38,9 @@ export default function ResultWrapper({ projects }: { projects: any[] }) {
 
     return (
         <>
-            <Result isMore={more} files={projects} onClick={handleProjectSelectedClick} />
+            <Result isMore={more} projects={projects} onClick={handleProjectSelectedClick} />
 
-            {selectedProjectId && <Detail projectId={selectedProjectId} onClick={handleProjectClearedClick} />}
+            {selectedProjectId && <Detail projectId={selectedProjectId} requirementGroup={requirementGroup} refinements={refinements} onClick={handleProjectClearedClick} />}
 
             {projects.length > 4 && <Action isMore={more} onClick={handleMoreLessClick} />}
         </>
