@@ -65,7 +65,7 @@ export default async function Page() {
                         </Link>
                     </div>
                     <Suspense fallback={<p>Loading projects...</p>}>
-                        <ResultWrapper projects={projects} requirementGroup={requirement_groups} refinements={refinements}/>
+                        <ResultWrapper projects={projects} requirementGroups={requirement_groups} refinements={refinements}/>
                     </Suspense>
                 </div>
             </PageWrapper>
