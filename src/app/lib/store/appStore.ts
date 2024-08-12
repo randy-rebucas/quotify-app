@@ -4,11 +4,15 @@ import { persist } from "zustand/middleware";
 export type State = {
   isClose: boolean;
   isLoading: boolean;
+  hasMore: boolean;
+  projectId: string | null;
 };
 
 export type Actions = {
-  updateIsClose: (isClose: State["isClose"]) => void;
-  updateIsLoading: (isLoading: State["isLoading"]) => void;
+  setIsClose: (isClose: State["isClose"]) => void;
+  setIsLoading: (isLoading: State["isLoading"]) => void;
+  setHasMore: (hasMore: State["hasMore"]) => void;
+  setProjectId: (projectId: State["projectId"]) => void;
   reset: () => void;
 };
 
@@ -17,8 +21,12 @@ export const useAppStore = create<State & Actions>()(
     (set) => ({
       isClose: true,
       isLoading: false,
-      updateIsClose: (isClose) => set(() => ({ isClose: isClose })),
-      updateIsLoading: (isLoading) => set(() => ({ isLoading: isLoading })),
+      hasMore: false,
+      projectId: null,
+      setIsClose: (isClose) => set(() => ({ isClose: isClose })),
+      setIsLoading: (isLoading) => set(() => ({ isLoading: isLoading })),
+      setHasMore: (hasMore) => set(() => ({ hasMore: hasMore })),
+      setProjectId: (projectId) => set(() => ({ projectId: projectId })),
       reset: () =>
         set(() => ({
           isClose: true,

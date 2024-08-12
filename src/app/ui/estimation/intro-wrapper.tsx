@@ -11,14 +11,14 @@ type IntroWrapperProps = {
 
 export default function IntroWrapper({ children }: IntroWrapperProps) {
 
-    const updateIsClose = useAppStore(state => state.updateIsClose);
+    const setIsClose = useAppStore(state => state.setIsClose);
 
     return (
         <motion.div
             initial={{ display: 'grid' }}
             animate={{ display: 'table-column' }}
             transition={{ delay: 1.5 }} className="wrapper__content">
-            <Close onClick={() => updateIsClose(false)} />
+            <Close onClick={() => setIsClose(false)} />
 
             {children}
         </motion.div>

@@ -41,7 +41,7 @@ export default function Form({
   const reset = useRefinementStore((state) => state.reset);
 
   const isLoading = useAppStore(state => state.isLoading);
-  const updateIsLoading = useAppStore(state => state.updateIsLoading);
+  const setIsLoading = useAppStore(state => state.setIsLoading);
 
   const [error, setError] = useState<string | null>(null);
 
@@ -50,7 +50,7 @@ export default function Form({
     event.preventDefault();
     if (!isLastStep) return next();
 
-    updateIsLoading(true);
+    setIsLoading(true);
     setError(null); // Clear previous errors when a new request starts
 
     try {
@@ -84,7 +84,7 @@ export default function Form({
     } catch (error: any) {
       setError(error.message);
     } finally {
-      updateIsLoading(false); // Set loading to false when the request completes
+      setIsLoading(false); // Set loading to false when the request completes
     }
   }
 

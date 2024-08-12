@@ -10,11 +10,11 @@ export default function Form({ isEdit, project }: { isEdit: boolean, project: an
     const [error, setError] = useState<string | null>(null)
     const reset = useEstimateSummaryStore(state => state.reset);
     const isLoading = useAppStore(state => state.isLoading);
-    const updateIsLoading = useAppStore(state => state.updateIsLoading);
+    const setIsLoading = useAppStore(state => state.setIsLoading);
 
     async function onSubmit(event: FormEvent<HTMLFormElement>) {
         event.preventDefault()
-        updateIsLoading(true)
+        setIsLoading(true)
         setError(null) // Clear previous errors when a new request starts
         reset();
     }

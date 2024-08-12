@@ -8,6 +8,7 @@ import { getSession } from "../actions/session";
 import { PowerIcon } from "@heroicons/react/24/outline";
 import { logout } from "../actions/auth";
 import { Suspense } from "react";
+import { useAppStore } from "../lib/store/appStore";
 
 export async function generateMetadata({ }) {
     return {
@@ -22,10 +23,6 @@ export default async function Page() {
 
     const projects = await fetchProjectsByUserId(session?.userId);
 
-    const requirement_groups = await fetchRequirementsByGroup();
-
-    const refinements = await fetchRefinements();
-    
     const colors: string[] = ['bg-gray1B', 'bg-gray2A', 'bg-gray3A', 'bg-gray4A', 'bg-gray5A']
 
     return (
@@ -65,7 +62,7 @@ export default async function Page() {
                         </Link>
                     </div>
                     <Suspense fallback={<p>Loading projects...</p>}>
-                        <ResultWrapper projects={projects} requirementGroups={requirement_groups} refinements={refinements}/>
+                        <ResultWrapper projects={projects} />
                     </Suspense>
                 </div>
             </PageWrapper>

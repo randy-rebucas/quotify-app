@@ -10,7 +10,7 @@ type PageWrapperProps = {
 }
 // <div class="js-show-on-load wrapper__content navigation animate fade-in delay-last grid"></div>
 export default function PageWrapper({ children }: PageWrapperProps) {
-    const updateIsClose = useAppStore(state => state.updateIsClose);
+    const setIsClose = useAppStore(state => state.setIsClose);
     
     return (
         <motion.div
@@ -18,7 +18,7 @@ export default function PageWrapper({ children }: PageWrapperProps) {
             animate={{ opacity: 1 }}
             transition={{ delay: 1.5 }} className="wrapper__content grid">
                 
-            <Close onClick={() => updateIsClose(false)} />
+            <Close onClick={() => setIsClose(false)} />
 
             {children}
 

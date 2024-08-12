@@ -22,7 +22,7 @@ export default function Form({ project, amenities, customeSpaces, selectedAmenit
     const [breakdowns, setBreakdowns] = useState<any[]>([]);
 
     const isLoading = useAppStore(state => state.isLoading);
-    const updateIsLoading = useAppStore(state => state.updateIsLoading);
+    const setIsLoading = useAppStore(state => state.setIsLoading);
 
     const download = () => { }
 
@@ -31,7 +31,7 @@ export default function Form({ project, amenities, customeSpaces, selectedAmenit
     async function onSubmit(e: FormEvent) {
         e.preventDefault();
 
-        updateIsLoading(true);
+        setIsLoading(true);
 
         const response = await fetch('/api/project/information', {
             method: 'POST',
@@ -49,7 +49,7 @@ export default function Form({ project, amenities, customeSpaces, selectedAmenit
         let projectResponse = await response.json();
 
         if (response.status === 200) {
-            updateIsLoading(false)
+            setIsLoading(false)
             router.push(`/estimation/requirement/${projectResponse.id}`);
         }
     }

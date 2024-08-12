@@ -1,28 +1,29 @@
 'use client'
 
-import { fetchProject } from "@/app/lib/data";
 import { useEstimateSummaryStore } from "@/app/lib/store/estimateSummaryStore";
 import { IProject } from "@/app/models/Project";
-import clsx from "clsx";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { MouseEventHandler, useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { ProjectAreaDefination } from "../estimation/refinement/form";
 import { useProjectAmenityStore } from "@/app/lib/store/projectAmenityStore";
 import { useProjectCustomSpaceStore } from "@/app/lib/store/projectCustomSpaceStore";
+import { useAppStore } from "@/app/lib/store/appStore";
 
 type Props = {
-    projectId: string;
     requirementGroups: any[];
     refinements: any[];
-    onClick: MouseEventHandler<HTMLAnchorElement>
 }
-export default function Detail({ projectId, requirementGroups, refinements, onClick }: Props) {
+export default function Detail({ requirementGroups, refinements }: Props) {
+
+    const projectId = useAppStore(state => state.projectId);
 
     if (!projectId) {
         notFound();
     }
+
+    const setProjectId = useAppStore(state => state.setProjectId);
 
     const [project, setProject] = useState<IProject>()
     const [workspaceAssigned, setWorkspanceAssigned] = useState<number>(0);
@@ -76,9 +77,7 @@ export default function Detail({ projectId, requirementGroups, refinements, onCl
     }, [estimates, projectId]);
 
     return (
-
-        <div className='js-open-results-content open-results-content wrapper__content-2 js-linear-anim-2 el !absolute top-0 left-0 !z-30' style={{ transform: projectId ? 'translateX(100%)' : '' }}>
-
+        <>
             <div className="grid lg:grid-cols-5 lg:grid-flow-col h-full min-h-900" >
 
                 <div className="file col-span-1 flex flex-col justify-between  relative bg-black">
@@ -185,10 +184,9 @@ export default function Detail({ projectId, requirementGroups, refinements, onCl
                     </div>
                 </div>
 
-                {/* lg:col-span-4 */}
                 <div className={`lg:col-span-${colSpan} col-span-12 lg:col-start-2 row-end-2 min-h-900 relative`}>
                     <div className="close-btn opacity-1 absolute top-0 right-0 flex flex-col items-end p-30 z-30">
-                        <a href="#" className="js-close-results" onClick={onClick}>
+                        <a href="#" className="js-close-results" onClick={() => setProjectId(null)}>
                             <Image
                                 src="/images/icon-close.svg"
                                 width={0}
@@ -199,7 +197,6 @@ export default function Detail({ projectId, requirementGroups, refinements, onCl
                             />
                         </a>
                     </div>
-                    {/* grid-cols-4 */}
                     <div className={`grid lg:grid-cols-${colSpan} lg:grid-flow-col relative h-full`}>
                         {Object.keys(estimates).map((estimateKey: any, index: number) => (
                             <div key={index} className="file file-1 overflow-x-hidden overflow-y-scroll relative col-span-1 bg-black1 flex flex-col justify-between">
@@ -265,7 +262,7 @@ export default function Detail({ projectId, requirementGroups, refinements, onCl
 
                 <div></div>
             </div>
-        </div>
+        </>
     )
 }
 

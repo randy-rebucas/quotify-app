@@ -1,25 +1,18 @@
-'use client'
-
-import { useState } from "react";
 import Action from "./action";
-import Detail from "./detail";
 import Result from "./result";
 import Empty from "./empty";
+import DetailWrapper from "./detail-wrapper";
+import { fetchRefinements, fetchRequirementsByGroup } from "@/app/lib/data";
 
 type Props = {
     projects: any[];
-    requirementGroups: any[];
-    refinements: any[];
 }
 
-export default function ResultWrapper({ projects, requirementGroups, refinements }: Props) {
-    const [more, setMore] = useState<boolean>(false);
+export default async function ResultWrapper({ projects }: Props) {
 
-    const [selectedProjectId, setSelectedProjectId] = useState<any>(null);
+    const requirement_groups = await fetchRequirementsByGroup();
 
-    const handleMoreLessClick = () => {
-        setMore(!more);
-    }
+    const refinements = await fetchRefinements();
 
     if (projects.length == 0) {
         return (
@@ -27,22 +20,14 @@ export default function ResultWrapper({ projects, requirementGroups, refinements
         )
     }
 
-    const handleProjectSelectedClick = (e: any) => {
-        e.preventDefault();
-        setSelectedProjectId(e.currentTarget.dataset.file);
-    }
-
-    const handleProjectClearedClick = () => {
-        setSelectedProjectId(null);
-    }
-
     return (
         <>
-            <Result isMore={more} projects={projects} onClick={handleProjectSelectedClick} />
+            <Result projects={projects} />
 
-            {selectedProjectId && <Detail projectId={selectedProjectId} requirementGroups={requirementGroups} refinements={refinements} onClick={handleProjectClearedClick} />}
+            <DetailWrapper requirementGroups={requirement_groups} refinements={refinements} />
 
-            {projects.length > 4 && <Action isMore={more} onClick={handleMoreLessClick} />}
+            <Action projects={projects} />
         </>
     )
 }
+

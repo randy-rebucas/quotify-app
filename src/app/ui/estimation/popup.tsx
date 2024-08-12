@@ -14,7 +14,7 @@ export default function Popup() {
     const resetProjectInformation = useProjectInformationStore(state => state.reset);
 
     const isClose = useAppStore(state => state.isClose);
-    const updateIsClose = useAppStore(state => state.updateIsClose);
+    const setIsClose = useAppStore(state => state.setIsClose);
 
     const handleCloseClick = () => {
         // reset all state
@@ -56,7 +56,7 @@ export default function Popup() {
                         </h5>
                     </div>
                     <div className="relative p-30 bg-gray3A w-[286px] flex flex-col items-center justify-center">
-                        <a href="#" onClick={() => updateIsClose(true)} className="absolute cover w-full h-full z-30"></a>
+                        <a href="#" onClick={() => setIsClose(true)} className="absolute cover w-full h-full z-30"></a>
                         <h5 className="opacity-20">cancel</h5>
                     </div>
                     <div className="relative p-30 bg-gray4A w-[286px] flex flex-col items-center justify-center">

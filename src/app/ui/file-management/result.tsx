@@ -2,26 +2,27 @@
 
 import Image from "next/image";
 import clsx from "clsx";
-import { MouseEventHandler } from "react";
-import { IProject } from "@/app/models/Project";
 import Link from "next/link";
 import EstimateCount from "./estimate-count";
+import { IProject } from "@/app/models/Project";
+import { useAppStore } from "@/app/lib/store/appStore";
 
 type Props = {
-    isMore: boolean;
     projects: IProject[];
-    onClick: MouseEventHandler<HTMLAnchorElement>
 }
 
-export default function Result({ isMore, projects, onClick }: Props) {
+export default function Result({ projects }: Props) {
 
-    const items = !isMore ? projects.slice(0, 4) : projects;
+    const hasMore = useAppStore(state => state.hasMore);
+    const setProjectId = useAppStore(state => state.setProjectId);
+
+    const items = !hasMore ? projects.slice(0, 4) : projects;
 
     return (
         <div className={clsx(
             'js-wrapper__results wrapper__results lg:col-span-4 col-span-12 col-end-5 d-flex flex-col overflow-x-hidden overflow-y-scroll',
             {
-                'has-one-row': !isMore,
+                'has-one-row': !hasMore,
             },
         )}>
             <div className="lg:col-start-2 h-full">
@@ -32,7 +33,7 @@ export default function Result({ isMore, projects, onClick }: Props) {
                             <div className="file-map"></div>
                             <div className="file-img" data-lat="48.895651" data-long="2.290569" data-color="#383A64">
                                 <div className="flex flex-col justify-start relative z-10">
-                                    <a href="#" className="absolute js-open-results right-0" data-file={project._id} onClick={onClick}>
+                                    <a href="#" className="absolute js-open-results right-0" onClick={() => setProjectId(project._id)}>
                                         <Image
                                             src="/images/icon-settings.svg"
                                             width={25}
