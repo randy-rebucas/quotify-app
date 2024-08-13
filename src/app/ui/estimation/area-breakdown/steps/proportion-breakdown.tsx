@@ -7,12 +7,12 @@ import { useAreaBreakdownStore } from "@/app/lib/store/areaBreakdownStore"
 
 type Props = {
     amenities: any;
-    custom_spaces: any;
+    customSpaces: any;
 }
 
 export default function ProportionBreakdown({
     amenities,
-    custom_spaces
+    customSpaces
 }: Props) {
     const areaBreakdown = useAreaBreakdownStore(state => state.areaBreakdown);
     const [breakdowns, setBreakdowns] = useState<any[]>([]);
@@ -56,7 +56,7 @@ export default function ProportionBreakdown({
                                         adjust the percentages to freflect your specific spaces.</p>
                                 </div>
 
-                                <Accordions amenities={amenities} customSpaces={custom_spaces} />
+                                <Accordions amenities={amenities} customSpaces={customSpaces} />
 
                             </div>
                         </div>

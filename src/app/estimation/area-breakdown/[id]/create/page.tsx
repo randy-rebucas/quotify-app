@@ -41,7 +41,7 @@ export default async function Page({ params }: { params: { id: string } }) {
 
                 <MainWrapper>
                     <Suspense fallback={<p>Loading ...</p>}>
-                        <FormWrapper menus={menus} amenities={amenities} custom_spaces={custom_spaces} project_id={id} />
+                        <FormWrapper menus={menus} amenities={amenities} customSpaces={custom_spaces} projectId={id} />
                     </Suspense>
                 </MainWrapper>
 

@@ -5,6 +5,7 @@ export type State = {
   isClose: boolean;
   isLoading: boolean;
   hasMore: boolean;
+  toggleCustonSpaceOption: boolean;
   projectId: string | null;
 };
 
@@ -13,6 +14,9 @@ export type Actions = {
   setIsLoading: (isLoading: State["isLoading"]) => void;
   setHasMore: (hasMore: State["hasMore"]) => void;
   setProjectId: (projectId: State["projectId"]) => void;
+  setToggleCustonSpaceOption: (
+    toggleCustonSpaceOption: State["toggleCustonSpaceOption"]
+  ) => void;
   reset: () => void;
 };
 
@@ -23,9 +27,12 @@ export const useAppStore = create<State & Actions>()(
       isLoading: false,
       hasMore: false,
       projectId: null,
+      toggleCustonSpaceOption: false,
       setIsClose: (isClose) => set(() => ({ isClose: isClose })),
       setIsLoading: (isLoading) => set(() => ({ isLoading: isLoading })),
       setHasMore: (hasMore) => set(() => ({ hasMore: hasMore })),
+      setToggleCustonSpaceOption: (toggleCustonSpaceOption) =>
+        set(() => ({ toggleCustonSpaceOption: toggleCustonSpaceOption })),
       setProjectId: (projectId) => set(() => ({ projectId: projectId })),
       reset: () =>
         set(() => ({
