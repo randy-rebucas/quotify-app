@@ -37,7 +37,7 @@ export default async function Page({ params }: { params: { id: string } }) {
 
                 <MainWrapper>
                     <Suspense fallback={<p>Loading ...</p>}>
-                        <FormWrapper refinements={refinements} project_id={id} />
+                        <FormWrapper refinements={refinements} projectId={id} />
                     </Suspense>
                 </MainWrapper>
 

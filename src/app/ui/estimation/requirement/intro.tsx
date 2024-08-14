@@ -20,10 +20,10 @@ export default function Intro({ requirementGroups }: Props) {
                             </h4>
                             <div className="estimation-col__bar bg-white mt-6 mb-6"></div>
                             <div className="estimation-col__content">
-                                {requirementGroups.map((requirements_group: { _id: string; requirements: IRequirement[] }, index: number) => (
+                                {requirementGroups.map((requirementGroup: { _id: string; requirements: IRequirement[] }, index: number) => (
                                     <div key={index} className="step-indicator">
                                         <span className="font-latoblack">03.{index + 1}:</span> <br />
-                                        {requirements_group._id}
+                                        {requirementGroup._id}
                                     </div>
                                 ))}
                             </div>

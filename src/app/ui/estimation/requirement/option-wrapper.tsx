@@ -4,17 +4,19 @@ import { useRequirementStore } from "@/app/lib/store/requirementStore";
 import { ChangeEvent } from "react";
 import Option from "./option";
 
+type Props = {
+    requirementId: string;
+    requirementName: string;
+    requirementQuestion: string;
+    tabIndex: number;
+}
+
 export default function OptionWrapper({
     requirementId,
     requirementName,
     requirementQuestion,
     tabIndex,
-}: {
-    requirementId: string;
-    requirementName: string;
-    requirementQuestion: string;
-    tabIndex: number;
-}) {
+}: Props) {
     const updateEstimateRequirement = useRequirementStore(
         (state) => state.updateEstimateRequirement
     );

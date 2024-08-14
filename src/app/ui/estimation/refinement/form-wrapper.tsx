@@ -11,29 +11,29 @@ import MenuWrapper from "./menu-wrapper";
 
 type Props = {
     refinements: any[];
-    project_id: string;
+    projectId: string;
 };
 
 export default function FormWrapper({
     refinements,
-    project_id,
+    projectId,
 }: Props) {
 
     const { steps, currentStepIndex, step, isFirstStep, isLastStep, back, next } =
         useMultistepForm([
             <Flooring
                 key={uuid()}
-                projectId={project_id}
+                projectId={projectId}
                 refinements={refinements}
             />,
             <Furniture
                 key={uuid()}
-                projectId={project_id}
+                projectId={projectId}
                 refinements={refinements}
             />,
             <Partition
                 key={uuid()}
-                projectId={project_id}
+                projectId={projectId}
                 refinements={refinements}
             />,
         ]);
@@ -42,9 +42,9 @@ export default function FormWrapper({
         <>
             <TabWrapper />
 
-            <MenuWrapper refinements={refinements} currentStepIndex={currentStepIndex} projectId={project_id} />
+            <MenuWrapper refinements={refinements} currentStepIndex={currentStepIndex} projectId={projectId} />
 
-            <Form projectId={project_id} currentStepIndex={currentStepIndex} isFirstStep={isFirstStep} isLastStep={isLastStep} back={back} next={next}>
+            <Form projectId={projectId} currentStepIndex={currentStepIndex} isFirstStep={isFirstStep} isLastStep={isLastStep} back={back} next={next}>
                 {step}
             </Form>
         </>

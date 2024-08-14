@@ -13,29 +13,29 @@ import TabWrapper from "./tab-wrapper";
 import MenuWrapper from "./menu-wrapper";
 
 type Props = {
-    requirements_groups: any[];
+    requirementGroups: any[];
     project_id: string;
 }
 
 export default function FormWrapper({
-    requirements_groups,
+    requirementGroups,
     project_id,
 }: Props) {
     const { steps, currentStepIndex, step, isFirstStep, isLastStep, back, next } =
         useMultistepForm([
-            <FinishAndCertification key={uuid()} requirements_groups={requirements_groups} />,
-            <MepFeatures key={uuid()} requirements_groups={requirements_groups} />,
-            <BaseBuildingConditions key={uuid()} requirements_groups={requirements_groups} />,
-            <Technology key={uuid()} requirements_groups={requirements_groups} />,
-            <FurnitureAndFurnishing key={uuid()} requirements_groups={requirements_groups} />,
-            <Review key={uuid()} requirements_groups={requirements_groups} />,
+            <FinishAndCertification key={uuid()} requirementGroups={requirementGroups} />,
+            <MepFeatures key={uuid()} requirementGroups={requirementGroups} />,
+            <BaseBuildingConditions key={uuid()} requirementGroups={requirementGroups} />,
+            <Technology key={uuid()} requirementGroups={requirementGroups} />,
+            <FurnitureAndFurnishing key={uuid()} requirementGroups={requirementGroups} />,
+            <Review key={uuid()} requirementGroups={requirementGroups} />,
         ]);
 
     return (
         <>
             <TabWrapper />
 
-            <MenuWrapper requirementsGroups={requirements_groups} currentStepIndex={currentStepIndex} />
+            <MenuWrapper requirementsGroups={requirementGroups} currentStepIndex={currentStepIndex} />
 
             <Form projectId={project_id} currentStepIndex={currentStepIndex} isFirstStep={isFirstStep} isLastStep={isLastStep} back={back} next={next} >
                 {step}

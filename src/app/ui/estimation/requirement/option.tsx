@@ -5,17 +5,19 @@ import { IRequirementLevel } from "@/app/models/RequirementLevel";
 import Image from "next/image";
 import { ChangeEventHandler, useEffect, useState } from "react";
 
+type Props = {
+  requirementId: string;
+  requirementName: string;
+  selectedRequirement: { requirementId: string; requirementLevelId: string };
+  onChange: ChangeEventHandler<HTMLInputElement>;
+}
+
 export default function Option({
   requirementId,
   requirementName,
   selectedRequirement,
   onChange,
-}: {
-  requirementId: string;
-  requirementName: string;
-  selectedRequirement: { requirementId: string; requirementLevelId: string };
-  onChange: ChangeEventHandler<HTMLInputElement>;
-}) {
+}: Props) {
   const [requirementLevels, setRequirementLevels] = useState<IRequirementLevel[]>([]);
 
   useEffect(() => {

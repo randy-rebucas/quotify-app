@@ -5,11 +5,11 @@ import { useRequirementStore } from "@/app/lib/store/requirementStore";
 import OptionWrapper from "../option-wrapper";
 
 type Props = {
-  requirements_groups: any[];
+  requirementGroups: any[];
 };
 
 export default function FinishAndCertification({
-  requirements_groups,
+  requirementGroups,
 }: Props) {
   const activeTab = useRequirementStore((state) => state.activeTab);
   const requirements = useRequirementStore((state) => state.requirements);
@@ -18,14 +18,14 @@ export default function FinishAndCertification({
   );
 
   useEffect(() => {
-    const data = requirements_groups.find(
-      (requirements_group) =>
-        requirements_group._id === "finish and certifications"
+    const data = requirementGroups.find(
+      (requirementGroup) =>
+        requirementGroup._id === "finish and certifications"
     );
-    if (requirements_groups) {
+    if (requirementGroups) {
       updateRequirements(data.requirements);
     }
-  }, [requirements_groups, updateRequirements]);
+  }, [requirementGroups, updateRequirements]);
 
   const requirementId = useRequirementStore(
     (state) => state.requirementId

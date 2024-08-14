@@ -20,8 +20,8 @@ export default function Indicator({
             requirement.requirementId === requirementId
     );
 
-    const updateRequirementLevelUnitRate = useRequirementLevelStore(
-        (state) => state.updateRequirementLevelUnitRate
+    const setRequirementLevelUnitRate = useRequirementLevelStore(
+        (state) => state.setRequirementLevelUnitRate
     );
 
     useEffect(() => {
@@ -37,7 +37,7 @@ export default function Indicator({
 
                 let requirementLabelResponse = await response.json();
 
-                updateRequirementLevelUnitRate(requirementLabelResponse.unitRate);
+                setRequirementLevelUnitRate(requirementLabelResponse.unitRate);
                 setRequirementname(requirementLabelResponse.level);
             }
         };
@@ -45,7 +45,7 @@ export default function Indicator({
         if (nextRequirement) {
             getRequirementLabel(nextRequirement.requirementLevelId);
         }
-    }, [nextRequirement, updateRequirementLevelUnitRate]);
+    }, [nextRequirement, setRequirementLevelUnitRate]);
 
     return requirementName.toLowerCase();
 }

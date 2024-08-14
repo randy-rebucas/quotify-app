@@ -39,7 +39,7 @@ export default async function Page({ params }: { params: { id: string } }) {
 
                 <MainWrapper>
                     <Suspense fallback={<p>Loading ...</p>}>
-                        <FormWrapper requirements_groups={requirements_groups} project_id={id} />
+                        <FormWrapper requirementGroups={requirements_groups} project_id={id} />
                     </Suspense>
                 </MainWrapper>
 

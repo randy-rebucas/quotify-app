@@ -4,7 +4,6 @@ import clsx from 'clsx';
 import { FormEventHandler, useEffect, useState } from 'react';
 import { StimateData, tabMapping, titleMapping } from './entities';
 
-
 type Props = {
     stimates: StimateData[];
     onSubmit: FormEventHandler<HTMLFormElement>;

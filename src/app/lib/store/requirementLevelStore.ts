@@ -9,7 +9,7 @@ export type State = {
 
 export type Actions = {
   getRequirementLevelByRequirement: (id: string) => void;
-  updateRequirementLevelUnitRate: (
+  setRequirementLevelUnitRate: (
     requirementLevelUnitRate: State["requirementLevelUnitRate"]
   ) => void;
   reset: () => void;
@@ -38,7 +38,7 @@ export const useRequirementLevelStore = create<State & Actions>()(
           requirementLevels: requirementLevelResponse,
         });
       },
-      updateRequirementLevelUnitRate: (requirementLevelUnitRate) =>
+      setRequirementLevelUnitRate: (requirementLevelUnitRate) =>
         set(() => ({ requirementLevelUnitRate: requirementLevelUnitRate })),
       reset: () =>
         set(() => ({

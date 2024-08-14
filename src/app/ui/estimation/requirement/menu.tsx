@@ -4,7 +4,14 @@ import { useRequirementStore } from "@/app/lib/store/requirementStore";
 import clsx from "clsx";
 import Indicator from "./indicator";
 
-export default function Menu({ menus, estimateId, currentStepIndex, activeTab }: { menus: any[]; estimateId: number; currentStepIndex: number; activeTab: number }) {
+type Props = {
+    menus: any[];
+    estimateId: number;
+    currentStepIndex: number;
+    activeTab: number
+}
+export default function Menu({ menus, estimateId, currentStepIndex, activeTab }: Props) {
+
     const estimates = useRequirementStore((state) => state.estimates);
 
     const getSelectedRequirementLevel = (
