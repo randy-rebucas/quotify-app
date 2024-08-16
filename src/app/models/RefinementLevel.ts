@@ -2,10 +2,17 @@ import mongoose, { Schema, Types, model } from "mongoose";
 import { IRefinement } from "./Refinement";
 import { IMedia } from "./Media";
 
+const getUnitRates = (value: any) => {
+  if (typeof value !== "undefined") {
+    return parseFloat(value.toString());
+  }
+  return value;
+};
+
 // 1. Create an interface representing a document in MongoDB.
 export interface IRefinementLevel {
   level: string;
-  unitRate: Types.Decimal128;
+  unitRate: any;
   description: string;
   image?: Types.ObjectId | IMedia;
   refinement?: Types.ObjectId | IRefinement;
@@ -13,13 +20,20 @@ export interface IRefinementLevel {
 }
 
 // 2. Create a Schema corresponding to the document interface.
-const refinementLevelSchema = new Schema<IRefinementLevel>({
-  level: { type: String, required: true },
-  unitRate: { type: Schema.Types.Decimal128, required: true },
-  description: { type: String, required: true },
-  image: { type: Schema.Types.ObjectId, ref: "Medias" },
-  refinement: { type: Schema.Types.ObjectId, ref: "Refinements" },
-});
+const refinementLevelSchema = new Schema<IRefinementLevel>(
+  {
+    level: { type: String, required: true },
+    unitRate: {
+      type: Schema.Types.Decimal128,
+      required: true,
+      get: getUnitRates,
+    },
+    description: { type: String, required: true },
+    image: { type: Schema.Types.ObjectId, ref: "Medias" },
+    refinement: { type: Schema.Types.ObjectId, ref: "Refinements" },
+  },
+  { toJSON: { getters: true } }
+);
 
 // 3. Create a Model.
 const RefinementLevel =

@@ -24,13 +24,10 @@ export default function OptionWrapper({
     const estimates = useRefinementStore((state) => state.estimates);
 
     const handleRadioChange = (event: ChangeEvent<HTMLInputElement>) => {
-        const currentEstimateIndex = estimates.findIndex(
-            (estimate) => estimate.id === tabiIndex
-        );
 
         const newEstimates = [...estimates];
 
-        const nextRefinements = newEstimates[currentEstimateIndex].refinement.find(
+        const nextRefinements = newEstimates[tabiIndex].refinement.find(
             (refinement: {
                 id: string;
                 refinementId: string;
@@ -41,7 +38,7 @@ export default function OptionWrapper({
 
         if (nextRefinements) {
             // update nested array
-            newEstimates[currentEstimateIndex].refinement.map(
+            newEstimates[tabiIndex].refinement.map(
                 (refinement: {
                     id: string;
                     refinementId: string;
@@ -60,8 +57,8 @@ export default function OptionWrapper({
             updateEstimateRefinement(newEstimates);
         } else {
             // set new refinement array
-            newEstimates[currentEstimateIndex].refinement = [
-                ...estimates[currentEstimateIndex].refinement,
+            newEstimates[tabiIndex].refinement = [
+                ...estimates[tabiIndex].refinement,
                 {
                     id: id,
                     type: type,

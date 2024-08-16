@@ -4,7 +4,6 @@ import { persist } from "zustand/middleware";
 
 export type State = {
   requirementLevels: IRequirementLevel[];
-
 };
 
 export type Actions = {
@@ -16,12 +15,6 @@ export const useRequirementLevelStore = create<State & Actions>()(
   persist(
     (set) => ({
       requirementLevels: [],
-      requirementLevel: {
-        tabIndex: 0,
-        requirementId: null,
-        requirementLevelId: null,
-      },
-      requirementLevelUnitRate: 0,
       getRequirementLevelByRequirement: async (id: string) => {
         const response = await fetch(
           `/api/requirement-level/by-requirement/${id}`,

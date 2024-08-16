@@ -2,7 +2,7 @@ import mongoose, { Schema, Types, model } from "mongoose";
 import { IRequirement } from "./Requirement";
 import { IMedia } from "./Media";
 
-const getCosts = (value: any) => {
+const getUnitRates = (value: any) => {
   if (typeof value !== "undefined") {
     return parseFloat(value.toString());
   }
@@ -23,7 +23,11 @@ export interface IRequirementLevel {
 const requirementLevelSchema = new Schema<IRequirementLevel>(
   {
     level: { type: String, required: true },
-    unitRate: { type: Schema.Types.Decimal128, required: true, get: getCosts },
+    unitRate: {
+      type: Schema.Types.Decimal128,
+      required: true,
+      get: getUnitRates,
+    },
     description: { type: String, required: true },
     image: { type: Schema.Types.ObjectId, ref: "Medias" },
     requirement: { type: Schema.Types.ObjectId, ref: "Requirements" },

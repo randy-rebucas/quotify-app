@@ -4,6 +4,7 @@ import { useRefinementStore } from "@/app/lib/store/refinementStore";
 import { StimateData, tabMapping } from "./entities";
 import clsx from "clsx";
 import Menu from "./menu";
+import Cost from "./cost";
 
 type Props = {
     refinements: any[];
@@ -65,13 +66,7 @@ export default function MenuWrapper({
                                 {/* menu here  */}
                                 <Menu refinements={refinements} currentStepIndex={currentStepIndex} estimateId={estimate.id} activeTab={activeTab} estimates={estimates} projectId={projectId} />
                             </div>
-                            <div className="bg-darkyellow p-30 flex items-center sticky w-full bottom-0 justify-between text-white">
-                                <span className="text-[18px] leading-[24px] font-lato">
-                                    cost estimate <br />
-                                    per square foot
-                                </span>
-                                <span className="text-[53px] font-latoblack">$55</span>
-                            </div>
+                            <Cost estimateId={estimate.id}/>
                         </div>
                     </div>
                 </div>
