@@ -48,7 +48,7 @@ export default function MenuWrapper({ requirementsGroups, currentStepIndex }: Pr
 
                             <Menu menus={requirementsGroups} estimateId={estimate.id} currentStepIndex={currentStepIndex} activeTab={activeTab} />
 
-                            <Cost />
+                            <Cost estimateId={estimate.id}/>
                         </div>
                     </div>
                 </div>

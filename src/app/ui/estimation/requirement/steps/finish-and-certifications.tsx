@@ -27,10 +27,6 @@ export default function FinishAndCertification({
     }
   }, [requirementGroups, updateRequirements]);
 
-  const requirementId = useRequirementStore(
-    (state) => state.requirementId
-  );
-
   const getRequirementByName = useRequirementStore(
     (state) => state.getRequirementByName
   );

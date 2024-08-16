@@ -63,7 +63,7 @@ export default function Option({
                 value={refinementLevel._id.toString()}
                 id={`refinement-${amenityName}-${index + 1}`}
                 onChange={onChange}
-                checked={
+                defaultChecked={
                   selectedRefinement &&
                   selectedRefinement.refinementLevelId ===
                   refinementLevel._id.toString()

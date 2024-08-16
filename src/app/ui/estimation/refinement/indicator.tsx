@@ -17,16 +17,10 @@ export default function Indicator({
   const [refinementName, setRefinementname] = useState<string>("");
   const estimates = useRefinementStore((state) => state.estimates);
 
-  const nextRefinements = estimates[estimateId].refinement.find(
-    (refinement: { id: string; refinementId: string }) =>
-      refinement.id === id &&
-      refinement.refinementId === refinementId
-  );
-
   useEffect(() => {
-    const getRequirementLabel = async (id?: string) => {
+    const getRequirementLabel = async (refinementLevelId?: string) => {
       if (id) {
-        const response = await fetch(`/api/refinement-level/${id}`, {
+        const response = await fetch(`/api/refinement-level/${refinementLevelId}`, {
           method: "POST",
           headers: {
             Accept: "application/json",
@@ -40,10 +34,17 @@ export default function Indicator({
       }
     };
 
-    if (nextRefinements.refinementLevelId) {
+    if (estimates) {
+
+      const nextRefinements = estimates[estimateId].refinement.find(
+        (refinement: { id: string; refinementId: string }) =>
+          refinement.id === id &&
+          refinement.refinementId === refinementId
+      );
+
       getRequirementLabel(nextRefinements.refinementLevelId);
     }
-  }, [nextRefinements]);
+  }, [estimateId, estimates, id, refinementId]);
 
   return refinementName.toLowerCase();
 }

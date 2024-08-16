@@ -61,7 +61,7 @@ export default function Option({
                 data-label={requirementLevel.level}
                 id={`requirement-${requirementName}-${index + 1}`}
                 onChange={onChange}
-                checked={
+                defaultChecked={
                   selectedRequirement &&
                   selectedRequirement.requirementLevelId ===
                   requirementLevel._id.toString()

@@ -1,6 +1,5 @@
 'use client';
 
-import { useRequirementLevelStore } from "@/app/lib/store/requirementLevelStore";
 import { useRequirementStore } from "@/app/lib/store/requirementStore";
 import { useEffect, useState } from "react";
 
@@ -15,16 +14,9 @@ export default function Indicator({
     const [requirementName, setRequirementname] = useState<string>("");
     const estimates = useRequirementStore((state) => state.estimates);
 
-    const nextRequirement = estimates[estimateId].requirement.find(
-        (requirement: { requirementId: string }) =>
-            requirement.requirementId === requirementId
-    );
-
-    const setRequirementLevelUnitRate = useRequirementLevelStore(
-        (state) => state.setRequirementLevelUnitRate
-    );
-
     useEffect(() => {
+        
+
         const getRequirementLabel = async (id?: string) => {
             if (id) {
                 const response = await fetch(`/api/requirement-level/${id}`, {
@@ -37,15 +29,25 @@ export default function Indicator({
 
                 let requirementLabelResponse = await response.json();
 
-                setRequirementLevelUnitRate(requirementLabelResponse.unitRate);
                 setRequirementname(requirementLabelResponse.level);
             }
         };
 
-        if (nextRequirement) {
+        if (estimates) {
+
+            const nextRequirement = estimates[estimateId].requirement.find(
+                (requirement: { requirementId: string }) =>
+                    requirement.requirementId === requirementId
+            );
+
             getRequirementLabel(nextRequirement.requirementLevelId);
         }
-    }, [nextRequirement, setRequirementLevelUnitRate]);
 
-    return requirementName.toLowerCase();
+    }, [estimateId, estimates, requirementId]);
+
+    return (
+        <>
+            {requirementName.toLowerCase()}
+        </>
+    )
 }

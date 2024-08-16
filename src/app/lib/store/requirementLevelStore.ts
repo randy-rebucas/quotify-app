@@ -4,22 +4,23 @@ import { persist } from "zustand/middleware";
 
 export type State = {
   requirementLevels: IRequirementLevel[];
-  requirementLevelUnitRate: number;
+
 };
 
 export type Actions = {
   getRequirementLevelByRequirement: (id: string) => void;
-  setRequirementLevelUnitRate: (
-    requirementLevelUnitRate: State["requirementLevelUnitRate"]
-  ) => void;
   reset: () => void;
 };
-
 
 export const useRequirementLevelStore = create<State & Actions>()(
   persist(
     (set) => ({
       requirementLevels: [],
+      requirementLevel: {
+        tabIndex: 0,
+        requirementId: null,
+        requirementLevelId: null,
+      },
       requirementLevelUnitRate: 0,
       getRequirementLevelByRequirement: async (id: string) => {
         const response = await fetch(
@@ -38,8 +39,6 @@ export const useRequirementLevelStore = create<State & Actions>()(
           requirementLevels: requirementLevelResponse,
         });
       },
-      setRequirementLevelUnitRate: (requirementLevelUnitRate) =>
-        set(() => ({ requirementLevelUnitRate: requirementLevelUnitRate })),
       reset: () =>
         set(() => ({
           requirementLevels: [],

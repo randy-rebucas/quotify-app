@@ -33,7 +33,6 @@ export type Actions = {
 export const INITIAL_DATA: Estimate = {
   id: 0,
   name: "Main estimation",
-  // requirement: new Object(),
   requirement: [],
 };
 

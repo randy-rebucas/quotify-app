@@ -23,20 +23,17 @@ export default function OptionWrapper({
     const estimates = useRequirementStore((state) => state.estimates);
 
     const handleRadioChange = (event: ChangeEvent<HTMLInputElement>) => {
-        const currentEstimateIndex = estimates.findIndex(
-            (estimate) => estimate.id === tabIndex
-        );
 
         const newEstimates = [...estimates];
 
-        const nextRequirement = newEstimates[currentEstimateIndex].requirement.find(
+        const nextRequirement = newEstimates[tabIndex].requirement.find(
             (requirement: { requirementId: string }) =>
                 requirement.requirementId === requirementId
         );
 
         if (nextRequirement) {
             // update nested array
-            newEstimates[currentEstimateIndex].requirement.map(
+            newEstimates[tabIndex].requirement.map(
                 (refinement: { requirementId: string; requirementLevelId: string }) => {
                     if (refinement.requirementId === requirementId) {
                         return (refinement.requirementLevelId = event.target.value);
@@ -48,8 +45,8 @@ export default function OptionWrapper({
             updateEstimateRequirement(newEstimates);
         } else {
             // set new refinement array
-            newEstimates[currentEstimateIndex].requirement = [
-                ...estimates[currentEstimateIndex].requirement,
+            newEstimates[tabIndex].requirement = [
+                ...estimates[tabIndex].requirement,
                 {
                     requirementId: requirementId,
                     requirementLevelId: event.target.value,

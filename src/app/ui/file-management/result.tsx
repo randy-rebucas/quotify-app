@@ -26,10 +26,10 @@ export default function Result({ projects }: Props) {
             },
         )}>
             <div className="lg:col-start-2 h-full">
-                <div className="grid lg:grid-cols-4 lg:grid-flow-col relative h-full">
+                <div className="grid lg:grid-cols-4 relative h-full" style={{ gridTemplateColumns: 'auto auto auto auto' }}>
 
                     {items.map((project: any, index: number) => (
-                        <div className={`file file-${index + 1} lg:col-${index % 4 == 0 ? 'span' : 'start'}-${index % 4 + 1}`} key={index}>
+                        <div className={`file file-${index + 1} lg:col-${index % 4 == 0 ? 'span' : 'start'}-${index % 4 + 1}`} key={index} >
                             <div className="file-map"></div>
                             <div className="file-img" data-lat="48.895651" data-long="2.290569" data-color="#383A64">
                                 <div className="flex flex-col justify-start relative z-10">

@@ -1,9 +1,7 @@
 import { fetchRequirementsByGroup } from "@/app/lib/data";
-import { IRequirement } from "@/app/models/Requirement";
 import IntroWrapper from "@/app/ui/estimation/intro-wrapper";
 import MainWrapper from "@/app/ui/estimation/main-wrapper";
 import Popup from "@/app/ui/estimation/popup";
-import Form from "@/app/ui/estimation/requirement/form";
 import Intro from "@/app/ui/estimation/requirement/intro";
 import LinearCover from "@/app/ui/linear-cover";
 import StaggerCover from "@/app/ui/stagger-cover";
