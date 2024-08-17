@@ -26,7 +26,7 @@ export default function Result({ projects }: Props) {
             },
         )}>
             <div className="lg:col-start-2 h-full">
-                <div className="grid lg:grid-cols-4 relative h-full" style={{ gridTemplateColumns: 'auto auto auto auto' }}>
+                <div className="grid lg:grid-cols-4 relative h-full" style={{ gridTemplateColumns: '25% 25% 25% 25%' }}>
 
                     {items.map((project: any, index: number) => (
                         <div className={`file file-${index + 1} lg:col-${index % 4 == 0 ? 'span' : 'start'}-${index % 4 + 1}`} key={index} >
