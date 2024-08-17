@@ -18,6 +18,8 @@ import ProjectAmenity from "../models/ProjectAmenity";
 import { select } from "d3";
 import ProjectCustomSpace from "../models/ProjectCustomSpace";
 
+const ITEMS_PER_PAGE = 6;
+
 export async function fetchProjects() {
   noStore();
 
