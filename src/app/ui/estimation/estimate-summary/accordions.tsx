@@ -84,7 +84,7 @@ export function Accordion({ projectId, estimateId, estimateType, title, isOpen, 
 
     return (
         <>
-            <h2 id="accordion-flush-heading-1-1" className="text-[12px]">
+            <h2 id={`accordion-flush-heading-1-${index}`} className="text-[12px]">
                 <button type="button" onClick={onClick} className="flex items-center justify-between w-full rtl:text-right border-b border-[#505050] gap-3"
                     data-accordion-target={`#accordion-flush-body-${index}`} aria-expanded={isOpen ? true : false} aria-controls="accordion-flush-body-1-1">
                     <span>{title}</span>

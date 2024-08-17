@@ -20,7 +20,9 @@
 body {
   color: rgb(var(--foreground-rgb));
 }
-
+.min-h-220 {
+  min-height: 220px;
+}
 input[type='number'] {
   -moz-appearance: textfield;
   appearance: textfield;

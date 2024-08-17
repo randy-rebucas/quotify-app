@@ -10,7 +10,11 @@ export default async function handler(
   try {
     const requirement = await EstimateRequirement.find({
       estimate: eid,
-    }).exec();
+    })
+      .populate("requirement")
+      .populate("requirementLevel")
+      .exec();
+
     res.status(200).json(requirement);
   } catch (err) {
     console.log(err);

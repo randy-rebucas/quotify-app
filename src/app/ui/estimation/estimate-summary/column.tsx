@@ -1,9 +1,8 @@
 'use client';
 
-import { ChangeEvent, ReactNode, useState } from "react";
-import AccordionWrapper from "./accordion-wrapper";
-import { data, refinements, requirements } from "./accordion";
+import { ReactNode } from "react";
 import Accordions from "./accordions";
+import Cost from "./cost";
 
 type ColumnProps = {
     estimateGroups: any[];
@@ -47,10 +46,7 @@ export default function Column({ estimateGroups, requirements, refinements, proj
                 </div>
             </div>
 
-            <div className="bg-[#595959] p-[15px] sticky w-full min-w-[291px] flex items-end justify-between text-white bottom-0">
-                <span className="text-[14px] leading-[24px] font-lato">total cost</span>
-                <span className="text-[36px] font-latoblack">$600,000</span>
-            </div>
+            <Cost estimateGroups={estimateGroups} />
         </div>
     )
 }

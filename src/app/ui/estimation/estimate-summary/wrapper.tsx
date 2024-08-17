@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import Column from "./column";
 import { useEstimateSummaryStore } from "@/app/lib/store/estimateSummaryStore";
+import { tabMapping } from "../refinement/entities";
 
 
 export default function Wrapper({ projectId, requirements, refinements }: { projectId: string, requirements: any[], refinements: any[] }) {
@@ -23,9 +24,9 @@ export default function Wrapper({ projectId, requirements, refinements }: { proj
             <div className="grid grid-cols-4 overflow-y-visible">
                 {Object.keys(estimates).map((estimateKey: any, index: number) => (
                     <Column key={index} estimateGroups={estimates[estimateKey]} requirements={requirements} refinements={refinements} projectId={projectId}>
-                        <div className="estimation-col__header pt-[70px] pb-[20px] px-[30px]">
+                        <div className="estimation-col__header pt-[70px] pb-[20px] px-[30px] min-h-220">
                             <div className="flex items-end justify-start">
-                                <h2 className="opacity-60 font-latobold"><span className="font-latoblack">A:</span>&nbsp; {estimateKey}</h2>
+                                <h2 className="opacity-60 font-latobold"><span className="font-latoblack">{tabMapping.get(index)}:</span>&nbsp; {estimateKey}</h2>
                             </div>
                             <p className="mt-3 font-latolight text-black text-opacity-60">this is a short description for this estimate.</p>
                         </div>

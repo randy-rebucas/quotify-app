@@ -28,9 +28,10 @@ export default function MenuWrapper({
 
     useEffect(() => {
         getRequirementCount(projectId);
-
+        console.log(requirementCount);
         if (requirementCount > 1) {
-            for (var i = 1; i <= requirementCount; i++) {
+            for (var i = 1; i <= requirementCount - 1; i++) {
+                console.log(i);
                 addEstimate({
                     id: i,
                     name: `${titleMapping.get(i)}`,

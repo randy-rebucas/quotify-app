@@ -7,6 +7,8 @@ export type State = {
 
 export type Actions = {
   getRequirementCount: (filter: string) => void;
+  getRequirement: (filter: string) => void;
+  getRefinement: (filter: string) => void;
   reset: () => void;
 };
 
@@ -27,6 +29,8 @@ export const useEstimateStore = create<State & Actions>()(
           requirementCount: requirementResponse.length,
         });
       },
+      getRequirement: () => {},
+      getRefinement: () => {},
       reset: () =>
         set(() => ({
           requirementCount: 0,
