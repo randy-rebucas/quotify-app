@@ -621,7 +621,7 @@ export async function fetchRequirementLevels(
 
   const offset = (currentPage - 1) * ITEMS_PER_PAGE;
   const searchRgx = new RegExp(`.*${query}.*`, "i");
-  
+
   const items = await RequirementLevel.find({
     level: searchRgx,
   })
@@ -739,15 +739,24 @@ export async function fetchRefinementById(id: string) {
   return transformItem;
 }
 
-export async function fetchRefinementLevels() {
+export async function fetchRefinementLevels(
+  query: string,
+  currentPage: number
+) {
   noStore();
 
   connect();
-
-  const items = await RefinementLevel.find({})
-    .populate("image")
-    .populate("refinement")
-    .exec();
+    const offset = (currentPage - 1) * ITEMS_PER_PAGE;
+    const searchRgx = new RegExp(`.*${query}.*`, "i");
+  
+    const items = await RefinementLevel.find({
+      level: searchRgx,
+    })
+      .populate("image")
+      .populate("refinement")
+      .skip(offset)
+      .limit(ITEMS_PER_PAGE)
+      .exec();
 
   const transformItems = items.map((item) => {
     return {
@@ -761,6 +770,21 @@ export async function fetchRefinementLevels() {
   });
 
   return transformItems;
+}
+
+export async function fetchRefinementLevelsPages(query: string) {
+  noStore();
+
+  connect();
+
+  const searchRgx = new RegExp(`.*${query}.*`, "i");
+  const count = await RefinementLevel.countDocuments({
+    level: searchRgx,
+  });
+
+  const totalPages = Math.ceil(Number(count) / ITEMS_PER_PAGE);
+
+  return totalPages;
 }
 
 export async function deleteRefinementLevel(id: string) {

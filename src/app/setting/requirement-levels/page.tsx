@@ -29,7 +29,7 @@ export default async function Page({
         <div className="w-full">
             <Title title='Requirement Label' />
             <div className="mb-3 mt-4 flex items-center justify-between gap-2 md:mt-8">
-                <Search placeholder="Search amenities..." />
+                <Search placeholder="Search requirement level..." />
                 <Create />
             </div>
             

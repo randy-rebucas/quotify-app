@@ -2,8 +2,18 @@
 import Image from "next/image";
 import { Delete, Update } from "./buttons";
 import { IRefinementLevel } from "@/app/models/RefinementLevel";
+import { fetchRefinementLevels } from "@/app/lib/data";
 
-export default function Table({ refinementLevels }: { refinementLevels: IRefinementLevel[] }) {
+export default async function Table({
+    query,
+    currentPage,
+  }: {
+    query: string;
+    currentPage: number;
+  }) {
+
+    const refinementLevels = await fetchRefinementLevels(query, currentPage);
+
     const financial = (x: string) => {
         return Number.parseFloat(x).toFixed(2);
     }
