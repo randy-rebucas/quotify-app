@@ -1,10 +1,13 @@
 "use client";
 
 import { useRefinementStore } from "@/app/lib/store/refinementStore";
-import { StimateData, tabMapping } from "./entities";
+import { StimateData, tabMapping, titleMapping } from "./entities";
 import clsx from "clsx";
 import Menu from "./menu";
 import Cost from "./cost";
+import { useEffect } from "react";
+import { useEstimateStore } from "@/app/lib/store/estimateStore";
+import { INITIAL_DATA } from "@/app/lib/store/requirementStore";
 
 type Props = {
     refinements: any[];
@@ -18,6 +21,25 @@ export default function MenuWrapper({
     const estimates = useRefinementStore((state) => state.estimates);
     const isExpanded = useRefinementStore((state) => state.isExpanded);
     const activeTab = useRefinementStore((state) => state.activeTab);
+
+    const addEstimate = useRefinementStore((state) => state.addEstimate);
+    const requirementCount = useEstimateStore((state) => state.requirementCount);
+    const getRequirementCount = useEstimateStore((state) => state.getRequirementCount);
+
+    useEffect(() => {
+        getRequirementCount(projectId);
+
+        if (requirementCount > 1) {
+            for (var i = 1; i <= requirementCount; i++) {
+                addEstimate({
+                    id: i,
+                    name: `${titleMapping.get(i)}`,
+                    refinement: [],
+                });
+            }
+        }
+
+    }, [getRequirementCount, projectId, requirementCount, addEstimate])
 
     return (
         <>
@@ -66,7 +88,7 @@ export default function MenuWrapper({
                                 {/* menu here  */}
                                 <Menu refinements={refinements} currentStepIndex={currentStepIndex} estimateId={estimate.id} activeTab={activeTab} estimates={estimates} projectId={projectId} />
                             </div>
-                            <Cost estimateId={estimate.id}/>
+                            <Cost estimateId={estimate.id} />
                         </div>
                     </div>
                 </div>

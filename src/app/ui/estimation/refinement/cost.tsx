@@ -23,7 +23,7 @@ export default function Cost({ estimateId }: Props) {
             });
 
             let refinementLabelResponse = await response.json();
-            console.log(refinementLabelResponse.unitRate);
+
             setRefinementUnitRate((prev) => prev + refinementLabelResponse.unitRate);
         });
     }, [estimateId, estimates])

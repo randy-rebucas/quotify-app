@@ -5,8 +5,9 @@ import clsx from "clsx";
 import { useEffect } from "react";
 import { StimateData, tabMapping } from "./entities";
 import TabForm from "./tab-form";
+import { useEstimateStore } from "@/app/lib/store/estimateStore";
 
-export default function TabWrapper() {
+export default function TabWrapper({ projectId }: { projectId: string }) {
     const estimates = useRefinementStore((state) => state.estimates);
     const lastEstimate = useRefinementStore((state) => state.lastEstimate);
     const isExpanded = useRefinementStore((state) => state.isExpanded);
@@ -38,6 +39,14 @@ export default function TabWrapper() {
 
         addEstimate(initialRefinement);
     };
+
+    const requirementCount = useEstimateStore((state) => state.requirementCount);
+    const getRequirementCount = useEstimateStore((state) => state.getRequirementCount);
+
+    useEffect(() => {
+        getRequirementCount(projectId);
+    }, [getRequirementCount, projectId]);
+
 
     return (
         <div
@@ -93,7 +102,7 @@ export default function TabWrapper() {
                 ))}
             </h3>
 
-            {estimates.length < 4 && (
+            {estimates.length < requirementCount && (
                 <TabForm stimates={estimates} onSubmit={handleTabFormSubmit} />
             )}
         </div>

@@ -40,7 +40,7 @@ export default function FormWrapper({
 
     return (
         <>
-            <TabWrapper />
+            <TabWrapper projectId={projectId} />
 
             <MenuWrapper refinements={refinements} currentStepIndex={currentStepIndex} projectId={projectId} />
 
