@@ -1,7 +1,7 @@
 'use client';
 
 import { useRequirementStore } from "@/app/lib/store/requirementStore";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 type Props = {
     estimateId: number;
@@ -11,12 +11,12 @@ export default function Cost({ estimateId }: Props) {
     const [requirementUnitRate, setRequirementUnitRate] = useState<number>(0);
     const estimates = useRequirementStore((state) => state.estimates);
 
-    useEffect(() => {
+    useMemo(() => {
         setRequirementUnitRate(0);
-        const estimate = estimates.find((estimate) => estimate.id === estimateId)
-         estimate?.requirement.map(async (requirement: any) => {
+
+        estimates[estimateId].requirement.map(async (requirement: any) => {
             const response = await fetch(`/api/requirement-level/${requirement.requirementLevelId}`, {
-                method: "POST",
+                method: "GET",
                 headers: {
                     Accept: "application/json",
                     "Content-Type": "application/json",
@@ -24,8 +24,9 @@ export default function Cost({ estimateId }: Props) {
             });
 
             let requirementLabelResponse = await response.json();
-            setRequirementUnitRate((prev) => prev + requirementLabelResponse.unitRate);
+            setRequirementUnitRate(prev => prev + requirementLabelResponse.unitRate);
         });
+
     }, [estimateId, estimates])
 
     return (

@@ -6,6 +6,7 @@ import path from "path";
 import FloorPlan from "@/app/models/FloorPlan";
 import formidable, { File } from "formidable";
 import fs from "fs";
+import { z } from 'zod'
 
 export const config = {
   api: {
@@ -24,6 +25,11 @@ export default async function handler(
 ) {
   connect();
 
+ 
+  // const schema = z.object({
+  //   // ...
+  // })
+  // const parsed = schema.parse(req.body)
   switch (req.method) {
     case "POST":
       const files: FileProps[] = [];

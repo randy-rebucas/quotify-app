@@ -1,7 +1,7 @@
 'use client';
 
 import { useRefinementStore } from "@/app/lib/store/refinementStore";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 type Props = {
     estimateId: number;
@@ -10,12 +10,11 @@ export default function Cost({ estimateId }: Props) {
     const [refinementUnitRate, setRefinementUnitRate] = useState<number>(0);
     const estimates = useRefinementStore((state) => state.estimates);
 
-    useEffect(() => {
+    useMemo(() => {
         setRefinementUnitRate(0);
-        const estimate = estimates.find((estimate) => estimate.id === estimateId)
-        estimate?.refinement.map(async (refinement: any) => {
+        estimates[estimateId].refinement.map(async (refinement: any) => {
             const response = await fetch(`/api/refinement-level/${refinement.refinementLevelId}`, {
-                method: "POST",
+                method: "GET",
                 headers: {
                     Accept: "application/json",
                     "Content-Type": "application/json",
@@ -23,7 +22,6 @@ export default function Cost({ estimateId }: Props) {
             });
 
             let refinementLabelResponse = await response.json();
-
             setRefinementUnitRate((prev) => prev + refinementLabelResponse.unitRate);
         });
     }, [estimateId, estimates])
