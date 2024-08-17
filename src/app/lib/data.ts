@@ -18,7 +18,7 @@ import ProjectAmenity from "../models/ProjectAmenity";
 import { select } from "d3";
 import ProjectCustomSpace from "../models/ProjectCustomSpace";
 
-const ITEMS_PER_PAGE = 6;
+const ITEMS_PER_PAGE = 10;
 
 export async function fetchProjects() {
   noStore();
@@ -576,7 +576,7 @@ export async function fetchRequirementsByGroup() {
       };
     })
     .filter((data) => data._id != null);
- 
+
   return transformData;
 }
 
@@ -611,14 +611,24 @@ export async function fetchRequirementById(id: string) {
   return transformItem;
 }
 
-export async function fetchRequirementLevels() {
+export async function fetchRequirementLevels(
+  query: string,
+  currentPage: number
+) {
   noStore();
 
   connect();
 
-  const items = await RequirementLevel.find({})
+  const offset = (currentPage - 1) * ITEMS_PER_PAGE;
+  const searchRgx = new RegExp(`.*${query}.*`, "i");
+  
+  const items = await RequirementLevel.find({
+    level: searchRgx,
+  })
     .populate("image")
     .populate("requirement")
+    .skip(offset)
+    .limit(ITEMS_PER_PAGE)
     .exec();
 
   const transformItems = items.map((item) => {
@@ -633,6 +643,21 @@ export async function fetchRequirementLevels() {
   });
 
   return transformItems;
+}
+
+export async function fetchRequirementLevelsPages(query: string) {
+  noStore();
+
+  connect();
+
+  const searchRgx = new RegExp(`.*${query}.*`, "i");
+  const count = await RequirementLevel.countDocuments({
+    level: searchRgx,
+  });
+
+  const totalPages = Math.ceil(Number(count) / ITEMS_PER_PAGE);
+
+  return totalPages;
 }
 
 export async function deleteRequirementLevel(id: string) {

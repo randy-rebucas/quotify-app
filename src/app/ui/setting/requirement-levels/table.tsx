@@ -2,8 +2,18 @@
 import Image from "next/image";
 import { Delete, Update } from "./buttons";
 import { IRequirementLevel } from "@/app/models/RequirementLevel";
+import { fetchRequirementLevels } from "@/app/lib/data";
 
-export default function Table({ requirementLevels }: { requirementLevels: IRequirementLevel[] }) {
+export default async function Table({
+    query,
+    currentPage,
+  }: {
+    query: string;
+    currentPage: number;
+  }) {
+    
+    const requirementLevels = await fetchRequirementLevels(query, currentPage);
+    
     const financial = (x: string) => {
         return Number.parseFloat(x).toFixed(2);
     }
