@@ -1,6 +1,7 @@
 'use client';
 
 import { useRequirementStore } from "@/app/lib/store/requirementStore";
+import { formatCurrency } from "@/app/lib/utils";
 import { useEffect, useMemo, useState } from "react";
 
 type Props = {
@@ -9,12 +10,15 @@ type Props = {
 export default function Cost({ estimateId }: Props) {
 
     const [requirementUnitRate, setRequirementUnitRate] = useState<number>(0);
+    const [isPreload, setIsPreload] = useState<boolean>(true);
+
     const estimates = useRequirementStore((state) => state.estimates);
-
-    useMemo(() => {
+    
+    useEffect(() => {
         setRequirementUnitRate(0);
+        const requirementEstimate = estimates.find((estimate) => estimate.id === estimateId);
 
-        estimates[estimateId].requirement.map(async (requirement: any) => {
+        requirementEstimate?.requirement.map(async (requirement: any) => {
             const response = await fetch(`/api/requirement-level/${requirement.requirementLevelId}`, {
                 method: "GET",
                 headers: {
@@ -22,8 +26,8 @@ export default function Cost({ estimateId }: Props) {
                     "Content-Type": "application/json",
                 },
             });
-
             let requirementLabelResponse = await response.json();
+            setIsPreload(false)
             setRequirementUnitRate(prev => prev + requirementLabelResponse.unitRate);
         });
 
@@ -36,7 +40,8 @@ export default function Cost({ estimateId }: Props) {
                 per square foot
             </span>
             <span className="text-[53px] font-latoblack">
-                ${requirementUnitRate}
+                {!isPreload && `$${requirementUnitRate}`}
+                {isPreload && 0}
             </span>
         </div>
     )

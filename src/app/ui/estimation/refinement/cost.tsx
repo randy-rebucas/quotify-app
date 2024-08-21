@@ -8,11 +8,14 @@ type Props = {
 }
 export default function Cost({ estimateId }: Props) {
     const [refinementUnitRate, setRefinementUnitRate] = useState<number>(0);
+    const [isPreload, setIsPreload] = useState<boolean>(true);
     const estimates = useRefinementStore((state) => state.estimates);
 
     useMemo(() => {
         setRefinementUnitRate(0);
-        estimates[estimateId].refinement.map(async (refinement: any) => {
+        const refinementEstimate = estimates.find((estimate) => estimate.id === estimateId);
+
+        refinementEstimate?.refinement.map(async (refinement: any) => {
             const response = await fetch(`/api/refinement-level/${refinement.refinementLevelId}`, {
                 method: "GET",
                 headers: {
@@ -22,6 +25,7 @@ export default function Cost({ estimateId }: Props) {
             });
 
             let refinementLabelResponse = await response.json();
+            setIsPreload(false)
             setRefinementUnitRate((prev) => prev + refinementLabelResponse.unitRate);
         });
     }, [estimateId, estimates])
@@ -32,7 +36,10 @@ export default function Cost({ estimateId }: Props) {
                 cost estimate <br />
                 per square foot
             </span>
-            <span className="text-[53px] font-latoblack">${refinementUnitRate}</span>
+            <span className="text-[53px] font-latoblack">
+                {!isPreload && `$${refinementUnitRate}`}
+                {isPreload && 0}
+            </span>
         </div>
     )
 }
