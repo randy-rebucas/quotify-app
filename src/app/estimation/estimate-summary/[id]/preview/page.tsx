@@ -56,7 +56,7 @@ export default async function Page({ params }: { params: { id: string } }) {
                 </IntroWrapper>
 
                 <MainWrapper>
-                    <div className="js-main-column lg:col-start-5 flex flex-col justify-start items-start w-full h-full overflow-y-scroll">
+                    <div className="js-main-column lg:col-start-5 flex flex-col justify-start items-start w-full h-full overflow-y-scroll hide-on-print">
                         <div className="estimation-col w-full h-full">
                             <div className="p-30 flex flex-col justify-between relative z-10 w-full h-full">
                                 <Detail project={project} />

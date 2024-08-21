@@ -59,7 +59,7 @@ export default function Cost({ estimateGroups }: { estimateGroups: any[] }) {
     })
 
     return (
-        <div className="bg-[#595959] p-[15px] sticky w-full min-w-[291px] flex items-end justify-between text-white bottom-0">
+        <div className="bg-[#595959] p-[15px] sticky w-full min-w-[291px] flex items-end justify-between text-white bottom-0 hide-on-print">
             <span className="text-[14px] leading-[24px] font-lato">total cost</span>
             <span className="text-[36px] font-latoblack">{formatCurrency(requirementSum + refinementAmenitySum + refinementCustomSpaceSum)}</span>
         </div>

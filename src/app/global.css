@@ -60,6 +60,20 @@ input[type='number']::-webkit-outer-spin-button {
   top: 30%;
 }
 
+.show-on-print {
+  display: none;
+}
+
+@media print {
+  .hide-on-print {
+    display: none !important;
+  }
+
+  .show-on-print {
+    display: block !important;
+  }
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;

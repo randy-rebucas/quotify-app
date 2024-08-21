@@ -58,12 +58,12 @@ export default function Form({
       let projectResponse = await response.json();
 
       if (response.status === 200) {
+        reset();
         router.push(`/estimation/refinement/${projectResponse.id}`);
       }
     } catch (error: any) {
       setError(error.message);
     } finally {
-      reset();
       setIsLoading(false); // Set loading to false when the request completes
     }
   }

@@ -46,6 +46,10 @@ export default function Actions({ isEdit, projectId, onClickEdit }: {
         }
     }
 
+    const onClickDownload = () => {
+        window.print();
+    }
+
     return (
         <div>
             <a href="#" onClick={onClickEdit} className="text-[24px] font-latobold flex items-center mb-[10px]">
@@ -55,7 +59,7 @@ export default function Actions({ isEdit, projectId, onClickEdit }: {
                 </svg>
                 <div className="text-white ml-3 text-opacity-50 hover:text-opacity-100">{isEdit ? 'cancel' : 'edit'}</div>
             </a>
-            <a href="#" className="text-[24px] font-latobold flex items-center mb-[10px]">
+            <a href="#" onClick={onClickDownload} className="text-[24px] font-latobold flex items-center mb-[10px]">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="19" viewBox="0 0 16 19" fill="none">
                     <path fillRule="evenodd" clipRule="evenodd" d="M9.00075 11.175L12.2437 7.933L13.6577 9.347L8.00075 15.004L2.34375 9.347L3.75775 7.933L7.00075 11.175V0H9.00075V11.175Z" fill="white" />
                     <rect y="17" width="16" height="2" fill="white" />

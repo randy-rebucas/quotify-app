@@ -82,7 +82,7 @@ export default function Form({ project, amenities, customeSpaces, selectedAmenit
                     <div className="h-full w-full">
                         <div className="p-30 pt-[6.852vh]">
                             <div className="flex flex-col justify-between h-full">
-                                <div>
+                                <div className="hide-on-print">
                                     <div className="h-1 w-20 bg-black"></div>
 
                                     <h5 className="font-latobold mt-1 xl:text-3xl md:text-2xl text-1xl text-black">
@@ -178,7 +178,7 @@ export default function Form({ project, amenities, customeSpaces, selectedAmenit
                     </div>
                 </div>
 
-                <div className="p-30 w-full flex flex-col items-start justify-between h-full">
+                <div className="p-30 w-full flex flex-col items-start justify-between h-full hide-on-print">
                     <Actions />
                     <button className="js-nextbtn focus:shadow-outline focus:outline-none w-full flex justify-end" type="submit">
                         <svg xmlns="http://www.w3.org/2000/svg" width="78" height="63" viewBox="0 0 78 63"
@@ -200,24 +200,15 @@ export function Actions() {
 
     const pathname = usePathname();
 
-    const download = async () => {
-        // setIsLoading(true);
-        const URL = `${process.env.NEXT_PUBLIC_AUTH_URL}${pathname}`;
-
-        const response = await fetch(`/api/project/defination/?url='${pathname}'`);
-        // body: JSON.stringify({ projectId: project._id }),
-        if (!response.ok) {
-            throw new Error('Failed to submit the data. Please try again.')
-        }
-
-        // let projectResponse = await response.json();
+    const onClickDownload = () => {
+        window.print();
     }
 
     const share = () => { }
 
     return (
         <div className="pt-[180px]">
-            <button type="button" onClick={download} className="text-[24px] font-latobold flex items-center mb-[10px]">
+            <button type="button" onClick={onClickDownload} className="text-[24px] font-latobold flex items-center mb-[10px]">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="19" viewBox="0 0 16 19" fill="none">
                     <path fillRule="evenodd" clipRule="evenodd" d="M9.00075 11.175L12.2437 7.933L13.6577 9.347L8.00075 15.004L2.34375 9.347L3.75775 7.933L7.00075 11.175V0H9.00075V11.175Z" fill="#809BA9" />
                     <rect y="17" width="16" height="2" fill="#809BA9" />

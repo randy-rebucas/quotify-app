@@ -7,7 +7,7 @@ export default function Menu() {
     /*  It will be shown after page introduction animation is finished.
     /--> */}
     return (
-        <div className="col-start-1 row-span-2 intro-menu overflow-y-scroll">
+        <div className="col-start-1 row-span-2 intro-menu overflow-y-scroll hide-on-print">
             <div className="h-full">
                 <div className="p-30 bg-darkblue">
                     <div className="flex flex-col justify-between h-full">
