@@ -3,12 +3,10 @@ import Image from "next/image";
 import StaggerCover from "../ui/stagger-cover";
 import PageWrapper from "../ui/file-management/page-wrapper";
 import ResultWrapper from "../ui/file-management/result-wrapper";
-import { fetchProjectsByUserId, fetchRefinements, fetchRequirementsByGroup } from "../lib/data";
-import { getSession } from "../actions/session";
+import { fetchProjectsByUserId } from "../lib/data";
 import { PowerIcon } from "@heroicons/react/24/outline";
-import { logout } from "../actions/auth";
 import { Suspense } from "react";
-import { useAppStore } from "../lib/store/appStore";
+import { auth, signOut } from "../../../auth";
 
 export async function generateMetadata({ }) {
     return {
@@ -19,14 +17,11 @@ export async function generateMetadata({ }) {
 
 export default async function Page() {
 
-    const session = await getSession();
-
-    const projects = await fetchProjectsByUserId(session?.userId);
-
+    const session = await auth();
+    const projects = await fetchProjectsByUserId(session?.user?.id);
     const colors: string[] = ['bg-gray1B', 'bg-gray2A', 'bg-gray3A', 'bg-gray4A', 'bg-gray5A']
 
     return (
-
         <div className="wrapper lg:bg-transparent bg-black">
             <PageWrapper>
                 <div className="grid lg:grid-cols-5 lg:grid-flow-col">
@@ -44,7 +39,7 @@ export default async function Page() {
                             </Link>
                             <form action={async () => {
                                 'use server';
-                                await logout();
+                                await signOut();
                             }}>
                                 <button className="hover:text-red-500 md:p-2 text-red text-sm w-full">
                                     <PowerIcon className="w-[43px]" />

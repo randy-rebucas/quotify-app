@@ -44,7 +44,7 @@ export async function fetchProjects() {
   return transformData;
 }
 
-export async function fetchProjectsByUserId(id: any) {
+export async function fetchProjectsByUserId(id?: string | null) {
   noStore();
 
   connect();
@@ -52,18 +52,26 @@ export async function fetchProjectsByUserId(id: any) {
   const projects = await Project.find({ user: id }).exec();
 
   const transformData = projects.map((project) => {
+    const seatingPercentage = +project.seatingPercentage;
+
     return {
-      _id: project._id.toString(),
-      spaceName: project.spaceName,
-      floorPlan: project.floorPlan,
-      address: project.address,
-      spaceSize: project.spaceSize.toString(),
-      rentableArea: project.rentableArea.toString(),
-      headCount: project.headCount,
-      averageOfficeAttendance: project.averageOfficeAttendance,
-      seatingPercentage: project.seatingPercentage.toString(),
-      isCompleted: project.isCompleted,
-      lastUri: project.lastUri,
+      ...{
+        _id: project._id.toString(),
+        spaceName: project.spaceName,
+        floorPlan: project.floorPlan,
+        address: project.address,
+        spaceSize: project.spaceSize.toString(),
+        rentableArea: project.rentableArea.toString(),
+        headCount: project.headCount,
+        averageOfficeAttendance: project.averageOfficeAttendance,
+        seatingPercentage: project.seatingPercentage.toString(),
+        isCompleted: project.isCompleted,
+        lastUri: project.lastUri,
+      },
+      ...{
+        workspaceAssigned: seatingPercentage,
+        staffWorkRemotely: 100 - seatingPercentage,
+      },
     };
   });
 
@@ -76,19 +84,28 @@ export async function fetchProject(id: string) {
   connect();
 
   const project = await Project.findById(id).exec();
-  const transformData = {
-    _id: project._id.toString(),
-    spaceName: project.spaceName,
-    floorPlan: project.floorPlan,
-    address: project.address,
-    spaceSize: project.spaceSize.toString(),
-    rentableArea: project.rentableArea.toString(),
-    headCount: project.headCount,
-    averageOfficeAttendance: project.averageOfficeAttendance,
-    seatingPercentage: project.seatingPercentage.toString(),
-  };
 
-  return transformData;
+  const seatingPercentage = +project.seatingPercentage;
+
+  return {
+    ...{
+      _id: project._id.toString(),
+      spaceName: project.spaceName,
+      floorPlan: project.floorPlan,
+      address: project.address,
+      spaceSize: project.spaceSize.toString(),
+      rentableArea: project.rentableArea.toString(),
+      headCount: project.headCount,
+      averageOfficeAttendance: project.averageOfficeAttendance,
+      seatingPercentage: project.seatingPercentage.toString(),
+      isCompleted: project.isCompleted,
+      lastUri: project.lastUri,
+    },
+    ...{
+      workspaceAssigned: seatingPercentage,
+      staffWorkRemotely: 100 - seatingPercentage,
+    },
+  };
 }
 // pageHandled
 export async function fetchMenus() {
@@ -746,17 +763,17 @@ export async function fetchRefinementLevels(
   noStore();
 
   connect();
-    const offset = (currentPage - 1) * ITEMS_PER_PAGE;
-    const searchRgx = new RegExp(`.*${query}.*`, "i");
-  
-    const items = await RefinementLevel.find({
-      level: searchRgx,
-    })
-      .populate("image")
-      .populate("refinement")
-      .skip(offset)
-      .limit(ITEMS_PER_PAGE)
-      .exec();
+  const offset = (currentPage - 1) * ITEMS_PER_PAGE;
+  const searchRgx = new RegExp(`.*${query}.*`, "i");
+
+  const items = await RefinementLevel.find({
+    level: searchRgx,
+  })
+    .populate("image")
+    .populate("refinement")
+    .skip(offset)
+    .limit(ITEMS_PER_PAGE)
+    .exec();
 
   const transformItems = items.map((item) => {
     return {
@@ -874,4 +891,16 @@ export async function fetchMediaLibraryById(id: string) {
   };
 
   return transformItem;
+}
+
+export async function fetchProjectEstimateCounts(projectId: string) {
+  noStore();
+
+  connect();
+
+  const estimateCount = await Estimate.find({
+    project: projectId,
+  }).countDocuments();
+
+  return estimateCount;
 }

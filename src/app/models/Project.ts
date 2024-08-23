@@ -72,8 +72,27 @@ const projectSchema = new Schema<IProject>(
       type: Date,
     },
   },
-  { toJSON: { getters: true } }
+  { toJSON: { getters: true} }
 );
+// const virtualWorkspace = projectSchema.virtual("workspace");
+// virtualWorkspace.get(function () {
+//   return +this.seatingPercentage;
+// });
+
+// const virtualId = projectSchema.virtual("id");
+// virtualId.get(function () {
+//   return this._id;
+// });
+
+// projectSchema.set("toJSON", {
+//   virtuals: true,
+//   versionKey: false,
+//   transform: function (doc, dataInMongoDb) {
+//     delete dataInMongoDb._id;
+//   },
+// });
+// workspaceAssigned: seatingPercentage,
+// staffWorkRemotely: 100 - seatingPercentage,
 
 // 3. Create a Model.
 const Project =

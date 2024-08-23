@@ -1,6 +1,5 @@
 'use client';
 
-import { logout } from "@/app/actions/auth";
 import { motion } from "framer-motion";
 import { ReactNode, useEffect } from "react";
 

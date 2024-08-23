@@ -33,14 +33,15 @@ export default function Result({ projects }: Props) {
                             <div className="file-map"></div>
                             <div className="file-img" data-lat="48.895651" data-long="2.290569" data-color="#383A64">
                                 <div className="flex flex-col justify-start relative z-10">
-                                    <a href="#" className="absolute js-open-results right-0" onClick={() => setProjectId(project._id)}>
+                                    {/* onClick={() => setProjectId(project._id)} */}
+                                    <Link href={`/file-management/${project._id}`} className="absolute js-open-results right-0" >
                                         <Image
                                             src="/images/icon-settings.svg"
                                             width={25}
                                             height={25}
                                             alt="settings"
                                         />
-                                    </a>
+                                    </Link>
                                     <div className="file-content text-black">
                                         <Image
                                             src="/images/icon-file.svg"

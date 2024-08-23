@@ -3,10 +3,11 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useFormState, useFormStatus } from 'react-dom';
-import { login } from "@/app/actions/auth";
+import ExclamationCircleIcon from "@heroicons/react/24/outline/ExclamationCircleIcon";
+import { authenticate } from "@/app/actions/auth";
 
 export default function Form() {
-    const [state, dispatch] = useFormState(login, undefined);
+    const [errorMessage, dispatch] = useFormState(authenticate, undefined);
 
     return (
         <form action={dispatch} className="w-full">
@@ -14,13 +15,11 @@ export default function Form() {
                 <input
                     className="bg-transparent font-latothin leading-tight placeholder-white appearance-none border-t-0 border-l-0 border-r-0 border-b w-full text-white focus:outline-none"
                     id="inline-full-name" type="email" name="email" placeholder="email" />
-                {state?.errors?.email && <p>{state.errors.email}</p>}
             </div>
             <div className="md:w-full pb-4">
                 <input
                     className="bg-transparent font-latothin leading-tight placeholder-white appearance-none border-t-0 border-l-0 border-r-0 border-b w-full text-white focus:outline-none"
                     id="inline-password" type="password" name="password" placeholder="password" />
-                {state?.errors?.password && <p>{state.errors.password}</p>}
             </div>
             <label className="md:w-full block text-white pb-4">
                 <span className="text-sm">
@@ -30,7 +29,18 @@ export default function Form() {
             <div className="w-full flex justify-end md:items-end">
                 <LoginpButton />
             </div>
-
+            <div
+                className="flex h-8 items-end space-x-1"
+                aria-live="polite"
+                aria-atomic="true"
+            >
+                {errorMessage && (
+                    <>
+                        <ExclamationCircleIcon className="h-5 w-5 text-red-500" />
+                        <p className="text-sm text-red-500">{errorMessage}</p>
+                    </>
+                )}
+            </div>
         </form>
     )
 }

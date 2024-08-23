@@ -12,6 +12,7 @@ import { useProjectCustomSpaceStore } from "@/app/lib/store/projectCustomSpaceSt
 import { useAppStore } from "@/app/lib/store/appStore";
 import Total from "./total";
 import Actions from "./actions";
+import ProjectDetail from "./project-detail";
 
 type Props = {
     requirementGroups: any[];
@@ -183,7 +184,7 @@ export default function Detail({ requirementGroups, refinements }: Props) {
                         </div>
                     </div>
                 </div>
-
+ 
                 <div className={`lg:col-span-${colSpan} col-span-12 lg:col-start-2 row-end-2 min-h-900 relative`}>
                     <div className="close-btn opacity-1 absolute top-0 right-0 flex flex-col items-end p-30 z-30">
                         <a href="#" className="js-close-results" onClick={() => setProjectId(null)}>
