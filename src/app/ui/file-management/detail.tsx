@@ -1,36 +1,21 @@
 'use client'
 
-import Image from "next/image";
-import Link from "next/link";
+
 import { useEstimateSummaryStore } from "@/app/lib/store/estimateSummaryStore";
-import { IProject } from "@/app/models/Project";
-import { notFound } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import { ProjectAreaDefination } from "../estimation/refinement/form";
 import { useProjectAmenityStore } from "@/app/lib/store/projectAmenityStore";
 import { useProjectCustomSpaceStore } from "@/app/lib/store/projectCustomSpaceStore";
-import { useAppStore } from "@/app/lib/store/appStore";
-import Total from "./total";
 import Actions from "./actions";
-import ProjectDetail from "./project-detail";
+import Cost from "../estimation/estimate-summary/cost";
 
 type Props = {
     requirementGroups: any[];
     refinements: any[];
+    projectId: string;
 }
-export default function Detail({ requirementGroups, refinements }: Props) {
+export default function Detail({ requirementGroups, refinements, projectId }: Props) {
 
-    const projectId = useAppStore(state => state.projectId);
-
-    if (!projectId) {
-        notFound();
-    }
-
-    const setProjectId = useAppStore(state => state.setProjectId);
-
-    const [project, setProject] = useState<IProject>()
-    const [workspaceAssigned, setWorkspanceAssigned] = useState<number>(0);
-    const [staffWorkingRemotely, setStaffWorkingRemotely] = useState<number>(0);
     const [colSpan, setColspan] = useState<number>(1);
 
     const estimates = useEstimateSummaryStore((state) => state.estimates);
@@ -42,35 +27,6 @@ export default function Detail({ requirementGroups, refinements }: Props) {
         }
     }, [getProjectEstimates, projectId]);
 
-    useEffect(() => {
-        const getProject = async (id: string) => {
-            const response = await fetch(`/api/project/${id}`, {
-                method: 'POST',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-                }
-            });
-
-            let projectResponse = await response.json();
-
-            setProject(projectResponse);
-        }
-
-        if (projectId) {
-            getProject(projectId);
-        }
-
-    }, [projectId])
-
-    useEffect(() => {
-        if (project) {
-            const seatingPercentage = +project.seatingPercentage;
-            setWorkspanceAssigned(seatingPercentage);
-            setStaffWorkingRemotely(100 - seatingPercentage);
-        }
-    }, [project])
-
     useMemo(() => {
         if (projectId) {
             setColspan(Object.keys(estimates).length);
@@ -79,153 +35,32 @@ export default function Detail({ requirementGroups, refinements }: Props) {
 
     return (
         <>
-            <div className="grid lg:grid-cols-5 lg:grid-flow-col h-full min-h-900" >
+            <div className={`lg:col-span-${colSpan} col-span-12 lg:col-start-2 row-end-2 min-h-900 relative`}>
+                <div className={`grid lg:grid-cols-${colSpan} lg:grid-flow-col relative h-full`}>
+                    {Object.keys(estimates).map((estimateKey: any, index: number) => (
+                        <div key={index} className="file file-1 overflow-x-hidden overflow-y-scroll relative col-span-1 bg-black1 flex flex-col justify-between">
+                            <div className="px-30 pb-30 pt-10 flex flex-col justify-between">
+                                <div className="flex flex-col justify-start relative z-10">
+                                    <Actions />
+                                    <div className="mt-[11.111vh]">
 
-                <div className="file col-span-1 flex flex-col justify-between  relative bg-black">
-                    <div className="file-map absolute top-0 left-0 w-full h-full z-10"></div>
-                    <div className="file-img h-full" data-lat="48.895651" data-long="2.290569" data-color="transparent">
-                        <div className="flex flex-col justify-between relative z-10 h-full p-30 overflow-x-hidden overflow-y-scroll">
-                            <div>
-                                <Image
-                                    src="/images/icon-file.svg"
-                                    width={35}
-                                    height={35}
-                                    className="mb-5 filter brightness-200 invert"
-                                    alt="file"
-                                />
-                                <h2>{project?.spaceName}</h2>
+                                        <h2>{estimateKey}</h2>
 
-                                <div className="file__border bg-white"></div>
+                                        <p>this is the estimate description, which was entered when this variation was created.</p>
 
-                                <div className="file__address">
-                                    {project?.address}
-                                </div>
+                                        <div className="file__border bg-white"></div>
 
-                                <div className="text-white mt-2 pt-[10.093vh]">
-                                    <ul>
-                                        <li className="font-latolight pb-2 mb-3">
-                                            <div className="flex pb-1">
-                                                <Image
-                                                    src="/images/icon-mini-space-size.svg"
-                                                    width={15}
-                                                    height={15}
-                                                    className="mb-5 filter brightness-200 invert"
-                                                    alt=""
-                                                />
-                                                <div className="pl-2 text-[14px]">space size</div>
-                                            </div>
-                                            <div className="font-latobold text-[24px]">{Number(project?.spaceSize).toLocaleString()} sqft</div>
-                                        </li>
-                                        <li className="font-latolight pb-2 mb-3">
-                                            <div className="flex pb-1">
-                                                <Image
-                                                    src="/images/icon-mini-rentable-area.svg"
-                                                    width={15}
-                                                    height={15}
-                                                    className="mb-5 filter brightness-200 invert"
-                                                    alt=""
-                                                />
-                                                <div className="pl-2 text-[14px]">rentable area</div>
-                                            </div>
-                                            <div className="font-latobold text-[24px]">{Number(project?.rentableArea).toLocaleString()} sqft</div>
-                                        </li>
-                                        <li className="font-latolight pb-2 mb-3">
-                                            <div className="flex pb-1">
-                                                <Image
-                                                    src="/images/icon-mini-target-headcount.svg"
-                                                    width={15}
-                                                    height={15}
-                                                    className="mb-5 filter brightness-200 invert"
-                                                    alt=""
-                                                />
-                                                <div className="pl-2 text-[14px]">target headcount</div>
-                                            </div>
-                                            <div className="font-latobold text-[24px]">{project?.headCount}</div>
-                                        </li>
-                                        <li className="font-latolight pb-2 mb-3">
-                                            <div className="flex pb-1">
-                                                <Image
-                                                    src="/images/icon-mini-workspace.svg"
-                                                    width={15}
-                                                    height={15}
-                                                    className="mb-5 filter brightness-200 invert"
-                                                    alt=""
-                                                />
-                                                <div className="pl-2 text-[14px]">workspace assigned</div>
-                                            </div>
-                                            <div className="font-latobold text-[24px]">{workspaceAssigned}%</div>
-                                        </li>
-                                        <li className="font-latolight pb-2 mb-3">
-                                            <div className="flex pb-1">
-                                                <Image
-                                                    src="/images/icon-mini-staff.svg"
-                                                    width={15}
-                                                    height={15}
-                                                    className="mb-5 filter brightness-200 invert"
-                                                    alt=""
-                                                />
-                                                <div className="pl-2 text-[14px]">staff working remotely</div>
-                                            </div>
-                                            <div className="font-latobold text-[24px]">{staffWorkingRemotely}%</div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <Link href="/estimation" className="flex text-[24px] text-white opacity-50 hover:opacity-1">
-                                <Image
-                                    src="/images/icon-create.svg"
-                                    width={15}
-                                    height={15}
-                                    className="w-[16px]"
-                                    alt="create-new"
-                                />
-                                <div className="pl-2">add estimate</div>
-                            </Link >
-                        </div>
-                    </div>
-                </div>
- 
-                <div className={`lg:col-span-${colSpan} col-span-12 lg:col-start-2 row-end-2 min-h-900 relative`}>
-                    <div className="close-btn opacity-1 absolute top-0 right-0 flex flex-col items-end p-30 z-30">
-                        <a href="#" className="js-close-results" onClick={() => setProjectId(null)}>
-                            <Image
-                                src="/images/icon-close.svg"
-                                width={0}
-                                height={0}
-                                sizes="100vw"
-                                className="filter contrast-200 brightness-200 w-full h-auto"
-                                alt="close"
-                            />
-                        </a>
-                    </div>
-                    <div className={`grid lg:grid-cols-${colSpan} lg:grid-flow-col relative h-full`}>
-                        {Object.keys(estimates).map((estimateKey: any, index: number) => (
-                            <div key={index} className="file file-1 overflow-x-hidden overflow-y-scroll relative col-span-1 bg-black1 flex flex-col justify-between">
-                                <div className="px-30 pb-30 pt-10 flex flex-col justify-between">
-                                    <div className="flex flex-col justify-start relative z-10">
-                                        <Actions />
-                                        <div className="mt-[11.111vh]">
-
-                                            <h2>{estimateKey}</h2>
-
-                                            <p>this is the estimate description, which was entered when this variation was created.</p>
-
-                                            <div className="file__border bg-white"></div>
-
-                                            <ListWrapper estimates={estimates[estimateKey]} requirementGroups={requirementGroups} refinements={refinements} projectId={projectId} />
-                                        </div>
+                                        <ListWrapper estimates={estimates[estimateKey]} requirementGroups={requirementGroups} refinements={refinements} projectId={projectId} />
                                     </div>
                                 </div>
-
-                                <Total />
                             </div>
-                        ))}
 
-                    </div>
+                            <Cost estimateGroups={estimates[estimateKey]}/>
+                        </div>
+                    ))}
                 </div>
-
-                <div></div>
             </div>
+            <div></div>
         </>
     )
 }
@@ -286,7 +121,7 @@ export function Item({ projectId, estimateId, estimateType, title, data }: {
     return (
         <li className="font-latolight pb-2 mb-2">
             {title} <br />
-            <SubItem estimateId={estimateId} estimateType={estimateType} projectId={projectId} data={data} />
+            {/* <SubItem estimateId={estimateId} estimateType={estimateType} projectId={projectId} data={data} /> */}
         </li>
     )
 }

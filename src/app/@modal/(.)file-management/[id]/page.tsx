@@ -1,18 +1,22 @@
-import { fetchMediaLibraryById } from "@/app/lib/data";
+import { fetchMediaLibraryById, fetchProject, fetchRefinements, fetchRequirementsByGroup } from "@/app/lib/data";
 
 import Image from "next/image";
 import { Modal } from "./modal";
 import Link from "next/link";
+import Detail from "@/app/ui/file-management/detail";
 
-export default async function MediaModal({ params }: { params: { id: string } }) {
+export default async function ProjectDetailModal({ params }: { params: { id: string } }) {
     const id = params.id;
-    console.log(id)
-    // const media = await fetchMediaLibraryById(id);
 
+    const project = await fetchProject(id);
+
+    const requirement_groups = await fetchRequirementsByGroup();
+
+    const refinements = await fetchRefinements();
     return (
         <Modal>
 
-            <div className="grid lg:grid-cols-5 lg:grid-flow-col h-full min-h-900" >
+            <div className="grid lg:grid-cols-5 lg:grid-flow-col h-full min-h-900 bg-black1" >
                 <div className="file col-span-1 flex flex-col justify-between  relative bg-black">
                     <div className="file-map absolute top-0 left-0 w-full h-full z-10"></div>
                     <div className="file-img h-full" data-lat="48.895651" data-long="2.290569" data-color="transparent">
@@ -25,13 +29,12 @@ export default async function MediaModal({ params }: { params: { id: string } })
                                     className="mb-5 filter brightness-200 invert"
                                     alt="file"
                                 />
-                                {/* <h2>{project?.spaceName}</h2> */}
-                                <h2>Sample</h2>
+                                <h2>{project?.spaceName}</h2>
 
                                 <div className="file__border bg-white"></div>
 
                                 <div className="file__address">
-                                    {/* {project?.address} */}
+                                    {project?.address}
                                 </div>
 
                                 <div className="text-white mt-2 pt-[10.093vh]">
@@ -47,7 +50,7 @@ export default async function MediaModal({ params }: { params: { id: string } })
                                                 />
                                                 <div className="pl-2 text-[14px]">space size</div>
                                             </div>
-                                            {/* <div className="font-latobold text-[24px]">{Number(project?.spaceSize).toLocaleString()} sqft</div> */}
+                                            <div className="font-latobold text-[24px]">{Number(project?.spaceSize).toLocaleString()} sqft</div>
                                         </li>
                                         <li className="font-latolight pb-2 mb-3">
                                             <div className="flex pb-1">
@@ -60,7 +63,7 @@ export default async function MediaModal({ params }: { params: { id: string } })
                                                 />
                                                 <div className="pl-2 text-[14px]">rentable area</div>
                                             </div>
-                                            {/* <div className="font-latobold text-[24px]">{Number(project?.rentableArea).toLocaleString()} sqft</div> */}
+                                            <div className="font-latobold text-[24px]">{Number(project?.rentableArea).toLocaleString()} sqft</div>
                                         </li>
                                         <li className="font-latolight pb-2 mb-3">
                                             <div className="flex pb-1">
@@ -73,7 +76,7 @@ export default async function MediaModal({ params }: { params: { id: string } })
                                                 />
                                                 <div className="pl-2 text-[14px]">target headcount</div>
                                             </div>
-                                            {/* <div className="font-latobold text-[24px]">{project?.headCount}</div> */}
+                                            <div className="font-latobold text-[24px]">{project?.headCount}</div>
                                         </li>
                                         <li className="font-latolight pb-2 mb-3">
                                             <div className="flex pb-1">
@@ -86,7 +89,7 @@ export default async function MediaModal({ params }: { params: { id: string } })
                                                 />
                                                 <div className="pl-2 text-[14px]">workspace assigned</div>
                                             </div>
-                                            {/* <div className="font-latobold text-[24px]">{workspaceAssigned}%</div> */}
+                                            <div className="font-latobold text-[24px]">{project.workspaceAssigned}%</div>
                                         </li>
                                         <li className="font-latolight pb-2 mb-3">
                                             <div className="flex pb-1">
@@ -99,7 +102,7 @@ export default async function MediaModal({ params }: { params: { id: string } })
                                                 />
                                                 <div className="pl-2 text-[14px]">staff working remotely</div>
                                             </div>
-                                            {/* <div className="font-latobold text-[24px]">{staffWorkingRemotely}%</div> */}
+                                            <div className="font-latobold text-[24px]">{project.staffWorkRemotely}%</div>
                                         </li>
                                     </ul>
                                 </div>
@@ -117,8 +120,10 @@ export default async function MediaModal({ params }: { params: { id: string } })
                         </div>
                     </div>
                 </div>
+
+                <Detail requirementGroups={requirement_groups} refinements={refinements} projectId={id}/>
             </div>
-            
+
         </Modal>
     )
 }
