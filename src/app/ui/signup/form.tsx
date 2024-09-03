@@ -3,14 +3,20 @@
 import Link from "next/link";
 
 import { useFormState, useFormStatus } from 'react-dom'
-import { signup } from '@/app/actions/auth'
+import { register, signup } from '@/app/actions/auth'
 import Image from "next/image";
 
 export default function Form() {
-    const [state, dispatch] = useFormState(signup, undefined);
-
+    // const [state, dispatch] = useFormState(signup, undefined);
+    const [state, action] = useFormState(register, undefined)
     return (
-        <form action={dispatch} className="w-full">
+        <form action={action} className="w-full">
+            <div className="md:w-full pb-4">
+                <input
+                    className="bg-transparent font-latothin leading-tight placeholder-white appearance-none border-t-0 border-l-0 border-r-0 border-b w-full text-white focus:outline-none"
+                    id="inline-name" type="text" name="name" placeholder="name" />
+                {state?.errors?.name && <p>{state.errors.name}</p>}
+            </div>
             <div className="md:w-full pb-4">
                 <input
                     className="bg-transparent font-latothin leading-tight placeholder-white appearance-none border-t-0 border-l-0 border-r-0 border-b w-full text-white focus:outline-none"
@@ -54,7 +60,7 @@ export function SignupButton() {
     const { pending } = useFormStatus()
 
     return (
-        <button className="focus:shadow-outline focus:outline-none" type="submit" aria-disabled={pending}>
+        <button className="focus:shadow-outline focus:outline-none" type="submit" aria-disabled={pending} disabled={pending}>
             <Image
                 src="/images/icon-submit.png"
                 width={0}

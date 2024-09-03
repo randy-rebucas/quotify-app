@@ -4,6 +4,7 @@ export const authConfig = {
   pages: {
     signIn: "/login",
   },
+  secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
     authorized({ auth, request: { nextUrl } }) {
       // 1. Specify protected and public routes

@@ -8,13 +8,15 @@ import StaggerCover from './ui/stagger-cover';
 import { ColumnValue } from './ui/columns';
 import Columns from './ui/columns';
 import PageWrapper from './ui/page-wrapper';
+import { getsession } from './lib/session';
 
 export const metadata: Metadata = {
   title: 'Welcome'
 };
 
 export default async function Page() {
-
+  const session = await getsession();
+  console.log(session)
   const colors: string[] = ['bg-gray1', 'bg-gray2A', 'bg-gray3A', 'bg-gray4A', 'bg-gray5A'];
 
   const columns: ColumnValue[] = [

@@ -3,6 +3,7 @@
 import {
   SignupFormSchema,
   AuthFormState,
+  FormState,
 } from "@/app/lib/definitions";
 import connect from "../utils/db";
 import Auth from "../models/Auth";
@@ -14,6 +15,102 @@ import { revalidatePath, unstable_noStore as noStore } from "next/cache";
 import { isRedirectError } from "next/dist/client/components/redirect";
 import { signIn } from "../../../auth";
 import { AuthError } from "next-auth";
+import { createSession } from "../lib/session";
+
+export async function register(state: FormState, formData: FormData) {
+  // 1. Validate form fields
+  const validatedFields = SignupFormSchema.safeParse({
+    name: formData.get("name"),
+    email: formData.get("email"),
+    password: formData.get("password"),
+    confirm_password: formData.get("confirm_password"),
+  });
+
+  // If any form fields are invalid, return early
+  if (!validatedFields.success) {
+    return {
+      errors: validatedFields.error.flatten().fieldErrors,
+    };
+  }
+
+  // 2. Prepare data for insertion into database
+  const { name, email, password } = validatedFields.data;
+  try {
+    // Connect to database
+    connect();
+
+    // 3. Check existing user email
+    let authCheckEmail = await Auth.findOne({ email }).exec();
+
+    if (authCheckEmail) {
+      return {
+        message: "Email already exists, please login or use a different email.",
+      };
+    }
+
+    // e.g. Hash the user's password before storing it
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    // 3. Insert the user into the database or call an Auth Library's API
+    const auth = new Auth({
+      email: email,
+      password: hashedPassword,
+    });
+    let authResponse = await auth.save();
+
+    if (!authResponse) {
+      return {
+        message: "An error occurred while creating your account.",
+      };
+    }
+
+    const office = await Office.findOne({ status: 1 }).limit(1).exec();
+
+    const userData = {
+      name: name,
+      email: email,
+      auth: authResponse._id,
+      roles: "user",
+    };
+
+    let optional = {};
+    if (office) {
+      optional = {
+        office: office?._id,
+      };
+    }
+
+    const transformUser = {
+      ...userData,
+      ...optional,
+    };
+
+    const user = new User(transformUser);
+
+    let userResponse = await user.save();
+    if (!userResponse) {
+      return {
+        message: "An error occurred while creating your account.",
+      };
+    }
+
+    // 4. Create user session
+    await createSession(userResponse._id.toString());
+
+    // 5. Redirect user
+    revalidatePath("/");
+    redirect("/");
+    // redirect('/profile')
+  } catch (error) {
+    if (isRedirectError(error)) {
+      // Redirect error handle here
+      throw error; // You have to throw the redirect error
+    } else {
+      console.log("other error");
+    }
+    return;
+  }
+}
 
 export async function signup(state: AuthFormState, formData: FormData) {
   noStore;

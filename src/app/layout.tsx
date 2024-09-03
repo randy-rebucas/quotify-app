@@ -11,6 +11,7 @@ const lato = Lato({
 })
 
 import "/public/css/main.css";
+import { getUser } from './lib/dal';
 
 export const metadata: Metadata = {
   title: {
@@ -27,12 +28,12 @@ export default async function RootLayout({
   children: React.ReactNode;
   modal: React.ReactNode;
 }) {
-
+  const user = await getUser();
   return (
     <html lang="en">
       <body className={`${lato.className} antialiased`}>
-        {children}
-        {modal}
+          {children}
+          {modal}
       </body>
     </html>
   );

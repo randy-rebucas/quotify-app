@@ -38,7 +38,6 @@ async function getUser(email: string) {
 
 export const { auth, signIn, signOut } = NextAuth({
   ...authConfig,
-  //   adapter: MongoDBAdapter(mongoClientPromise),
   providers: [
     Credentials({
       async authorize(credentials) {
@@ -63,11 +62,11 @@ export const { auth, signIn, signOut } = NextAuth({
   callbacks: {
     async session({ session }) {
       const user: any = await getUser(session?.user?.email);
-      Object.assign(session.user, { id: user.id, roles: user.roles });
-      return session;
-      // session.userId = user.id;
-      // session.userRoles = user.roles
+      // Object.assign(session.user, { id: user.id, roles: user.roles });
       // return session;
+      session.userId = user.id;
+      session.userRoles = user.roles
+      return session;
     },
   },
 });

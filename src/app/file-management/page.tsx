@@ -18,7 +18,12 @@ export async function generateMetadata({ }) {
 export default async function Page() {
 
     const session = await auth();
-    const projects = await fetchProjectsByUserId(session?.user?.id);
+
+    if (session === null) {
+        return Response.redirect(new URL("/login"));
+    }
+    
+    const projects = await fetchProjectsByUserId(session?.userId);
     const colors: string[] = ['bg-gray1B', 'bg-gray2A', 'bg-gray3A', 'bg-gray4A', 'bg-gray5A']
 
     return (
