@@ -1,19 +1,12 @@
 import NextAuth from "next-auth";
-import { authConfig } from "./auth.config";
-import Credentials from "next-auth/providers/credentials";
+import CredentialsProvider from "next-auth/providers/credentials";
 import { z } from "zod";
 import bcrypt from "bcrypt";
-import User, { IUser } from "@/app/models/User";
-import { unstable_noStore as noStore, revalidatePath } from "next/cache";
 import connect from "@/app/utils/db";
-import { createSession } from "@/app/actions/session";
-import mongoClientPromise from "@/app/lib/db";
-import { MongoDBAdapter } from "@auth/mongodb-adapter";
+import User from "@/app/models/User";
 
 async function getUser(email: string) {
   try {
-    noStore();
-
     connect();
 
     const user = await User.findOne({ email })
@@ -27,7 +20,7 @@ async function getUser(email: string) {
       name: user.name,
       password: user.auth.password,
       roles: user.roles,
-    }
+    };
 
     return transformedData;
   } catch (error) {
@@ -36,16 +29,21 @@ async function getUser(email: string) {
   }
 }
 
-export const { auth, signIn, signOut } = NextAuth({
-  ...authConfig,
-  //   adapter: MongoDBAdapter(mongoClientPromise),
+const handler = NextAuth({
+  session: {
+    strategy: "jwt",
+  },
+  pages: {
+    signIn: "/login",
+  },
   providers: [
-    Credentials({
+    CredentialsProvider({
       credentials: {
         email: {},
         password: {},
       },
       async authorize(credentials) {
+
         const parsedCredentials = z
           .object({ email: z.string().email(), password: z.string().min(6) })
           .safeParse(credentials);
@@ -64,15 +62,6 @@ export const { auth, signIn, signOut } = NextAuth({
       },
     }),
   ],
-  callbacks: {
-    async session({ session }) {
-      // console.log(session)
-      const user: any = await getUser(session?.user?.email);
-      Object.assign(session.user, { id: user.id, roles: user.roles });
-      return session;
-      // session.userId = user.id;
-      // session.userRoles = user.roles
-      // return session;
-    },
-  },
 });
+
+export { handler as GET, handler as POST };

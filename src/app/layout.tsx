@@ -29,11 +29,13 @@ export default async function RootLayout({
 }) {
 
   return (
-    <html lang="en">
-      <body className={`${lato.className} antialiased`}>
-        {children}
-        {modal}
-      </body>
-    </html>
+    // <SessionWrapper>
+      <html lang="en">
+        <body className={`${lato.className} antialiased`}>
+          {children}
+          {modal}
+        </body>
+      </html>
+    // </SessionWrapper>
   );
 }

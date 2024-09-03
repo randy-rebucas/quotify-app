@@ -8,7 +8,18 @@ import Image from "next/image";
 
 export default function Form() {
     const [state, dispatch] = useFormState(signup, undefined);
-
+    // const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    //     e.preventDefault();
+    //     const formData = new FormData(e.currentTarget);
+    //     const response = await fetch(`/api/auth/register`, {
+    //       method: 'POST',
+    //       body: JSON.stringify({
+    //         email: formData.get('email'),
+    //         password: formData.get('password'),
+    //       }),
+    //     });
+    //     console.log({ response });
+    //   };
     return (
         <form action={dispatch} className="w-full">
             <div className="md:w-full pb-4">
