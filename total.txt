@@ -1,4 +1,0 @@
-total cost = (total requirements + total refinement) * space size
-
-share = embed email content
-download expanded lahat
