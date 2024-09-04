@@ -2,8 +2,9 @@
 
 import {
   SignupFormSchema,
-  AuthFormState,
+  LoginFormState,
   LoginFormSchema,
+  SignupFormState,
 } from "@/app/lib/definitions";
 import connect from "../utils/db";
 import Auth from "../models/Auth";
@@ -15,7 +16,7 @@ import { revalidatePath, unstable_noStore as noStore } from "next/cache";
 import { isRedirectError } from "next/dist/client/components/redirect";
 import { createSession, deleteSession } from "./session";
 
-export async function signup(state: AuthFormState, formData: FormData) {
+export async function signup(state: SignupFormState, formData: FormData) {
   noStore;
   // Validate form fields
   const validatedFields = SignupFormSchema.safeParse({
@@ -98,7 +99,7 @@ export async function signup(state: AuthFormState, formData: FormData) {
   }
 }
 
-export async function login(state: AuthFormState, formData: FormData) {
+export async function login(state: LoginFormState, formData: FormData) {
   const validatedFields = LoginFormSchema.safeParse({
     email: formData.get("email"),
     password: formData.get("password"),

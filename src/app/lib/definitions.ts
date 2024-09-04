@@ -4,6 +4,7 @@ export type SessionPayload = {};
 
 export const SignupFormSchema = z
   .object({
+    name: z.string().max(12, { message: "Be at least 12 characters long" }).trim(),
     email: z.string().email({ message: "Please enter a valid email." }).trim(),
     password: z
       .string()
@@ -23,6 +24,17 @@ export const SignupFormSchema = z
     path: ["confirm_password"],
   });
 
+export type SignupFormState =
+  | {
+      errors?: {
+        email?: string[];
+        password?: string[];
+        confirm_password?: string[];
+      };
+      message?: string;
+    }
+  | undefined;
+
 export const LoginFormSchema = z.object({
   email: z.string().email({ message: "Please enter a valid email." }).trim(),
   password: z
@@ -36,12 +48,11 @@ export const LoginFormSchema = z.object({
     .trim(),
 });
 
-export type AuthFormState =
+export type LoginFormState =
   | {
       errors?: {
         email?: string[];
         password?: string[];
-        confirm_password?: string[];
       };
       message?: string;
     }
