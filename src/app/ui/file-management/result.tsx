@@ -33,22 +33,25 @@ export default function Result({ projects }: Props) {
                             <div className="file-map"></div>
                             <div className="file-img" data-lat="48.895651" data-long="2.290569" data-color="#383A64">
                                 <div className="flex flex-col justify-start relative z-10">
-                                    {/* onClick={() => setProjectId(project._id)} */}
                                     <Link href={`/file-management/${project._id}`} className="absolute js-open-results right-0" >
                                         <Image
                                             src="/images/icon-settings.svg"
-                                            width={25}
-                                            height={25}
+                                            width="0"
+                                            height="0"
+                                            sizes="100vw"
+                                            className="w-full h-auto"
                                             alt="settings"
                                         />
                                     </Link>
                                     <div className="file-content text-black">
                                         <Image
                                             src="/images/icon-file.svg"
-                                            width={35}
-                                            height={35}
-                                            className="mb-5"
+                                            width="0"
+                                            height="0"
+                                            sizes="100vw"
+                                            className="w-12 h-auto"
                                             alt="file"
+                                            priority={false}
                                         />
                                         <h2>{project.spaceName}</h2>
 

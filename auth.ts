@@ -3,12 +3,9 @@ import { authConfig } from "./auth.config";
 import Credentials from "next-auth/providers/credentials";
 import { z } from "zod";
 import bcrypt from "bcrypt";
-import User, { IUser } from "@/app/models/User";
-import { unstable_noStore as noStore, revalidatePath } from "next/cache";
+import User from "@/app/models/User";
+import { unstable_noStore as noStore } from "next/cache";
 import connect from "@/app/utils/db";
-import { createSession } from "@/app/actions/session";
-import mongoClientPromise from "@/app/lib/db";
-import { MongoDBAdapter } from "@auth/mongodb-adapter";
 
 async function getUser(email: string) {
   try {
@@ -38,7 +35,6 @@ async function getUser(email: string) {
 
 export const { auth, signIn, signOut } = NextAuth({
   ...authConfig,
-  //   adapter: MongoDBAdapter(mongoClientPromise),
   providers: [
     Credentials({
       credentials: {
@@ -59,7 +55,7 @@ export const { auth, signIn, signOut } = NextAuth({
 
           if (passwordsMatch) return user;
         }
-
+        console.log('Invalid credentials');
         return null;
       },
     }),
