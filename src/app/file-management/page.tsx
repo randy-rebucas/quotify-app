@@ -6,7 +6,8 @@ import ResultWrapper from "../ui/file-management/result-wrapper";
 import { fetchProjectsByUserId } from "../lib/data";
 import { PowerIcon } from "@heroicons/react/24/outline";
 import { Suspense } from "react";
-import { auth, signOut } from "../../../auth";
+import { getSession } from "../actions/session";
+import { logout } from "../actions/auth";
 
 export async function generateMetadata({ }) {
     return {
@@ -16,9 +17,8 @@ export async function generateMetadata({ }) {
 }
 
 export default async function Page() {
-
-    const session = await auth();
-    const projects = await fetchProjectsByUserId(session?.user?.id);
+    const session = await getSession();
+    const projects = await fetchProjectsByUserId(session?.userId);
     const colors: string[] = ['bg-gray1B', 'bg-gray2A', 'bg-gray3A', 'bg-gray4A', 'bg-gray5A']
 
     return (
@@ -39,7 +39,7 @@ export default async function Page() {
                             </Link>
                             <form action={async () => {
                                 'use server';
-                                await signOut();
+                                await logout();
                             }}>
                                 <button className="hover:text-red-500 md:p-2 text-red text-sm w-full">
                                     <PowerIcon className="w-[43px]" />

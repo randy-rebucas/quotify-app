@@ -44,7 +44,7 @@ export async function fetchProjects() {
   return transformData;
 }
 
-export async function fetchProjectsByUserId(id?: string | null) {
+export async function fetchProjectsByUserId(id: any) {
   noStore();
 
   connect();
