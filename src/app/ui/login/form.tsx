@@ -4,10 +4,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { useFormState, useFormStatus } from 'react-dom';
 import ExclamationCircleIcon from "@heroicons/react/24/outline/ExclamationCircleIcon";
-import { authenticate } from "@/app/actions/auth";
+import { login } from "@/app/actions/auth";
 
 export default function Form() {
-    const [errorMessage, dispatch] = useFormState(authenticate, undefined);
+    const [state, dispatch] = useFormState(login, undefined);
+
     return (
         <form action={dispatch} className="w-full">
             <div className="md:w-full pb-4">
@@ -33,12 +34,8 @@ export default function Form() {
                 aria-live="polite"
                 aria-atomic="true"
             >
-                {errorMessage && (
-                    <>
-                        <ExclamationCircleIcon className="h-5 w-5 text-red-500" />
-                        <p className="text-sm text-red-500">{errorMessage}</p>
-                    </>
-                )}
+                {state?.errors?.email && <><ExclamationCircleIcon className="h-5 w-5 text-red-500" /><p className="text-sm text-red-500">{state.errors.email}</p></>}
+                {state?.errors?.password && <><ExclamationCircleIcon className="h-5 w-5 text-red-500" /><p className="text-sm text-red-500">{state.errors.password}</p></>}
             </div>
         </form>
     )

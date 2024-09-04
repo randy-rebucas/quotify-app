@@ -3,6 +3,7 @@
 import {
   SignupFormSchema,
   AuthFormState,
+  LoginFormSchema,
 } from "@/app/lib/definitions";
 import connect from "../utils/db";
 import Auth from "../models/Auth";
@@ -12,8 +13,7 @@ import bcrypt from "bcrypt";
 import { redirect } from "next/navigation";
 import { revalidatePath, unstable_noStore as noStore } from "next/cache";
 import { isRedirectError } from "next/dist/client/components/redirect";
-import { signIn } from "../../../auth";
-import { AuthError } from "next-auth";
+import { createSession, deleteSession } from "./session";
 
 export async function signup(state: AuthFormState, formData: FormData) {
   noStore;
@@ -100,21 +100,60 @@ export async function signup(state: AuthFormState, formData: FormData) {
   }
 }
 
-export async function authenticate(
-  prevState: string | undefined,
-  formData: FormData
-) {
-  try {
-    await signIn("credentials", formData);
-  } catch (error) {
-    if (error instanceof AuthError) {
-      switch (error.type) {
-        case "CredentialsSignin":
-          return "Invalid credentials.";
-        default:
-          return "Something went wrong.";
-      }
-    }
-    throw error;
+export async function login(state: AuthFormState, formData: FormData) {
+  const validatedFields = LoginFormSchema.safeParse({
+    email: formData.get("email"),
+    password: formData.get("password"),
+  });
+
+  // If any form fields are invalid, return early
+  if (!validatedFields.success) {
+    return {
+      errors: validatedFields.error.flatten().fieldErrors,
+    };
   }
+
+  const { email, password } = validatedFields.data;
+  try {
+    connect();
+
+    let auth = await Auth.findOne({ email }).exec();
+
+    if (!auth) {
+      return {
+        message: "Email not exists, Please register.",
+      };
+    }
+    let decrypted = await bcrypt.compare(password, auth.password);
+    if (!decrypted) {
+      return {
+        message: "Something went wrong. Incorrect password!",
+      };
+    }
+    let user = await User.findOne({ email }).exec();
+
+    if (!user) {
+      return {
+        message: "Something went wrong. Cannot find email: " + email + " list!",
+      };
+    }
+
+    await createSession(user._id.toString());
+
+    revalidatePath("/file-management");
+    redirect("/file-management");
+  } catch (error) {
+    if (isRedirectError(error)) {
+      // Redirect error handle here
+      throw error; // You have to throw the redirect error
+    } else {
+      console.log("other error");
+    }
+    return;
+  }
+}
+
+export async function logout() {
+  deleteSession();
+  redirect("/login");
 }

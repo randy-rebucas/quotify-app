@@ -7,7 +7,10 @@ import FloorPlan from "@/app/models/FloorPlan";
 import formidable, { File } from "formidable";
 import fs from "fs";
 import { z } from 'zod'
-
+import { auth } from "../../../auth";
+import { getSession } from "next-auth/react";
+import getServerSession from "next-auth"
+import { authConfig } from "../../../auth.config";
 export const config = {
   api: {
     bodyParser: false,
@@ -25,11 +28,6 @@ export default async function handler(
 ) {
   connect();
 
- 
-  // const schema = z.object({
-  //   // ...
-  // })
-  // const parsed = schema.parse(req.body)
   switch (req.method) {
     case "POST":
       const files: FileProps[] = [];
