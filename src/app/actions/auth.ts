@@ -37,8 +37,6 @@ export async function signup(state: AuthFormState, formData: FormData) {
     // Call the provider or db to create a user...
     connect();
 
-    let authCheck = await Auth.find({}).exec();
-
     let authCheckEmail = await Auth.findOne({ email }).exec();
 
     if (authCheckEmail) {
@@ -62,7 +60,7 @@ export async function signup(state: AuthFormState, formData: FormData) {
       name: "sample",
       email: email,
       auth: authResponse._id,
-      roles: authCheck.length === 1 ? "admin" : "user",
+      roles: "user",
     };
 
     let optional = {};

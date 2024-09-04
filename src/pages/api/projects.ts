@@ -6,11 +6,7 @@ import path from "path";
 import FloorPlan from "@/app/models/FloorPlan";
 import formidable, { File } from "formidable";
 import fs from "fs";
-import { z } from 'zod'
-import { auth } from "../../../auth";
-import { getSession } from "next-auth/react";
-import getServerSession from "next-auth"
-import { authConfig } from "../../../auth.config";
+
 export const config = {
   api: {
     bodyParser: false,
