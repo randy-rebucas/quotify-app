@@ -8,17 +8,17 @@ import { PowerIcon } from "@heroicons/react/24/outline";
 import { Suspense } from "react";
 import { getSession } from "../actions/session";
 import { logout } from "../actions/auth";
+import { Metadata } from "next";
 
-export async function generateMetadata({ }) {
-    return {
-        title: 'File Management',
-        description: '...',
-    }
-}
+export const metadata: Metadata = {
+    title: 'File Management',
+};
 
 export default async function Page() {
+    
     const session = await getSession();
     const projects = await fetchProjectsByUserId(session?.userId);
+    
     const colors: string[] = ['bg-gray1B', 'bg-gray2A', 'bg-gray3A', 'bg-gray4A', 'bg-gray5A']
 
     return (
@@ -43,7 +43,6 @@ export default async function Page() {
                             }}>
                                 <button className="hover:text-red-500 md:p-2 text-red text-sm w-full">
                                     <PowerIcon className="w-[43px]" />
-                                    <div className="hidden md:block">Sign Out</div>
                                 </button>
                             </form>
                         </div>

@@ -344,7 +344,7 @@ export async function deleteUser(id: string) {
   return { message: "Deleted User." };
 }
 
-export async function fetchUserById(id: string) {
+export async function fetchUserById(id: any) {
   noStore();
 
   connect();
@@ -356,8 +356,16 @@ export async function fetchUserById(id: string) {
 
   const transformData = {
     _id: user._id.toString(),
-    email: user.auth.email,
-    office_id: user.office ? user.office._id.toString() : null,
+    email: user.email,
+    roles: user.roles,
+    name: user.name,
+    auth: {
+      loggedAt: user.auth.loggedAt
+    },
+    office: {
+      _id: user.office._id.toString(),
+      location: user.office.location,
+    },
   };
 
   return transformData;

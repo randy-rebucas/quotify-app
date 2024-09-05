@@ -5,11 +5,9 @@ import { decrypt } from "@/app/actions/session";
 
 // 1. Specify protected and public routes
 const protectedRoutes = [
-  "/setting",
   "/file-management",
-  "/estimation",
-  "/estimation/*",
-  "/setting/*",
+  "/setting",
+  "/estimation"
 ];
 const publicRoutes = ["/", "/login", "/signup"];
 

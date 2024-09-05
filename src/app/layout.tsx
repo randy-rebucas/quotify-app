@@ -3,6 +3,8 @@ import '@/app/global.css';
 import { Metadata } from 'next';
 
 import { Lato } from 'next/font/google'
+import SessionProvider from './ui/session-provider';
+import { getSession } from './actions/session';
 const lato = Lato({
   weight: ["100", "300", "400", "700", "900"],
   style: ['normal', 'italic'],
@@ -10,15 +12,13 @@ const lato = Lato({
   display: 'swap',
 })
 
-import "/public/css/main.css";
-
 export const metadata: Metadata = {
   title: {
     template: '%s',
     default: 'Quotify',
   },
   description: 'Quotify.',
-  metadataBase: new URL('https://next-learn-dashboard.vercel.sh'),
+  metadataBase: new URL(`${process.env.NEXT_PUBLIC_AUTH_URL}`),
 };
 
 export default async function RootLayout({
@@ -27,15 +27,16 @@ export default async function RootLayout({
   children: React.ReactNode;
   modal: React.ReactNode;
 }) {
+  const session = await getSession();
 
   return (
-    // <SessionWrapper>
-      <html lang="en">
-        <body className={`${lato.className} antialiased`}>
+    <html lang="en">
+      <body className={`${lato.className} antialiased`}>
+        <SessionProvider session={session}>
           {children}
           {modal}
-        </body>
-      </html>
-    // </SessionWrapper>
+        </SessionProvider>
+      </body>
+    </html>
   );
 }

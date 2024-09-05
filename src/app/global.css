@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url("../../public/css/main.css");
+
 .min-h-220 {
   min-height: 220px;
 }
