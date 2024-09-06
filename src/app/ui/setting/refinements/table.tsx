@@ -1,4 +1,4 @@
-import { IRefinement } from "@/app/models/Refinement";
+import { IRefinement } from "@/models/Refinement";
 import { Delete, Update } from "./buttons";
 
 export default function Table({ refinements }: { refinements: IRefinement[] }) {

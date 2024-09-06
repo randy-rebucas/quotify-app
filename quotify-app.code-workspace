@@ -4,7 +4,10 @@
 			"path": "."
 		},
 		{
-			"path": "../nextjs-dashboard"
+			"path": "../../quotify"
+		},
+		{
+			"path": "../../OneDrive/Desktop/quotify-html"
 		}
 	],
 	"settings": {}

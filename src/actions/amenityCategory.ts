@@ -6,7 +6,7 @@ import {
     AmenityCategoryFormSchema,
     AmenityCategoryFormState,
 } from "@/app/lib/definitions";
-import AmenityCategory from "../models/AmenityCategory";
+import AmenityCategory from "../../models/AmenityCategory";
 
 const UpdateAmenityCategory = AmenityCategoryFormSchema.omit({ id: true });
 

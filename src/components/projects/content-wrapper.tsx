@@ -1,22 +1,48 @@
-'use client';
+'use client'
 
-import Image from "next/image";
-import clsx from "clsx";
-import Link from "next/link";
-import EstimateCount from "./estimate-count";
-import { IProject } from "@/models/Project";
 import { useAppStore } from "@/app/lib/store/appStore";
+import { useProjectStore } from "@/app/lib/store/projectStore";
+import { SessionContext } from "@/app/ui/session-provider";
+import clsx from "clsx";
+import Image from "next/image";
+import Link from "next/link";
+import { useContext, useEffect, useState } from "react";
+import Count from "./count";
 
-type Props = {
-    projects: IProject[];
-}
+export default function ContentWrapper() {
 
-export default function Result({ projects }: Props) {
-
+    let { session } = useContext(SessionContext);
+    console.log(session);
+    const setIsImpty = useProjectStore(state => state.setIsImpty);
+    const setProjects = useProjectStore(state => state.setProjects);
+    const projects = useProjectStore(state => state.projects);
     const hasMore = useAppStore(state => state.hasMore);
-    const setProjectId = useAppStore(state => state.setProjectId);
 
-    const items = !hasMore ? projects.slice(0, 4) : projects;
+    const [isLoading, setLoading] = useState(true)
+
+    useEffect(() => {
+        async function fetchProjects() {
+            const response = await fetch(`/api/project/by-user/${session.userId}`, {
+                method: "GET",
+                headers: {
+                    Accept: "application/json",
+                    "Content-Type": "application/json",
+                },
+            });
+            let data = await response.json();
+            setProjects(data)
+            setIsImpty(!data ? true : false);
+            setLoading(false)
+        }
+        fetchProjects();
+
+    }, [session, setIsImpty, setProjects])
+
+    if (isLoading) return <Loading />
+
+    if (!projects) return <Empty />
+
+    const items = projects ? !hasMore ? projects.slice(0, 4) : projects : [];
 
     return (
         <div className={clsx(
@@ -33,7 +59,7 @@ export default function Result({ projects }: Props) {
                             <div className="file-map"></div>
                             <div className="file-img" data-lat="48.895651" data-long="2.290569" data-color="#383A64">
                                 <div className="flex flex-col justify-start relative z-10">
-                                    <Link href={`/file-management/${project._id}`} className="absolute js-open-results right-0" >
+                                    <Link href={`/projects/${project._id}`} className="absolute js-open-results right-0" >
                                         <Image
                                             src="/images/icon-settings.svg"
                                             width="0"
@@ -61,7 +87,7 @@ export default function Result({ projects }: Props) {
                                             {project.address}
                                         </div>
 
-                                        <EstimateCount projectId={project._id} />
+                                        <Count projectId={project._id} />
 
                                     </div>
                                 </div>
@@ -80,4 +106,16 @@ export default function Result({ projects }: Props) {
             </div>
         </div>
     )
+}
+
+export function Empty() {
+    return (
+        <div className="lg:col-start-3 lg:col-span-1 col-span-12 flex flex-col items-center justify-center">
+            <p className="p-30 text-black">Once you create a project, it will show here.</p>
+        </div>
+    )
+}
+
+export function Loading() {
+    return (<p>Loading...</p>)
 }

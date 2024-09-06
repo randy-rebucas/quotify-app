@@ -1,5 +1,5 @@
-import ProjectCustomSpace from "@/app/models/ProjectCustomSpace";
-import connect from "@/app/utils/db";
+import ProjectCustomSpace from "@/models/ProjectCustomSpace";
+import connect from "@/utils/db";
 
 import type { NextApiRequest, NextApiResponse } from "next";
 

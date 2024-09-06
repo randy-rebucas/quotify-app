@@ -1,4 +1,4 @@
-import { IProject } from "@/app/models/Project";
+import { IProject } from "@/models/Project";
 import { DeleteProject } from "./buttons";
 
 export const financial = (x: string) => {

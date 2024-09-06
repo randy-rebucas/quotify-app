@@ -1,4 +1,4 @@
-import { IEstimate } from "@/app/models/Estimate";
+import { IEstimate } from "@/models/Estimate";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 

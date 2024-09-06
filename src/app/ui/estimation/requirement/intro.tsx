@@ -1,6 +1,6 @@
 'use client';
 
-import { IRequirement } from "@/app/models/Requirement";
+import { IRequirement } from "@/models/Requirement";
 
 type Props = {
     requirementGroups: any[]

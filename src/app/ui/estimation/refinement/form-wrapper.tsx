@@ -1,6 +1,6 @@
 "use client";
 
-import { useMultistepForm } from "@/app/hooks/useMultistepForm";
+import { useMultistepForm } from "@/hooks/useMultistepForm";
 import Flooring from "./steps/flooring";
 import Furniture from "./steps/furniture";
 import Partition from "./steps/partition";

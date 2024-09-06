@@ -1,4 +1,4 @@
-import Refinement from "@/app/models/Refinement";
+import Refinement from "@/models/Refinement";
 import type { NextApiRequest, NextApiResponse } from "next";
 
 export default async function handler(

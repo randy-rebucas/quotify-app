@@ -1,4 +1,4 @@
-import EstimateAmenityRefinementLevel from "@/app/models/EstimateAmenityRefinementLevel";
+import EstimateAmenityRefinementLevel from "@/models/EstimateAmenityRefinementLevel";
 import type { NextApiRequest, NextApiResponse } from "next";
 
 export const config = {

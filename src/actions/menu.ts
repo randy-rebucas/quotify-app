@@ -1,6 +1,6 @@
 "use server";
 
-import Menu from "../models/Menu";
+import Menu from "../../models/Menu";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import {

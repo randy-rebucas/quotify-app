@@ -1,7 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import Project from "../models/Project";
+import Project from "../../models/Project";
 import { ProjectFormSchema, ProjectFormState } from "../lib/definitions";
 import { redirect } from "next/navigation";
 

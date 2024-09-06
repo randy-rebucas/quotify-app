@@ -1,4 +1,4 @@
-import { IAmenityCategory } from "@/app/models/AmenityCategory";
+import { IAmenityCategory } from "@/models/AmenityCategory";
 import { DeleteAmenityCategory, UpdateAmenityCategory } from "./buttons";
 
 

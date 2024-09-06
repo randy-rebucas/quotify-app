@@ -1,4 +1,4 @@
-import RequirementLevel from "@/app/models/RequirementLevel";
+import RequirementLevel from "@/models/RequirementLevel";
 import type { NextApiRequest, NextApiResponse } from "next";
 
 export default async function handler(

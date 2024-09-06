@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { Button } from '@/app/ui/button';
 import { useFormState } from 'react-dom';
 import { createCustomSpace } from '@/app/actions/customSpace';
-import { ICustomSpace } from '@/app/models/CustomSpace';
+import { ICustomSpace } from '@/models/CustomSpace';
 
 
 export default function Form({ custom_spaces }: { custom_spaces: any[] }) {

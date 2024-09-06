@@ -1,5 +1,5 @@
 import { Delete, Update } from "./buttons";
-import { IRequirement } from "@/app/models/Requirement";
+import { IRequirement } from "@/models/Requirement";
 
 
 export default function Table({ requirements }: { requirements: IRequirement[] }) {

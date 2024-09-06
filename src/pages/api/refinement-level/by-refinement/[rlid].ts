@@ -1,4 +1,4 @@
-import RefinementLevel from "@/app/models/RefinementLevel";
+import RefinementLevel from "@/models/RefinementLevel";
 import type { NextApiRequest, NextApiResponse } from "next";
 
 export default async function handler(

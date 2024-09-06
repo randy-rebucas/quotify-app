@@ -1,4 +1,4 @@
-import { IAmenity } from "@/app/models/Amenity";
+import { IAmenity } from "@/models/Amenity";
 import { DeleteAmenity, UpdateAmenity } from "./buttons";
 
 export default function Table({ amenities }: { amenities: any[] }) {

@@ -6,10 +6,10 @@ import {
     RequiermentLevelFormState,
   RequirementLevelFormSchema,
 } from "@/app/lib/definitions";
-import RefinementLevel from "../models/RefinementLevel";
+import RefinementLevel from "../../models/RefinementLevel";
 import { unlink, writeFile } from "fs/promises";
 import path from "path";
-import RequirementLevel from "../models/RequirementLevel";
+import RequirementLevel from "../../models/RequirementLevel";
 
 const UpdateSchema = RequirementLevelFormSchema.omit({ id: true });
 

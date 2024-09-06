@@ -1,5 +1,5 @@
 import { DeleteOffice, UpdateOffice } from "./buttons";
-import { IOffice } from "@/app/models/Office";
+import { IOffice } from "@/models/Office";
 
 
 export default function Table({ offices }: { offices: IOffice[] }) {

@@ -2,8 +2,8 @@
 
 import { MouseEventHandler, useEffect, useMemo, useState } from "react";
 import clsx from "clsx";
-import { IAmenity } from "@/app/models/Amenity";
-import { ICustomSpace } from "@/app/models/CustomSpace";
+import { IAmenity } from "@/models/Amenity";
+import { ICustomSpace } from "@/models/CustomSpace";
 import { useAreaBreakdownStore } from "@/app/lib/store/areaBreakdownStore";
 import ProgressBar from "../../progress-bar";
 

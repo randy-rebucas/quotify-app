@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { Button } from '@/app/ui/button';
 import { useFormState } from 'react-dom';
-import { IRequirement } from '@/app/models/Requirement';
+import { IRequirement } from '@/models/Requirement';
 import { createRequirement } from '@/app/actions/requirement';
 
 

@@ -1,7 +1,7 @@
 "use server";
 
-import User from "../models/User";
-import Auth from "../models/Auth";
+import User from "../../models/User";
+import Auth from "../../models/Auth";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import bcrypt from "bcrypt";

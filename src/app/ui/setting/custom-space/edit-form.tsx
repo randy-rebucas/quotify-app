@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { useFormState } from 'react-dom';
 import { Button } from '../../button';
 import { updateCustomSpace } from '@/app/actions/customSpace';
-import { ICustomSpace } from '@/app/models/CustomSpace';
+import { ICustomSpace } from '@/models/CustomSpace';
 
 export default function EditCustomSpaceForm({
   custom_space,

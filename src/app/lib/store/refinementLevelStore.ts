@@ -1,4 +1,4 @@
-import { IRefinementLevel } from "@/app/models/RefinementLevel";
+import { IRefinementLevel } from "@/models/RefinementLevel";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 

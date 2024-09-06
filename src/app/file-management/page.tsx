@@ -6,9 +6,9 @@ import ResultWrapper from "../ui/file-management/result-wrapper";
 import { fetchProjectsByUserId } from "../lib/data";
 import { PowerIcon } from "@heroicons/react/24/outline";
 import { Suspense } from "react";
-import { getSession } from "../actions/session";
-import { logout } from "../actions/auth";
 import { Metadata } from "next";
+import { getSession } from "@/actions/session";
+import { logout } from "@/actions/auth";
 
 export const metadata: Metadata = {
     title: 'File Management',

@@ -1,6 +1,6 @@
 "use server";
 
-import CustomSpace from "../models/CustomSpace";
+import CustomSpace from "../../models/CustomSpace";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import {

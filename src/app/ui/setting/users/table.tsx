@@ -1,4 +1,4 @@
-import { IUser } from "@/app/models/User";
+import { IUser } from "@/models/User";
 import { DeleteUser, UpdateUser } from "./buttons";
 
 export default function Table({ users }: { users: IUser[] }) {

@@ -6,7 +6,7 @@ import React from "react";
 import { useProjectAmenityStore } from "@/app/lib/store/projectAmenityStore";
 import { ProjectAreaDefination } from "../refinement/form";
 import { useProjectCustomSpaceStore } from "@/app/lib/store/projectCustomSpaceStore";
-import { IRequirementLevel } from "@/app/models/RequirementLevel";
+import { IRequirementLevel } from "@/models/RequirementLevel";
 
 type TableRowProps = {
     projectId: string;
