@@ -3,9 +3,10 @@
 import Link from 'next/link';
 
 import { useFormState } from 'react-dom';
-import { Button } from '../../button';
+
 import Image from "next/image";
 import { updateMedia } from '@/actions/media';
+import { Button } from '@/app/ui/button';
 
 export default function EditMediaForm({
   media,
