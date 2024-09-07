@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     default: 'Quotify',
   },
   description: 'Quotify.',
-  // metadataBase: new URL(`${process.env.NEXT_PUBLIC_AUTH_URL}`),
+  metadataBase: new URL(`${process.env.NEXT_PUBLIC_AUTH_URL}`),
 };
 
 export default async function RootLayout({
