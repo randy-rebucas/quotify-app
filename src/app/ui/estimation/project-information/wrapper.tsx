@@ -4,7 +4,7 @@ import { MouseEventHandler, ReactNode } from "react";
 import clsx from "clsx";
 import DropzoneUploadedFile from "./dropzone-uploaded-file";
 import Address from "./address";
-import Tooltip from "../../tooltip";
+import Tooltip from "@/components/tooltip";
 
 type Props = {
     stepIndex: number;

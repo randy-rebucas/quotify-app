@@ -2,7 +2,7 @@ import Form from '@/components/setting/menus/edit-form';
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 import { fetchMenuById } from '@/app/lib/data';
-import Breadcrumbs from '@/app/ui/breadcrumbs';
+import Breadcrumbs from '@/components/breadcrumbs';
 
 
 export const metadata: Metadata = {

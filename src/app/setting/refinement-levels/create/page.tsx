@@ -1,5 +1,5 @@
 import { fetchRefinements } from '@/app/lib/data';
-import Breadcrumbs from '@/app/ui/breadcrumbs';
+import Breadcrumbs from '@/components/breadcrumbs';
 import Form from '@/components/setting/refinement-levels/create-form';
 import { Metadata } from 'next';
 

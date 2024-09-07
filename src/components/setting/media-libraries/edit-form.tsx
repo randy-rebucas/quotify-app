@@ -6,7 +6,7 @@ import { useFormState } from 'react-dom';
 
 import Image from "next/image";
 import { updateMedia } from '@/actions/media';
-import { Button } from '@/app/ui/button';
+import { Button } from '@/components/button';
 
 export default function EditMediaForm({
   media,

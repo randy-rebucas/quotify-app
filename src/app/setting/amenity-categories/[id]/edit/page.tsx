@@ -2,8 +2,9 @@
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 import { fetchAmenityCategoryById } from '@/app/lib/data';
-import Breadcrumbs from '@/app/ui/breadcrumbs';
+
 import Form from '@/components/setting/amenity-categories/edit-form';
+import Breadcrumbs from '@/components/breadcrumbs';
 
 export const metadata: Metadata = {
     title: 'Amenity Edit',

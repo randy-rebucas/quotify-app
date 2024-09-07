@@ -1,6 +1,6 @@
 import Popup from "@/app/ui/estimation/popup";
 import Column from "@/app/ui/estimation/project-information/column";
-import Title from "@/app/ui/estimation/title";
+import Title from "@/components/title";
 import LinearCover from "@/app/ui/linear-cover";
 import StaggerCover from "@/app/ui/stagger-cover";
 import { notFound } from "next/navigation";

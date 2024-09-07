@@ -2,7 +2,7 @@
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 import { fetchRequirementById, fetchRequirements } from '@/app/lib/data';
-import Breadcrumbs from '@/app/ui/breadcrumbs';
+import Breadcrumbs from '@/components/breadcrumbs';
 import Form from '@/components/setting/requirements/edit-form';
 
 export const metadata: Metadata = {

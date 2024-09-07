@@ -4,12 +4,13 @@ import { lato } from "../ui/fonts";
 import StaggerCover from "../ui/stagger-cover";
 import Popup from "../ui/estimation/popup";
 import PageWrapper from "../ui/page-wrapper";
-import Tooltip from "../ui/tooltip";
-import Title from "../ui/estimation/title";
+import Tooltip from "../../components/tooltip";
+
 import NavButton from "../ui/estimation/nav-button";
 import Column from "../ui/estimation/column";
 import Image from "next/image";
 import Close from "../ui/estimation/close";
+import Title from "@/components/title";
 
 export const metadata: Metadata = {
     title: 'Estimation'

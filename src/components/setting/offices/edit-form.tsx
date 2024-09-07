@@ -6,7 +6,7 @@ import { useFormState } from 'react-dom';
 
 import { CheckIcon, ClockIcon } from '@heroicons/react/24/outline';
 import { updateOffice } from '@/actions/office';
-import { Button } from '@/app/ui/button';
+import { Button } from '@/components/button';
 
 export default function EditOfficeForm({
   office,

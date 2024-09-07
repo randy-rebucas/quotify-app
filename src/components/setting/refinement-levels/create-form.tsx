@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { Button } from '@/app/ui/button';
+import { Button } from '@/components/button';
 import { useFormState } from 'react-dom';
 import { createRefinementLevel } from '@/actions/refinementLevel';
 

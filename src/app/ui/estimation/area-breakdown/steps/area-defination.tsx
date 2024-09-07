@@ -1,4 +1,4 @@
-import Tooltip from "@/app/ui/tooltip";
+import Tooltip from "@/components/tooltip";
 import { ChangeEvent, useEffect, useState } from "react";
 import clsx from "clsx";
 import { PartialData, ProjectCustomSpaceData, useAreaBreakdownStore } from "@/app/lib/store/areaBreakdownStore";

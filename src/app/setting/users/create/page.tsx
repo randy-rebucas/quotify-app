@@ -1,5 +1,5 @@
 import { fetchOffices } from '@/app/lib/data';
-import Breadcrumbs from '@/app/ui/breadcrumbs';
+import Breadcrumbs from '@/components/breadcrumbs';
 import Form from '@/components/setting/users/create-form';
 import { Metadata } from 'next';
 

@@ -3,7 +3,7 @@
 import { ChangeEvent, ChangeEventHandler, useCallback, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import Link from 'next/link';
-import { Button } from '@/app/ui/button';
+import { Button } from '@/components/button';
 import { useFormState } from 'react-dom';
 import Image from "next/image";
 import { createMedia } from '@/actions/media';
