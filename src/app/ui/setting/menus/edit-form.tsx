@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 import { useFormState } from 'react-dom';
 import { Button } from '../../button';
-import { updateMenu } from '@/app/actions/menu';
+import { updateMenu } from '@/actions/menu';
 
 export default function EditUserForm({
   menu,

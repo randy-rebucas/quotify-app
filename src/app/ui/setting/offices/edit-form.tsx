@@ -4,8 +4,8 @@ import Link from 'next/link';
 
 import { useFormState } from 'react-dom';
 import { Button } from '../../button';
-import { updateOffice } from '@/app/actions/office';
 import { CheckIcon, ClockIcon } from '@heroicons/react/24/outline';
+import { updateOffice } from '@/actions/office';
 
 export default function EditOfficeForm({
   office,

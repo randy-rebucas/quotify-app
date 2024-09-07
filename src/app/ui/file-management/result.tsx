@@ -4,7 +4,7 @@ import Image from "next/image";
 import clsx from "clsx";
 import Link from "next/link";
 import EstimateCount from "./estimate-count";
-import { IProject } from "@/app/models/Project";
+import { IProject } from "@/models/Project";
 import { useAppStore } from "@/app/lib/store/appStore";
 
 type Props = {

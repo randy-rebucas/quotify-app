@@ -1,5 +1,5 @@
-import { deleteAmenity } from '@/app/actions/amenity';
-import { deleteMenu } from '@/app/actions/menu';
+import { deleteMenu } from '@/actions/menu';
+
 import { PencilIcon, PlusIcon, TrashIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 

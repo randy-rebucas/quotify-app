@@ -1,16 +1,15 @@
 "use server";
 
-import User from "../models/User";
-import Auth from "../models/Auth";
+import User from "@/models/User";
+import Auth from "@/models/Auth";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import bcrypt from "bcrypt";
 import {
-  AuthFormState,
   EditUserFormSchema,
-  SignupFormSchema,
   UserFormSchema,
   UserFormState,
+  SignupFormState,
 } from "@/app/lib/definitions";
 
 const UpdateUser = EditUserFormSchema.omit({ id: true });
@@ -51,7 +50,7 @@ export async function updateUser(
 
 const CreateUser = UserFormSchema.omit({ id: true });
 
-export async function createUser(prevState: AuthFormState, formData: FormData) {
+export async function createUser(prevState: SignupFormState, formData: FormData) {
   // Validate form using Zod
   const validatedFields = CreateUser.safeParse({
     email: formData.get("email"),

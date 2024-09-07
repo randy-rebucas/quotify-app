@@ -1,7 +1,7 @@
 
 import Image from "next/image";
 import { Delete, Update } from "./buttons";
-import { IRefinementLevel } from "@/app/models/RefinementLevel";
+import { IRefinementLevel } from "@/models/RefinementLevel";
 import { fetchRefinementLevels } from "@/app/lib/data";
 
 export default async function Table({

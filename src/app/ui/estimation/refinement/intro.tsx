@@ -1,6 +1,6 @@
 'use client';
 
-import { IRefinement } from "@/app/models/Refinement";
+import { IRefinement } from "@/models/Refinement";
 
 type Props = {
     refinements: any[]

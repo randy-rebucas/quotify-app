@@ -1,6 +1,6 @@
-import Project from "@/app/models/Project";
-import ProjectAmenity from "@/app/models/ProjectAmenity";
-import connect from "@/app/utils/db";
+import Project from "@/models/Project";
+import ProjectAmenity from "@/models/ProjectAmenity";
+import connect from "@/utils/db";
 
 import type { NextApiRequest, NextApiResponse } from "next";
 

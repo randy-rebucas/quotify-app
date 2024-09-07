@@ -3,8 +3,8 @@
 import Link from 'next/link';
 import { Button } from '@/app/ui/button';
 import { useFormState } from 'react-dom';
-import { createOffice } from '@/app/actions/office';
 import { CheckIcon, ClockIcon } from '@heroicons/react/24/outline';
+import { createOffice } from '@/actions/office';
 
 
 

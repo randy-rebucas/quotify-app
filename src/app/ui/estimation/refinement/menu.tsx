@@ -1,5 +1,5 @@
 "use client";
-import { IRefinement } from "@/app/models/Refinement";
+import { IRefinement } from "@/models/Refinement";
 import clsx from "clsx";
 import MenuSubLevel from "./menu-sub-level";
 

@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 
 import { cookies } from "next/headers";
-import { decrypt } from "@/app/actions/session";
+import { decrypt } from "./actions/session";
+
 
 // 1. Specify protected and public routes
 const protectedRoutes = [
@@ -25,7 +26,7 @@ export default async function middleware(req: NextRequest) {
   if (isProtectedRoute && !session?.userId) {
     return NextResponse.redirect(new URL("/login", req.nextUrl));
   }
-
+  console.log(session);
   // 6. Redirect to /file-management if the user is authenticated
   if (
     isPublicRoute &&

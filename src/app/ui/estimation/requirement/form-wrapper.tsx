@@ -1,6 +1,6 @@
 "use client";
 
-import { useMultistepForm } from "@/app/hooks/useMultistepForm";
+import { useMultistepForm } from "@/hooks/useMultistepForm";
 import FinishAndCertification from "./steps/finish-and-certifications";
 import MepFeatures from "./steps/mep-features";
 import BaseBuildingConditions from "./steps/base-building-conditions";

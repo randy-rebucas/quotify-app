@@ -4,7 +4,8 @@ import { Metadata } from 'next';
 
 import { Lato } from 'next/font/google'
 import SessionProvider from './ui/session-provider';
-import { getSession } from './actions/session';
+import { getSession } from '@/actions/session';
+
 const lato = Lato({
   weight: ["100", "300", "400", "700", "900"],
   style: ['normal', 'italic'],
@@ -17,8 +18,7 @@ export const metadata: Metadata = {
     template: '%s',
     default: 'Quotify',
   },
-  description: 'Quotify.',
-  metadataBase: new URL(`${process.env.NEXT_PUBLIC_AUTH_URL}`),
+  description: 'Quotify.'
 };
 
 export default async function RootLayout({

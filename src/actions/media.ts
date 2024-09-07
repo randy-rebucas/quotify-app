@@ -7,10 +7,10 @@ import {
   MediaLibraryFormState,
   UpdateMediaLibraryFormSchema,
 } from "@/app/lib/definitions";
-import RefinementLevel from "../models/RefinementLevel";
+import RefinementLevel from "@/models/RefinementLevel";
 import { unlink, writeFile } from "fs/promises";
 import path from "path";
-import Media from "../models/Media";
+import Media from "@/models/Media";
 import { decrypt } from "./session";
 import { cookies } from "next/headers";
 import { existsSync, unlinkSync } from "fs";

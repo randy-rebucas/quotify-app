@@ -1,4 +1,4 @@
-import { IRefinement } from "@/app/models/Refinement";
+import { IRefinement } from "@/models/Refinement";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 

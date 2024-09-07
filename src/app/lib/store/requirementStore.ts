@@ -1,4 +1,4 @@
-import { IRequirement } from "@/app/models/Requirement";
+import { IRequirement } from "@/models/Requirement";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 

@@ -1,6 +1,6 @@
 'use client';
 
-import { useMultistepForm } from "@/app/hooks/useMultistepForm";
+import { useMultistepForm } from "@/hooks/useMultistepForm";
 import AreaDefination from "./steps/area-defination";
 import ProportionBreakdown from "./steps/proportion-breakdown";
 import { v4 as uuid } from 'uuid'

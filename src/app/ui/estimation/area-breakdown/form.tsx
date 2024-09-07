@@ -1,6 +1,6 @@
 import { useAppStore } from "@/app/lib/store/appStore";
 import { useAreaBreakdownStore } from "@/app/lib/store/areaBreakdownStore";
-import { IAmenity } from "@/app/models/Amenity";
+import { IAmenity } from "@/models/Amenity";
 import clsx from "clsx";
 import { useRouter } from "next/navigation";
 import { FormEvent, ReactNode, useEffect, useState } from "react";

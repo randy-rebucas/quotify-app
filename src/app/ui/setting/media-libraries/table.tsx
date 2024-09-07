@@ -1,7 +1,7 @@
 
 import Image from "next/image";
 import { Delete, Update } from "./buttons";
-import { IMedia } from "@/app/models/Media";
+import { IMedia } from "@/models/Media";
 import Link from "next/link";
 import { filesize } from "filesize";
 

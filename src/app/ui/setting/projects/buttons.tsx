@@ -1,4 +1,5 @@
-import { deleteProject } from '@/app/actions/project';
+
+import { deleteProject } from '@/actions/project';
 import { TrashIcon } from '@heroicons/react/24/outline';
 
 export async function DeleteProject({ id }: { id: string }) {

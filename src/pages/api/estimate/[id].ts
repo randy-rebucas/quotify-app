@@ -1,5 +1,5 @@
-import Estimate from "@/app/models/Estimate";
-import connect from "@/app/utils/db";
+import Estimate from "@/models/Estimate";
+import connect from "@/utils/db";
 
 import type { NextApiRequest, NextApiResponse } from "next";
 

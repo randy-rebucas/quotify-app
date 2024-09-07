@@ -1,11 +1,11 @@
-import Estimate from "@/app/models/Estimate";
+import Estimate from "@/models/Estimate";
 
-import connect from "@/app/utils/db";
+import connect from "@/utils/db";
 
 import type { NextApiRequest, NextApiResponse } from "next";
-import Project from "@/app/models/Project";
-import EstimateAmenityRefinementLevel from "@/app/models/EstimateAmenityRefinementLevel";
-import EstimateCustomSpaceRefinementLevel from "@/app/models/EstimateCustomSpaceRefinementLevel";
+import Project from "@/models/Project";
+import EstimateAmenityRefinementLevel from "@/models/EstimateAmenityRefinementLevel";
+import EstimateCustomSpaceRefinementLevel from "@/models/EstimateCustomSpaceRefinementLevel";
 import { StimateData } from "@/app/ui/estimation/refinement/entities";
 
 export default async function handler(

@@ -1,4 +1,4 @@
-import EstimateCustomSpaceRefinementLevel from "@/app/models/EstimateCustomSpaceRefinementLevel";
+import EstimateCustomSpaceRefinementLevel from "@/models/EstimateCustomSpaceRefinementLevel";
 import type { NextApiRequest, NextApiResponse } from "next";
 
 export const config = {

@@ -1,11 +1,12 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { decrypt } from "@/app/actions/session";
-import Project from "@/app/models/Project";
-import connect from "@/app/utils/db";
+
+import Project from "@/models/Project";
+import connect from "@/utils/db";
 import path from "path";
-import FloorPlan from "@/app/models/FloorPlan";
+import FloorPlan from "@/models/FloorPlan";
 import formidable, { File } from "formidable";
 import fs from "fs";
+import { decrypt } from "@/actions/session";
 
 export const config = {
   api: {
@@ -108,8 +109,7 @@ export default async function handler(
       }
 
       break;
-
-    default:
+    case "GET":
       try {
         const projects = await Project.find({}).exec();
         const transformData = projects.map((project) => {
@@ -130,6 +130,8 @@ export default async function handler(
       } catch (err) {
         res.status(500).json(err);
       }
+      break;
+    default:
       break;
   }
 }

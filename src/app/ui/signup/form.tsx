@@ -3,14 +3,21 @@
 import Link from "next/link";
 
 import { useFormState, useFormStatus } from 'react-dom'
-import { signup } from '@/app/actions/auth'
+
 import Image from "next/image";
+import { signup } from "@/actions/auth";
 
 export default function Form() {
     const [state, dispatch] = useFormState(signup, undefined);
 
     return (
         <form action={dispatch} className="w-full">
+            <div className="md:w-full pb-4">
+                <input
+                    className="bg-transparent font-latothin leading-tight placeholder-white appearance-none border-t-0 border-l-0 border-r-0 border-b w-full text-white focus:outline-none"
+                    id="inline-name" type="text" name="name" placeholder="name" />
+                {state?.errors?.email && <p>{state.errors.email}</p>}
+            </div>
             <div className="md:w-full pb-4">
                 <input
                     className="bg-transparent font-latothin leading-tight placeholder-white appearance-none border-t-0 border-l-0 border-r-0 border-b w-full text-white focus:outline-none"

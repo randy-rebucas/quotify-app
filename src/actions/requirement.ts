@@ -6,7 +6,7 @@ import {
   RequirementFormSchema,
   RequirementFormState,
 } from "@/app/lib/definitions";
-import Requirement from "../models/Requirement";
+import Requirement from "@/models/Requirement";
 
 const UpdateRequirement = RequirementFormSchema.omit({ id: true });
 

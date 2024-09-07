@@ -4,18 +4,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { useFormState, useFormStatus } from 'react-dom';
 import ExclamationCircleIcon from "@heroicons/react/24/outline/ExclamationCircleIcon";
-import { login } from "@/app/actions/auth";
+import { login } from "@/actions/auth";
 
 export default function Form() {
     const [state, dispatch] = useFormState(login, undefined);
 
     return (
         <form action={dispatch} className="w-full">
-            <div className="md:w-full pb-4">
-                <input
-                    className="bg-transparent font-latothin leading-tight placeholder-white appearance-none border-t-0 border-l-0 border-r-0 border-b w-full text-white focus:outline-none"
-                    id="inline-full-name" type="text" name="name" placeholder="name" />
-            </div>
             <div className="md:w-full pb-4">
                 <input
                     className="bg-transparent font-latothin leading-tight placeholder-white appearance-none border-t-0 border-l-0 border-r-0 border-b w-full text-white focus:outline-none"

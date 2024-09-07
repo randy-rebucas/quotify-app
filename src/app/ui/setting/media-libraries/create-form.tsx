@@ -5,8 +5,8 @@ import { useDropzone } from 'react-dropzone';
 import Link from 'next/link';
 import { Button } from '@/app/ui/button';
 import { useFormState } from 'react-dom';
-import { createMedia } from '@/app/actions/media';
 import Image from "next/image";
+import { createMedia } from '@/actions/media';
 
 export default function Form() {
 

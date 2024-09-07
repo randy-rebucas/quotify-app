@@ -1,4 +1,4 @@
-import { ICustomSpace } from "@/app/models/CustomSpace";
+import { ICustomSpace } from "@/models/CustomSpace";
 import { DeleteCustomSpace, UpdateCustomSpace } from "./buttons";
 
 export default function Table({ customSpaces }: { customSpaces: any[] }) {

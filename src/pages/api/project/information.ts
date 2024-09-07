@@ -1,5 +1,5 @@
-import Project from "@/app/models/Project";
-import connect from "@/app/utils/db";
+import Project from "@/models/Project";
+import connect from "@/utils/db";
 
 import type { NextApiRequest, NextApiResponse } from "next";
 

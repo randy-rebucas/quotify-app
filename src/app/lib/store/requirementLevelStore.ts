@@ -1,4 +1,4 @@
-import { IRequirementLevel } from "@/app/models/RequirementLevel";
+import { IRequirementLevel } from "@/models/RequirementLevel";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 

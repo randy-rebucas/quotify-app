@@ -4,8 +4,8 @@ import Link from 'next/link';
 
 import { useFormState } from 'react-dom';
 import { Button } from '../../button';
-import { updateMedia } from '@/app/actions/media';
 import Image from "next/image";
+import { updateMedia } from '@/actions/media';
 
 export default function EditMediaForm({
   media,

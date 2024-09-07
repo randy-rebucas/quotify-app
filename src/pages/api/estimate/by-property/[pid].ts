@@ -1,4 +1,4 @@
-import Estimate from "@/app/models/Estimate";
+import Estimate from "@/models/Estimate";
 import type { NextApiRequest, NextApiResponse } from "next";
 
 export default async function handler(

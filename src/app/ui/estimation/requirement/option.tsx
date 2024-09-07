@@ -1,6 +1,6 @@
 "use client";
 
-import { IRequirementLevel } from "@/app/models/RequirementLevel";
+import { IRequirementLevel } from "@/models/RequirementLevel";
 
 import Image from "next/image";
 import { ChangeEventHandler, useEffect, useState } from "react";

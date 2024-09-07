@@ -1,4 +1,4 @@
-import Project from "@/app/models/Project";
+import Project from "@/models/Project";
 import type { NextApiRequest, NextApiResponse } from "next";
 
 export default async function handler(

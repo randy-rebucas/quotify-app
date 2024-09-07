@@ -4,7 +4,8 @@ import Link from 'next/link';
 
 import { useFormState } from 'react-dom';
 import { Button } from '../../button';
-import { updateUser } from '@/app/actions/user';
+import { updateUser } from '@/actions/user';
+
 
 export default function EditUserForm({
   user, offices
