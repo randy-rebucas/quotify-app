@@ -14,11 +14,6 @@ export default function Form() {
             <div className="md:w-full pb-4">
                 <input
                     className="bg-transparent font-latothin leading-tight placeholder-white appearance-none border-t-0 border-l-0 border-r-0 border-b w-full text-white focus:outline-none"
-                    id="inline-full-name" type="text" name="name" placeholder="name" />
-            </div>
-            <div className="md:w-full pb-4">
-                <input
-                    className="bg-transparent font-latothin leading-tight placeholder-white appearance-none border-t-0 border-l-0 border-r-0 border-b w-full text-white focus:outline-none"
                     id="inline-full-name" type="email" name="email" placeholder="email" />
             </div>
             <div className="md:w-full pb-4">
