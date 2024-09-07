@@ -1,6 +1,6 @@
 import Accordions from "../accordions"
 import { PieChartPresentation } from "../../pie-chart-presentation"
-import Tooltip from "@/app/ui/tooltip"
+import Tooltip from "@/components/tooltip";
 import { useEffect, useState } from "react"
 import { IAmenity } from "@/models/Amenity"
 import { useAreaBreakdownStore } from "@/app/lib/store/areaBreakdownStore"

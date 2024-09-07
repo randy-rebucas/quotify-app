@@ -1,9 +1,10 @@
 import Popup from "@/app/ui/estimation/popup";
 import Column from "@/app/ui/estimation/project-information/column";
-import Title from "@/app/ui/estimation/title";
+
 import LinearCover from "@/app/ui/linear-cover";
 import PageWrapper from "@/app/ui/page-wrapper";
 import StaggerCover from "@/app/ui/stagger-cover";
+import Title from "@/components/title";
 import { notFound } from "next/navigation";
 
 export default async function Page({ params }: { params: { id: string } }) {

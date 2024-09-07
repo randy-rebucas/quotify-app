@@ -7,7 +7,7 @@ import { useFormState } from 'react-dom';
 
 import { ICustomSpace } from '@/models/CustomSpace';
 import { updateCustomSpace } from '@/actions/customSpace';
-import { Button } from '@/app/ui/button';
+import { Button } from '@/components/button';
 
 export default function EditCustomSpaceForm({
   custom_space,

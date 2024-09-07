@@ -1,5 +1,5 @@
 import { MouseEventHandler, ReactNode, useEffect } from "react";
-import Tooltip from "../../tooltip";
+import Tooltip from "@/components/tooltip";
 import Buttons from "./buttons";
 import { useRequirementStore } from "@/app/lib/store/requirementStore";
 

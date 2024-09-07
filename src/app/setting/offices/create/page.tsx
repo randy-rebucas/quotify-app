@@ -1,4 +1,4 @@
-import Breadcrumbs from '@/app/ui/breadcrumbs';
+import Breadcrumbs from '@/components/breadcrumbs';
 import Form from '@/components/setting/offices/create-form';
 import { Metadata } from 'next';
 

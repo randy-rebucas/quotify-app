@@ -58,7 +58,7 @@ export function Projects({ projects }: { projects: any[] }) {
                             <div className="file-map"></div>
                             <div className="file-img" data-lat="48.895651" data-long="2.290569" data-color="#383A64">
                                 <div className="flex flex-col justify-start relative z-10">
-                                    <Link href={`/projects/${project._id}`} className="absolute js-open-results right-0" >
+                                    <Link href={`/project/${project._id}`} className="absolute js-open-results right-0" >
                                         <Image
                                             src="/images/icon-settings.svg"
                                             width="0"

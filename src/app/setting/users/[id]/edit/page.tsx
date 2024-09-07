@@ -2,7 +2,7 @@ import Form from '@/components/setting/users/edit-form';
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 import { fetchOffices, fetchUserById } from '@/app/lib/data';
-import Breadcrumbs from '@/app/ui/breadcrumbs';
+import Breadcrumbs from '@/components/breadcrumbs';
 
 export const metadata: Metadata = {
     title: 'User Edit',

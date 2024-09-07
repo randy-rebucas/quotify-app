@@ -61,7 +61,7 @@ export default function PageWrapper({ children }: Props) {
                             </button>
                         </form> */}
                     {/* </div> */}
-                    <Link href="estimation.html">
+                    <Link href="/estimation">
                         <Image
                             src="/images/icon-create.svg"
                             width={50}

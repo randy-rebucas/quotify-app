@@ -2,13 +2,14 @@
 
 
 import { FormEvent, useEffect, useState } from "react";
-import Tooltip from "../../tooltip";
+
 import { PieChartPresentation } from "../pie-chart-presentation";
 import { common } from "../../mock";
 import PieChartData from "../pie-chart-data";
 import { usePathname, useRouter } from "next/navigation";
 import { useAppStore } from "@/app/lib/store/appStore";
 import Image from "next/image";
+import Tooltip from "@/components/tooltip";
 
 export default function Form({ project, amenities, customeSpaces, selectedAmenities, selectedCustomSpaces }: {
     project: any;

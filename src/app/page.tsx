@@ -2,7 +2,7 @@ import { Metadata } from 'next';
 import QuotifyLogo from './ui/quotify-logo';
 import Intro from './ui/intro';
 import VideoWrapper, { Video } from './ui/video';
-import Tooltip from './ui/tooltip';
+import Tooltip from '../components/tooltip';
 import NavButton from './ui/nav-button';
 import StaggerCover from './ui/stagger-cover';
 import { ColumnValue } from './ui/columns';
