@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useFormState, useFormStatus } from 'react-dom';
 import ExclamationCircleIcon from "@heroicons/react/24/outline/ExclamationCircleIcon";
-import { login } from "@/app/actions/auth";
+import { login } from "@/actions/auth";
 
 export default function Form() {
     const [state, dispatch] = useFormState(login, undefined);

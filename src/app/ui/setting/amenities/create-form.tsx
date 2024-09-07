@@ -3,8 +3,9 @@
 import Link from 'next/link';
 import { Button } from '@/app/ui/button';
 import { useFormState } from 'react-dom';
-import { createAmenity } from '@/app/actions/amenity';
+
 import { UserCircleIcon } from '@heroicons/react/24/outline';
+import { createAmenity } from '@/actions/amenity';
 
 
 export default function Form({ categories }: { categories: any[] }) {

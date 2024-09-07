@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { useFormState } from 'react-dom';
 import { Button } from '../../button';
-import { updateRefinementLevel } from '@/app/actions/refinementLevel';
+import { updateRefinementLevel } from '@/actions/refinementLevel';
 
 export default function EditRefinementLevelForm({
   refinement,

@@ -1,5 +1,6 @@
 
-import { deleteAmenityCategory } from '@/app/actions/amenityCategory';
+
+import { deleteAmenityCategory } from '@/actions/amenityCategory';
 import { PencilIcon, PlusIcon, TrashIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 

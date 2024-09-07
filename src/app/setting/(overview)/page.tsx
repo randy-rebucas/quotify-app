@@ -4,9 +4,10 @@ import { lusitana } from "../../ui/fonts";
 import { Suspense } from "react";
 import CardWrapper from "@/app/ui/setting/cards";
 import { CardsSkeleton, ProfileSkeleton } from "@/app/ui/skeletons";
-import { getSession } from "@/app/actions/session";
+
 import { fetchUserById } from "@/app/lib/data";
 import Profile from "@/app/ui/setting/profile";
+import { getSession } from "@/actions/session";
 
 export const metadata: Metadata = {
     title: 'Settings'

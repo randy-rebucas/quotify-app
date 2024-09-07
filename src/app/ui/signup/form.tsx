@@ -3,8 +3,9 @@
 import Link from "next/link";
 
 import { useFormState, useFormStatus } from 'react-dom'
-import { signup } from '@/app/actions/auth'
+
 import Image from "next/image";
+import { signup } from "@/actions/auth";
 
 export default function Form() {
     const [state, dispatch] = useFormState(signup, undefined);

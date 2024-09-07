@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { Button } from '@/app/ui/button';
 import { useFormState } from 'react-dom';
-import { createRefinement } from '@/app/actions/refinement';
+import { createRefinement } from '@/actions/refinement';
 
 
 

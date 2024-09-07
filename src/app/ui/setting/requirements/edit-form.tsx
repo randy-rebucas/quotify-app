@@ -4,8 +4,8 @@ import Link from 'next/link';
 
 import { useFormState } from 'react-dom';
 import { Button } from '../../button';
-import { updateRequirement } from '@/app/actions/requirement';
 import { IRequirement } from '@/models/Requirement';
+import { updateRequirement } from '@/actions/requirement';
 
 export default function EditAmenityCategoryForm({
   requirement,

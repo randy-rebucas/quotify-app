@@ -1,6 +1,6 @@
 
-import { deleteRefinement } from '@/app/actions/refinement';
-import { deleteRequirement } from '@/app/actions/requirement';
+import { deleteRequirement } from '@/actions/requirement';
+
 import { PencilIcon, PlusIcon, TrashIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 

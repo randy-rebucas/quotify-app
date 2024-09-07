@@ -1,6 +1,7 @@
 
 
-import { deleteRequirementLevel } from '@/app/actions/requirementLevel';
+
+import { deleteRequirementLevel } from '@/actions/requirementLevel';
 import { PencilIcon, PlusIcon, TrashIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 

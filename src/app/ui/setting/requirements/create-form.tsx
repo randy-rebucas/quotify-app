@@ -4,7 +4,8 @@ import Link from 'next/link';
 import { Button } from '@/app/ui/button';
 import { useFormState } from 'react-dom';
 import { IRequirement } from '@/models/Requirement';
-import { createRequirement } from '@/app/actions/requirement';
+import { createRequirement } from '@/actions/requirement';
+
 
 
 export default function Form({ requirements }: { requirements: IRequirement[] }) {

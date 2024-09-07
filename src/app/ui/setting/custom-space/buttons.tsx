@@ -1,5 +1,5 @@
-import { deleteAmenity } from '@/app/actions/amenity';
-import { deleteCustomSpace } from '@/app/actions/customSpace';
+import { deleteCustomSpace } from '@/actions/customSpace';
+
 import { PencilIcon, PlusIcon, TrashIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 

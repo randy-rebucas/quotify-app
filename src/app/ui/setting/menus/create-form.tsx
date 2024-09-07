@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { Button } from '@/app/ui/button';
 import { useFormState } from 'react-dom';
-import { createMenu } from '@/app/actions/menu';
+import { createMenu } from '@/actions/menu';
 
 
 export default function Form() {

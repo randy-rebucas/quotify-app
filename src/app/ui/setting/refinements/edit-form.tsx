@@ -4,7 +4,8 @@ import Link from 'next/link';
 
 import { useFormState } from 'react-dom';
 import { Button } from '../../button';
-import { updateRefinement } from '@/app/actions/refinement';
+import { updateRefinement } from '@/actions/refinement';
+
 
 export default function EditAmenityCategoryForm({
   refinement,
