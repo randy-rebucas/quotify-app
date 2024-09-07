@@ -1,6 +1,6 @@
 import { fetchOffices } from '@/app/lib/data';
-import { CreateOffice } from '@/app/ui/setting/offices/buttons';
-import Table from '@/app/ui/setting/offices/table';
+import { CreateOffice } from '@/components/setting/offices/buttons';
+import Table from '@/components/setting/offices/table';
 import Title from '@/app/ui/title';
 import { Metadata } from 'next';
 

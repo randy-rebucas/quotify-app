@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 import { fetchRefinementById } from '@/app/lib/data';
 import Breadcrumbs from '@/app/ui/breadcrumbs';
-import Form from '@/app/ui/setting/refinements/edit-form';
+import Form from '@/components/setting/refinements/edit-form';
 
 export const metadata: Metadata = {
     title: 'Edit',

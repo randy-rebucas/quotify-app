@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 import { fetchRequirementlevelById, fetchRequirements } from '@/app/lib/data';
 import Breadcrumbs from '@/app/ui/breadcrumbs';
-import Form from '@/app/ui/setting/requirement-levels/edit-form';
+import Form from '@/components/setting/requirement-levels/edit-form';
 
 export const metadata: Metadata = {
     title: 'Edit',

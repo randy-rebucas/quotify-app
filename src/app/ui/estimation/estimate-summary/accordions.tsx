@@ -211,7 +211,6 @@ export function RefinementLevel({ projectAreaDefinationId, estimateId, type, ref
             );
 
             let refinementLevelResponse = await response.json();
-            // console.log(refinementLevelResponse)
             setRefinementLevel(`${refinementLevelResponse.refinementLevel.level} ${refinementLevelResponse.projectCustomSpace.customSpace.customSpaceName}`);
         };
 

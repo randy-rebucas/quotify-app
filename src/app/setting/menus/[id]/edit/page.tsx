@@ -1,4 +1,4 @@
-import Form from '@/app/ui/setting/menus/edit-form';
+import Form from '@/components/setting/menus/edit-form';
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 import { fetchMenuById } from '@/app/lib/data';

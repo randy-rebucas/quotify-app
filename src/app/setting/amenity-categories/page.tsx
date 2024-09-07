@@ -1,6 +1,6 @@
 import { fetchAmenityCategories } from '@/app/lib/data';
-import { CreateAmenityCategory } from '@/app/ui/setting/amenity-categories/buttons';
-import Table from '@/app/ui/setting/amenity-categories/table';
+import { CreateAmenityCategory } from '@/components/setting/amenity-categories/buttons';
+import Table from '@/components/setting/amenity-categories/table';
 import Title from '@/app/ui/title';
 import { Metadata } from 'next';
 

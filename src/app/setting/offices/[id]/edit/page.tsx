@@ -1,4 +1,4 @@
-import Form from '@/app/ui/setting/offices/edit-form';
+import Form from '@/components/setting/offices/edit-form';
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 import { fetchOfficeById } from '@/app/lib/data';

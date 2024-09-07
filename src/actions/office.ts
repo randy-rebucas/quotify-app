@@ -59,7 +59,6 @@ export async function createOffice(prevState: OfficeFormState, formData: FormDat
     };
   }
 
-  console.log(validatedFields.data);
   const { location, status } = validatedFields.data;
 
   const office = new Office({

@@ -37,18 +37,14 @@ export default async function handler(
       });
       form.once("error", console.error);
       form
-        .on("fileBegin", (name, file) => {
-          console.log("start uploading: ", file.originalFilename);
-        })
+        .on("fileBegin", (name, file) => {})
         .on("field", (fieldName, value) => {
           fields.push({ fieldName, value });
         })
         .on("file", async (fieldName, file) => {
           files.push({ fieldName, file });
         })
-        .on("end", async () => {
-          console.log("-> upload done");
-        });
+        .on("end", async () => {});
 
       await form.parse(req);
 
@@ -56,7 +52,6 @@ export default async function handler(
 
       const fieldMap = new Map();
       fields.map((element: { fieldName: string; value: string }) => {
-        console.log(element.fieldName, element.value);
         return fieldMap.set(element.fieldName, element.value);
       });
       const project = new Project({

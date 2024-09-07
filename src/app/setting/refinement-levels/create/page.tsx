@@ -1,6 +1,6 @@
 import { fetchRefinements } from '@/app/lib/data';
 import Breadcrumbs from '@/app/ui/breadcrumbs';
-import Form from '@/app/ui/setting/refinement-levels/create-form';
+import Form from '@/components/setting/refinement-levels/create-form';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {

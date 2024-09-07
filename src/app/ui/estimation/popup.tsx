@@ -22,24 +22,6 @@ export default function Popup() {
         router.push(`/`)
     }
 
-    {/* <div class="wrapper__close hidden flex">
-            <div class="bg-white h-[211px] grid grid-cols-3">
-                <div class="relative p-30 bg-gray2A w-[286px] flex flex-col items-center justify-center">                    
-                    <h5 class="opacity-1 font-normal">close project
-                        <p class="mt-3 text-xs text-black">You are about to close this project. All your progression has been
-                            saved.</p>
-                    </h5>
-                </div>
-                <div class="relative p-30 bg-gray3A w-[286px] flex flex-col items-center justify-center">
-                    <a href="#" id="js-cancel-popup" class="absolute cover w-full h-full z-30"></a>
-                    <h5 class="opacity-20">cancel</h5>
-                </div>
-                <div class="relative p-30 bg-gray4A w-[286px] flex flex-col items-center justify-center">
-                    <a href="file-management1.html" class="absolute cover w-full h-full z-30"></a>
-                    <h5 class="opacity-50">close</h5>
-                </div>
-            </div>
-        </div */}
     return (
         <>
             <div className={clsx(

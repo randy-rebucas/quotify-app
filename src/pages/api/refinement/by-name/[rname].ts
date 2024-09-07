@@ -11,7 +11,6 @@ export default async function handler(
     const refinement = await Refinement.findOne({ name: rname }).exec();
     res.status(200).json(refinement);
   } catch (err) {
-    console.log(err);
     res.status(500).json(err);
   }
 }

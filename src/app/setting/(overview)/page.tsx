@@ -1,13 +1,13 @@
 
 import { Metadata } from "next";
-import { lusitana } from "../../ui/fonts";
 import { Suspense } from "react";
-import CardWrapper from "@/app/ui/setting/cards";
 import { CardsSkeleton, ProfileSkeleton } from "@/app/ui/skeletons";
 
 import { fetchUserById } from "@/app/lib/data";
-import Profile from "@/app/ui/setting/profile";
 import { getSession } from "@/actions/session";
+import { lusitana } from "@/app/ui/fonts";
+import CardWrapper from "@/components/setting/cards";
+import Profile from "@/components/setting/profile";
 
 export const metadata: Metadata = {
     title: 'Settings'

@@ -351,7 +351,7 @@ export async function fetchUserById(id: any) {
 
   const user = await User.findOne({ _id: id })
     .populate("office")
-    .populate("auth")
+    // .populate("auth")
     .exec();
 
   const transformData = {
@@ -359,9 +359,9 @@ export async function fetchUserById(id: any) {
     email: user.email,
     roles: user.roles,
     name: user.name,
-    auth: {
-      loggedAt: user.auth.loggedAt
-    },
+    // auth: {
+    //   loggedAt: user.auth.loggedAt
+    // },
     office: {
       _id: user.office._id.toString(),
       location: user.office.location,
@@ -707,7 +707,6 @@ export async function fetchRequirementlevelById(id: string) {
     .populate("requirement")
     .exec();
 
-  console.log(item);
   const transformItem = {
     _id: item._id.toString(),
     level: item.level,

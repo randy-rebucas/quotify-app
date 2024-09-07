@@ -1,6 +1,6 @@
 import { fetchMenus } from '@/app/lib/data';
-import { CreateMenu } from '@/app/ui/setting/menus/buttons';
-import Table from '@/app/ui/setting/menus/table';
+import { CreateMenu } from '@/components/setting/menus/buttons';
+import Table from '@/components/setting/menus/table';
 
 import Title from '@/app/ui/title';
 import { Metadata } from 'next';

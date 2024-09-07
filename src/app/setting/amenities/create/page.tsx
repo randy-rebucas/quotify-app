@@ -1,7 +1,7 @@
 import { fetchAmenityCategories } from '@/app/lib/data';
 import Breadcrumbs from '@/app/ui/breadcrumbs';
-import Form from '@/app/ui/setting/amenities/create-form';
 import { Metadata } from 'next';
+import Form from '@/components/setting/amenities/create-form';
 
 export const metadata: Metadata = {
     title: 'Amenity Create',

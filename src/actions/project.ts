@@ -45,7 +45,7 @@ export async function createProject(
     seatingPercentage: assigned_seat,
   });
   let projectResponse = await project.save();
-  console.log(projectResponse);
+
   // Revalidate the cache for the invoices page and redirect the user.
   revalidatePath("/estimation/area-breakdown");
   redirect("/estimation/area-breakdown");

@@ -140,8 +140,8 @@ export async function login(state: LoginFormState, formData: FormData) {
 
     await createSession(user._id.toString());
 
-    revalidatePath("/file-management");
-    redirect("/file-management");
+    revalidatePath("/projects");
+    redirect("/projects");
   } catch (error) {
     if (isRedirectError(error)) {
       // Redirect error handle here
