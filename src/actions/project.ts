@@ -1,9 +1,9 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import Project from "../../models/Project";
-import { ProjectFormSchema, ProjectFormState } from "../lib/definitions";
+import Project from "@/models/Project";
 import { redirect } from "next/navigation";
+import { ProjectFormSchema, ProjectFormState } from "@/app/lib/definitions";
 
 const CreateProject = ProjectFormSchema.omit({ id: true });
 

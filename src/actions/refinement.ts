@@ -6,7 +6,7 @@ import {
     RefinementFormSchema,
     RefinementFormState
 } from "@/app/lib/definitions";
-import Refinement from "../../models/Refinement";
+import Refinement from "@/models/Refinement";
 
 
 const UpdateRefinement = RefinementFormSchema.omit({ id: true });

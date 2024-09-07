@@ -6,7 +6,7 @@ import {
   OfficeFormSchema,
   OfficeFormState
 } from "@/app/lib/definitions";
-import Office from "../../models/Office";
+import Office from "@/models/Office";
 
 const UpdateOffice = OfficeFormSchema.omit({ id: true });
 
