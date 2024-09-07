@@ -1,7 +1,7 @@
 import { fetchUsers } from '@/app/lib/data';
 import { lusitana } from '@/app/ui/fonts';
-import { CreateUser } from '@/app/ui/setting/users/buttons';
-import Table from '@/app/ui/setting/users/table';
+import { CreateUser } from '@/components/setting/users/buttons';
+import Table from '@/components/setting/users/table';
 import Title from '@/app/ui/title';
 import { PlusIcon } from '@heroicons/react/24/outline';
 import { Metadata } from 'next';

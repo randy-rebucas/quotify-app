@@ -11,7 +11,6 @@ export default async function handler(
     const requirement = await Requirement.findById(rid).exec();
     res.status(200).json(requirement);
   } catch (err) {
-    console.log(err);
     res.status(500).json(err);
   }
 }

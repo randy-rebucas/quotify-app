@@ -10,7 +10,7 @@ export default function SideNav({ user }: { user: any }) {
   const [canManage, setCanManage] = useState<boolean>(false);
 
   useMemo(() => {
-    setCanManage(user.roles.some((role: string) => role === 'user'));
+    setCanManage(user.roles.some((role: string) => role === 'admin'));
   }, [user]);
 
   return (

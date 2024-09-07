@@ -6,7 +6,7 @@ import Link from "next/link";
 
 export default function NavButton() {
     return (
-        <Link href="/file-management">
+        <Link href="/projects">
             <Image
                 src="/images/icon-submit.png"
                 width={0}

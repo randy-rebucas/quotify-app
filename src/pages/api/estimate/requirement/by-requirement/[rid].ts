@@ -18,7 +18,6 @@ export default async function handler(
 
     res.status(200).json(estimateRequirement);
   } catch (err) {
-    console.log(err);
     res.status(500).json(err);
   }
 }

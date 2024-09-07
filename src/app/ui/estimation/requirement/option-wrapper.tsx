@@ -55,7 +55,7 @@ export default function OptionWrapper({
             updateEstimateRequirement(newEstimates);
         }
     };
-    console.log(estimates);
+
     return (
         <div data-col="1" className="col-start-1 col-span-4">
             <div className="p-30 pt-[74px]">

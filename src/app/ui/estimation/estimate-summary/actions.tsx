@@ -37,7 +37,7 @@ export default function Actions({ isEdit, projectId, onClickEdit }: {
             await response.json();
 
             if (response.status === 200) {
-                router.push(`/file-management`)
+                router.push(`/projects`)
             }
         } catch (error: any) {
             setError(error.message)

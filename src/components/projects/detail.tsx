@@ -3,11 +3,14 @@
 
 import { useEstimateSummaryStore } from "@/app/lib/store/estimateSummaryStore";
 import { useEffect, useMemo, useState } from "react";
-import { ProjectAreaDefination } from "../estimation/refinement/form";
+
 import { useProjectAmenityStore } from "@/app/lib/store/projectAmenityStore";
 import { useProjectCustomSpaceStore } from "@/app/lib/store/projectCustomSpaceStore";
+
+
+import { ProjectAreaDefination } from "@/app/ui/estimation/refinement/form";
+import Cost from "@/app/ui/estimation/estimate-summary/cost";
 import Actions from "./actions";
-import Cost from "../estimation/estimate-summary/cost";
 
 type Props = {
     requirementGroups: any[];
@@ -226,7 +229,7 @@ export function RefinementLevel({ projectAreaDefinationId, estimateId, type, ref
             );
 
             let refinementLevelResponse = await response.json();
-            // console.log(refinementLevelResponse)
+ 
             setRefinementLevel(`${refinementLevelResponse.refinementLevel.level} ${refinementLevelResponse.projectCustomSpace.customSpace.customSpaceName}`);
         };
 

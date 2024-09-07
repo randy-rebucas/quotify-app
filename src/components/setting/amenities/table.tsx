@@ -2,7 +2,7 @@ import { IAmenity } from "@/models/Amenity";
 import { DeleteAmenity, UpdateAmenity } from "./buttons";
 
 export default function Table({ amenities }: { amenities: any[] }) {
-    console.log(amenities);
+ 
     return (
         <div className="flex flex-col">
             <div className="-m-1.5 overflow-x-auto">

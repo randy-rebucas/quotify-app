@@ -3,7 +3,8 @@ import { fetchMediaLibraryById, fetchProject, fetchRefinements, fetchRequirement
 import Image from "next/image";
 import { Modal } from "./modal";
 import Link from "next/link";
-import Detail from "@/app/ui/file-management/detail";
+import Detail from "@/components/projects/detail";
+
 
 export default async function ProjectDetailModal({ params }: { params: { id: string } }) {
     const id = params.id;

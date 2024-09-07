@@ -29,7 +29,6 @@ export default function Form({
   const [error, setError] = useState<string | null>(null);
   // update this to action and implement dispatch
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
-    console.log(event);
     event.preventDefault();
 
     if (!isLastStep) return next();

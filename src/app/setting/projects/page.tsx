@@ -1,5 +1,5 @@
 import { fetchProjects } from '@/app/lib/data';
-import Table from '@/app/ui/setting/projects/table';
+import Table from '@/components/setting/projects/table';
 import Title from '@/app/ui/title';
 import { Metadata } from 'next';
 

@@ -3,7 +3,6 @@
 import Image from "next/image";
 
 export default function Profile({ user }: { user: any }) {
-    console.log(user)
     return (
         <div className="flex-col">
             <div className="flex items-center gap-4">
@@ -11,7 +10,7 @@ export default function Profile({ user }: { user: any }) {
                 <div className="font-medium dark:text-white">
                     <div className="text-[#505050]">{user.name}</div>
                     <div className="text-[#505050] text-[14px]">{user.email}</div>
-                    <div className="text-sm text-gray-500 dark:text-gray-400">Last logedin: {user.auth.loggedAt ?? '--'}</div>
+                    {/* <div className="text-sm text-gray-500 dark:text-gray-400">Last logedin: {user.auth.loggedAt ?? '--'}</div> */}
                 </div>
             </div>
             <div className="mt-10">

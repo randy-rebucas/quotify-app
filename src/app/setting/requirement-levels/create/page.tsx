@@ -1,6 +1,6 @@
 import { fetchRequirements } from '@/app/lib/data';
 import Breadcrumbs from '@/app/ui/breadcrumbs';
-import Form from '@/app/ui/setting/requirement-levels/create-form';
+import Form from '@/components/setting/requirement-levels/create-form';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {

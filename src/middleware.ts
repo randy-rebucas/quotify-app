@@ -3,16 +3,11 @@ import { NextRequest, NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import { decrypt } from "./actions/session";
 
-
-// 1. Specify protected and public routes
-const protectedRoutes = [
-  "/file-management",
-  "/setting",
-  "/estimation"
-];
-const publicRoutes = ["/", "/login", "/signup"];
-
 export default async function middleware(req: NextRequest) {
+  // 1. Specify protected and public routes
+  const protectedRoutes = ["/projects", "/setting", "/estimation"];
+  const publicRoutes = ["/", "/login", "/signup"];
+
   // 2. Check if the current route is protected or public
   const path = req.nextUrl.pathname;
   const isProtectedRoute = protectedRoutes.includes(path);
@@ -22,18 +17,19 @@ export default async function middleware(req: NextRequest) {
   const cookie = cookies().get("session")?.value;
   const session = await decrypt(cookie);
 
+  const isAuthenticated = !!session?.userId;
+
   // 5. Redirect to /login if the user is not authenticated
-  if (isProtectedRoute && !session?.userId) {
+  if (isProtectedRoute && !isAuthenticated) {
     return NextResponse.redirect(new URL("/login", req.nextUrl));
   }
-  console.log(session);
-  // 6. Redirect to /file-management if the user is authenticated
+  // 6. Redirect to /projects if the user is authenticated
   if (
     isPublicRoute &&
-    session?.userId &&
-    !req.nextUrl.pathname.startsWith("/file-management")
+    isAuthenticated &&
+    !req.nextUrl.pathname.startsWith("/projects")
   ) {
-    return NextResponse.redirect(new URL("/file-management", req.nextUrl));
+    return NextResponse.redirect(new URL("/projects", req.nextUrl));
   }
 
   return NextResponse.next();

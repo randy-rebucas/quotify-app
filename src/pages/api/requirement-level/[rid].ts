@@ -14,7 +14,6 @@ export default async function handler(
 
     res.status(200).json(requirementLevel);
   } catch (err) {
-    console.log(err);
     res.status(500).json(err);
   }
 }

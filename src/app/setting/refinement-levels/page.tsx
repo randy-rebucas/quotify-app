@@ -1,8 +1,8 @@
 import { fetchRefinementLevels, fetchRefinementLevelsPages } from '@/app/lib/data';
 import Pagination from '@/app/ui/pagination';
 import Search from '@/app/ui/search';
-import { Create } from '@/app/ui/setting/refinement-levels/buttons';
-import Table from '@/app/ui/setting/refinement-levels/table';
+import { Create } from '@/components/setting/refinement-levels/buttons';
+import Table from '@/components/setting/refinement-levels/table';
 import Title from '@/app/ui/title';
 import { Metadata } from 'next';
 import { Suspense } from 'react';

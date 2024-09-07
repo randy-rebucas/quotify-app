@@ -1,6 +1,6 @@
 import { fetchCustomSpaces } from '@/app/lib/data';
 import Breadcrumbs from '@/app/ui/breadcrumbs';
-import Form from '@/app/ui/setting/custom-space/create-form';
+import Form from '@/components/setting/custom-space/create-form';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {

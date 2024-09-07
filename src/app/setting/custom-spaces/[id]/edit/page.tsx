@@ -1,4 +1,4 @@
-import Form from '@/app/ui/setting/custom-space/edit-form';
+import Form from '@/components/setting/custom-space/edit-form';
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 import { fetchCustomSpaceById, fetchCustomSpaces } from '@/app/lib/data';

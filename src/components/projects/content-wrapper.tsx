@@ -9,39 +9,38 @@ import Link from "next/link";
 import { useContext, useEffect, useState } from "react";
 import Count from "./count";
 
-export default function ContentWrapper() {
+export default function ContentWrapper({ projects }: { projects: any[] }) {
 
-    let { session } = useContext(SessionContext);
-    console.log(session);
-    const setIsImpty = useProjectStore(state => state.setIsImpty);
+    let session = useContext(SessionContext);
+
     const setProjects = useProjectStore(state => state.setProjects);
-    const projects = useProjectStore(state => state.projects);
-    const hasMore = useAppStore(state => state.hasMore);
-
-    const [isLoading, setLoading] = useState(true)
 
     useEffect(() => {
-        async function fetchProjects() {
-            const response = await fetch(`/api/project/by-user/${session.userId}`, {
-                method: "GET",
-                headers: {
-                    Accept: "application/json",
-                    "Content-Type": "application/json",
-                },
-            });
-            let data = await response.json();
-            setProjects(data)
-            setIsImpty(!data ? true : false);
-            setLoading(false)
+
+        if (projects) {
+            setProjects(projects)
         }
-        fetchProjects();
 
-    }, [session, setIsImpty, setProjects])
+    }, [projects, setProjects])
 
-    if (isLoading) return <Loading />
+    return (
+        <>
+            {!projects && <Empty />}
+            {projects && <Projects projects={projects} />}
+        </>
+    )
+}
 
-    if (!projects) return <Empty />
+export function Empty() {
+    return (
+        <div className="lg:col-start-3 lg:col-span-1 col-span-12 flex flex-col items-center justify-center">
+            <p className="p-30 text-black">Once you create a project, it will show here.</p>
+        </div>
+    )
+}
 
+export function Projects({ projects }: { projects: any[] }) {
+    const hasMore = useAppStore(state => state.hasMore);
     const items = projects ? !hasMore ? projects.slice(0, 4) : projects : [];
 
     return (
@@ -106,16 +105,4 @@ export default function ContentWrapper() {
             </div>
         </div>
     )
-}
-
-export function Empty() {
-    return (
-        <div className="lg:col-start-3 lg:col-span-1 col-span-12 flex flex-col items-center justify-center">
-            <p className="p-30 text-black">Once you create a project, it will show here.</p>
-        </div>
-    )
-}
-
-export function Loading() {
-    return (<p>Loading...</p>)
 }

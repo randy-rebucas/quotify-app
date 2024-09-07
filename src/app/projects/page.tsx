@@ -4,12 +4,16 @@ import Image from "next/image";
 import Link from "next/link";
 import ContentWrapper from "@/components/projects/content-wrapper";
 import PageWrapper from "@/components/projects/page-wrapper";
+import { getSession } from "@/actions/session";
+import { fetchProjectsByUserId } from "@/app/lib/data";
 
 export const metadata: Metadata = {
     title: 'My Projects',
 };
 
 export default async function ProjectsPage() {
+    const session = await getSession();
+    const projects = await fetchProjectsByUserId(session?.userId);
 
     const colors: string[] = ['bg-gray1B', 'bg-gray2A', 'bg-gray3A', 'bg-gray4A', 'bg-gray5A']
 
@@ -17,7 +21,7 @@ export default async function ProjectsPage() {
         <div className="wrapper lg:bg-transparent bg-black">
             <PageWrapper>
                 
-                <ContentWrapper />
+                <ContentWrapper projects={projects}/>
 
             </PageWrapper>
 
