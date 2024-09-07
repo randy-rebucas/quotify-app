@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     default: 'Quotify',
   },
   description: 'Quotify.',
-  metadataBase: new URL(`${process.env.NEXT_PUBLIC_AUTH_URL}`),
+  // metadataBase: new URL(`${process.env.NEXT_PUBLIC_AUTH_URL}`),
 };
 
 export default async function RootLayout({
@@ -33,10 +33,10 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={`${lato.className} antialiased`}>
-        <SessionProvider session={session}>
+        {/* <SessionProvider session={session}> */}
           {children}
           {modal}
-        </SessionProvider>
+        {/* </SessionProvider> */}
       </body>
     </html>
   );
