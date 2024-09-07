@@ -2,8 +2,8 @@
 
 import Link from 'next/link';
 import { useFormState } from 'react-dom';
-import { Button } from '../../button';
 import { updateRequirementLevel } from '@/actions/requirementLevel';
+import { Button } from '@/app/ui/button';
 
 
 export default function EditRequirementLevelForm({

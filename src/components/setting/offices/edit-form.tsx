@@ -3,9 +3,10 @@
 import Link from 'next/link';
 
 import { useFormState } from 'react-dom';
-import { Button } from '../../button';
+
 import { CheckIcon, ClockIcon } from '@heroicons/react/24/outline';
 import { updateOffice } from '@/actions/office';
+import { Button } from '@/app/ui/button';
 
 export default function EditOfficeForm({
   office,
