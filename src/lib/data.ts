@@ -1,6 +1,5 @@
 import { unstable_noStore as noStore, revalidatePath } from "next/cache";
 
-
 import path from "path";
 import { select } from "d3";
 import connect from "@/utils/db";
@@ -22,12 +21,34 @@ import ProjectCustomSpace from "@/models/ProjectCustomSpace";
 
 const ITEMS_PER_PAGE = 10;
 
-export async function fetchProjects() {
+export async function fetchProjectsCount(query: string) {
   noStore();
 
   connect();
 
-  const projects = await Project.find({}).exec();
+  const searchRgx = new RegExp(`.*${query}.*`, "i");
+  const count = await RefinementLevel.countDocuments({
+    level: searchRgx,
+  });
+
+  const totalPages = Math.ceil(Number(count) / ITEMS_PER_PAGE);
+
+  return totalPages;
+}
+
+export async function fetchProjects(query: string, currentPage: number) {
+  noStore();
+
+  connect();
+  const offset = (currentPage - 1) * ITEMS_PER_PAGE;
+  const searchRgx = new RegExp(`.*${query}.*`, "i");
+
+  const projects = await Project.find({
+    spaceName: searchRgx,
+  })
+    .skip(offset)
+    .limit(ITEMS_PER_PAGE)
+    .exec();
 
   const transformData = projects.map((project) => {
     return {

@@ -23,6 +23,9 @@ export default async function middleware(req: NextRequest) {
   if (isProtectedRoute && !isAuthenticated) {
     return NextResponse.redirect(new URL("/login", req.nextUrl));
   }
+
+  // const user = await getUser();
+  // console.log(user)
   // 6. Redirect to /projects if the user is authenticated
   if (
     isPublicRoute &&
