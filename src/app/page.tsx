@@ -1,13 +1,13 @@
 import { Metadata } from 'next';
-import QuotifyLogo from './ui/quotify-logo';
-import Intro from './ui/intro';
-import VideoWrapper, { Video } from './ui/video';
+import QuotifyLogo from '../components/quotify-logo';
+import Intro from '../components/intro';
+import VideoWrapper, { Video } from '../components/video';
 import Tooltip from '../components/tooltip';
-import NavButton from './ui/nav-button';
-import StaggerCover from './ui/stagger-cover';
-import { ColumnValue } from './ui/columns';
-import Columns from './ui/columns';
-import PageWrapper from './ui/page-wrapper';
+import NavButton from '../components/nav-button';
+import StaggerCover from '../components/stagger-cover';
+import { ColumnValue } from '../components/columns';
+import Columns from '../components/columns';
+import PageWrapper from '../components/page-wrapper';
 
 export const metadata: Metadata = {
   title: 'Welcome'

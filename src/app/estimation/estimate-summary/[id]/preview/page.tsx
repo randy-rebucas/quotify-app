@@ -5,9 +5,9 @@ import Wrapper from "@/app/ui/estimation/estimate-summary/wrapper";
 import IntroWrapper from "@/app/ui/estimation/intro-wrapper";
 import MainWrapper from "@/app/ui/estimation/main-wrapper";
 import Popup from "@/app/ui/estimation/popup";
-import LinearCover from "@/app/ui/linear-cover";
-import Loader from "@/app/ui/loader";
-import StaggerCover from "@/app/ui/stagger-cover";
+import LinearCover from "@/components/linear-cover";
+import Loader from "@/components/loader";
+import StaggerCover from "@/components/stagger-cover";
 import { notFound } from "next/navigation";
 
 export default async function Page({ params }: { params: { id: string } }) {

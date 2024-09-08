@@ -1,13 +1,13 @@
 import Popup from "@/app/ui/estimation/popup";
 import IntroWrapper from "@/app/ui/estimation/intro-wrapper";
 import MainWrapper from "@/app/ui/estimation/main-wrapper";
-import LinearCover from "@/app/ui/linear-cover";
-import StaggerCover from "@/app/ui/stagger-cover";
+import LinearCover from "@/components/linear-cover";
+import StaggerCover from "@/components/stagger-cover";
 import { fetchMenuByPageHandled } from "@/lib/data";
 import { Suspense } from "react";
 import Intro from "@/app/ui/estimation/project-information/intro";
 import FormWrapper from "@/app/ui/estimation/project-information/form-wrapper";
-import Loader from "@/app/ui/loader";
+import Loader from "@/components/loader";
 
 export default async function Page() {
     const menus = await fetchMenuByPageHandled('project-information');

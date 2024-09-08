@@ -2,7 +2,7 @@
 
 import { useAppStore } from "@/lib/store/appStore";
 import { useProjectStore } from "@/lib/store/projectStore";
-import { SessionContext } from "@/app/ui/session-provider";
+import { SessionContext } from "@/components/session-provider";
 import clsx from "clsx";
 import Image from "next/image";
 import Link from "next/link";

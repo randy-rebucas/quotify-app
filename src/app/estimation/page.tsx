@@ -1,9 +1,9 @@
 import { Metadata } from "next";
 
 import { lato } from "../ui/fonts";
-import StaggerCover from "../ui/stagger-cover";
+import StaggerCover from "../../components/stagger-cover";
 import Popup from "../ui/estimation/popup";
-import PageWrapper from "../ui/page-wrapper";
+import PageWrapper from "../../components/page-wrapper";
 import Tooltip from "../../components/tooltip";
 
 import NavButton from "../ui/estimation/nav-button";

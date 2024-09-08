@@ -2,9 +2,9 @@ import { fetchAmenities, fetchCustomSpacesByGroup, fetchProject, fetchProjectAme
 import Popup from "@/app/ui/estimation/popup";
 import Form from "@/app/ui/estimation/project-definition/form";
 import Menu from "@/app/ui/estimation/project-definition/menu";
-import Loader from "@/app/ui/loader";
-import PageWrapper from "@/app/ui/page-wrapper";
-import StaggerCover from "@/app/ui/stagger-cover";
+import Loader from "@/components/loader";
+import PageWrapper from "@/components/page-wrapper";
+import StaggerCover from "@/components/stagger-cover";
 import { notFound } from "next/navigation";
 
 

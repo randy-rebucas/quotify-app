@@ -1,6 +1,6 @@
 
-import Pagination from '@/app/ui/pagination';
-import Search from '@/app/ui/search';
+import Pagination from '@/components/pagination';
+import Search from '@/components/search';
 import { Create } from '@/components/setting/refinement-levels/buttons';
 import Table from '@/components/setting/refinement-levels/table';
 import Title from '@/components/setting/title';
