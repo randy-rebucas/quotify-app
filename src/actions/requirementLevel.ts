@@ -5,7 +5,7 @@ import { revalidatePath } from "next/cache";
 import {
     RequiermentLevelFormState,
   RequirementLevelFormSchema,
-} from "@/app/lib/definitions";
+} from "@/lib/definitions";
 import RefinementLevel from "@/models/RefinementLevel";
 import { unlink, writeFile } from "fs/promises";
 import path from "path";

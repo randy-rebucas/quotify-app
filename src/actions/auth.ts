@@ -5,7 +5,7 @@ import {
   LoginFormState,
   LoginFormSchema,
   SignupFormState,
-} from "@/app/lib/definitions";
+} from "@/lib/definitions";
 
 import bcrypt from "bcrypt";
 import { redirect } from "next/navigation";

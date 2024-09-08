@@ -6,7 +6,7 @@ import { revalidatePath } from "next/cache";
 import {
   MenuFormSchema,
   MenuFormState
-} from "@/app/lib/definitions";
+} from "@/lib/definitions";
 
 const CreateMenu = MenuFormSchema.omit({ id: true });
 
