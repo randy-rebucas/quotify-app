@@ -2,7 +2,8 @@ import { useEffect, useRef, useState } from "react";
 import { useJsApiLoader } from '@react-google-maps/api';
 import { Libraries } from '@googlemaps/js-api-loader';
 import { LatLong } from "./steps/address";
-import { useProjectInformationStore } from "@/app/lib/store/projectInformationStore";
+import { useProjectInformationStore } from "@/lib/store/projectInformationStore";
+
 
 const libraries = ["core", "maps", "places", "marker", 'geometry'];
 

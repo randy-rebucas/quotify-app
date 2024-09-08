@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { filesize } from "filesize";
-import { useProjectInformationStore } from "@/app/lib/store/projectInformationStore";
+import { useProjectInformationStore } from "@/lib/store/projectInformationStore";
+
 
 export default function DropzoneUploadedFile() {
   const isImageType = ['image/jpeg', 'image/jpg', 'image/png'];

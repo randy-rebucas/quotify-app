@@ -1,7 +1,9 @@
-import { fetchAmenities } from '@/app/lib/data';
+
 import { CreateAmenity } from '@/components/setting/amenities/buttons';
 import Table from '@/components/setting/amenities/table';
-import Title from '@/app/ui/title';
+import Title from '@/components/setting/title';
+import { fetchAmenities } from '@/lib/data';
+
 import { Metadata } from 'next';
 
 

@@ -7,7 +7,7 @@ import clsx from "clsx";
 import { motion } from "framer-motion";
 import { ReactNode } from "react";
 
-import { useProjectStore } from "@/app/lib/store/projectStore";
+import { useProjectStore } from "@/lib/store/projectStore";
 // import { logout } from "@/app/actions/auth";
 import More from "./more";
 

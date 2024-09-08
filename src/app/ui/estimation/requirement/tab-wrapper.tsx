@@ -1,10 +1,11 @@
 "use client";
 
-import { useRequirementStore } from "@/app/lib/store/requirementStore";
+
 import clsx from "clsx";
 import { useEffect } from "react";
 import { StimateData, tabMapping } from "./entities";
 import TabForm from "./tab-form";
+import { useRequirementStore } from "@/lib/store/requirementStore";
 
 export default function TabWrapper() {
     const estimates = useRequirementStore((state) => state.estimates);

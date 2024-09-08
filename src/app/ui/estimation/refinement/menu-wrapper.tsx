@@ -1,13 +1,13 @@
 "use client";
 
-import { useRefinementStore } from "@/app/lib/store/refinementStore";
 import { StimateData, tabMapping, titleMapping } from "./entities";
 import clsx from "clsx";
 import Menu from "./menu";
 import Cost from "./cost";
 import { useEffect } from "react";
-import { useEstimateStore } from "@/app/lib/store/estimateStore";
-import { INITIAL_DATA } from "@/app/lib/store/requirementStore";
+import { useRefinementStore } from "@/lib/store/refinementStore";
+import { useEstimateStore } from "@/lib/store/estimateStore";
+
 
 type Props = {
     refinements: any[];

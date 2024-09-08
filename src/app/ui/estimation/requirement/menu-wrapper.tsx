@@ -1,10 +1,11 @@
 "use client";
 
-import { useRequirementStore } from "@/app/lib/store/requirementStore";
+
 import { StimateData, tabMapping } from "./entities";
 import clsx from "clsx";
 import Menu from "./menu";
 import Cost from "./cost";
+import { useRequirementStore } from "@/lib/store/requirementStore";
 
 type Props = {
     requirementsGroups: any[];

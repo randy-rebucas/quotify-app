@@ -5,7 +5,7 @@ import Link from "next/link";
 import ContentWrapper from "@/components/projects/content-wrapper";
 import PageWrapper from "@/components/projects/page-wrapper";
 import { getSession } from "@/actions/session";
-import { fetchProjectsByUserId } from "@/app/lib/data";
+import { fetchProjectsByUserId } from "@/lib/data";
 
 export const metadata: Metadata = {
     title: 'My Projects',

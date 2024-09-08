@@ -1,7 +1,7 @@
 'use client';
 
-import { useAppStore } from "@/app/lib/store/appStore";
-import { useProjectStore } from "@/app/lib/store/projectStore";
+import { useAppStore } from "@/lib/store/appStore";
+import { useProjectStore } from "@/lib/store/projectStore";
 import Link from "next/link";
 
 export default function More() {

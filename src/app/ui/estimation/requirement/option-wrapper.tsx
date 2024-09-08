@@ -1,8 +1,8 @@
 'use client';
 
-import { useRequirementStore } from "@/app/lib/store/requirementStore";
 import { ChangeEvent } from "react";
 import Option from "./option";
+import { useRequirementStore } from "@/lib/store/requirementStore";
 
 type Props = {
     requirementId: string;

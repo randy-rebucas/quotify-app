@@ -1,5 +1,6 @@
-import { useProjectInformationStore } from "@/app/lib/store/projectInformationStore";
+
 import Tooltip from "@/components/tooltip";
+import { useProjectInformationStore } from "@/lib/store/projectInformationStore";
 
 export default function Area() {
     const project = useProjectInformationStore(state => state.projectInformation);

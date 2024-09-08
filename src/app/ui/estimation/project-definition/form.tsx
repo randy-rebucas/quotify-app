@@ -7,9 +7,9 @@ import { PieChartPresentation } from "../pie-chart-presentation";
 import { common } from "../../mock";
 import PieChartData from "../pie-chart-data";
 import { usePathname, useRouter } from "next/navigation";
-import { useAppStore } from "@/app/lib/store/appStore";
 import Image from "next/image";
 import Tooltip from "@/components/tooltip";
+import { useAppStore } from "@/lib/store/appStore";
 
 export default function Form({ project, amenities, customeSpaces, selectedAmenities, selectedCustomSpaces }: {
     project: any;

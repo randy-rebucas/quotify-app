@@ -1,7 +1,7 @@
 import Form from '@/components/setting/menus/edit-form';
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
-import { fetchMenuById } from '@/app/lib/data';
+import { fetchMenuById } from '@/lib/data';
 import Breadcrumbs from '@/components/breadcrumbs';
 
 

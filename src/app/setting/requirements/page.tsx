@@ -1,7 +1,8 @@
-import { fetchRequirements } from '@/app/lib/data';
+
 import { Create } from '@/components/setting/requirements/buttons';
 import Table from '@/components/setting/requirements/table';
-import Title from '@/app/ui/title';
+import Title from '@/components/setting/title';
+import { fetchRequirements } from '@/lib/data';
 import { Metadata } from 'next';
 
 

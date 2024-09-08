@@ -1,11 +1,12 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useRefinementStore } from "@/app/lib/store/refinementStore";
-import { useProjectAmenityStore } from "@/app/lib/store/projectAmenityStore";
 import { ProjectAreaDefination } from "../form";
-import { useProjectCustomSpaceStore } from "@/app/lib/store/projectCustomSpaceStore";
 import OptionWrapper from "../option-wrapper";
+import { useRefinementStore } from "@/lib/store/refinementStore";
+import { useProjectAmenityStore } from "@/lib/store/projectAmenityStore";
+import { useProjectCustomSpaceStore } from "@/lib/store/projectCustomSpaceStore";
+
 
 type Props = {
   projectId: string;

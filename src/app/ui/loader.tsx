@@ -1,7 +1,8 @@
 'use client'
 
+import { useAppStore } from '@/lib/store/appStore';
 import { MutatingDots } from 'react-loader-spinner'
-import { useAppStore } from '../lib/store/appStore';
+
 
 export default function Loader() {
     const isLoading = useAppStore(state => state.isLoading);

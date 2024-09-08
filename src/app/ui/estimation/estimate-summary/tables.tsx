@@ -3,10 +3,10 @@
 import { MouseEventHandler, useEffect, useState } from "react";
 import clsx from "clsx";
 import React from "react";
-import { useProjectAmenityStore } from "@/app/lib/store/projectAmenityStore";
 import { ProjectAreaDefination } from "../refinement/form";
-import { useProjectCustomSpaceStore } from "@/app/lib/store/projectCustomSpaceStore";
 import { IRequirementLevel } from "@/models/RequirementLevel";
+import { useProjectAmenityStore } from "@/lib/store/projectAmenityStore";
+import { useProjectCustomSpaceStore } from "@/lib/store/projectCustomSpaceStore";
 
 type TableRowProps = {
     projectId: string;

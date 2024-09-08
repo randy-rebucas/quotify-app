@@ -1,6 +1,6 @@
 "use client";
 
-import { useRefinementStore } from "@/app/lib/store/refinementStore";
+import { useRefinementStore } from "@/lib/store/refinementStore";
 import { useEffect, useState } from "react";
 
 

@@ -1,4 +1,4 @@
-import { fetchAmenityCategories } from '@/app/lib/data';
+import { fetchAmenityCategories } from '@/lib/data';
 import Breadcrumbs from '@/components/breadcrumbs';
 import { Metadata } from 'next';
 import Form from '@/components/setting/amenities/create-form';

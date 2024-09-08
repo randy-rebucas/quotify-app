@@ -1,8 +1,8 @@
 'use client';
 
 import { ChangeEvent, useEffect } from "react";
-import { useRequirementStore } from "@/app/lib/store/requirementStore";
 import RequirementLevelOption from "../option";
+import { useRequirementStore } from "@/lib/store/requirementStore";
 
 type Props = {
     requirementGroups: any[];

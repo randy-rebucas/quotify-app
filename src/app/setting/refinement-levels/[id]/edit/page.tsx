@@ -1,7 +1,7 @@
 
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
-import { fetchRefinementlevelById, fetchRefinements } from '@/app/lib/data';
+import { fetchRefinementlevelById, fetchRefinements } from '@/lib/data';
 import Breadcrumbs from '@/components/breadcrumbs';
 import Form from '@/components/setting/refinement-levels/edit-form';
 

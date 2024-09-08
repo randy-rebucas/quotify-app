@@ -1,9 +1,9 @@
 'use client';
 
-import { useAppStore } from "@/app/lib/store/appStore";
 import { motion } from "framer-motion";
 import { ReactNode } from "react";
 import Close from "./close";
+import { useAppStore } from "@/lib/store/appStore";
 
 type IntroWrapperProps = {
     children: ReactNode

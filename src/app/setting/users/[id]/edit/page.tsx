@@ -1,7 +1,7 @@
 import Form from '@/components/setting/users/edit-form';
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
-import { fetchOffices, fetchUserById } from '@/app/lib/data';
+import { fetchOffices, fetchUserById } from '@/lib/data';
 import Breadcrumbs from '@/components/breadcrumbs';
 
 export const metadata: Metadata = {

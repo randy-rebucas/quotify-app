@@ -1,7 +1,8 @@
-import { fetchRefinements } from '@/app/lib/data';
+
 import { Create } from '@/components/setting/refinements/buttons';
 import Table from '@/components/setting/refinements/table';
-import Title from '@/app/ui/title';
+import Title from '@/components/setting/title';
+import { fetchRefinements } from '@/lib/data';
 import { Metadata } from 'next';
 
 

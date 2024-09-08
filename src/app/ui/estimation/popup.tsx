@@ -2,10 +2,9 @@
 
 import Link from "next/link";
 import clsx from "clsx";
-import { useAppStore } from "@/app/lib/store/appStore";
-
-import { useProjectInformationStore } from "@/app/lib/store/projectInformationStore";
 import { useRouter } from "next/navigation";
+import { useProjectInformationStore } from "@/lib/store/projectInformationStore";
+import { useAppStore } from "@/lib/store/appStore";
 
 // This block shows on close popup button click
 

@@ -4,8 +4,8 @@ import { MouseEventHandler, useEffect, useMemo, useState } from "react";
 import clsx from "clsx";
 import { IAmenity } from "@/models/Amenity";
 import { ICustomSpace } from "@/models/CustomSpace";
-import { useAreaBreakdownStore } from "@/app/lib/store/areaBreakdownStore";
 import ProgressBar from "../../progress-bar";
+import { useAreaBreakdownStore } from "@/lib/store/areaBreakdownStore";
 
 export const colors: string[] = ['#005A92', '#3179A6', '#6298BA', '#93B7CD', '#C4D6E1'];
 

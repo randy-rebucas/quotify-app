@@ -1,8 +1,8 @@
 "use client";
 
-import { useRefinementStore } from "@/app/lib/store/refinementStore";
 import { ChangeEvent } from "react";
 import Option from "@/app/ui/estimation/refinement/option";
+import { useRefinementStore } from "@/lib/store/refinementStore";
 
 type Props = {
     refinementId: string;

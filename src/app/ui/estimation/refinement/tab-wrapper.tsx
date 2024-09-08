@@ -1,11 +1,13 @@
 "use client";
 
-import { useRefinementStore } from "@/app/lib/store/refinementStore";
 import clsx from "clsx";
 import { useEffect } from "react";
 import { StimateData, tabMapping } from "./entities";
 import TabForm from "./tab-form";
-import { useEstimateStore } from "@/app/lib/store/estimateStore";
+import { useRefinementStore } from "@/lib/store/refinementStore";
+import { useEstimateStore } from "@/lib/store/estimateStore";
+
+
 
 export default function TabWrapper({ projectId }: { projectId: string }) {
     const estimates = useRefinementStore((state) => state.estimates);
