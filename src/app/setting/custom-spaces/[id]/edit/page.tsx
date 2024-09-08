@@ -1,7 +1,7 @@
 import Form from '@/components/setting/custom-space/edit-form';
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
-import { fetchCustomSpaceById, fetchCustomSpaces } from '@/app/lib/data';
+import { fetchCustomSpaceById, fetchCustomSpaces } from '@/lib/data';
 import Breadcrumbs from '@/components/breadcrumbs';
 
 

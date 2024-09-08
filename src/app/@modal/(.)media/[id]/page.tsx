@@ -1,4 +1,4 @@
-import { fetchMediaLibraryById } from "@/app/lib/data";
+import { fetchMediaLibraryById } from "@/lib/data";
 import { Modal } from "./modal";
 import Image from "next/image";
 

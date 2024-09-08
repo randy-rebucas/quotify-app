@@ -1,4 +1,4 @@
-import { fetchRequirements } from '@/app/lib/data';
+import { fetchRequirements } from '@/lib/data';
 import Breadcrumbs from '@/components/breadcrumbs';
 import Form from '@/components/setting/requirement-levels/create-form';
 import { Metadata } from 'next';

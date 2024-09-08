@@ -1,7 +1,7 @@
 import Form from '@/components/setting/media-libraries/edit-form';
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
-import { fetchMediaLibraryById } from '@/app/lib/data';
+import { fetchMediaLibraryById } from '@/lib/data';
 import Breadcrumbs from '@/components/breadcrumbs';
 
 

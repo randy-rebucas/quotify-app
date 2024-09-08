@@ -3,7 +3,8 @@
 import { motion } from "framer-motion";
 import { ReactNode } from "react";
 import Close from "./estimation/close";
-import { useAppStore } from "../lib/store/appStore";
+import { useAppStore } from "@/lib/store/appStore";
+
 
 
 type PageWrapperProps = {

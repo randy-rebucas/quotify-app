@@ -1,8 +1,8 @@
 "use client";
 
+import { useRefinementLevelStore } from "@/lib/store/refinementLevelStore";
+import { useRefinementStore } from "@/lib/store/refinementStore";
 import Image from "next/image";
-import { useRefinementLevelStore } from "@/app/lib/store/refinementLevelStore";
-import { useRefinementStore } from "@/app/lib/store/refinementStore";
 import { ChangeEventHandler, useEffect } from "react";
 
 type Props = {

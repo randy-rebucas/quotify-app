@@ -3,7 +3,7 @@ import { Metadata } from "next";
 import { Suspense } from "react";
 import { CardsSkeleton, ProfileSkeleton } from "@/app/ui/skeletons";
 
-import { fetchUserById } from "@/app/lib/data";
+import { fetchUserById } from "@/lib/data";
 import { getSession } from "@/actions/session";
 import { lusitana } from "@/app/ui/fonts";
 import CardWrapper from "@/components/setting/cards";

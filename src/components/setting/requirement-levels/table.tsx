@@ -2,7 +2,7 @@
 import Image from "next/image";
 import { Delete, Update } from "./buttons";
 import { IRequirementLevel } from "@/models/RequirementLevel";
-import { fetchRequirementLevels } from "@/app/lib/data";
+import { fetchRequirementLevels } from "@/lib/data";
 
 export default async function Table({
     query,

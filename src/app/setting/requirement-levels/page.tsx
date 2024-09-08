@@ -1,9 +1,10 @@
-import { fetchRequirementLevels, fetchRequirementLevelsPages } from '@/app/lib/data';
+
 import Pagination from '@/app/ui/pagination';
 import Search from '@/app/ui/search';
 import { Create } from '@/components/setting/requirement-levels/buttons';
 import Table from '@/components/setting/requirement-levels/table';
-import Title from '@/app/ui/title';
+import Title from '@/components/setting/title';
+import { fetchRequirementLevelsPages } from '@/lib/data';
 import { Metadata } from 'next';
 import { Suspense } from 'react';
 

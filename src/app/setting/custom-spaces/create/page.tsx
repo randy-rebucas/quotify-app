@@ -1,4 +1,4 @@
-import { fetchCustomSpaces } from '@/app/lib/data';
+import { fetchCustomSpaces } from '@/lib/data';
 import Breadcrumbs from '@/components/breadcrumbs';
 import Form from '@/components/setting/custom-space/create-form';
 import { Metadata } from 'next';
@@ -10,7 +10,7 @@ export default async function Page() {
 
     const custom_spaces = await fetchCustomSpaces();
     
-    let customSpaces = custom_spaces.map((custom_space) => {
+    let customSpaces = custom_spaces.map((custom_space: any) => {
         return {
           id: custom_space._id.toString(),
           customSpaceName: custom_space.customSpaceName,

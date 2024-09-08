@@ -1,8 +1,9 @@
 'use client';
 
-import { useRequirementStore } from "@/app/lib/store/requirementStore";
+
 import clsx from "clsx";
 import Indicator from "./indicator";
+import { useRequirementStore } from "@/lib/store/requirementStore";
 
 type Props = {
     menus: any[];

@@ -1,7 +1,7 @@
 
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
-import { fetchAmenityCategoryById } from '@/app/lib/data';
+import { fetchAmenityCategoryById } from '@/lib/data';
 
 import Form from '@/components/setting/amenity-categories/edit-form';
 import Breadcrumbs from '@/components/breadcrumbs';

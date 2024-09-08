@@ -1,6 +1,6 @@
 'use client';
 
-import { useRequirementStore } from "@/app/lib/store/requirementStore";
+import { useRequirementStore } from "@/lib/store/requirementStore";
 import { useEffect, useState } from "react";
 
 type Props = {

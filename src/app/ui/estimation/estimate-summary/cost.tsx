@@ -1,5 +1,6 @@
 'use client';
-import { formatCurrency } from "@/app/lib/utils";
+
+import { formatCurrency } from "@/lib/utils";
 import { useState } from "react";
 
 export default function Cost({ estimateGroups }: { estimateGroups: any[] }) {

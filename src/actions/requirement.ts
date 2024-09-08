@@ -5,7 +5,7 @@ import { revalidatePath } from "next/cache";
 import {
   RequirementFormSchema,
   RequirementFormState,
-} from "@/app/lib/definitions";
+} from "@/lib/definitions";
 import Requirement from "@/models/Requirement";
 
 const UpdateRequirement = RequirementFormSchema.omit({ id: true });

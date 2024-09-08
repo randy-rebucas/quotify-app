@@ -1,7 +1,7 @@
 import Form from '@/components/setting/offices/edit-form';
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
-import { fetchOfficeById } from '@/app/lib/data';
+import { fetchOfficeById } from '@/lib/data';
 import Breadcrumbs from '@/components/breadcrumbs';
 
 

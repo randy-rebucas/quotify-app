@@ -3,7 +3,8 @@ import { PieChartPresentation } from "../../pie-chart-presentation"
 import Tooltip from "@/components/tooltip";
 import { useEffect, useState } from "react"
 import { IAmenity } from "@/models/Amenity"
-import { useAreaBreakdownStore } from "@/app/lib/store/areaBreakdownStore"
+import { useAreaBreakdownStore } from "@/lib/store/areaBreakdownStore";
+
 
 type Props = {
     amenities: any;

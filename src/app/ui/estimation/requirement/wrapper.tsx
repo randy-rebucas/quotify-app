@@ -1,7 +1,8 @@
 import { MouseEventHandler, ReactNode, useEffect } from "react";
 import Tooltip from "@/components/tooltip";
 import Buttons from "./buttons";
-import { useRequirementStore } from "@/app/lib/store/requirementStore";
+import { useRequirementStore } from "@/lib/store/requirementStore";
+
 
 type Props = {
   stepIndex: number;

@@ -1,7 +1,8 @@
 'use client';
 
-import { useAppStore } from "@/app/lib/store/appStore";
-import { useEstimateSummaryStore } from "@/app/lib/store/estimateSummaryStore";
+
+import { useAppStore } from "@/lib/store/appStore";
+import { useEstimateSummaryStore } from "@/lib/store/estimateSummaryStore";
 import Image from "next/image";
 import { FormEvent, useState } from "react";
 

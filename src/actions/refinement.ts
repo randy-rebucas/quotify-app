@@ -5,7 +5,7 @@ import { revalidatePath } from "next/cache";
 import {
     RefinementFormSchema,
     RefinementFormState
-} from "@/app/lib/definitions";
+} from "@/lib/definitions";
 import Refinement from "@/models/Refinement";
 
 

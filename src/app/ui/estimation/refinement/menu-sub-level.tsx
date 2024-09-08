@@ -1,10 +1,11 @@
 "use client";
 
-import { Estimate } from "@/app/lib/store/refinementStore";
+// import { Estimate } from "@/app/lib/store/refinementStore";
 import { ProjectAreaDefination } from "./form";
 import { useEffect, useState } from "react";
 import clsx from "clsx";
 import Indicator from "./indicator";
+import { Estimate } from "@/lib/store/refinementStore";
 
 type Props = {
     projectId: string;

@@ -3,9 +3,10 @@
 import Wrapper from "./wrapper";
 import clsx from "clsx";
 import { FormEvent, ReactNode, useState } from "react";
-import { useProjectInformationStore } from "@/app/lib/store/projectInformationStore";
 import { useRouter } from "next/navigation";
-import { useAppStore } from "@/app/lib/store/appStore";
+import { useProjectInformationStore } from "@/lib/store/projectInformationStore";
+import { useAppStore } from "@/lib/store/appStore";
+
 
 export default function Form({
     currentStepIndex, isFirstStep, isLastStep, back, next, menus, children

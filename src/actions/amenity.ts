@@ -3,7 +3,7 @@
 
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
-import { AmenityFormState, AmenityFormSchema } from "@/app/lib/definitions";
+import { AmenityFormState, AmenityFormSchema } from "@/lib/definitions";
 import Amenity from "@/models/Amenity";
 
 const CreateAmenity = AmenityFormSchema.omit({ id: true });

@@ -1,7 +1,8 @@
 'use client';
 
-import { useRequirementStore } from "@/app/lib/store/requirementStore";
-import { formatCurrency } from "@/app/lib/utils";
+
+
+import { useRequirementStore } from "@/lib/store/requirementStore";
 import { useEffect, useMemo, useState } from "react";
 
 type Props = {

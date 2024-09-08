@@ -1,4 +1,4 @@
-import { fetchMediaLibraryById, fetchProject, fetchRefinements, fetchRequirementsByGroup } from "@/app/lib/data";
+import { fetchMediaLibraryById, fetchProject, fetchRefinements, fetchRequirementsByGroup } from "@/lib/data";
 
 import Image from "next/image";
 import { Modal } from "./modal";

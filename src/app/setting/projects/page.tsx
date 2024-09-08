@@ -1,6 +1,7 @@
-import { fetchProjects } from '@/app/lib/data';
+
 import Table from '@/components/setting/projects/table';
-import Title from '@/app/ui/title';
+import Title from '@/components/setting/title';
+import { fetchProjects } from '@/lib/data';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {

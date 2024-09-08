@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import * as d3 from "d3";
+import { useAreaBreakdownStore } from "@/lib/store/areaBreakdownStore";
 
-import { useAreaBreakdownStore } from "@/app/lib/store/areaBreakdownStore";
 
 const MARGIN = 10;
 export type ChartProps = {

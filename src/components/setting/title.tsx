@@ -1,4 +1,5 @@
-import { lusitana } from './fonts';
+import { lusitana } from "@/app/ui/fonts";
+
 
 export default function Title({ title }: { title: string }) {
     return (

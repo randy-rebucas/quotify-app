@@ -1,10 +1,10 @@
-import { useAppStore } from "@/app/lib/store/appStore";
-import { useAreaBreakdownStore } from "@/app/lib/store/areaBreakdownStore";
 import { IAmenity } from "@/models/Amenity";
 import clsx from "clsx";
 import { useRouter } from "next/navigation";
 import { FormEvent, ReactNode, useEffect, useState } from "react";
 import Wrapper from "./wrapper";
+import { useAreaBreakdownStore } from "@/lib/store/areaBreakdownStore";
+import { useAppStore } from "@/lib/store/appStore";
 
 export default function Form({
     currentStepIndex, isFirstStep, isLastStep, back, next, amenities, projectId, menus, children

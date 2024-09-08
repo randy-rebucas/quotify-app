@@ -1,8 +1,9 @@
 import Tooltip from "@/components/tooltip";
 import { ChangeEvent, useEffect, useState } from "react";
 import clsx from "clsx";
-import { PartialData, ProjectCustomSpaceData, useAreaBreakdownStore } from "@/app/lib/store/areaBreakdownStore";
-import { useAppStore } from "@/app/lib/store/appStore";
+import { PartialData, ProjectCustomSpaceData, useAreaBreakdownStore } from "@/lib/store/areaBreakdownStore";
+import { useAppStore } from "@/lib/store/appStore";
+// 
 
 type Props = {
     amenities: any;

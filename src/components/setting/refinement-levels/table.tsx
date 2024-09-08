@@ -2,7 +2,7 @@
 import Image from "next/image";
 import { Delete, Update } from "./buttons";
 import { IRefinementLevel } from "@/models/RefinementLevel";
-import { fetchRefinementLevels } from "@/app/lib/data";
+import { fetchRefinementLevels } from "@/lib/data";
 
 export default async function Table({
     query,

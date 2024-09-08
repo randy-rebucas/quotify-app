@@ -10,7 +10,7 @@ import {
   UserFormSchema,
   UserFormState,
   SignupFormState,
-} from "@/app/lib/definitions";
+} from "@/lib/definitions";
 
 const UpdateUser = EditUserFormSchema.omit({ id: true });
 

@@ -5,7 +5,7 @@ import { revalidatePath } from "next/cache";
 import {
   OfficeFormSchema,
   OfficeFormState
-} from "@/app/lib/definitions";
+} from "@/lib/definitions";
 import Office from "@/models/Office";
 
 const UpdateOffice = OfficeFormSchema.omit({ id: true });

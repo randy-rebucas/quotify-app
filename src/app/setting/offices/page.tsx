@@ -1,7 +1,8 @@
-import { fetchOffices } from '@/app/lib/data';
+
 import { CreateOffice } from '@/components/setting/offices/buttons';
 import Table from '@/components/setting/offices/table';
-import Title from '@/app/ui/title';
+import Title from '@/components/setting/title';
+import { fetchOffices } from '@/lib/data';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {

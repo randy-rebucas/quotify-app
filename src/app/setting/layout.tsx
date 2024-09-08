@@ -1,6 +1,6 @@
 
 import { getSession } from "@/actions/session";
-import { fetchUserById } from "@/app/lib/data";
+import { fetchUserById } from "@/lib/data";
 import SideNav from "@/components/setting/sidenav";
 
 

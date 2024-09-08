@@ -1,8 +1,8 @@
 'use client';
 
 import { useEffect } from "react";
-import { useRequirementStore } from "@/app/lib/store/requirementStore";
 import OptionWrapper from "../option-wrapper";
+import { useRequirementStore } from "@/lib/store/requirementStore";
 
 type Props = {
     requirementGroups: any[];

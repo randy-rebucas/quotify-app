@@ -1,4 +1,4 @@
-import { fetchAmenities, fetchCustomSpacesByGroup, fetchMenuByPageHandled } from "@/app/lib/data";
+import { fetchAmenities, fetchCustomSpacesByGroup, fetchMenuByPageHandled } from "@/lib/data";
 import FormWrapper from "@/app/ui/estimation/area-breakdown/form-wrapper";
 import Intro from "@/app/ui/estimation/area-breakdown/intro";
 import IntroWrapper from "@/app/ui/estimation/intro-wrapper";

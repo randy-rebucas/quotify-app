@@ -6,7 +6,7 @@ import { revalidatePath } from "next/cache";
 import {
   CustomSpaceFormSchema,
   CustomSpaceFormState,
-} from "@/app/lib/definitions";
+} from "@/lib/definitions";
 
 const CustomSpaceSchema = CustomSpaceFormSchema.omit({ id: true });
 

@@ -3,8 +3,8 @@
 import { FormEvent, ReactNode, useState } from "react";
 import Wrapper from "./wrapper";
 import { useRouter } from "next/navigation";
-import { useRequirementStore } from "@/app/lib/store/requirementStore";
-import { useAppStore } from "@/app/lib/store/appStore";
+import { useRequirementStore } from "@/lib/store/requirementStore";
+import { useAppStore } from "@/lib/store/appStore";
 
 
 type Props = {

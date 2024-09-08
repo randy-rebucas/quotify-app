@@ -1,7 +1,7 @@
 'use client'
 
-import { useAppStore } from "@/app/lib/store/appStore";
-import { useProjectStore } from "@/app/lib/store/projectStore";
+import { useAppStore } from "@/lib/store/appStore";
+import { useProjectStore } from "@/lib/store/projectStore";
 import { SessionContext } from "@/app/ui/session-provider";
 import clsx from "clsx";
 import Image from "next/image";

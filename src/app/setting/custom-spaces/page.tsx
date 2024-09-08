@@ -1,8 +1,8 @@
-import { fetchCustomSpaces } from '@/app/lib/data';
 import { lusitana } from '@/app/ui/fonts';
 import { CreateCustomSpace } from '@/components/setting/custom-space/buttons';
 import Table from '@/components/setting/custom-space/table';
-import Title from '@/app/ui/title';
+import Title from '@/components/setting/title';
+import { fetchCustomSpaces } from '@/lib/data';
 import { Metadata } from 'next';
 import Link from 'next/link';
 

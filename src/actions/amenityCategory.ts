@@ -5,7 +5,7 @@ import { revalidatePath } from "next/cache";
 import {
     AmenityCategoryFormSchema,
     AmenityCategoryFormState,
-} from "@/app/lib/definitions";
+} from "@/lib/definitions";
 import AmenityCategory from "@/models/AmenityCategory";
 
 const UpdateAmenityCategory = AmenityCategoryFormSchema.omit({ id: true });

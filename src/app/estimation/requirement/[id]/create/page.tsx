@@ -1,4 +1,4 @@
-import { fetchRequirementsByGroup } from "@/app/lib/data";
+import { fetchRequirementsByGroup } from "@/lib/data";
 import IntroWrapper from "@/app/ui/estimation/intro-wrapper";
 import MainWrapper from "@/app/ui/estimation/main-wrapper";
 import Popup from "@/app/ui/estimation/popup";

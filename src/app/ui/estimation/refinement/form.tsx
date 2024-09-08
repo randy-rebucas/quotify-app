@@ -3,8 +3,8 @@
 import { FormEvent, ReactNode, useState } from "react";
 import Wrapper from "./wrapper";
 import { useRouter } from "next/navigation";
-import { useRefinementStore } from "@/app/lib/store/refinementStore";
-import { useAppStore } from "@/app/lib/store/appStore";
+import { useRefinementStore } from "@/lib/store/refinementStore";
+import { useAppStore } from "@/lib/store/appStore";
 
 export interface ProjectAmenities {
   _id: string;

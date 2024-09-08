@@ -1,4 +1,4 @@
-import { fetchAmenities, fetchCustomSpacesByGroup, fetchProject, fetchProjectAmenitiesByProject, fetchProjectCustomSpacesByProject } from "@/app/lib/data";
+import { fetchAmenities, fetchCustomSpacesByGroup, fetchProject, fetchProjectAmenitiesByProject, fetchProjectCustomSpacesByProject } from "@/lib/data";
 import Popup from "@/app/ui/estimation/popup";
 import Form from "@/app/ui/estimation/project-definition/form";
 import Menu from "@/app/ui/estimation/project-definition/menu";
