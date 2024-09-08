@@ -1,12 +1,12 @@
-import Popup from "@/app/ui/estimation/popup";
-import IntroWrapper from "@/app/ui/estimation/intro-wrapper";
-import MainWrapper from "@/app/ui/estimation/main-wrapper";
+import Popup from "@/components/estimation/popup";
+import IntroWrapper from "@/components/estimation/intro-wrapper";
+import MainWrapper from "@/components/estimation/main-wrapper";
 import LinearCover from "@/components/linear-cover";
 import StaggerCover from "@/components/stagger-cover";
 import { fetchMenuByPageHandled } from "@/lib/data";
 import { Suspense } from "react";
-import Intro from "@/app/ui/estimation/project-information/intro";
-import FormWrapper from "@/app/ui/estimation/project-information/form-wrapper";
+import Intro from "@/components/estimation/project-information/intro";
+import FormWrapper from "@/components/estimation/project-information/form-wrapper";
 import Loader from "@/components/loader";
 
 export default async function ProjectInformationCreatePage() {

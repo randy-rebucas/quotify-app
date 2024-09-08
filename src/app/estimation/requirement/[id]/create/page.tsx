@@ -1,14 +1,14 @@
 import { fetchRequirementsByGroup } from "@/lib/data";
-import IntroWrapper from "@/app/ui/estimation/intro-wrapper";
-import MainWrapper from "@/app/ui/estimation/main-wrapper";
-import Popup from "@/app/ui/estimation/popup";
-import Intro from "@/app/ui/estimation/requirement/intro";
+import IntroWrapper from "@/components/estimation/intro-wrapper";
+import MainWrapper from "@/components/estimation/main-wrapper";
+import Popup from "@/components/estimation/popup";
+import Intro from "@/components/estimation/requirement/intro";
 import LinearCover from "@/components/linear-cover";
 import StaggerCover from "@/components/stagger-cover";
 import { notFound } from "next/navigation";
 import Loader from "@/components/loader";
 import { Suspense } from "react";
-import FormWrapper from "@/app/ui/estimation/requirement/form-wrapper";
+import FormWrapper from "@/components/estimation/requirement/form-wrapper";
 
 export default async function RequirementCreatePage({ params }: { params: { id: string } }) {
     const id = params.id;

@@ -1,10 +1,10 @@
 
 import { fetchProject, fetchRefinements, fetchRequirementsByGroup } from "@/lib/data";
-import Detail from "@/app/ui/estimation/estimate-summary/detail";
-import Wrapper from "@/app/ui/estimation/estimate-summary/wrapper";
-import IntroWrapper from "@/app/ui/estimation/intro-wrapper";
-import MainWrapper from "@/app/ui/estimation/main-wrapper";
-import Popup from "@/app/ui/estimation/popup";
+import Detail from "@/components/estimation/estimate-summary/detail";
+import Wrapper from "@/components/estimation/estimate-summary/wrapper";
+import IntroWrapper from "@/components/estimation/intro-wrapper";
+import MainWrapper from "@/components/estimation/main-wrapper";
+import Popup from "@/components/estimation/popup";
 import LinearCover from "@/components/linear-cover";
 import Loader from "@/components/loader";
 import StaggerCover from "@/components/stagger-cover";

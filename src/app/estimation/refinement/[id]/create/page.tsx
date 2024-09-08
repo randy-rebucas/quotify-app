@@ -1,9 +1,9 @@
 import { fetchRefinements } from "@/lib/data";
-import IntroWrapper from "@/app/ui/estimation/intro-wrapper";
-import MainWrapper from "@/app/ui/estimation/main-wrapper";
-import Popup from "@/app/ui/estimation/popup";
-import FormWrapper from "@/app/ui/estimation/refinement/form-wrapper";
-import Intro from "@/app/ui/estimation/refinement/intro";
+import IntroWrapper from "@/components/estimation/intro-wrapper";
+import MainWrapper from "@/components/estimation/main-wrapper";
+import Popup from "@/components/estimation/popup";
+import FormWrapper from "@/components/estimation/refinement/form-wrapper";
+import Intro from "@/components/estimation/refinement/intro";
 import LinearCover from "@/components/linear-cover";
 import Loader from "@/components/loader";
 import StaggerCover from "@/components/stagger-cover";
