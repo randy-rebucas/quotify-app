@@ -1,4 +1,4 @@
-import { fetchMediaLibraryById } from "@/app/lib/data";
+import { fetchMediaLibraryById } from "@/lib/data";
 import Image from "next/image";
 
 export default async function MediaPage({ params }: { params: { id: string } }) {
