@@ -1,12 +1,12 @@
 import { Metadata } from "next";
 
-import { lato } from "../ui/fonts";
-import StaggerCover from "../../components/stagger-cover";
-import Popup from "../ui/estimation/popup";
-import PageWrapper from "../../components/page-wrapper";
-import NavButton from "../ui/estimation/nav-button";
-import Column from "../ui/estimation/column";
 import Title from "@/components/title";
+import NavButton from "@/components/estimation/nav-button";
+import Popup from "@/components/estimation/popup";
+import Column from "@/components/estimation/column";
+import PageWrapper from "@/components/page-wrapper";
+import { lato } from "../ui/fonts";
+import StaggerCover from "@/components/stagger-cover";
 
 export const metadata: Metadata = {
     title: 'Estimation'

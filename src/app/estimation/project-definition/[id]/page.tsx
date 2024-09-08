@@ -1,7 +1,7 @@
 import { fetchAmenities, fetchCustomSpacesByGroup, fetchProject, fetchProjectAmenitiesByProject, fetchProjectCustomSpacesByProject } from "@/lib/data";
-import Popup from "@/app/ui/estimation/popup";
-import Form from "@/app/ui/estimation/project-definition/form";
-import Menu from "@/app/ui/estimation/project-definition/menu";
+import Popup from "@/components/estimation/popup";
+import Form from "@/components/estimation/project-definition/form";
+import Menu from "@/components/estimation/project-definition/menu";
 import Loader from "@/components/loader";
 import PageWrapper from "@/components/page-wrapper";
 import StaggerCover from "@/components/stagger-cover";

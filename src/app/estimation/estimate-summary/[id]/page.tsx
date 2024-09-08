@@ -1,5 +1,5 @@
-import Popup from "@/app/ui/estimation/popup";
-import Column from "@/app/ui/estimation/project-information/column";
+import Popup from "@/components/estimation/popup";
+import Column from "@/components/estimation/project-information/column";
 import Title from "@/components/title";
 import LinearCover from "@/components/linear-cover";
 import StaggerCover from "@/components/stagger-cover";

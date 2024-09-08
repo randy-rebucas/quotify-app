@@ -7,10 +7,9 @@ import { useEffect, useMemo, useState } from "react";
 import { useProjectAmenityStore } from "@/lib/store/projectAmenityStore";
 import { useProjectCustomSpaceStore } from "@/lib/store/projectCustomSpaceStore";
 
-
-import { ProjectAreaDefination } from "@/app/ui/estimation/refinement/form";
-import Cost from "@/app/ui/estimation/estimate-summary/cost";
 import Actions from "./actions";
+import Cost from "../estimation/estimate-summary/cost";
+import { ProjectAreaDefination } from "../estimation/refinement/form";
 
 type Props = {
     requirementGroups: any[];
