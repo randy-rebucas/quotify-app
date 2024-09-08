@@ -6,7 +6,7 @@ import { Metadata } from 'next';
 export const metadata: Metadata = {
     title: 'Amenity Create',
 };
-export default async function Page() {
+export default async function CustomspaceCreatePage() {
 
     const custom_spaces = await fetchCustomSpaces();
     

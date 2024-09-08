@@ -8,7 +8,7 @@ import StaggerCover from "@/components/stagger-cover";
 import { notFound } from "next/navigation";
 
 
-export default async function Page({ params }: { params: { id: string } }) {
+export default async function ProjectDefinitionPage({ params }: { params: { id: string } }) {
     const id = params.id;
 
     if (!id) {

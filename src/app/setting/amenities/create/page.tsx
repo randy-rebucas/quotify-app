@@ -6,7 +6,7 @@ import Form from '@/components/setting/amenities/create-form';
 export const metadata: Metadata = {
     title: 'Amenity Create',
 };
-export default async function Page() {
+export default async function AmenitiesCreatePage() {
 
     const categories = await fetchAmenityCategories();
 

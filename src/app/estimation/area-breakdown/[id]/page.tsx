@@ -7,7 +7,7 @@ import StaggerCover from "@/components/stagger-cover";
 import Title from "@/components/title";
 import { notFound } from "next/navigation";
 
-export default async function Page({ params }: { params: { id: string } }) {
+export default async function AreaBreakdownPage({ params }: { params: { id: string } }) {
     const id = params.id;
 
     if (!id) {

@@ -10,7 +10,7 @@ export const metadata: Metadata = {
     title: 'Amenity Categories',
 };
 
-export default async function Page() {
+export default async function AmenityCategoriesPage() {
     const categories = await fetchAmenityCategories();
     return (
         <div className="w-full">

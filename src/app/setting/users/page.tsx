@@ -1,18 +1,15 @@
 
-import { lusitana } from '@/app/ui/fonts';
 import { CreateUser } from '@/components/setting/users/buttons';
+import { Metadata } from 'next';
+import { fetchUsers } from '@/lib/data';
 import Table from '@/components/setting/users/table';
 import Title from '@/components/setting/title';
-import { PlusIcon } from '@heroicons/react/24/outline';
-import { Metadata } from 'next';
-import Link from 'next/link';
-import { fetchUsers } from '@/lib/data';
 
 export const metadata: Metadata = {
     title: 'Users',
 };
 
-export default async function Page() {
+export default async function UsersPage() {
     const users = await fetchUsers();
 
     return (

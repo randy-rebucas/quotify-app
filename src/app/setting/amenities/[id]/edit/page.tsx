@@ -9,7 +9,7 @@ import Form from '@/components/setting/amenities/edit-form';
 export const metadata: Metadata = {
     title: 'Amenity Edit',
 };
-export default async function Page({ params }: { params: { id: string } }) {
+export default async function AmenitiesEditPage({ params }: { params: { id: string } }) {
     const id = params.id;
 
     const amenity = await fetchAmenityById(id);

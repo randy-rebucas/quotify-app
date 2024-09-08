@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation';
 import { fetchMediaLibraryById } from '@/lib/data';
 
 
-export default async function Page({ params }: { params: { id: string } }) {
+export default async function MediaLibrariesEditPage({ params }: { params: { id: string } }) {
     const id = params.id;
 
     const media = await fetchMediaLibraryById(id);

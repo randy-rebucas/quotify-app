@@ -8,7 +8,7 @@ import Breadcrumbs from '@/components/breadcrumbs';
 export const metadata: Metadata = {
     title: 'Menu Edit',
 };
-export default async function Page({ params }: { params: { id: string } }) {
+export default async function MenusEditPage({ params }: { params: { id: string } }) {
     const id = params.id;
 
     const menu = await fetchMenuById(id);

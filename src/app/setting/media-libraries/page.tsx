@@ -9,7 +9,7 @@ export const metadata: Metadata = {
     title: 'Media Libraries',
 };
 
-export default async function Page() {
+export default async function MediaLibrariesPage() {
     const medias = await fetchMediaLibraries();
 
     return (

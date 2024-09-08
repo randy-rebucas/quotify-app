@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     title: 'Amenities',
 };
 
-export default async function Page() {
+export default async function AmenitiesPage() {
     const amenities = await fetchAmenities();
     return (
         <div className="w-full">

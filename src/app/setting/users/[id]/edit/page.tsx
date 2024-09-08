@@ -7,7 +7,7 @@ import Breadcrumbs from '@/components/breadcrumbs';
 export const metadata: Metadata = {
     title: 'User Edit',
 };
-export default async function Page({ params }: { params: { id: string } }) {
+export default async function UsersEditPage({ params }: { params: { id: string } }) {
     const id = params.id;
 
     const user = await fetchUserById(id);

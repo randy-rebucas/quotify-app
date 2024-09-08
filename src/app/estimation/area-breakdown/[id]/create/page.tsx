@@ -11,7 +11,7 @@ import { notFound } from "next/navigation";
 import { Suspense } from "react";
 
 
-export default async function Page({ params }: { params: { id: string } }) {
+export default async function AreaBreakdownCreatePage({ params }: { params: { id: string } }) {
     const id = params.id;
 
     if (!id) {

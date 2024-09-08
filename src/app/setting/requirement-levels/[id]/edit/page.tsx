@@ -8,7 +8,7 @@ import Form from '@/components/setting/requirement-levels/edit-form';
 export const metadata: Metadata = {
     title: 'Edit',
 };
-export default async function Page({ params }: { params: { id: string } }) {
+export default async function RequirementLevelsEditPage({ params }: { params: { id: string } }) {
     const id = params.id;
 
     const requirement = await fetchRequirementlevelById(id);

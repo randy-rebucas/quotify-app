@@ -1,7 +1,7 @@
 import { fetchMediaLibraryById } from "@/lib/data";
 import Image from "next/image";
 
-export default async function MediaPage({ params }: { params: { id: string } }) {
+export default async function ModalMediaPage({ params }: { params: { id: string } }) {
     const id = params.id;
 
     const media = await fetchMediaLibraryById(id);

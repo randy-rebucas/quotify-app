@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     title: 'Settings'
 };
 
-export default async function Page() {
+export default async function SettingPage() {
     const session = await getSession();
 
     const user = await fetchUserById(session?.userId);

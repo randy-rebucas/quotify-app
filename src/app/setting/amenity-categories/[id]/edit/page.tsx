@@ -9,7 +9,7 @@ import Breadcrumbs from '@/components/breadcrumbs';
 export const metadata: Metadata = {
     title: 'Amenity Edit',
 };
-export default async function Page({ params }: { params: { id: string } }) {
+export default async function AmenityCategoriesEditPage({ params }: { params: { id: string } }) {
     const id = params.id;
 
     const category = await fetchAmenityCategoryById(id);

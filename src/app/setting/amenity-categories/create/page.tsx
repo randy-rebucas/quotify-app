@@ -5,7 +5,7 @@ import { Metadata } from 'next';
 export const metadata: Metadata = {
     title: 'Category Create',
 };
-export default async function Page() {
+export default async function AmenityCategoriesCreatePage() {
 
     return (
         <main>

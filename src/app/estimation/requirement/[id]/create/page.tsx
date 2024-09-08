@@ -10,7 +10,7 @@ import Loader from "@/components/loader";
 import { Suspense } from "react";
 import FormWrapper from "@/app/ui/estimation/requirement/form-wrapper";
 
-export default async function Page({ params }: { params: { id: string } }) {
+export default async function RequirementCreatePage({ params }: { params: { id: string } }) {
     const id = params.id;
 
     if (!id) {

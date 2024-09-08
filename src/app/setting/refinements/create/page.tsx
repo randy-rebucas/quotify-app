@@ -6,7 +6,7 @@ import { Metadata } from 'next';
 export const metadata: Metadata = {
     title: 'Create',
 };
-export default async function Page() {
+export default async function RefinementsCreatePage() {
 
     return (
         <main>

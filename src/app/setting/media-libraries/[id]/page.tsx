@@ -8,7 +8,7 @@ import Breadcrumbs from '@/components/breadcrumbs';
 export const metadata: Metadata = {
     title: 'Media Edit',
 };
-export default async function Page({ params }: { params: { id: string } }) {
+export default async function MediaLibraryPage({ params }: { params: { id: string } }) {
     const id = params.id;
 
     const media = await fetchMediaLibraryById(id);

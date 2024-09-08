@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     title: 'Menus',
 };
 
-export default async function Page() {
+export default async function MenusPage() {
     const menus = await fetchMenus();
 
     return (
