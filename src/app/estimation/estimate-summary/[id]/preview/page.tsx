@@ -1,5 +1,5 @@
 
-import { fetchProject, fetchRefinements, fetchRequirementsByGroup } from "@/app/lib/data";
+import { fetchProject, fetchRefinements, fetchRequirementsByGroup } from "@/lib/data";
 import Detail from "@/app/ui/estimation/estimate-summary/detail";
 import Wrapper from "@/app/ui/estimation/estimate-summary/wrapper";
 import IntroWrapper from "@/app/ui/estimation/intro-wrapper";

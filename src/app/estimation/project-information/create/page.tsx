@@ -3,7 +3,7 @@ import IntroWrapper from "@/app/ui/estimation/intro-wrapper";
 import MainWrapper from "@/app/ui/estimation/main-wrapper";
 import LinearCover from "@/app/ui/linear-cover";
 import StaggerCover from "@/app/ui/stagger-cover";
-import { fetchMenuByPageHandled } from "@/app/lib/data";
+import { fetchMenuByPageHandled } from "@/lib/data";
 import { Suspense } from "react";
 import Intro from "@/app/ui/estimation/project-information/intro";
 import FormWrapper from "@/app/ui/estimation/project-information/form-wrapper";

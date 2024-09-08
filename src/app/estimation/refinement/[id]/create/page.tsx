@@ -1,4 +1,4 @@
-import { fetchRefinements } from "@/app/lib/data";
+import { fetchRefinements } from "@/lib/data";
 import IntroWrapper from "@/app/ui/estimation/intro-wrapper";
 import MainWrapper from "@/app/ui/estimation/main-wrapper";
 import Popup from "@/app/ui/estimation/popup";
