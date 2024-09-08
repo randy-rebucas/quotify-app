@@ -10,7 +10,7 @@ import Loader from "@/components/loader";
 import StaggerCover from "@/components/stagger-cover";
 import { notFound } from "next/navigation";
 
-export default async function Page({ params }: { params: { id: string } }) {
+export default async function ProjectSummaryPreviewPage({ params }: { params: { id: string } }) {
     const id = params.id;
 
     if (!id) {

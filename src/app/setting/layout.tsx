@@ -3,8 +3,6 @@ import { getSession } from "@/actions/session";
 import { fetchUserById } from "@/lib/data";
 import SideNav from "@/components/setting/sidenav";
 
-
-
 export default async function Layout({ children }: { children: React.ReactNode }) {
     
     const session = await getSession();

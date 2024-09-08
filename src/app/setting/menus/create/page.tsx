@@ -5,7 +5,7 @@ import { Metadata } from 'next';
 export const metadata: Metadata = {
     title: 'Menu Create',
 };
-export default async function Page() {
+export default async function MenusCreatePage() {
 
     return (
         <main>

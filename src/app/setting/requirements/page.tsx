@@ -10,7 +10,7 @@ export const metadata: Metadata = {
     title: 'Requirements',
 };
 
-export default async function Page() {
+export default async function RequirementsPage() {
     const requirements = await fetchRequirements();
 
     return (

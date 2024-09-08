@@ -9,7 +9,7 @@ import Intro from "@/app/ui/estimation/project-information/intro";
 import FormWrapper from "@/app/ui/estimation/project-information/form-wrapper";
 import Loader from "@/components/loader";
 
-export default async function Page() {
+export default async function ProjectInformationCreatePage() {
     const menus = await fetchMenuByPageHandled('project-information');
 
     const introductionColors: string[] = ['bg-darkblue1', 'bg-darkblue2', 'bg-darkblue3', 'bg-darkblue4', 'bg-darkblue5'];

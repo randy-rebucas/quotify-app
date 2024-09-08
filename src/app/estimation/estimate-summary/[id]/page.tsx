@@ -6,7 +6,7 @@ import StaggerCover from "@/components/stagger-cover";
 import { notFound } from "next/navigation";
 
 
-export default function Page({ params }: { params: { id: string } }) {
+export default function EstimatSummaryPage({ params }: { params: { id: string } }) {
     
     const id = params.id;
 

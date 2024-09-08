@@ -8,7 +8,7 @@ export const metadata: Metadata = {
     title: 'Signup',
 };
 
-export default function LoginPage() {
+export default function SignupPage() {
     const colors: string[] = ['bg-gray1', 'bg-gray2', 'bg-gray3', 'bg-gray4', 'bg-gray5'];
 
     return (

@@ -1,16 +1,14 @@
-import { lusitana } from '@/app/ui/fonts';
 import { CreateCustomSpace } from '@/components/setting/custom-space/buttons';
 import Table from '@/components/setting/custom-space/table';
 import Title from '@/components/setting/title';
 import { fetchCustomSpaces } from '@/lib/data';
 import { Metadata } from 'next';
-import Link from 'next/link';
 
 export const metadata: Metadata = {
     title: 'Custom Spaces',
 };
 
-export default async function Page() {
+export default async function CustomspacePage() {
     const customSpaces = await fetchCustomSpaces();
 
     return (

@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     title: 'Requirement Levels',
 };
 
-export default async function Page({
+export default async function RefinementLevelsPage({
     searchParams,
 }: {
     searchParams?: {

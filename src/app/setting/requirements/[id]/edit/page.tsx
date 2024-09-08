@@ -8,7 +8,7 @@ import Form from '@/components/setting/requirements/edit-form';
 export const metadata: Metadata = {
     title: 'Edit',
 };
-export default async function Page({ params }: { params: { id: string } }) {
+export default async function RequirementsEditPage({ params }: { params: { id: string } }) {
     const id = params.id;
 
     const requirement = await fetchRequirementById(id);

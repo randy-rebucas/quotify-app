@@ -8,7 +8,7 @@ import Form from '@/components/setting/refinements/edit-form';
 export const metadata: Metadata = {
     title: 'Edit',
 };
-export default async function Page({ params }: { params: { id: string } }) {
+export default async function RefinementsEditPage({ params }: { params: { id: string } }) {
     const id = params.id;
 
     const refinement = await fetchRefinementById(id);

@@ -9,7 +9,7 @@ export const metadata: Metadata = {
     title: 'Offices',
 };
 
-export default async function Page() {
+export default async function OfficesPage() {
     const offices = await fetchOffices();
 
     return (

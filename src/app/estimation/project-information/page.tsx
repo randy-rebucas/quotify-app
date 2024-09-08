@@ -10,7 +10,7 @@ export const metadata: Metadata = {
     title: 'Project Information'
 };
 
-export default function Page() {
+export default function ProjectinformationPage() {
 
     const introductionColors: string[] = ['bg-gray1', 'bg-gray2', 'bg-gray3', 'bg-gray4', 'bg-gray5'];
 

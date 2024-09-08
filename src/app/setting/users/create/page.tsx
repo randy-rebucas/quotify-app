@@ -6,7 +6,7 @@ import { Metadata } from 'next';
 export const metadata: Metadata = {
     title: 'User Create',
 };
-export default async function Page() {
+export default async function UsersCreatePage() {
     
     const offices = await fetchOffices();
 

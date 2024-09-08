@@ -8,7 +8,7 @@ export const metadata: Metadata = {
     title: 'Projects',
 };
 
-export default async function Page() {
+export default async function ProjectsPage() {
     const projects = await fetchProjects();
 
     return (

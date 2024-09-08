@@ -8,7 +8,7 @@ import Breadcrumbs from '@/components/breadcrumbs';
 export const metadata: Metadata = {
     title: 'Custom Space Edit',
 };
-export default async function Page({ params }: { params: { id: string } }) {
+export default async function CustomspaceEditPage({ params }: { params: { id: string } }) {
     const id = params.id;
 
     const custom_space = await fetchCustomSpaceById(id);

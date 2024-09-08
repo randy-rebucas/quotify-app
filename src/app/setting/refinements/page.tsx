@@ -10,7 +10,7 @@ export const metadata: Metadata = {
     title: 'Refinements',
 };
 
-export default async function Page() {
+export default async function RefinementsPage() {
     const refinements = await fetchRefinements();
     return (
         <div className="w-full">
