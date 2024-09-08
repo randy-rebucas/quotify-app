@@ -1,9 +1,9 @@
 import Popup from "@/app/ui/estimation/popup";
 import Column from "@/app/ui/estimation/project-information/column";
 import Title from "@/components/title";
-import LinearCover from "@/app/ui/linear-cover";
-import PageWrapper from "@/app/ui/page-wrapper";
-import StaggerCover from "@/app/ui/stagger-cover";
+import LinearCover from "@/components/linear-cover";
+import PageWrapper from "@/components/page-wrapper";
+import StaggerCover from "@/components/stagger-cover";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {

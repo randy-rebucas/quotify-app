@@ -3,7 +3,7 @@ import '@/app/global.css';
 import { Metadata } from 'next';
 
 import { Lato } from 'next/font/google'
-import SessionProvider from './ui/session-provider';
+import SessionProvider from '../components/session-provider';
 import { getSession } from '@/actions/session';
 
 const lato = Lato({

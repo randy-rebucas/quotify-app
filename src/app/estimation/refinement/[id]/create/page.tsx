@@ -4,9 +4,9 @@ import MainWrapper from "@/app/ui/estimation/main-wrapper";
 import Popup from "@/app/ui/estimation/popup";
 import FormWrapper from "@/app/ui/estimation/refinement/form-wrapper";
 import Intro from "@/app/ui/estimation/refinement/intro";
-import LinearCover from "@/app/ui/linear-cover";
-import Loader from "@/app/ui/loader";
-import StaggerCover from "@/app/ui/stagger-cover";
+import LinearCover from "@/components/linear-cover";
+import Loader from "@/components/loader";
+import StaggerCover from "@/components/stagger-cover";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 

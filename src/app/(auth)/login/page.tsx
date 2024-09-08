@@ -1,9 +1,9 @@
 
 import { Metadata } from 'next';
-import StaggerCover from '@/app/ui/stagger-cover';
-import QuotifyLogo from '@/app/ui/quotify-logo';
-import PageWrapper from '@/app/ui/login/page-wrapper';
-import Form from '@/app/ui/login/form';
+import StaggerCover from '@/components/stagger-cover';
+import QuotifyLogo from '@/components/quotify-logo';
+import PageWrapper from '@/components/login/page-wrapper';
+import Form from '@/components/login/form';
 
 export const metadata: Metadata = {
     title: 'Signin',

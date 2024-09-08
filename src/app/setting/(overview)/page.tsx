@@ -1,7 +1,7 @@
 
 import { Metadata } from "next";
 import { Suspense } from "react";
-import { CardsSkeleton, ProfileSkeleton } from "@/app/ui/skeletons";
+import { CardsSkeleton, ProfileSkeleton } from "@/components/skeletons";
 
 import { fetchUserById } from "@/lib/data";
 import { getSession } from "@/actions/session";

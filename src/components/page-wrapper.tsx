@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { ReactNode } from "react";
-import Close from "./estimation/close";
+import Close from "../app/ui/estimation/close";
 import { useAppStore } from "@/lib/store/appStore";
 
 
