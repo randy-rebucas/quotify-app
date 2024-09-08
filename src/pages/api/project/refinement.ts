@@ -6,7 +6,8 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import Project from "@/models/Project";
 import EstimateAmenityRefinementLevel from "@/models/EstimateAmenityRefinementLevel";
 import EstimateCustomSpaceRefinementLevel from "@/models/EstimateCustomSpaceRefinementLevel";
-import { StimateData } from "@/app/ui/estimation/refinement/entities";
+import { StimateData } from "@/components/estimation/refinement/entities";
+
 
 export default async function handler(
   req: NextApiRequest,

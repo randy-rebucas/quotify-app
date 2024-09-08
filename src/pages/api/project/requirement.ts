@@ -1,7 +1,7 @@
+import { StimateData } from "@/components/estimation/requirement/entities";
 import Estimate from "@/models/Estimate";
 import EstimateRequirement from "@/models/EstimateRequirement";
 import Project from "@/models/Project";
-import { StimateData } from "@/app/ui/estimation/requirement/entities";
 
 
 import connect from "@/utils/db";
