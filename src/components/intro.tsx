@@ -1,6 +1,6 @@
 'use client';
 
-import { lato } from '@/app/ui/fonts';
+import { lato } from '@/app/fonts';
 
 export default function Intro() {
     return (

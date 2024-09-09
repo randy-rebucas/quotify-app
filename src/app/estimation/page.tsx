@@ -5,8 +5,9 @@ import NavButton from "@/components/estimation/nav-button";
 import Popup from "@/components/estimation/popup";
 import Column from "@/components/estimation/column";
 import PageWrapper from "@/components/page-wrapper";
-import { lato } from "../ui/fonts";
+
 import StaggerCover from "@/components/stagger-cover";
+import { lato } from "../fonts";
 
 export const metadata: Metadata = {
     title: 'Estimation'
