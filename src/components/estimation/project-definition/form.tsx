@@ -10,7 +10,7 @@ import { usePathname, useRouter } from "next/navigation";
 import Image from "next/image";
 import Tooltip from "@/components/tooltip";
 import { useAppStore } from "@/lib/store/appStore";
-import { common } from "@/app/ui/mock";
+import { common } from "@/lib/mock";
 
 export default function Form({ project, amenities, customeSpaces, selectedAmenities, selectedCustomSpaces }: {
     project: any;

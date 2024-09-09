@@ -5,7 +5,7 @@ import { CardsSkeleton, ProfileSkeleton } from "@/components/skeletons";
 
 import { fetchUserById } from "@/lib/data";
 import { getSession } from "@/actions/session";
-import { lusitana } from "@/app/ui/fonts";
+import { lusitana } from "@/app/fonts";
 import CardWrapper from "@/components/setting/cards";
 import Profile from "@/components/setting/profile";
 
