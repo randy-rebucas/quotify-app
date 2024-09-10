@@ -8,6 +8,7 @@ import StaggerCover from '../components/stagger-cover';
 import { ColumnValue } from '../components/columns';
 import Columns from '../components/columns';
 import PageWrapper from '../components/page-wrapper';
+import { columnData } from '@/lib/mock';
 
 export const metadata: Metadata = {
   title: 'Welcome'
@@ -17,20 +18,7 @@ export default async function Page() {
 
   const colors: string[] = ['bg-gray1', 'bg-gray2A', 'bg-gray3A', 'bg-gray4A', 'bg-gray5A'];
 
-  const columns: ColumnValue[] = [
-    {
-      column:
-        "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.",
-    },
-    {
-      column:
-        "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.",
-    },
-    {
-      column:
-        "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.",
-    },
-  ];
+  const columns: ColumnValue[] = columnData;
 
   return (
     <div className="wrapper lg:bg-transparent bg-black">

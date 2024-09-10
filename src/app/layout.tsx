@@ -1,4 +1,5 @@
 import '@/app/global.css';
+import "../../public/css/main.css";
 
 import { Metadata } from 'next';
 

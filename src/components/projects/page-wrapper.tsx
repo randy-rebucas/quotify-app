@@ -3,13 +3,12 @@
 import Image from "next/image";
 import Link from "next/link";
 import clsx from "clsx";
-// import { PowerIcon } from "@heroicons/react/24/outline";
 import { motion } from "framer-motion";
 import { ReactNode } from "react";
 
 import { useProjectStore } from "@/lib/store/projectStore";
-// import { logout } from "@/app/actions/auth";
 import More from "./more";
+import Logout from "./logout";
 
 type Props = {
     children: ReactNode
@@ -42,7 +41,7 @@ export default function PageWrapper({ children }: Props) {
                         'row-span-2 row-end-3': !isEmpty,
                     }
                 )}>
-                    {/* <div className="flex items-center justify-between"> */}
+                    <div className="flex items-center justify-between">
                         <Link href="/setting" className="flex wrapper__settings">
                             <Image src="/images/icon-settings.svg"
                                 width={50}
@@ -52,20 +51,13 @@ export default function PageWrapper({ children }: Props) {
 
                             <span className="font-latoblack">settings</span>
                         </Link>
-                        {/* <form action={async () => {
-                            'use server';
-                            await logout();
-                        }}>
-                            <button className="hover:text-red-500 md:p-2 text-red text-sm w-full">
-                                <PowerIcon className="w-[43px]" />
-                            </button>
-                        </form> */}
-                    {/* </div> */}
+                        <Logout />
+                    </div>
                     <Link href="/estimation">
                         <Image
                             src="/images/icon-create.svg"
-                            width={50}
-                            height={50}
+                            width={68}
+                            height={68}
                             alt="create-new"
                         />
                     </Link>
