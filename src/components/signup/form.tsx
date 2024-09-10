@@ -6,6 +6,7 @@ import { useFormState, useFormStatus } from 'react-dom'
 
 import Image from "next/image";
 import { signup } from "@/actions/auth";
+import { RotatingLines } from "react-loader-spinner";
 
 export default function Form() {
     const [state, dispatch] = useFormState(signup, undefined);
@@ -61,15 +62,24 @@ export function SignupButton() {
     const { pending } = useFormStatus()
 
     return (
-        <button className="focus:shadow-outline focus:outline-none" type="submit" aria-disabled={pending}>
-            <Image
-                src="/images/icon-submit.png"
-                width={0}
-                height={0}
-                sizes="100vw"
-                className="w-full h-auto"
-                alt="submit"
-            />
-        </button>
+        <>
+            {pending && <RotatingLines
+                visible={true}
+                width="65"
+                strokeWidth="5"
+                animationDuration="0.75"
+                ariaLabel="rotating-lines-loading"
+            />}
+            {!pending && <button className="focus:shadow-outline focus:outline-none" type="submit" aria-disabled={pending}>
+                <Image
+                    src="/images/icon-submit.png"
+                    width={0}
+                    height={0}
+                    sizes="100vw"
+                    className="w-full h-auto"
+                    alt="submit"
+                />
+            </button>}
+        </>
     )
 } 

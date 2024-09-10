@@ -5,12 +5,31 @@ import Link from "next/link";
 import { useFormState, useFormStatus } from 'react-dom';
 import ExclamationCircleIcon from "@heroicons/react/24/outline/ExclamationCircleIcon";
 import { login } from "@/actions/auth";
+import { RotatingLines } from "react-loader-spinner";
 
 export default function Form() {
     const [state, dispatch] = useFormState(login, undefined);
 
     return (
         <form action={dispatch} className="w-full">
+            <div
+                className="flex flex-col gap-3"
+                aria-live="polite"
+                aria-atomic="true"
+            >
+                <div className="flex gap-2">
+                    <div>
+                        <ExclamationCircleIcon className="h-5 w-5 text-red-500" />
+                    </div>
+                    {state?.errors?.email && <p className="text-sm text-red-500">{state.errors.email}</p>}
+                </div>
+                <div className="flex gap-2">
+                    <div>
+                        <ExclamationCircleIcon className="h-5 w-5 text-red-500" />
+                    </div>
+                    {state?.errors?.password && <p className="text-sm text-red-500">{state.errors.password}</p>}
+                </div>
+            </div>
             <div className="md:w-full pb-4">
                 <input
                     className="bg-transparent font-latothin leading-tight placeholder-white appearance-none border-t-0 border-l-0 border-r-0 border-b w-full text-white focus:outline-none"
@@ -29,14 +48,7 @@ export default function Form() {
             <div className="w-full flex justify-end md:items-end">
                 <LoginpButton />
             </div>
-            <div
-                className="flex h-8 items-end space-x-1"
-                aria-live="polite"
-                aria-atomic="true"
-            >
-                {state?.errors?.email && <><ExclamationCircleIcon className="h-5 w-5 text-red-500" /><p className="text-sm text-red-500">{state.errors.email}</p></>}
-                {state?.errors?.password && <><ExclamationCircleIcon className="h-5 w-5 text-red-500" /><p className="text-sm text-red-500">{state.errors.password}</p></>}
-            </div>
+
         </form>
     )
 }
@@ -45,15 +57,24 @@ export function LoginpButton() {
     const { pending } = useFormStatus()
 
     return (
-        <button className="focus:shadow-outline focus:outline-none" type="submit" aria-disabled={pending}>
-            <Image
-                src="/images/icon-submit.png"
-                width={0}
-                height={0}
-                sizes="100vw"
-                className="w-full h-auto"
-                alt="submit"
-            />
-        </button>
+        <>
+            {pending && <RotatingLines
+                visible={true}
+                width="65"
+                strokeWidth="5"
+                animationDuration="0.75"
+                ariaLabel="rotating-lines-loading"
+            />}
+            {!pending && <button className="focus:shadow-outline focus:outline-none" type="submit" aria-disabled={pending}>
+                <Image
+                    src="/images/icon-submit.png"
+                    width={0}
+                    height={0}
+                    sizes="100vw"
+                    className="w-full h-auto"
+                    alt="submit"
+                />
+            </button>}
+        </>
     )
 } 
