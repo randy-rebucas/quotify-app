@@ -9,27 +9,26 @@ import { RotatingLines } from "react-loader-spinner";
 
 export default function Form() {
     const [state, dispatch] = useFormState(login, undefined);
-
+    console.log(state)
     return (
         <form action={dispatch} className="w-full">
-            <div
+            {state?.errors && <div
                 className="flex flex-col gap-3"
                 aria-live="polite"
-                aria-atomic="true"
-            >
-                <div className="flex gap-2">
+                aria-atomic="true" >
+                {state?.errors?.email && <div className="flex gap-2">
                     <div>
                         <ExclamationCircleIcon className="h-5 w-5 text-red-500" />
                     </div>
-                    {state?.errors?.email && <p className="text-sm text-red-500">{state.errors.email}</p>}
-                </div>
-                <div className="flex gap-2">
+                    <p className="text-sm text-red-500">{state.errors.email}</p>
+                </div>}
+                {state?.errors?.password && <div className="flex gap-2">
                     <div>
                         <ExclamationCircleIcon className="h-5 w-5 text-red-500" />
                     </div>
-                    {state?.errors?.password && <p className="text-sm text-red-500">{state.errors.password}</p>}
-                </div>
-            </div>
+                    <p className="text-sm text-red-500">{state.errors.password}</p>
+                </div>}
+            </div>}
             <div className="md:w-full pb-4">
                 <input
                     className="bg-transparent font-latothin leading-tight placeholder-white appearance-none border-t-0 border-l-0 border-r-0 border-b w-full text-white focus:outline-none"
