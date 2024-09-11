@@ -6,6 +6,7 @@ import path from "path";
 import FloorPlan from "@/models/FloorPlan";
 import formidable, { File } from "formidable";
 import fs from "fs";
+import https from "https";
 import { decrypt } from "@/actions/session";
 
 export const config = {
@@ -29,7 +30,6 @@ export default async function handler(
     case "POST":
       const files: FileProps[] = [];
       const fields: { fieldName: string; value: string }[] = [];
-
       const form = formidable({
         uploadDir: __dirname,
         multiples: true,
@@ -37,14 +37,42 @@ export default async function handler(
       });
       form.once("error", console.error);
       form
-        .on("fileBegin", (name, file) => {})
+        .on("fileBegin", (name, file) => {
+          console.log("start uploading: ", file.originalFilename);
+
+          const readStream = fs.createReadStream(file.filepath);
+
+          const options = {
+            method: "PUT",
+            host: process.env.HOST_NAME,
+            path: `/${file.originalFilename}`,
+            headers: {
+              AccessKey: process.env.ACCESS_KEY,
+              "Content-Type": "application/octet-stream",
+            },
+          };
+
+          const req = https.request(options, (res) => {
+            res.on("data", (chunk) => {
+              console.log(chunk.toString("utf8"));
+            });
+          });
+
+          req.on("error", (error) => {
+            console.error(error);
+          });
+
+          readStream.pipe(req);
+        })
         .on("field", (fieldName, value) => {
           fields.push({ fieldName, value });
         })
         .on("file", async (fieldName, file) => {
           files.push({ fieldName, file });
         })
-        .on("end", async () => {});
+        .on("end", async () => {
+          console.log("-> upload done");
+        });
 
       await form.parse(req);
 
