@@ -48,9 +48,18 @@ export async function updateUser(
   redirect("/setting/users");
 }
 
-const CreateUser = UserFormSchema.omit({ id: true });
+const CreateUser = UserFormSchema.omit({ id: true }).refine(
+  (data) => data.password === data.confirm_password,
+  {
+    message: "Passwords don't match",
+    path: ["confirm_password"],
+  }
+);
 
-export async function createUser(prevState: SignupFormState, formData: FormData) {
+export async function createUser(
+  prevState: SignupFormState,
+  formData: FormData
+) {
   // Validate form using Zod
   const validatedFields = CreateUser.safeParse({
     email: formData.get("email"),

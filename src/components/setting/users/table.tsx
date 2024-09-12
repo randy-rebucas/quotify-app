@@ -1,7 +1,11 @@
 import { IUser } from "@/models/User";
 import { DeleteUser, UpdateUser } from "./buttons";
+import { getSession } from "@/actions/session";
+import Link from "next/link";
+import { UserCircleIcon } from "@heroicons/react/24/outline";
 
-export default function Table({ users }: { users: IUser[] }) {
+export default async function Table({ users }: { users: IUser[] }) {
+    const session = await getSession();
 
     return (
         <div className="flex flex-col">
@@ -24,8 +28,17 @@ export default function Table({ users }: { users: IUser[] }) {
                                         <td className="whitespace-nowrap px-3 py-1">{user.office.location}</td>
                                         <td className="whitespace-nowrap py-1 pl-6 pr-3">
                                             <div className="flex justify-end gap-3">
-                                                <UpdateUser id={user._id.toString()} />
-                                                <DeleteUser id={user._id.toString()} />
+                                                {session?.userId !== user._id.toString() && <>
+                                                    <UpdateUser id={user._id.toString()} />
+                                                    <DeleteUser id={user._id.toString()} />
+                                                </>
+                                                }
+                                                {session?.userId === user._id.toString() && <Link
+                                                    href='#'
+                                                    className="rounded-md border p-2 hover:bg-gray-100"
+                                                >
+                                                    <UserCircleIcon className="w-5" />
+                                                </Link>}
                                             </div>
                                         </td>
                                     </tr>

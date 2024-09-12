@@ -2,15 +2,17 @@
 
 import Link from 'next/link';
 import { Button } from '@/components/button';
-import { useFormState } from 'react-dom';
+import { useFormState, useFormStatus } from 'react-dom';
 import { createUser } from '@/actions/user';
+import { ExclamationCircleIcon } from '@heroicons/react/24/outline';
 
 
 
 export default function Form({ offices }: { offices: any[] }) {
 
   const [state, dispatch] = useFormState(createUser, undefined);
-
+  const { pending } = useFormStatus()
+  console.log(state?.errors)
   return (
     <form action={dispatch}>
       <div className="rounded-md bg-gray-50 p-4 md:p-6">
@@ -28,7 +30,12 @@ export default function Form({ offices }: { offices: any[] }) {
                 placeholder="Enter email"
                 className="peer block w-full rounded-md border border-gray-200 py-2 pl-3 text-sm outline-2 placeholder:text-gray-500"
               />
-
+              {state?.errors?.email && <div className="flex gap-2">
+                <div>
+                  <ExclamationCircleIcon className="h-5 w-5 text-red-500" />
+                </div>
+                <p className="text-sm text-red-500">{state.errors.email}</p>
+              </div>}
             </div>
           </div>
         </div>
@@ -44,8 +51,8 @@ export default function Form({ offices }: { offices: any[] }) {
             <div>
               <p className='text-sm'>Password must:</p>
               <ul>
-                {state.errors.password.map((error) => (
-                  <li key={error} className='text-red/50 text-sm'>- {error}</li>
+                {state.errors.password.map((error: any) => (
+                  <li key={error} className='flex gap-2 text-red/50 text-sm'><ExclamationCircleIcon className="h-5 w-5 text-red-500" /> {error}</li>
                 ))}
               </ul>
             </div>
@@ -58,6 +65,12 @@ export default function Form({ offices }: { offices: any[] }) {
           <input
             className="peer block w-full rounded-md border border-gray-200 py-2 pl-3 text-sm outline-2 placeholder:text-gray-500"
             id="inline-confirm-password" type="password" name="confirm_password" placeholder="confirm password" />
+          {state?.errors?.confirm_password && <div className="flex gap-2">
+            <div>
+              <ExclamationCircleIcon className="h-5 w-5 text-red-500" />
+            </div>
+            <p className="text-sm text-red-500">{state.errors.confirm_password}</p>
+          </div>}
         </div>
 
         <div className="mb-4">
@@ -80,6 +93,12 @@ export default function Form({ offices }: { offices: any[] }) {
                 </option>
               ))}
             </select>
+            {state?.errors?.officeId && <div className="flex gap-2">
+              <div>
+                <ExclamationCircleIcon className="h-5 w-5 text-red-500" />
+              </div>
+              <p className="text-sm text-red-500">{state.errors.officeId}</p>
+            </div>}
           </div>
         </div>
       </div>
@@ -90,7 +109,7 @@ export default function Form({ offices }: { offices: any[] }) {
         >
           Cancel
         </Link>
-        <Button type="submit">Create User</Button>
+        <Button type="submit" disabled={pending}>{pending ? 'Submiting' : 'Create User'}</Button>
       </div>
     </form>
   );
