@@ -20,7 +20,6 @@ export default function FormWrapper({
             <AreaDefination amenities={amenities} customSpaces={customSpaces} key={uuid()} />,
             <ProportionBreakdown amenities={amenities} customSpaces={customSpaces} key={uuid()} />
         ])
-
     return (
         <Form currentStepIndex={currentStepIndex} isFirstStep={isFirstStep} isLastStep={isLastStep} back={back} next={next} amenities={amenities} projectId={projectId} menus={menus}>
             {step}

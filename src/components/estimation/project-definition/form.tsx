@@ -11,7 +11,11 @@ import Image from "next/image";
 import Tooltip from "@/components/tooltip";
 import { useAppStore } from "@/lib/store/appStore";
 import { common } from "@/lib/mock";
-
+import {
+    EmailShareButton,
+    EmailIcon,
+} from 'next-share'
+import Link from "next/link";
 export default function Form({ project, amenities, customeSpaces, selectedAmenities, selectedCustomSpaces }: {
     project: any;
     amenities: any;
@@ -49,8 +53,8 @@ export default function Form({ project, amenities, customeSpaces, selectedAmenit
         let projectResponse = await response.json();
 
         if (response.status === 200) {
-            setIsLoading(false)
             router.push(`/estimation/requirement/${projectResponse.id}`);
+            setIsLoading(false) // Set loading to false when the request completes
         }
     }
 
@@ -120,15 +124,7 @@ export default function Form({ project, amenities, customeSpaces, selectedAmenit
                                             style={{ border: 0 }} allowFullScreen={true} aria-hidden="false"
                                             tabIndex={0}>
                                         </iframe>
-                                        {/* <Image
-                                            src={`https://maps.googleapis.com/maps/api/staticmap?center=Berkeley,CA&zoom=14&size=400x400&key=${process.env.NEXT_PUBLIC_MAPS_API_KEY}`}
-                                            width={0}
-                                            height={0}
-                                            sizes="100vw"
-                                            className="w-full h-auto"
-                                            alt="close"
-                                        /> */}
-                                        {/* https://maps.googleapis.com/maps/api/staticmap?center=Berkeley,CA&zoom=14&size=400x400&key=YOUR_API_KEY&signature=YOUR_SIGNATURE */}
+
                                         <div className="mt-[15px] max-w-[150px] text-black font-latolight">
                                             {/* <strong className="font-latobold">Mmoser - Vancouver office</strong> */}
                                             <strong className="font-latobold">Address</strong>
@@ -197,16 +193,9 @@ export default function Form({ project, amenities, customeSpaces, selectedAmenit
 }
 
 export function Actions() {
-    const isLoading = useAppStore(state => state.isLoading);
-    const setIsLoading = useAppStore(state => state.setIsLoading);
-
-    const pathname = usePathname();
-
     const onClickDownload = () => {
         window.print();
     }
-
-    const share = () => { }
 
     return (
         <div className="pt-[180px]">
@@ -217,12 +206,12 @@ export function Actions() {
                 </svg>
                 <div className="text-blue ml-3 text-opacity-50 hover:text-opacity-100">download</div>
             </button>
-            <button type="button" onClick={share} className="text-[24px] font-latobold flex items-center">
+            <Link href={`/share/0/0`} className="text-[24px] font-latobold flex items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
                     <path d="M6.22222 0V1.77778H1.77778V14.2222H14.2222V9.77778H16V15.1111C16 15.3469 15.9064 15.573 15.7397 15.7397C15.573 15.9064 15.3469 16 15.1111 16H0.888889C0.653141 16 0.427048 15.9064 0.260349 15.7397C0.0936505 15.573 0 15.3469 0 15.1111V0.888889C0 0.653141 0.0936505 0.427048 0.260349 0.260349C0.427048 0.0936505 0.653141 0 0.888889 0H6.22222ZM12.9653 1.77778H8.88889V0H16V7.11111H14.2222V3.03467L8 9.25689L6.74311 8L12.9653 1.77778Z" fill="#809BA9" />
                 </svg>
                 <div className="text-blue ml-3 text-opacity-50 hover:text-opacity-100">share</div>
-            </button>
+            </Link>
         </div>
     )
 }

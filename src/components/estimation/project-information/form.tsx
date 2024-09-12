@@ -6,7 +6,13 @@ import { FormEvent, ReactNode, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useProjectInformationStore } from "@/lib/store/projectInformationStore";
 import { useAppStore } from "@/lib/store/appStore";
+import toast from "react-hot-toast";
 
+let stepMap = new Map<number, string>();
+stepMap.set(0, "Plan");
+stepMap.set(1, "Address");
+stepMap.set(2, "Area");
+stepMap.set(3, "Head Count");
 
 export default function Form({
     currentStepIndex, isFirstStep, isLastStep, back, next, menus, children
@@ -27,7 +33,10 @@ export default function Form({
 
     async function onSubmit(event: FormEvent<HTMLFormElement>) {
         event.preventDefault();
-        if (!isLastStep) return next();
+        if (!isLastStep) {
+            toast.success(`${stepMap.get(currentStepIndex)} saved!`); // Displays a success message
+            return next();
+        }
 
         setIsLoading(true);
         setError(null); // Clear previous errors when a new request starts
@@ -62,12 +71,12 @@ export default function Form({
 
             if (response.status === 200) {
                 router.push(`/estimation/area-breakdown/${projectResponse.id}`)
+                setIsLoading(false) // Set loading to false when the request completes
             }
         } catch (error: any) {
             setError(error.message)
         } finally {
             reset();
-            setIsLoading(false) // Set loading to false when the request completes
         }
     }
 

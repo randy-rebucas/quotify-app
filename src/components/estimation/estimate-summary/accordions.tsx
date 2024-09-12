@@ -20,6 +20,13 @@ type AccordionProps = {
     onClick: MouseEventHandler<HTMLButtonElement>
 };
 
+const convertToTitleCase = (str: string) => {
+    if (!str) {
+        return ""
+    }
+    return str.toLowerCase().replace(/\b\w/g, s => s.toUpperCase());
+}
+
 export default function Accordions(
     { estimate, requirements, refinements, projectId }:
         { estimate: any, requirements: any[], refinements: any[], projectId: string }
@@ -27,7 +34,7 @@ export default function Accordions(
 
     return (
         <>
-            <h3 className="text-[18px] mb-[10px] mt-[20px]">{estimate.section}</h3>
+            <h3 className="text-[18px] mb-[10px] mt-[20px]">{convertToTitleCase(estimate.section)}</h3>
             <div id="accordion-flush-1" data-accordion="collapse" data-active-classes="textl-left dark:bg-gray-900 text-gray-900 dark:text-white" data-inactive-classes="text-gray-500 dark:text-gray-400">
                 <AccordionContainer estimate={estimate} requirementGroups={requirements} refinements={refinements} projectId={projectId} />
             </div>
@@ -88,7 +95,7 @@ export function Accordion({ projectId, estimateId, estimateType, title, isOpen, 
             <h2 id={`accordion-flush-heading-1-${index}`} className="text-[12px]">
                 <button type="button" onClick={onClick} className="flex items-center justify-between w-full rtl:text-right border-b border-[#505050] gap-3"
                     data-accordion-target={`#accordion-flush-body-${index}`} aria-expanded={isOpen ? true : false} aria-controls="accordion-flush-body-1-1">
-                    <span>{title}</span>
+                    <span>{convertToTitleCase(title)}</span>
                     <svg data-accordion-icon className={clsx(
                         'w-3 h-3 shrink-0',
                         {

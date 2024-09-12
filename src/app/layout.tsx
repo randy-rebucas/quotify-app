@@ -6,6 +6,7 @@ import { Metadata } from 'next';
 import { Lato } from 'next/font/google'
 import SessionProvider from '../components/session-provider';
 import { getSession } from '@/actions/session';
+import { Toaster } from 'react-hot-toast';
 
 const lato = Lato({
   weight: ["100", "300", "400", "700", "900"],
@@ -33,6 +34,7 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={`${lato.className} antialiased`}>
+        <Toaster position="top-center" />
         <SessionProvider session={session}>
           {children}
           {modal}

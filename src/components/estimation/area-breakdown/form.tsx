@@ -5,12 +5,18 @@ import { FormEvent, ReactNode, useEffect, useState } from "react";
 import Wrapper from "./wrapper";
 import { useAreaBreakdownStore } from "@/lib/store/areaBreakdownStore";
 import { useAppStore } from "@/lib/store/appStore";
+import toast from "react-hot-toast";
+
+let stepMap = new Map<number, string>();
+stepMap.set(0, "Area Defination");
+stepMap.set(1, "Proportion Breakdown");
 
 export default function Form({
     currentStepIndex, isFirstStep, isLastStep, back, next, amenities, projectId, menus, children
 }: {
     currentStepIndex: number, isFirstStep: boolean, isLastStep: boolean, back: () => void, next: () => void, amenities: any[], projectId: string, menus: any[], children: ReactNode
 }) {
+
     const router = useRouter();
     const areaBreakdown = useAreaBreakdownStore(state => state.areaBreakdown);
     const reset = useAreaBreakdownStore(state => state.reset);
@@ -43,7 +49,10 @@ export default function Form({
 
     async function onSubmit(event: FormEvent<HTMLFormElement>) {
         event.preventDefault();
-        if (!isLastStep) return next();
+        if (!isLastStep) {
+            toast.success(`${stepMap.get(currentStepIndex)} saved!`); // Displays a success message
+            return next();
+        }
 
         setIsLoading(true);
         setError(null); // Clear previous errors when a new request starts
@@ -62,13 +71,13 @@ export default function Form({
             let projectResponse = await response.json();
 
             if (response.status === 200) {
-                router.push(`/estimation/project-definition/${projectResponse.id}`)
+                router.push(`/estimation/project-definition/${projectResponse.id}`);
+                setIsLoading(false) // Set loading to false when the request completes
             }
         } catch (error: any) {
             setError(error.message)
         } finally {
             reset();
-            setIsLoading(false) // Set loading to false when the request completes
         }
     }
 

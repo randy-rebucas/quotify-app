@@ -10,13 +10,13 @@ export default function SideNav({ user }: { user: any }) {
   const [canManage, setCanManage] = useState<boolean>(false);
 
   useMemo(() => {
-    setCanManage(user.roles.some((role: string) => role === 'user'));
+    setCanManage(user.roles.some((role: string) => role === 'admin'));
   }, [user]);
 
   return (
     <div className="flex flex-col px-3 py-4 md:px-2">
       <Link
-        className="mb-2 flex h-20 items-end justify-start rounded-md bg-blue-600 p-4 md:h-20"
+        className="mb-2 flex h-20 items-end justify-start rounded-md bg-[#595959] p-4 md:h-20"
         href="/"
       >
         <div className="w-32 text-white md:w-40">

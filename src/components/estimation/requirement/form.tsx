@@ -5,7 +5,15 @@ import Wrapper from "./wrapper";
 import { useRouter } from "next/navigation";
 import { useRequirementStore } from "@/lib/store/requirementStore";
 import { useAppStore } from "@/lib/store/appStore";
+import toast from "react-hot-toast";
 
+let stepMap = new Map<number, string>();
+stepMap.set(0, "Finish and Certification");
+stepMap.set(1, "Mep Features");
+stepMap.set(2, "Base Building Conditions");
+stepMap.set(3, "Technology");
+stepMap.set(4, "Furniture And Furnishing");
+stepMap.set(5, "Review");
 
 type Props = {
   projectId: string;
@@ -31,7 +39,10 @@ export default function Form({
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    if (!isLastStep) return next();
+    if (!isLastStep) {
+      toast.success(`${stepMap.get(currentStepIndex)} saved!`); // Displays a success message
+      return next();
+    }
 
     setIsLoading(true);
     setError(null); // Clear previous errors when a new request starts
@@ -57,13 +68,13 @@ export default function Form({
       let projectResponse = await response.json();
 
       if (response.status === 200) {
-        reset();
         router.push(`/estimation/refinement/${projectResponse.id}`);
+        setIsLoading(false); // Set loading to false when the request completes
       }
     } catch (error: any) {
       setError(error.message);
     } finally {
-      setIsLoading(false); // Set loading to false when the request completes
+      reset();
     }
   }
 

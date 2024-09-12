@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { FormEvent, MouseEventHandler, useState } from "react";
 
@@ -7,7 +8,7 @@ export default function Actions({ isEdit, projectId, onClickEdit }: {
     onClickEdit: MouseEventHandler<HTMLAnchorElement>
 }) {
     const router = useRouter();
-    
+
     const [isLoading, setIsLoading] = useState<boolean>(false)
     const [error, setError] = useState<string | null>(null)
 
@@ -66,12 +67,14 @@ export default function Actions({ isEdit, projectId, onClickEdit }: {
                 </svg>
                 <div className="text-white ml-3 text-opacity-50 hover:text-opacity-100">download</div>
             </a>
-            <a href="#" className="text-[24px] font-latobold flex items-center">
+
+            <Link href={`/share/1/1`} className="text-[24px] font-latobold flex items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
                     <path d="M6.22222 0V1.77778H1.77778V14.2222H14.2222V9.77778H16V15.1111C16 15.3469 15.9064 15.573 15.7397 15.7397C15.573 15.9064 15.3469 16 15.1111 16H0.888889C0.653141 16 0.427048 15.9064 0.260349 15.7397C0.0936505 15.573 0 15.3469 0 15.1111V0.888889C0 0.653141 0.0936505 0.427048 0.260349 0.260349C0.427048 0.0936505 0.653141 0 0.888889 0H6.22222ZM12.9653 1.77778H8.88889V0H16V7.11111H14.2222V3.03467L8 9.25689L6.74311 8L12.9653 1.77778Z" fill="white" />
                 </svg>
                 <div className="text-white ml-3 text-opacity-50 hover:text-opacity-100">share</div>
-            </a>
+            </Link>
+
             <div className="pt-[10px] px-0 pb-0 w-full flex items-end justify-end">
                 <form onSubmit={onSubmit} >
                     <button className="js-close-project focus:shadow-outline focus:outline-none" type="submit">
