@@ -12,8 +12,7 @@ export let sourceMapping = new Map<string | undefined, string>();
 sourceMapping.set('0', "Project Definition");
 sourceMapping.set('1', "Estimate Summary");
 
-export default function ShareModal() {
-    const params = useParams<{ id: string; path: string; source: string }>();
+export default function ShareModal({ params }: { params: { id: string, path: any, source: any } }) {
 
     return (
         <Modal>
