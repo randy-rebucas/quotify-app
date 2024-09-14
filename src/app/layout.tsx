@@ -1,13 +1,13 @@
 import "@/app/global.css";
-import "../../public/css/main.css";
+import "../static/styles/base.css";
 
 import { Metadata } from "next";
 
 import { Lato } from "next/font/google";
-import SessionProvider from "../components/session-provider";
+
 import { getSession } from "@/actions/session";
 import { Toaster } from "react-hot-toast";
-import Head from "next/head";
+import SessionProvider from "@/components/session-provider";
 
 const lato = Lato({
   weight: ["100", "300", "400", "700", "900"],
@@ -35,9 +35,6 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
-      <Head>
-        <link href="static/styles/base.css" rel="stylesheet" />
-      </Head>
       <body className={`${lato.className} antialiased`}>
         <Toaster position="top-center" />
         <SessionProvider session={session}>
