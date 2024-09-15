@@ -18,7 +18,7 @@ const lato = Lato({
 
 export const metadata: Metadata = {
   title: {
-    template: "%s",
+    template: "%s | Quotify",
     default: "Quotify",
   },
   description: "Quotify.",

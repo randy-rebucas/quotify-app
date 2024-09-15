@@ -54,8 +54,8 @@ export default function Form({
             formData.append('targetHeadCount', project.targetHeadCount);
             formData.append('averageAttendance', project.averageAttendance);
             formData.append('assignedSeat', project.assignedSeat);
-
-            if (hasFloorPlan) {
+            console.log(hasFloorPlan);
+            if (!hasFloorPlan) {
                 for (let index = 0; index < project.floorPlans.length; index++) {
                     const element = project.floorPlans[index];
                     formData.append(element.name, element);
@@ -70,7 +70,7 @@ export default function Form({
             let projectResponse = await response.json();
 
             if (response.status === 200) {
-                router.push(`/estimation/area-breakdown/${projectResponse.id}`)
+                // router.push(`/estimation/area-breakdown/${projectResponse.id}`)
                 setIsLoading(false) // Set loading to false when the request completes
             }
         } catch (error: any) {
