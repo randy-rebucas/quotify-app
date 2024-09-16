@@ -6,9 +6,7 @@ import path from "path";
 import FloorPlan from "@/models/FloorPlan";
 import formidable, { File } from "formidable";
 import fs from "fs";
-import https from "https";
 import { decrypt } from "@/actions/session";
-import { originalPathname } from "next/dist/build/templates/app-page";
 
 export const config = {
   api: {
@@ -31,6 +29,7 @@ export default async function handler(
     case "POST":
       const files: FileProps[] = [];
       const fields: { fieldName: string; value: string }[] = [];
+
       const form = formidable({
         uploadDir: __dirname,
         multiples: true,
@@ -38,19 +37,14 @@ export default async function handler(
       });
       form.once("error", console.error);
       form
-        .on("fileBegin", (name, file) => {
-          console.log(file);
-          // console.log("start uploading: ", file.originalFilename);
-        })
+        .on("fileBegin", (name, file) => {})
         .on("field", (fieldName, value) => {
           fields.push({ fieldName, value });
         })
         .on("file", async (fieldName, file) => {
           files.push({ fieldName, file });
         })
-        .on("end", async () => {
-          console.log("-> upload done");
-        });
+        .on("end", async () => {});
 
       await form.parse(req);
 
@@ -80,7 +74,6 @@ export default async function handler(
       if (!hasFloorPlan) {
         files.map(async (element: FileProps) => {
           const { fieldName, file } = element;
-
           const oldPath = file.filepath;
           const newPath = path.join(
             process.cwd(),
@@ -99,45 +92,7 @@ export default async function handler(
             project: projectResponse._id,
           });
 
-          // console.log(file);
-          // console.log(newPath);
-
-          // const REGION = process.env.BUNNYCDN_REGION; // If German region, set this to an empty string: ''
-          // const BASE_HOSTNAME = process.env.BUNNYCDN_BASE_HOSTNAME;
-          // const HOSTNAME = REGION
-          //   ? `${REGION}.${BASE_HOSTNAME}`
-          //   : BASE_HOSTNAME;
-          // const STORAGE_ZONE_NAME = process.env.BUNNYCDN_STORAGE_ZONE;
-          // const readStream = fs.createReadStream(file.filepath);
-          // const uniqueFilename = `${Date.now()}${file.originalFilename?.substring(
-          //   file.originalFilename?.lastIndexOf(".")
-          // )}`;
-
-          // const options = {
-          //   method: "PUT",
-          //   host: HOSTNAME,
-          //   path: `/${STORAGE_ZONE_NAME}/${uniqueFilename}`,
-          //   headers: {
-          //     AccessKey: process.env.BUNNYCDN_API_KEY,
-          //     "Content-Type": "application/octet-stream",
-          //   },
-          // };
-          // // https://ny.storage.bunnycdn.com/quotify/${FILENAME_TO_UPLOAD}
-          // // https://quotify.b-cdn.net/${FILENAME_TO_UPLOAD}
-          // const req = https.request(options, (res) => {
-          //   res.on("data", (chunk) => {
-          //     console.log(chunk.toString("utf8"));
-          //   });
-          // });
-
-          // req.on("error", (error) => {
-          //   console.error(error);
-          // });
-          // console.log(req);
-          // readStream.pipe(req);
-
-          let floorPlanResponce = await floorPlan.save();
-          console.log(floorPlanResponce);
+          await floorPlan.save();
         });
       }
 
