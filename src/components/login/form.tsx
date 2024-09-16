@@ -9,7 +9,7 @@ import { RotatingLines } from "react-loader-spinner";
 
 export default function Form() {
     const [state, dispatch] = useFormState(login, undefined);
-
+    console.log(state?.errors);
     return (
         <form action={dispatch} className="w-full">
             {state?.errors && <div

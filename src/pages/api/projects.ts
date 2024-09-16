@@ -99,8 +99,8 @@ export default async function handler(
             project: projectResponse._id,
           });
 
-          console.log(file);
-          console.log(newPath);
+          // console.log(file);
+          // console.log(newPath);
 
           // const REGION = process.env.BUNNYCDN_REGION; // If German region, set this to an empty string: ''
           // const BASE_HOSTNAME = process.env.BUNNYCDN_BASE_HOSTNAME;

@@ -42,9 +42,7 @@ export async function signup(state: SignupFormState, formData: FormData) {
     let authCheckEmail = await Auth.findOne({ email }).exec();
 
     if (authCheckEmail) {
-      return {
-        message: "Email already exists, please login or use a different email.",
-      };
+      return { error: 'Email already exists, please login or use a different email.' };
     }
 
     const salt = await bcrypt.genSalt(10);
@@ -82,9 +80,7 @@ export async function signup(state: SignupFormState, formData: FormData) {
     let userResponse = await user.save();
 
     if (!userResponse) {
-      return {
-        message: "An error occurred while creating your account.",
-      };
+      return { error: 'An error occurred while creating your account.' };
     }
     // 5. Redirect user
     revalidatePath("/");
@@ -120,9 +116,7 @@ export async function login(state: LoginFormState, formData: FormData) {
     let auth = await Auth.findOne({ email }).exec();
 
     if (!auth) {
-      return {
-        message: "Email not exists, Please register.",
-      };
+      return { message: 'Email not exists, Please register.' };
     }
     let decrypted = await bcrypt.compare(password, auth.password);
     if (!decrypted) {
