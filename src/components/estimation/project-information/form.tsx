@@ -55,7 +55,7 @@ export default function Form({
             formData.append('averageAttendance', project.averageAttendance);
             formData.append('assignedSeat', project.assignedSeat);
             formData.append('hasFloorPlan', hasFloorPlan ? 'yes' : 'no');
-            console.log(hasFloorPlan)
+  
             if (!hasFloorPlan) {
                 for (let index = 0; index < project.floorPlans.length; index++) {
                     const element = project.floorPlans[index];

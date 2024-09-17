@@ -14,6 +14,10 @@ export const config = {
   },
 };
 
+type ResponseData = {
+  id: string;
+};
+
 type FileProps = {
   fieldName: string;
   file: File;
@@ -21,112 +25,80 @@ type FileProps = {
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse
+  res: NextApiResponse<ResponseData>
 ) {
   connect();
+  if (req.method === "POST") {
+    const files: FileProps[] = [];
+    const fields: { fieldName: string; value: string }[] = [];
 
-  switch (req.method) {
-    case "POST":
-      const files: FileProps[] = [];
-      const fields: { fieldName: string; value: string }[] = [];
+    const form = formidable({
+      uploadDir: __dirname,
+      multiples: true,
+      keepExtensions: true,
+    });
+    form.once("error", console.error);
+    form
+      .on("fileBegin", (name, file) => {})
+      .on("field", (fieldName, value) => {
+        fields.push({ fieldName, value });
+      })
+      .on("file", async (fieldName, file) => {
+        files.push({ fieldName, file });
+      })
+      .on("end", async () => {});
 
-      const form = formidable({
-        uploadDir: __dirname,
-        multiples: true,
-        keepExtensions: true,
-      });
-      form.once("error", console.error);
-      form
-        .on("fileBegin", (name, file) => {})
-        .on("field", (fieldName, value) => {
-          fields.push({ fieldName, value });
-        })
-        .on("file", async (fieldName, file) => {
-          files.push({ fieldName, file });
-        })
-        .on("end", async () => {});
+    await form.parse(req);
 
-      await form.parse(req);
+    const session = await decrypt(req.cookies.session);
 
-      const session = await decrypt(req.cookies.session);
+    const fieldMap = new Map();
+    fields.map((element: { fieldName: string; value: string }) => {
+      return fieldMap.set(element.fieldName, element.value);
+    });
+    const project = new Project({
+      spaceName: fieldMap.get("spaceName"),
+      address: fieldMap.get("address"),
+      spaceSize: fieldMap.get("approximateSize"),
+      rentableArea: fieldMap.get("rentableArea"),
+      headCount: fieldMap.get("targetHeadCount"),
+      averageOfficeAttendance: fieldMap.get("averageAttendance"),
+      seatingPercentage: fieldMap.get("assignedSeat"),
+      lastUri: "area-breakdown",
+      user: session?.userId,
+    });
 
-      const fieldMap = new Map();
-      fields.map((element: { fieldName: string; value: string }) => {
-        return fieldMap.set(element.fieldName, element.value);
-      });
-      const project = new Project({
-        spaceName: fieldMap.get("spaceName"),
-        address: fieldMap.get("address"),
-        spaceSize: fieldMap.get("approximateSize"),
-        rentableArea: fieldMap.get("rentableArea"),
-        headCount: fieldMap.get("targetHeadCount"),
-        averageOfficeAttendance: fieldMap.get("averageAttendance"),
-        seatingPercentage: fieldMap.get("assignedSeat"),
-        lastUri: "area-breakdown",
-        user: session?.userId,
-      });
+    let projectResponse = await project.save();
 
-      let projectResponse = await project.save();
+    const hasFloorPlan = fieldMap.get("hasFloorPlan") === "yes" ? true : false;
 
-      const hasFloorPlan =
-        fieldMap.get("hasFloorPlan") === "yes" ? true : false;
+    if (!hasFloorPlan) {
+      files.map(async (element: FileProps) => {
+        const { fieldName, file } = element;
+        const oldPath = file.filepath;
+        const newPath = path.join(
+          process.cwd(),
+          "public/uploads",
+          `${Date.now()}${file.originalFilename?.substring(
+            file.originalFilename?.lastIndexOf(".")
+          )}`
+        );
+        fs.renameSync(oldPath, newPath);
 
-      if (!hasFloorPlan) {
-        files.map(async (element: FileProps) => {
-          const { fieldName, file } = element;
-          const oldPath = file.filepath;
-          const newPath = path.join(
-            process.cwd(),
-            "public/uploads",
-            `${Date.now()}${file.originalFilename?.substring(
-              file.originalFilename?.lastIndexOf(".")
-            )}`
-          );
-          fs.renameSync(oldPath, newPath);
-
-          const floorPlan = new FloorPlan({
-            filename: file.originalFilename,
-            type: file.mimetype,
-            size: file.size,
-            path: newPath,
-            project: projectResponse._id,
-          });
-
-          await floorPlan.save();
-        });
-      }
-
-      try {
-        res.status(200).json({ id: projectResponse._id });
-      } catch (e) {
-        console.error("Error while trying to upload a file\n", e);
-        res.status(500).json(e);
-      }
-
-      break;
-    case "GET":
-      try {
-        const projects = await Project.find({}).exec();
-        const transformData = projects.map((project) => {
-          return {
-            _id: project._id.toString(),
-            spaceName: project.spaceName,
-            floorPlan: project.floorPlan,
-            address: project.address,
-            spaceSize: project.spaceSize.toString(),
-            rentableArea: project.rentableArea.toString(),
-            headCount: project.headCount,
-            averageOfficeAttendance: project.averageOfficeAttendance,
-            seatingPercentage: project.seatingPercentage.toString(),
-          };
+        const floorPlan = new FloorPlan({
+          filename: file.originalFilename,
+          type: file.mimetype,
+          size: file.size,
+          path: newPath,
+          project: projectResponse._id,
         });
 
-        res.status(200).json({ transformData });
-      } catch (err) {
-        res.status(500).json(err);
-      }
-      break;
-    default:
-      break;
+        await floorPlan.save();
+      });
+    }
+    res.status(200).json({ id: projectResponse._id });
+  } else {
+    res.setHeader("Allow", ["POST"]);
+    res.status(405).end(`Method ${req.method} Not Allowed`);
   }
 }
