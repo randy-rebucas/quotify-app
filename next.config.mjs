@@ -8,16 +8,16 @@ const nextConfig = {
       allowedOrigins: ["quotify-app.vercel.app", "localhost:3000"],
     },
   },
-  images: {
-    remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "storage.bunnycdn.com",
-        port: "",
-        pathname: "/**",
-      },
-    ],
-  },
+  // images: {
+  //   remotePatterns: [
+  //     {
+  //       protocol: "https",
+  //       hostname: "storage.bunnycdn.com",
+  //       port: "",
+  //       pathname: "/**",
+  //     },
+  //   ],
+  // },
 };
 
 export default nextConfig;
