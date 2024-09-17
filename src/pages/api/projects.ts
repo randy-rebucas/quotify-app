@@ -69,7 +69,7 @@ export default async function handler(
       let projectResponse = await project.save();
 
       const hasFloorPlan =
-        fieldMap.get("hasFloorPlan") === "true" ? true : false;
+        fieldMap.get("hasFloorPlan") === "yes" ? true : false;
 
       if (!hasFloorPlan) {
         files.map(async (element: FileProps) => {

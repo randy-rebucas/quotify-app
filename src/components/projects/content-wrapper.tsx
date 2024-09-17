@@ -25,7 +25,7 @@ export default function ContentWrapper({ projects }: { projects: any[] }) {
 
     return (
         <>
-            {!projects && <Empty />}
+            {projects.length === 0 && <Empty />}
             {projects && <Projects projects={projects} />}
         </>
     )
