@@ -6,6 +6,7 @@ import path from "path";
 import FloorPlan from "@/models/FloorPlan";
 import formidable, { File } from "formidable";
 import fs from "fs";
+import https from "https";
 import { decrypt } from "@/actions/session";
 
 export const config = {
@@ -94,6 +95,37 @@ export default async function handler(
         });
 
         await floorPlan.save();
+
+        const REGION = process.env.BUNNYCDN_REGION; // If German region, set this to an empty string: ''
+        const BASE_HOSTNAME = process.env.BUNNYCDN_BASE_HOSTNAME;
+        const HOSTNAME = REGION ? `${REGION}.${BASE_HOSTNAME}` : BASE_HOSTNAME;
+        const STORAGE_ZONE_NAME = process.env.BUNNYCDN_STORAGE_ZONE;
+
+        const FILENAME_TO_UPLOAD = file.newFilename;
+
+        const readStream = fs.createReadStream(newPath);
+
+        const options = {
+          method: "PUT",
+          host: HOSTNAME,
+          path: `/${STORAGE_ZONE_NAME}/${FILENAME_TO_UPLOAD}`,
+          headers: {
+            AccessKey: process.env.BUNNYCDN_API_KEY,
+            "Content-Type": "application/octet-stream",
+          },
+        };
+
+        const req = https.request(options, (res) => {
+          res.on("data", (chunk) => {
+            console.log(chunk.toString("utf8"));
+          });
+        });
+
+        req.on("error", (error) => {
+          console.error(error);
+        });
+        console.log(req);
+        readStream.pipe(req);
       });
     }
     res.status(200).json({ id: projectResponse._id });
