@@ -108,7 +108,7 @@ export default async function ProjectDetailModal({ params }: { params: { id: str
                                     </ul>
                                 </div>
                             </div>
-                            <Link href="/estimation" className="flex text-[24px] text-white opacity-50 hover:opacity-1">
+                            {/* <Link href="/estimation" className="flex text-[24px] text-white opacity-50 hover:opacity-1">
                                 <Image
                                     src="/images/icon-create.svg"
                                     width={15}
@@ -117,7 +117,7 @@ export default async function ProjectDetailModal({ params }: { params: { id: str
                                     alt="create-new"
                                 />
                                 <div className="pl-2">add estimate</div>
-                            </Link >
+                            </Link > */}
                         </div>
                     </div>
                 </div>

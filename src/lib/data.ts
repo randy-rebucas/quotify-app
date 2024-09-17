@@ -27,7 +27,7 @@ export async function fetchProjectsCount(query: string) {
   connect();
 
   const searchRgx = new RegExp(`.*${query}.*`, "i");
-  const count = await RefinementLevel.countDocuments({
+  const count = await Project.countDocuments({
     level: searchRgx,
   });
 

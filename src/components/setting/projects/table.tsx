@@ -1,6 +1,7 @@
 import { IProject } from "@/models/Project";
 import { Delete } from "./buttons";
 import { fetchProjects } from "@/lib/data";
+import Floorplans from "./floorplans";
 
 export const financial = (x: string) => {
     return Number.parseFloat(x).toFixed(2);
@@ -39,7 +40,7 @@ export default async function Table({
                                     <tr key={index}
                                         className="w-full border-b py-1 text-sm last-of-type:border-none [&:first-child>td:first-child]:rounded-tl-lg [&:first-child>td:last-child]:rounded-tr-lg [&:last-child>td:first-child]:rounded-bl-lg [&:last-child>td:last-child]:rounded-br-lg" >
                                         <td className="px-6 py-1 whitespace-nowrap text-sm font-medium text-gray-800">{project.spaceName}</td>
-                                        <td className="px-6 py-1 whitespace-nowrap text-sm font-medium text-gray-800">{project.floorPlan}</td>
+                                        <td className="px-6 py-1 whitespace-nowrap text-sm font-medium text-gray-800"><Floorplans projectId={project._id.toString()} /></td>
                                         <td className="px-6 py-1 whitespace-nowrap text-sm font-medium text-gray-800 text-right">{financial(project.spaceSize.toString())}</td>
                                         <td className="px-6 py-1 whitespace-nowrap text-sm font-medium text-gray-800 text-right">{financial(project.rentableArea.toString())}</td>
                                         <td className="px-6 py-1 whitespace-nowrap text-sm font-medium text-gray-800 text-center">{project.headCount.toString()}</td>

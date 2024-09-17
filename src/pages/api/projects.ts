@@ -76,39 +76,18 @@ export default async function handler(
     if (!hasFloorPlan) {
       files.map(async (element: FileProps) => {
         const { fieldName, file } = element;
-        const oldPath = file.filepath;
-        const newPath = path.join(
-          process.cwd(),
-          "public/uploads",
-          `${Date.now()}${file.originalFilename?.substring(
-            file.originalFilename?.lastIndexOf(".")
-          )}`
-        );
-        fs.renameSync(oldPath, newPath);
-
-        const floorPlan = new FloorPlan({
-          filename: file.originalFilename,
-          type: file.mimetype,
-          size: file.size,
-          path: newPath,
-          project: projectResponse._id,
-        });
-
-        await floorPlan.save();
 
         const REGION = process.env.BUNNYCDN_REGION; // If German region, set this to an empty string: ''
         const BASE_HOSTNAME = process.env.BUNNYCDN_BASE_HOSTNAME;
         const HOSTNAME = REGION ? `${REGION}.${BASE_HOSTNAME}` : BASE_HOSTNAME;
         const STORAGE_ZONE_NAME = process.env.BUNNYCDN_STORAGE_ZONE;
 
-        const FILENAME_TO_UPLOAD = file.newFilename;
-
-        const readStream = fs.createReadStream(newPath);
+        const readStream = fs.createReadStream(file.filepath);
 
         const options = {
           method: "PUT",
           host: HOSTNAME,
-          path: `/${STORAGE_ZONE_NAME}/${FILENAME_TO_UPLOAD}`,
+          path: `/${STORAGE_ZONE_NAME}/${file.newFilename}`,
           headers: {
             AccessKey: process.env.BUNNYCDN_API_KEY,
             "Content-Type": "application/octet-stream",
@@ -124,9 +103,20 @@ export default async function handler(
         req.on("error", (error) => {
           console.error(error);
         });
-        console.log(req);
+
         readStream.pipe(req);
+
+        const floorPlan = new FloorPlan({
+          filename: file.newFilename,
+          type: file.mimetype,
+          size: file.size,
+          path: `https://${process.env.BUNNYCDN_HOSTNAME}/${file.newFilename}`,
+          project: projectResponse._id,
+        });
+  
+        await floorPlan.save();
       });
+
     }
     res.status(200).json({ id: projectResponse._id });
   } else {
