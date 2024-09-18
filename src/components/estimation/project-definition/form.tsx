@@ -16,6 +16,8 @@ import {
     EmailIcon,
 } from 'next-share'
 import Link from "next/link";
+import { ProjectAreaDefination } from "../refinement/form";
+import { useAreaBreakdownStore } from "@/lib/store/areaBreakdownStore";
 export default function Form({ project, amenities, customeSpaces, selectedAmenities, selectedCustomSpaces }: {
     project: any;
     amenities: any;
@@ -27,10 +29,9 @@ export default function Form({ project, amenities, customeSpaces, selectedAmenit
     const [workspaceAssigned, setWorkspanceAssigned] = useState<number>(0);
     const [staffWorkingRemotely, setStaffWorkingRemotely] = useState<number>(0);
     const [breakdowns, setBreakdowns] = useState<any[]>([]);
-
     const isLoading = useAppStore(state => state.isLoading);
     const setIsLoading = useAppStore(state => state.setIsLoading);
-
+    const updateFields = useAreaBreakdownStore(state => state.updateFields)
 
     async function onSubmit(e: FormEvent) {
         e.preventDefault();
@@ -78,6 +79,28 @@ export default function Form({ project, amenities, customeSpaces, selectedAmenit
 
     }, [selectedAmenities])
 
+    useEffect(() => {
+        const getProjectAmenities = async (id?: string) => {
+            if (id) {
+                const response = await fetch(
+                    `/api/project/amenities/by-project/${id}`,
+                    {
+                        method: "POST",
+                        headers: {
+                            Accept: "application/json",
+                            "Content-Type": "application/json",
+                        },
+                    }
+                );
+
+                let projectAmenitiesResponse = await response.json();
+                updateFields({ selectedAmenityIds: projectAmenitiesResponse.map((projectAmenity: any) => projectAmenity._id) });
+            }
+        };
+
+        getProjectAmenities(project._id);
+
+    }, [project, updateFields]);
 
     return (
         <form onSubmit={onSubmit} className="col-span-4 row-span-2 h-full w-full overflow-y-scroll overflow-x-hidden">
