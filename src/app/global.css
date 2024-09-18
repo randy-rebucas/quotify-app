@@ -60,3 +60,48 @@ input[type='number']::-webkit-outer-spin-button {
     text-wrap: balance;
   }
 }
+
+@media print {
+  .estimation-col__header {
+    padding: 10px 30px !important;
+    min-height: unset;
+  }
+
+  .estimates-grid {
+    display: flex !important;
+    flex-direction: column;
+  }
+
+  .estimates-grid>.estimate-column {
+    page-break-inside: avoid;
+    margin-bottom: 20px;
+  }
+
+  .estimates-grid>.estimate-column>div>div:last-child {
+    padding-bottom: unset;
+  }
+
+  .accordion-content {
+    display: grid !important;
+  }
+
+  .accordion-content>div {
+    padding: 5px;
+  }
+
+  .section-title {
+    margin: 5px 0 !important;
+  }
+
+  .total span {
+    font-size: 28px;
+    font-weight: 500;
+  }
+
+  .total {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+  }
+}

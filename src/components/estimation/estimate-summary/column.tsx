@@ -15,7 +15,7 @@ type ColumnProps = {
 export default function Column({ estimateGroups, requirements, refinements, projectId, children }: ColumnProps) {
 
     return (
-        <div className="relative h-full flex flex-col justify-between">
+        <div className="relative h-full flex flex-col justify-between estimate-column">
             <div>
 
                 {children}

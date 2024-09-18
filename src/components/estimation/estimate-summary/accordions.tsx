@@ -34,8 +34,8 @@ export default function Accordions(
 
     return (
         <>
-            <h3 className="text-[18px] mb-[10px] mt-[20px]">{convertToTitleCase(estimate.section)}</h3>
-            <div id="accordion-flush-1" data-accordion="collapse" data-active-classes="textl-left dark:bg-gray-900 text-gray-900 dark:text-white" data-inactive-classes="text-gray-500 dark:text-gray-400">
+            <h3 className="text-[18px] mb-[10px] mt-[20px] section-title">{convertToTitleCase(estimate.section)}</h3>
+            <div id={`accordion-flush-${estimate.section}`} data-accordion="collapse" data-active-classes="textl-left dark:bg-gray-900 text-gray-900 dark:text-white" data-inactive-classes="text-gray-500 dark:text-gray-400">
                 <AccordionContainer estimate={estimate} requirementGroups={requirements} refinements={refinements} projectId={projectId} />
             </div>
         </>
@@ -92,12 +92,12 @@ export function Accordion({ projectId, estimateId, estimateType, title, isOpen, 
 
     return (
         <>
-            <h2 id={`accordion-flush-heading-1-${index}`} className="text-[12px]">
+            <h2 id={`accordion-flush-heading-1-${index}`} className="text-[12px] ">
                 <button type="button" onClick={onClick} className="flex items-center justify-between w-full rtl:text-right border-b border-[#505050] gap-3"
                     data-accordion-target={`#accordion-flush-body-${index}`} aria-expanded={isOpen ? true : false} aria-controls="accordion-flush-body-1-1">
                     <span>{convertToTitleCase(title)}</span>
                     <svg data-accordion-icon className={clsx(
-                        'w-3 h-3 shrink-0',
+                        'w-3 h-3 shrink-0 hide-on-print',
                         {
                             'rotate-180': isOpen
                         },
@@ -106,7 +106,12 @@ export function Accordion({ projectId, estimateId, estimateType, title, isOpen, 
                     </svg>
                 </button>
             </h2>
-            <div id={`accordion-flush-body-${index}`} className={isOpen ? '' : 'hidden'} aria-labelledby="accordion-flush-heading-1-1">
+            <div id={`accordion-flush-body-${index}`} className={clsx(
+                'accordion-content',
+                {
+                    'hidden': !isOpen
+                },
+            )} aria-labelledby={`accordion-flush-heading-1-${index}`}>
                 <div className="py-5 border-b border-[#505050]">
 
                     <ul className="ml-[15px] text-[12px] text-black">
