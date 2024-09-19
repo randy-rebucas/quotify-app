@@ -2,9 +2,8 @@
 
 import { EmailIcon, EmailShareButton, FacebookIcon, FacebookShareButton, TelegramIcon, TelegramShareButton, TwitterIcon, TwitterShareButton, ViberIcon, ViberShareButton, WhatsappIcon, WhatsappShareButton } from "next-share";
 
-export default function ShareButtons({ path, projectId, source }: { path: any, projectId: any, source: any }) {
-
-    const link = process.env.NEXT_PUBLIC_APP_URL + '/estimation/' + path + '/' + projectId;
+export default function ShareButtons({ path, id, source }: { path: any, id: any, source: any }) {
+    const link = process.env.NEXT_PUBLIC_APP_URL + '/print/' + path + '/' + id;
     return (
         <>
             <h1 className="p-1 text-[14px]">Share {source}</h1>

@@ -1,3 +1,4 @@
+'use client'
 import { useEffect, useMemo, useState } from "react";
 import * as d3 from "d3";
 import { useAreaBreakdownStore } from "@/lib/store/areaBreakdownStore";
@@ -7,7 +8,7 @@ const MARGIN = 10;
 export type ChartProps = {
     width: number;
     height: number;
-    breakdowns: any[]
+    breakdowns: any[];
 };
 
 export let colorMapping = new Map<string, string>();

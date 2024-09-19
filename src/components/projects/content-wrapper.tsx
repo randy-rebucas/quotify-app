@@ -8,6 +8,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useContext, useEffect, useState } from "react";
 import Count from "./count";
+import { IProject } from "@/models/Project";
 
 export default function ContentWrapper({ projects }: { projects: any[] }) {
 
@@ -93,16 +94,33 @@ export function Projects({ projects }: { projects: any[] }) {
                                 <div className="file__updated text-black">
                                     {/* last edited 20th August, 2020 */}
                                     {!project.isCompleted && <p>INCOMPLETE</p>}
-                                    {!project.isCompleted && <Link
-                                        href={`/estimation/${project.lastUri}/${project._id}/${project.lastUri === 'estimate-summary' ? 'preview' : 'create'}`}
-                                        className={`text-black `}>Continue to create...
-                                    </Link>}
+                                    {!project.isCompleted && <RedirectLinks project={project} />}
                                 </div>
                             </div>
                         </div>
                     ))}
                 </div>
             </div>
-        </div>
+        </div >
     )
+}
+
+export function RedirectLinks({ project }: { project: IProject }) {
+
+    if (project.lastUri === 'estimate-summary') {
+        return <Link
+            href={`/estimation/${project.lastUri}/${project._id}/preview`}
+            className={`text-black `}>Continue to create...
+        </Link>
+    }
+    if (project.lastUri === 'project-definition') {
+        return <Link
+            href={`/estimation/${project.lastUri}/${project._id}`}
+            className={`text-black `}>Continue to create...
+        </Link>
+    }
+    return <Link
+        href={`/estimation/${project.lastUri}/${project._id}/create`}
+        className={`text-black `}>Continue to create...
+    </Link>
 }

@@ -118,6 +118,7 @@ export default async function ProjectDetailModal({ params }: { params: { id: str
                                 />
                                 <div className="pl-2">add estimate</div>
                             </Link > */}
+                            
                         </div>
                     </div>
                 </div>

@@ -34,7 +34,7 @@ export default function PieChartData({ breakdowns, selectedAmenities }: {
     // }
 
     return (
-        <ul className="flex flex-col gap-[20px]">
+        <ul className="flex flex-col gap-[20px] hide-on-print">
             {breakdowns.map((breakdown: any, index: any) => (
                 <li key={index} className="flex gap-[17px]">
                     <div className={`w-[33px] h-[12px] bg-[${colorMapping.get(breakdown[0])}]`} ></div>
