@@ -47,10 +47,6 @@ export default function Actions({ isEdit, projectId, onClickEdit }: {
         }
     }
 
-    const onClickDownload = () => {
-        window.print();
-    }
-
     return (
         <div>
             <a href="#" onClick={onClickEdit} className="text-[24px] font-latobold flex items-center mb-[10px]">
@@ -60,15 +56,14 @@ export default function Actions({ isEdit, projectId, onClickEdit }: {
                 </svg>
                 <div className="text-white ml-3 text-opacity-50 hover:text-opacity-100">{isEdit ? 'cancel' : 'edit'}</div>
             </a>
-            <a href="#" onClick={onClickDownload} className="text-[24px] font-latobold flex items-center mb-[10px]">
+            <Link href={`/print/estimate-summary/${projectId}`} target="_blank" className="text-[24px] font-latobold flex items-center mb-[10px]">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="19" viewBox="0 0 16 19" fill="none">
                     <path fillRule="evenodd" clipRule="evenodd" d="M9.00075 11.175L12.2437 7.933L13.6577 9.347L8.00075 15.004L2.34375 9.347L3.75775 7.933L7.00075 11.175V0H9.00075V11.175Z" fill="white" />
                     <rect y="17" width="16" height="2" fill="white" />
                 </svg>
                 <div className="text-white ml-3 text-opacity-50 hover:text-opacity-100">download</div>
-            </a>
-
-            <Link href={`/share/1/1`} className="text-[24px] font-latobold flex items-center">
+            </Link>
+            <Link href={`/share/${projectId}/1/1`} className="text-[24px] font-latobold flex items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
                     <path d="M6.22222 0V1.77778H1.77778V14.2222H14.2222V9.77778H16V15.1111C16 15.3469 15.9064 15.573 15.7397 15.7397C15.573 15.9064 15.3469 16 15.1111 16H0.888889C0.653141 16 0.427048 15.9064 0.260349 15.7397C0.0936505 15.573 0 15.3469 0 15.1111V0.888889C0 0.653141 0.0936505 0.427048 0.260349 0.260349C0.427048 0.0936505 0.653141 0 0.888889 0H6.22222ZM12.9653 1.77778H8.88889V0H16V7.11111H14.2222V3.03467L8 9.25689L6.74311 8L12.9653 1.77778Z" fill="white" />
                 </svg>
