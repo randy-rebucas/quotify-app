@@ -1,78 +1,82 @@
-import {
-  fetchEstimates,
-  fetchRefinements,
-  fetchRequirementsByGroup,
-} from "@/lib/data";
+'use client';
+
 import { tabMapping } from "../estimation/requirement/entities";
 import EstimateTotalCost from "./estimate-total-cost";
 import EstimateList from "./estimate-list";
+import { ReactNode, useEffect } from "react";
+import { useEstimateSummaryStore } from "@/lib/store/estimateSummaryStore";
+import { convertToTitleCase } from "../estimation/estimate-summary/accordions";
+import PrintButton from "./print-button";
 
 
-export default async function ProjectSummary({ project }: { project: any }) {
-  const requirements_groups = await fetchRequirementsByGroup();
+export default function ProjectSummary({ project, requirements, refinements }: { project: any, requirements: any[], refinements: any[] }) {
 
-  const refinements = await fetchRefinements();
+  const estimates = useEstimateSummaryStore((state) => state.estimates);
+  const getProjectEstimates = useEstimateSummaryStore(
+    (state) => state.getProjectEstimates
+  );
 
-  const estimates = await fetchEstimates(project._id);
-  console.log(project);
+  useEffect(() => {
+    if (project._id) {
+      getProjectEstimates(project._id);
+    }
+  }, [getProjectEstimates, project]);
 
   return (
     <>
       <div className="p-[40px] report-header">
-        <h1 className="text-3xl">Project Estimation Report</h1>
+        <h1 className="text-[30px]">Project Estimation Report</h1>
+        <PrintButton inverted={false} />
       </div>
 
       <div className="report-content">
         <div className="estimates-grid">
           {Object.keys(estimates).map((estimateKey: any, index: number) => (
-   
-              <div key={index} className="estimate-column">
-                <div className="estimate-header">
-                  <h2>
-                    <span className="font-latoblack">
-                      {tabMapping.get(index)}:
-                    </span>
-                    &nbsp; {estimateKey}
-                  </h2>
-                  <p>This is a short description for this estimate.</p>
-                </div>
-                <div className="estimate-body">
-                  <div className="section">
-                    <h3>Project Parameters</h3>
-                    <ul>
-                      <li>Total Office Size: {project.rentableArea} sqft</li>
-                      <li>Space Size: {project.spaceSize}</li>
-                      <li>Remote Workers: {project.staffWorkRemotely}%</li>
-                      <li>Workspace Assigned: {project.workspaceAssigned}%</li>
-                    </ul>
-                  </div>
-                  {estimates[estimateKey].map((estimate: any, index: number) => (
-                    <div className="section" key={index}>
-                      <h3>{estimate.section}</h3>
-                      {/* <ul>
-                        <li>High Finish</li>
-                        <li>Silver LEED Certification</li>
-                        <li>Gold WELL Certification</li>
-                      </ul> */}
-                      {/* <EstimateList estimate={estimate} requirementGroups={requirements_groups} refinements={refinements} projectId={project._id}/> */}
-                    </div>
-                  ))}
-
-                  {/* <div className="section">
-                    <h3>Refinements</h3>
-                    <ul>
-                      <li>Open Floor Plan</li>
-                      <li>Modern Reception Area</li>
-                      <li>Custom Furniture</li>
-                    </ul>
-                  </div> */}
-                </div>
-                <EstimateTotalCost estimateGroups={estimates[estimateKey]}/>
+            <Column key={index} estimateGroups={estimates[estimateKey]} requirements={requirements} refinements={refinements} projectId={project._id}>
+              <div className="estimate-header">
+                <h2 className="font-lato text-[24px]">
+                  {tabMapping.get(index)}:
+                  &nbsp;{estimateKey}
+                </h2>
+                <p className="font-lato text-[14px]">This is a short description for this estimate.</p>
               </div>
-           
+              <div className="estimate-body">
+                <div className="section">
+                  <h3 className="font-latobold text-2xl">Project Parameters</h3>
+                  <ul>
+                    <li>Total Office Size: {project.rentableArea} sqft</li>
+                    <li>Space Size: {project.spaceSize}</li>
+                    <li>Remote Workers: {project.staffWorkRemotely}%</li>
+                    <li>Workspace Assigned: {project.workspaceAssigned}%</li>
+                  </ul>
+                </div>
+              </div>
+            </Column>
           ))}
         </div>
       </div>
     </>
   );
+}
+
+
+export function Column({ estimateGroups, requirements, refinements, projectId, children }: {
+  estimateGroups: any[];
+  requirements: any[];
+  refinements: any[];
+  projectId: string;
+  children: ReactNode;
+}) {
+  return (
+    <div className="estimate-column">
+      {children}
+      {estimateGroups.map((estimate: any, index: number) => (
+        <div className="section" key={estimate._id}>
+          <h3 className="font-latobold text-2xl">{convertToTitleCase(estimate.section)}</h3>
+          <EstimateList estimate={estimate} requirementGroups={requirements} refinements={refinements} projectId={projectId} />
+        </div>
+      ))}
+      <EstimateTotalCost estimateGroups={estimateGroups} />
+    </div>
+  )
 }

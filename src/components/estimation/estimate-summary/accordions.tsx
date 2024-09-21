@@ -20,7 +20,7 @@ type AccordionProps = {
     onClick: MouseEventHandler<HTMLButtonElement>
 };
 
-const convertToTitleCase = (str: string) => {
+export const convertToTitleCase = (str: string) => {
     if (!str) {
         return ""
     }

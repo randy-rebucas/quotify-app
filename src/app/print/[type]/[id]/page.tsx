@@ -1,7 +1,9 @@
 import ProjectDefinition from "@/components/print/project-definition";
 import ProjectSummary from "@/components/print/project-summary";
 import {
-  fetchProject
+  fetchProject,
+  fetchRefinements,
+  fetchRequirementsByGroup
 } from "@/lib/data";
 
 export default async function PrintPage({
@@ -13,8 +15,13 @@ export default async function PrintPage({
 
   const project = await fetchProject(id);
 
+  const requirements_groups = await fetchRequirementsByGroup();
+
+  const refinements = await fetchRefinements();
+  
   if (params.type === "estimate-summary") {
-    return <ProjectSummary  project={project}/>
+    
+    return <ProjectSummary   project={project} requirements={requirements_groups} refinements={refinements}/>
   }
 
   return <ProjectDefinition project={project} />;

@@ -65,7 +65,7 @@ export function Items({
 }: ItemsProps) {
   return (
     <>
-      <h2>
+      <h2 className="text-[18px]">
         <span>{title}</span>
       </h2>
       <ul>

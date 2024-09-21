@@ -32,7 +32,7 @@ export default async function ProjectDefinition({ project }: { project: any }) {
     <div className="forPrint p-[40px] w-full">
       <header>
         <h1 className="font-lato text-3xl">Project Definition Report</h1>
-        <PrintButton />
+        <PrintButton inverted={true}/>
       </header>
 
       <section className="project-info">
