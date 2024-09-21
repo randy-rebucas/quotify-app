@@ -1,26 +1,14 @@
-import { IProject } from "@/models/Project";
 import PrintButton from "./print-button";
 import Chart from "./chart";
 import PieChartDataPrint from "../estimation/pie-chart-data-print";
 import { common } from "@/lib/mock";
 import {
-  fetchAmenities,
-  fetchCustomSpacesByGroup,
-  fetchProjectAmenitiesByProject,
-  fetchProjectCustomSpacesByProject,
+  fetchProjectAmenitiesByProject
 } from "@/lib/data";
 
 export default async function ProjectDefinition({ project }: { project: any }) {
-  // Get all Amenities
-  const amenities = await fetchAmenities();
-  // Get all custom spaces
-  const custom_spaces = await fetchCustomSpacesByGroup();
   // Get all project amenitties
   const selected_amenities = await fetchProjectAmenitiesByProject(project._id);
-  // Get all project custom spaces
-  const selected_custom_spaces = await fetchProjectCustomSpacesByProject(
-    project._id
-  );
 
   const groupItemRestById = (collector: any, item: any) => {
     const { categoryName, ...rest } = item;

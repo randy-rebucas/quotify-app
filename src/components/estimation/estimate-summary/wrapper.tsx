@@ -3,7 +3,6 @@
 import { useEffect } from "react";
 import Column from "./column";
 import { tabMapping } from "../refinement/entities";
-import ColumnPrint from "./column-print";
 import { useEstimateSummaryStore } from "@/lib/store/estimateSummaryStore";
 
 
@@ -44,14 +43,6 @@ export default function Wrapper({ projectId, requirements, refinements }: { proj
                     ))}
                 </div>
             </div>
-
-            {/* <div className="show-on-print">
-                {Object.keys(estimates).map((estimateKey: any, index: number) => (
-                    <ColumnPrint key={index} estimateGroups={estimates[estimateKey]} requirements={requirements} refinements={refinements} projectId={projectId}>
-                        <h2>{tabMapping.get(index)}: {estimateKey}</h2>
-                    </ColumnPrint>
-                ))}
-            </div> */}
         </>
     )
 }

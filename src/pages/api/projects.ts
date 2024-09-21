@@ -73,7 +73,7 @@ export default async function handler(
 
     const hasFloorPlan = fieldMap.get("hasFloorPlan") === "yes" ? true : false;
 
-    if (!hasFloorPlan) {
+    if (!hasFloorPlan && files.length != 0) {
       files.map(async (element: FileProps) => {
         const { fieldName, file } = element;
 

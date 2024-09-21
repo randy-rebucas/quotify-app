@@ -583,6 +583,26 @@ export async function fetchRequirements() {
   return transformItems;
 }
 
+export async function fetchEstimates(id: string) {
+  noStore();
+
+  connect();
+
+  const estimates = await Estimate.find({
+    project: id,
+  })
+    .populate("project")
+    .exec();
+
+  let grouped = estimates.reduce((result: any, currentValue: any) => {
+    (result[currentValue["name"]] = result[currentValue["name"]] || []).push(
+      currentValue
+    );
+    return result;
+  }, {});
+  return grouped;
+}
+
 export async function fetchRequirementsByGroup() {
   noStore();
 
