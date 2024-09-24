@@ -21,6 +21,7 @@ export async function signup(state: SignupFormState, formData: FormData) {
   noStore;
   // Validate form fields
   const validatedFields = SignupFormSchema.safeParse({
+    name: formData.get("name"),
     email: formData.get("email"),
     password: formData.get("password"),
     confirm_password: formData.get("confirm_password"),
@@ -33,7 +34,7 @@ export async function signup(state: SignupFormState, formData: FormData) {
     };
   }
 
-  const { email, password } = validatedFields.data;
+  const { name, email, password } = validatedFields.data;
 
   try {
     // Call the provider or db to create a user...
@@ -57,7 +58,7 @@ export async function signup(state: SignupFormState, formData: FormData) {
     const office = await Office.findOne({ status: 1 }).limit(1).exec();
 
     const userData = {
-      name: "sample",
+      name: name,
       email: email,
       auth: authResponse._id,
       roles: "user",

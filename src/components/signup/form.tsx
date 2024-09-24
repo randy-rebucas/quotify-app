@@ -17,7 +17,7 @@ export default function Form() {
                 <input
                     className="bg-transparent font-latothin leading-tight placeholder-white appearance-none border-t-0 border-l-0 border-r-0 border-b w-full text-white focus:outline-none"
                     id="inline-name" type="text" name="name" placeholder="name" />
-                {state?.errors?.email && <p>{state.errors.email}</p>}
+                {state?.errors?.name && <p>{state.errors.name}</p>}
             </div>
             <div className="md:w-full pb-4">
                 <input
