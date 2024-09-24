@@ -7,7 +7,6 @@ const HOSTNAME = REGION ? `${REGION}.${BASE_HOSTNAME}` : BASE_HOSTNAME;
 const STORAGE_ZONE_NAME = process.env.BUNNYCDN_STORAGE_ZONE;
 
 export const upload = (filepath: string, filename: string, folder?: string) => {
-
   const readStream = fs.createReadStream(filepath);
 
   const BUNNY_PATH =
@@ -41,22 +40,19 @@ export const upload = (filepath: string, filename: string, folder?: string) => {
   return `https://${process.env.BUNNYCDN_HOSTNAME}/${BUNNY_PATH}`;
 };
 
-export const delete_file = async (
-  filename: string,
-  folder?: string
-) => {
-
+export const delete_file = async (filename: string, folder?: string) => {
   const options = { method: "DELETE" };
   const BUNNY_PATH =
     folder != null || folder != undefined
       ? `${folder}/${filename}`
       : `${filename}`;
-
-  let bunny_response = await fetch(
+      // Path: '/quotify/media/',
+      // ObjectName: '1727174846616.png',
+  let response = await fetch(
     `https://${HOSTNAME}/${STORAGE_ZONE_NAME}/${BUNNY_PATH}`,
     options
   );
-  return bunny_response.json();
+  return response.json();
   //   .then(response => response.json())
   //   .then(response => console.log(response))
   //   .catch(err => console.error(err));
