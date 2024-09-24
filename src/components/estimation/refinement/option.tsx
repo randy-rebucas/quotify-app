@@ -71,7 +71,7 @@ export default function Option({
               />
               <label htmlFor={`refinement-${amenityName}-${index + 1}`}>
                 <Image
-                  src={`/uploads/${refinementLevel.image?.fileName}`}
+                  src={refinementLevel.image?.fileName}
                   width={0}
                   height={0}
                   sizes="100vw"

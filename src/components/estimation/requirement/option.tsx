@@ -69,7 +69,7 @@ export default function Option({
               />
               <label htmlFor={`requirement-${requirementName}-${index + 1}`}>
                 <Image
-                  src={`/uploads/${requirementLevel.image?.fileName}`}
+                  src={requirementLevel.image?.fileName}
                   width={0}
                   height={0}
                   sizes="100vw"
