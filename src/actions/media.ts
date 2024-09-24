@@ -14,6 +14,9 @@ import Media from "@/models/Media";
 import { decrypt } from "./session";
 import { cookies } from "next/headers";
 import { existsSync, unlinkSync } from "fs";
+import fs from "fs";
+import https from "https";
+import { delete_file, upload } from "@/lib/bunny";
 
 const UpdateSchema = UpdateMediaLibraryFormSchema.omit({ id: true });
 
@@ -80,19 +83,26 @@ export async function createMedia(
   // Replace spaces in the file name with underscores
   let filename = image.name.replaceAll(" ", "_");
   filename = `${Date.now()}${filename?.substring(filename?.lastIndexOf("."))}`;
-
   await writeFile(
     path.join(process.cwd(), "public/uploads/" + filename),
     buffer
   );
 
+  const bunny_preview_url = upload(path.join(process.cwd(), "public/uploads/" + filename), filename, 'media')
+
   const media = new Media({
-    fileName: filename,
+    fileName: bunny_preview_url,
     uploadedBy: session?.userId,
     fileType: image.type,
     fileSize: image.size,
   });
   await media.save();
+
+  const directoryPath = path.join(process.cwd(), "public/uploads/");
+
+  if (existsSync(directoryPath + filename)) {
+    unlinkSync(directoryPath + filename);
+  }
 
   revalidatePath("/setting/media-libraries");
   redirect("/setting/media-libraries");
@@ -109,6 +119,9 @@ export async function deleteMedia(id: string) {
     }
 
     await Media.findOneAndDelete({ _id: id }).exec();
+
+    // await delete_file(filename);
+    
     revalidatePath("/setting/media-libraries");
     return { message: "Deleted Refinement level." };
   } catch (error) {

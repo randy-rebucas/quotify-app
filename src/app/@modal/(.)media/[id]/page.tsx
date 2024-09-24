@@ -12,7 +12,7 @@ export default async function MediaModal({ params }: { params: { id: string } })
             <input type="text" defaultValue={media._id} className="border mb-2 p-2 text-xs w-full" autoFocus/>
             <div className='drop-shadow-xl rounded'>
                 <Image
-                    src={`/uploads/${media.fileName}`}
+                    src={media.fileName}
                     width={0}
                     height={0}
                     sizes="100vw"

@@ -19,7 +19,7 @@ export function Update({ id }: { id: string }) {
   return (
     <Link
       href={`/setting/media-libraries/${id}/edit`}
-      className="rounded-md border p-2 hover:bg-gray-100"
+      className="border hover:bg-gray-100 hover:text-blue-600 p-2 rounded-md text-blue/100"
     >
       <PencilIcon className="w-5" />
     </Link>
@@ -31,9 +31,9 @@ export async function Delete({ id }: { id: string }) {
 
   return (
     <form action={deleteMediaLibraryWithId}>
-      <button className="rounded-md border p-2 hover:bg-gray-100">
+      <button className="hover:bg-gray-100 hover:text-blue-600 p-2 rounded-md">
         <span className="sr-only">Delete</span>
-        <TrashIcon className="w-5" />
+        <TrashIcon className="text-red-500 w-5" />
       </button>
     </form>
   );

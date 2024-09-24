@@ -21,9 +21,14 @@ export default function EditMediaForm({
     <div className='flex flex-row gap-6'>
       <div className="rounded-md bg-gray-50 p-4 md:p-6">
         <Image
-          src={`/uploads/${media.fileName}`}
+          src={media.fileName}
           width={350}
           height={350}
+          sizes="100vw"
+          style={{
+            width: '100%',
+            height: 'auto',
+          }}
           alt='preview'
         />
       </div>

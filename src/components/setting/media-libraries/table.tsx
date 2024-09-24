@@ -30,7 +30,7 @@ export default function Table({ medias }: { medias: IMedia[] }) {
                                         <td className="whitespace-nowrap px-3 py-1 align-middle">
                                             <Link key={media._id} href={`/media/${media._id}`}>
                                                 <Image
-                                                    src={`/uploads/${media.fileName}`}
+                                                    src={media.fileName}
                                                     width={50}
                                                     height={50}
                                                     alt={media.level}

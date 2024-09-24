@@ -8,6 +8,7 @@ import formidable, { File } from "formidable";
 import fs from "fs";
 import https from "https";
 import { decrypt } from "@/actions/session";
+import { upload } from "@/lib/bunny";
 
 export const config = {
   api: {
@@ -77,40 +78,13 @@ export default async function handler(
       files.map(async (element: FileProps) => {
         const { fieldName, file } = element;
 
-        const REGION = process.env.BUNNYCDN_REGION; // If German region, set this to an empty string: ''
-        const BASE_HOSTNAME = process.env.BUNNYCDN_BASE_HOSTNAME;
-        const HOSTNAME = REGION ? `${REGION}.${BASE_HOSTNAME}` : BASE_HOSTNAME;
-        const STORAGE_ZONE_NAME = process.env.BUNNYCDN_STORAGE_ZONE;
-
-        const readStream = fs.createReadStream(file.filepath);
-
-        const options = {
-          method: "PUT",
-          host: HOSTNAME,
-          path: `/${STORAGE_ZONE_NAME}/${file.newFilename}`,
-          headers: {
-            AccessKey: process.env.BUNNYCDN_API_KEY,
-            "Content-Type": "application/octet-stream",
-          },
-        };
-
-        const req = https.request(options, (res) => {
-          res.on("data", (chunk) => {
-            console.log(chunk.toString("utf8"));
-          });
-        });
-
-        req.on("error", (error) => {
-          console.error(error);
-        });
-
-        readStream.pipe(req);
-
+        const bunny_preview_url = upload(file.filepath, file.newFilename, 'floorplans')
+        
         const floorPlan = new FloorPlan({
           filename: file.newFilename,
           type: file.mimetype,
           size: file.size,
-          path: `https://${process.env.BUNNYCDN_HOSTNAME}/${file.newFilename}`,
+          path: bunny_preview_url,
           project: projectResponse._id,
         });
   

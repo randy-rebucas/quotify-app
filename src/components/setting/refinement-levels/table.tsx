@@ -7,10 +7,10 @@ import { fetchRefinementLevels } from "@/lib/data";
 export default async function Table({
     query,
     currentPage,
-  }: {
+}: {
     query: string;
     currentPage: number;
-  }) {
+}) {
 
     const refinementLevels = await fetchRefinementLevels(query, currentPage);
 
@@ -40,7 +40,12 @@ export default async function Table({
                                         className="w-full border-b py-1 text-sm last-of-type:border-none [&:first-child>td:first-child]:rounded-tl-lg [&:first-child>td:last-child]:rounded-tr-lg [&:last-child>td:first-child]:rounded-bl-lg [&:last-child>td:last-child]:rounded-br-lg" >
                                         <td className="whitespace-nowrap px-3 py-1 align-middle">
                                             <Image
-                                                src={`/uploads/${refinementLevel.image.fileName}`}
+                                                src={refinementLevel.image.fileName}
+                                                // sizes="100vw"
+                                                // style={{
+                                                //     width: '100%',
+                                                //     height: 'auto',
+                                                // }}
                                                 width={50}
                                                 height={50}
                                                 alt={refinementLevel.level}

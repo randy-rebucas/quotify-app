@@ -1,5 +1,6 @@
 
 import { Create } from '@/components/setting/media-libraries/buttons';
+import Grid from '@/components/setting/media-libraries/grid';
 import Table from '@/components/setting/media-libraries/table';
 import Title from '@/components/setting/title';
 import { fetchMediaLibraries } from '@/lib/data';
@@ -19,7 +20,7 @@ export default async function MediaLibrariesPage() {
                 <Title title='Media Libraries' />
                 <Create /> 
             </div>
-            <Table medias={medias} />
+            <Grid medias={medias} />
         </div>
     )
 }

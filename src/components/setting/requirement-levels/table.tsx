@@ -40,7 +40,7 @@ export default async function Table({
                                         className="w-full border-b py-1 text-sm last-of-type:border-none [&:first-child>td:first-child]:rounded-tl-lg [&:first-child>td:last-child]:rounded-tr-lg [&:last-child>td:first-child]:rounded-bl-lg [&:last-child>td:last-child]:rounded-br-lg" >
                                         <td className="whitespace-nowrap px-3 py-1 align-middle">
                                             <Image
-                                                src={`/uploads/${requirementLevel.image.fileName}`}
+                                                src={requirementLevel.image.fileName}
                                                 width={50}
                                                 height={50}
                                                 alt={requirementLevel.level}

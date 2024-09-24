@@ -8,10 +8,10 @@ export default async function ModalMediaPage({ params }: { params: { id: string 
 
     return (
         <>
-            <input type="text" defaultValue={media._id} className="border text-xs w-full" autoFocus/>
+            <input type="text" defaultValue={media._id} className="border text-xs w-full" autoFocus />
             <div className='drop-shadow-xl rounded'>
                 <Image
-                    src={`/uploads/${media.fileName}`}
+                    src={media.fileName}
                     width={0}
                     height={0}
                     sizes="100vw"
