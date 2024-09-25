@@ -21,6 +21,24 @@ import ProjectCustomSpace from "@/models/ProjectCustomSpace";
 
 const ITEMS_PER_PAGE = 10;
 
+export async function getFiles() {
+  const REGION = process.env.BUNNYCDN_REGION; // If German region, set this to an empty string: ''
+  const BASE_HOSTNAME = process.env.BUNNYCDN_BASE_HOSTNAME;
+  const HOSTNAME = REGION ? `${REGION}.${BASE_HOSTNAME}` : BASE_HOSTNAME;
+  const STORAGE_ZONE_NAME = process.env.BUNNYCDN_STORAGE_ZONE;
+
+  const bunnyResponse = await fetch(`https://${HOSTNAME}/${STORAGE_ZONE_NAME}/media/`, {
+      method: "GET",
+      headers: {
+          AccessKey: process.env.BUNNYCDN_API_KEY as string,
+          accept: "application/json",
+      },
+  });
+  const getBunnyFiles = bunnyResponse.json();
+
+  return getBunnyFiles;
+}
+
 export async function fetchProjectsCount(query: string) {
   noStore();
 
