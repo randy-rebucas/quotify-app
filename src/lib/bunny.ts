@@ -13,7 +13,6 @@ export const upload = (filepath: string, filename: string, folder?: string) => {
     folder != null || folder != undefined
       ? `${folder}/${filename}`
       : `${filename}`;
-  console.log(BUNNY_PATH);
 
   const options = {
     method: "PUT",
