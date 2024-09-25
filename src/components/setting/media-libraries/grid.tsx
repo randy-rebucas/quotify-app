@@ -5,8 +5,6 @@ import Link from "next/link";
 import { filesize } from "filesize";
 
 export default function Grid({ medias }: { medias: IMedia[] }) {
-    // https://ny.storage.bunnycdn.com/quotify/media//1727174810331.png?AccessKey=0558630d-0af1-4213-94d5581977c2-2e78-44f8&preview
-    // https://quotify.b-cdn.net/media/1727174810331.png
     return (
         <div className="gap-4 grid grid-cols-4">
             {medias.map((media: any, index: number) => (
