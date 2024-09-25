@@ -1,4 +1,5 @@
 import Project from "@/models/Project";
+import connect from "@/utils/db";
 import type { NextApiRequest, NextApiResponse } from "next";
 
 export default async function handler(
@@ -6,6 +7,7 @@ export default async function handler(
   res: NextApiResponse
 ) {
   const { id } = req.query;
+  connect();
 
   try {
     const projects = await Project.find({ user: id }).exec();

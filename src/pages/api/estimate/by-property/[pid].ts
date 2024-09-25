@@ -1,4 +1,5 @@
 import Estimate from "@/models/Estimate";
+import connect from "@/utils/db";
 import type { NextApiRequest, NextApiResponse } from "next";
 
 export default async function handler(
@@ -6,6 +7,7 @@ export default async function handler(
   res: NextApiResponse
 ) {
   const { pid } = req.query;
+  connect();
 
   try {
     const estimate = await Estimate.find({

@@ -1,4 +1,5 @@
 import EstimateCustomSpaceRefinementLevel from "@/models/EstimateCustomSpaceRefinementLevel";
+import connect from "@/utils/db";
 import type { NextApiRequest, NextApiResponse } from "next";
 
 export const config = {
@@ -13,6 +14,7 @@ export default async function handler(
 ) {
   const { cid } = req.query;
   const { estimateId, refinementId } = req.body;
+  connect();
 
   try {
     const estimateProjectCustomSpace = await EstimateCustomSpaceRefinementLevel.findOne({

@@ -1,4 +1,5 @@
 import Requirement from "@/models/Requirement";
+import connect from "@/utils/db";
 import type { NextApiRequest, NextApiResponse } from "next";
 
 export default async function handler(
@@ -6,6 +7,7 @@ export default async function handler(
   res: NextApiResponse
 ) {
   const { rname } = req.query;
+  connect();
 
   try {
     const requirement = await Requirement.findOne({ name: rname }).exec();

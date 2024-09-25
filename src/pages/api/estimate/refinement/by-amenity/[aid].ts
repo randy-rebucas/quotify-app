@@ -1,4 +1,5 @@
 import EstimateAmenityRefinementLevel from "@/models/EstimateAmenityRefinementLevel";
+import connect from "@/utils/db";
 import type { NextApiRequest, NextApiResponse } from "next";
 
 export const config = {
@@ -13,6 +14,7 @@ export default async function handler(
 ) {
   const { aid } = req.query;
   const { estimateId, refinementId } = req.body;
+  connect();
 
   try {
     const estimateProjectAmenity = await EstimateAmenityRefinementLevel.findOne(

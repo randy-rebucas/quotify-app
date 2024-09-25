@@ -1,4 +1,5 @@
 import RequirementLevel from "@/models/RequirementLevel";
+import connect from "@/utils/db";
 import type { NextApiRequest, NextApiResponse } from "next";
 
 export default async function handler(
@@ -6,6 +7,7 @@ export default async function handler(
   res: NextApiResponse
 ) {
   const { rlid } = req.query;
+  connect();
 
   try {
     const requirementLevel = await RequirementLevel.find({ requirement: rlid })

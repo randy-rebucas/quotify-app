@@ -1,4 +1,5 @@
 import EstimateRequirement from "@/models/EstimateRequirement";
+import connect from "@/utils/db";
 import type { NextApiRequest, NextApiResponse } from "next";
 
 export default async function handler(
@@ -7,6 +8,8 @@ export default async function handler(
 ) {
   const { rid } = req.query;
   const { estimateId } = req.body;
+  connect();
+
   try {
     const estimateRequirement = await EstimateRequirement.findOne({
       requirement: rid,
