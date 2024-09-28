@@ -3,6 +3,7 @@
 import clsx from 'clsx';
 import { FormEventHandler, useEffect, useState } from 'react';
 import { StimateData, tabMapping, titleMapping } from './entities';
+import Link from 'next/link';
 
 type Props = {
     stimates: StimateData[];
@@ -67,9 +68,9 @@ export default function TabForm({ stimates, onSubmit }: Props) {
                                 aria-labelledby="custom-dropdown">
                                 {stimates.map((stimate: StimateData, index: number) => (
                                     <li key={index}>
-                                        <a href="#" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" onClick={() => onSelectSource(`${stimate.id}`)}>
+                                        <Link href="#" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" onClick={() => onSelectSource(`${stimate.id}`)}>
                                             estimate {tabMapping.get(stimate.id)}
-                                        </a>
+                                        </Link>
                                     </li>
                                 ))}
                             </ul>

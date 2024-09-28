@@ -67,12 +67,6 @@ export default function EstimatSummaryPage({ params }: { params: { id: string } 
 
                     <Title title="project estimation" />
 
-                    {/* <div className="close-btn opacity-0 absolute top-0 right-0 flex flex-col items-end p-30 z-30">
-                        <a href="#" className="js-close-project">
-                            <img src="src/img/icon-close.svg" alt="close" />
-                        </a>
-                    </div> */}
-
                     <div className="js-estimation-col estimation-col grid grid-cols-3 grid-flow-col h-full">
                         {/* This block shows the third column (03: Requirements) */}
                         <Column

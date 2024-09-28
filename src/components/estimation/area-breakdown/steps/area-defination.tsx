@@ -3,6 +3,7 @@ import { ChangeEvent, useEffect, useState } from "react";
 import clsx from "clsx";
 import { PartialData, ProjectCustomSpaceData, useAreaBreakdownStore } from "@/lib/store/areaBreakdownStore";
 import { useAppStore } from "@/lib/store/appStore";
+import Link from "next/link";
 // 
 
 type Props = {
@@ -278,7 +279,7 @@ export function Option({ spaces }: { spaces: any[] }) {
         <>
             {spaces.map((space: { id: string, space_name: string, capacity: string }) => (
                 <li key={space.id}>
-                    <a href="#" className="block px-6 py-2 text-[#005A92] hover:bg-[#D0D0D0]">{space.space_name} {space.capacity && <span className="font-latolight">(capacity: {space.capacity})</span>}</a>
+                    <Link href="#" className="block px-6 py-2 text-[#005A92] hover:bg-[#D0D0D0]">{space.space_name} {space.capacity && <span className="font-latolight">(capacity: {space.capacity})</span>}</Link>
                 </li>
             ))}
         </>
