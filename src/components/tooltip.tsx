@@ -6,7 +6,7 @@ export default function Tooltip() {
     const [toggle, setToggle] = useState<boolean>(false);
 
     return (
-        <div className="absolute top-0 right-0 pulsate flex flex-col items-end w-full p-30 hide-on-print">
+        <div className="absolute top-0 right-0 pulsate flex flex-col items-end w-4/12 p-30 hide-on-print">
             <button type="button" onClick={() => setToggle(!toggle)}
                 className="outline-none">
                 <div className="tooltip pulsate flex flex-col items-end">
