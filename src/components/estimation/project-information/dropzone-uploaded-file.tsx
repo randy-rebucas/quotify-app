@@ -17,7 +17,7 @@ export default function DropzoneUploadedFile() {
 
   return (
     <>
-      {floorPlans.length && <div className="mt-[30.833vh] px-30 w-full">
+      {floorPlans.length > 0 && <div className="mt-[30.833vh] px-30 w-full">
         <div className="dropzone-uploads">
           <p className="text-darkblue font-latobold">My floorplans</p>
           <div className="flex flex-col gap-3 mt-10">

@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
-export default function VideoWrapper({ src }: { src: string }) {
+export default function VideoWrapper({ src }: { src: any }) {
     return (
         <div className="grid lg:grid-cols-3 lg:grid-flow-col p-30">
             <Video source={src} />
@@ -16,11 +16,11 @@ export function Video({ source }: { source: string }) {
     return (
         <div className="video-wrapper col-span-3 relative flex items-center justify-center bg-cover"
             style={{
-                backgroundImage: `url('/images/thumb-vid.png')`
+                backgroundImage: `url('https://quotify.b-cdn.net/thumb-vid.png')`
             }}>
             <Link href="#" id="video-wrapper-play" className="video-wrapper__thumb flex justify-center lg:w-[200px] w-4/12">
                 <Image
-                    src="/images/icon-play.svg"
+                    src={'https://quotify.b-cdn.net/icon-play.svg'}
                     alt="thumb-video"
                     width={0}
                     height={0}

@@ -11,7 +11,7 @@ export default function QuotifyLogo() {
       transition={{ delay: 1.5 }}
       className="wrapper__logo">
       <Image
-        src="/images/icon-search.png"
+        src={'https://quotify.b-cdn.net/icon-search.png'}
         width={37}
         height={37}
         alt="Search Icon"

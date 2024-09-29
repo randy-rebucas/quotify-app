@@ -6,7 +6,7 @@ export default function Profile({ user }: { user: any }) {
     return (
         <div className="flex-col">
             <div className="flex items-center gap-4">
-                <Image className="h-16 rounded-full w-16" src="images/avatar-user-svgrepo-com.svg" width={100} height={100} alt="" />
+                <Image className="h-16 rounded-full w-16" src={'https://quotify.b-cdn.net/avatar-user-svgrepo-com.svg'} width={100} height={100} alt="" />
                 <div className="font-medium dark:text-white">
                     <div className="text-[#505050]">{user.name}</div>
                     <div className="text-[#505050] text-[14px]">{user.email}</div>

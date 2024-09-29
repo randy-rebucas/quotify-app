@@ -16,7 +16,7 @@ export default function Close({ onClick }: { onClick: MouseEventHandler<HTMLAnch
             className="close-btn opacity-0 absolute top-0 right-0 flex-col items-end p-30 z-30">
             <Link href="#" onClick={onClick} className="js-close-project">
                 <Image
-                    src="/images/icon-close.svg"
+                    src={'https://quotify.b-cdn.net/icon-close.svg'}
                     width={0}
                     height={0}
                     sizes="100vw"

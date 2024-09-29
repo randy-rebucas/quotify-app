@@ -72,7 +72,7 @@ export function SignupButton() {
             />}
             {!pending && <button className="focus:shadow-outline focus:outline-none" type="submit" aria-disabled={pending}>
                 <Image
-                    src="/images/icon-submit.png"
+                    src={'https://quotify.b-cdn.net/icon-submit.png'}
                     width={0}
                     height={0}
                     sizes="100vw"

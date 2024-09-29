@@ -9,7 +9,7 @@ import { RotatingLines } from "react-loader-spinner";
 
 export default function Form() {
     const [state, dispatch] = useFormState(login, undefined);
-    console.log(state?.errors);
+
     return (
         <form action={dispatch} className="w-full">
             {state?.errors && <div
@@ -66,7 +66,7 @@ export function LoginpButton() {
             />}
             {!pending && <button className="focus:shadow-outline focus:outline-none" type="submit" aria-disabled={pending}>
                 <Image
-                    src="/images/icon-submit.png"
+                    src={'https://quotify.b-cdn.net/icon-submit.png'}
                     width={0}
                     height={0}
                     sizes="100vw"

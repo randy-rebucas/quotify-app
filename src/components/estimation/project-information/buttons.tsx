@@ -15,7 +15,7 @@ export default function Buttons({ path, next, completed }: {
         <>
             <Link href={`${next}`} className={`${pathname != path ? 'hidden' : ''}`}>
                 <Image
-                    src="/images/icon-submit.png"
+                    src={'https://quotify.b-cdn.net/icon-submit.png'}
                     width={70}
                     height={70}
                     alt="next"
@@ -24,7 +24,7 @@ export default function Buttons({ path, next, completed }: {
 
             <Link href="/" className={`${!completed ? 'hidden' : ''}`}>
                 <Image
-                    src="/images/icon-check.svg"
+                    src={'https://quotify.b-cdn.net/icon-check.svg'}
                     width={70}
                     height={70}
                     alt="next-check"

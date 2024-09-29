@@ -43,7 +43,7 @@ export default function PageWrapper({ children }: Props) {
                 )}>
                     <div className="flex items-center justify-between">
                         <Link href="/setting" className="flex wrapper__settings">
-                            <Image src="/images/icon-settings.svg"
+                            <Image src={'https://quotify.b-cdn.net/icon-settings.svg'}
                                 width={50}
                                 height={50}
                                 className="pr-5 brightness-200 contrast-100"
@@ -55,7 +55,7 @@ export default function PageWrapper({ children }: Props) {
                     </div>
                     <Link href="/estimation">
                         <Image
-                            src="/images/icon-create.svg"
+                            src={'https://quotify.b-cdn.net/icon-create.svg'}
                             width={68}
                             height={68}
                             alt="create-new"

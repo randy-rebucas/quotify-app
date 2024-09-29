@@ -24,7 +24,7 @@ export default async function ProjectDetailModal({ params }: { params: { id: str
                         <div className="flex flex-col justify-between relative z-10 h-full p-30 overflow-x-hidden overflow-y-scroll">
                             <div>
                                 <Image
-                                    src="/images/icon-file.svg"
+                                    src={'https://quotify.b-cdn.net/icon-file.svg'}
                                     width={35}
                                     height={35}
                                     className="mb-5 filter brightness-200 invert"
@@ -43,7 +43,7 @@ export default async function ProjectDetailModal({ params }: { params: { id: str
                                         <li className="font-latolight pb-2 mb-3">
                                             <div className="flex pb-1">
                                                 <Image
-                                                    src="/images/icon-mini-space-size.svg"
+                                                    src={'https://quotify.b-cdn.net/icon-mini-space-size.svg'}
                                                     width={15}
                                                     height={15}
                                                     className="mb-5 filter brightness-200 invert"
@@ -56,7 +56,7 @@ export default async function ProjectDetailModal({ params }: { params: { id: str
                                         <li className="font-latolight pb-2 mb-3">
                                             <div className="flex pb-1">
                                                 <Image
-                                                    src="/images/icon-mini-rentable-area.svg"
+                                                    src={'https://quotify.b-cdn.net/icon-mini-rentable-area.svg'}
                                                     width={15}
                                                     height={15}
                                                     className="mb-5 filter brightness-200 invert"
@@ -69,7 +69,7 @@ export default async function ProjectDetailModal({ params }: { params: { id: str
                                         <li className="font-latolight pb-2 mb-3">
                                             <div className="flex pb-1">
                                                 <Image
-                                                    src="/images/icon-mini-target-headcount.svg"
+                                                    src={'https://quotify.b-cdn.net/icon-mini-target-headcount.svg'}
                                                     width={15}
                                                     height={15}
                                                     className="mb-5 filter brightness-200 invert"
@@ -82,7 +82,7 @@ export default async function ProjectDetailModal({ params }: { params: { id: str
                                         <li className="font-latolight pb-2 mb-3">
                                             <div className="flex pb-1">
                                                 <Image
-                                                    src="/images/icon-mini-workspace.svg"
+                                                    src={'https://quotify.b-cdn.net/icon-mini-workspace.svg'}
                                                     width={15}
                                                     height={15}
                                                     className="mb-5 filter brightness-200 invert"
@@ -95,7 +95,7 @@ export default async function ProjectDetailModal({ params }: { params: { id: str
                                         <li className="font-latolight pb-2 mb-3">
                                             <div className="flex pb-1">
                                                 <Image
-                                                    src="/images/icon-mini-staff.svg"
+                                                    src={'https://quotify.b-cdn.net/icon-mini-staff.svg'}
                                                     width={15}
                                                     height={15}
                                                     className="mb-5 filter brightness-200 invert"
@@ -108,17 +108,6 @@ export default async function ProjectDetailModal({ params }: { params: { id: str
                                     </ul>
                                 </div>
                             </div>
-                            {/* <Link href="/estimation" className="flex text-[24px] text-white opacity-50 hover:opacity-1">
-                                <Image
-                                    src="/images/icon-create.svg"
-                                    width={15}
-                                    height={15}
-                                    className="w-[16px]"
-                                    alt="create-new"
-                                />
-                                <div className="pl-2">add estimate</div>
-                            </Link > */}
-                            
                         </div>
                     </div>
                 </div>

@@ -103,7 +103,7 @@ export default function Form({
                                     Area breakdown
                                 </h4>
                                 <div className="estimation-col__bar mt-6 mb-6"></div>
-                                {menus.length && <div className="estimation-col__content">
+                                {menus.length > 0 && <div className="estimation-col__content">
                                     {menus.map((menu: any, index: number) => (
                                         <div key={menu._id} className={clsx(
                                             'js-step-indicator step-indicator',

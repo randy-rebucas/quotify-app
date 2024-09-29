@@ -15,7 +15,7 @@ export default function NavButton() {
         >
             <Link href="/estimation/project-information" id="js-enable-estimation-nav" className="js-autoplay-show enable-estimation-nav">
                 <Image
-                    src="/images/icon-enable.png"
+                    src={'https://quotify.b-cdn.net/icon-enable.png'}
                     width={167}
                     height={167}
                     alt="next"

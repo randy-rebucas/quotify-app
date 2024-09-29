@@ -26,7 +26,7 @@ export default function Form({ isEdit, project }: { isEdit: boolean, project: an
                 <li className="font-latolight pb-2 mb-3">
                     <div className="flex pb-1">
                         <Image
-                            src="/images/icon-mini-space-size.svg"
+                            src={'https://quotify.b-cdn.net/icon-mini-space-size.svg'}
                             width={15}
                             height={15}
                             alt=""
@@ -39,7 +39,7 @@ export default function Form({ isEdit, project }: { isEdit: boolean, project: an
                 <li className="font-latolight pb-2 mb-3">
                     <div className="flex pb-1">
                         <Image
-                            src="/images/icon-mini-rentable-area.svg"
+                            src={'https://quotify.b-cdn.net/icon-mini-rentable-area.svg'}
                             width={15}
                             height={15}
                             alt=""
@@ -52,7 +52,7 @@ export default function Form({ isEdit, project }: { isEdit: boolean, project: an
                 <li className="font-latolight pb-2 mb-3">
                     <div className="flex pb-1">
                         <Image
-                            src="/images/icon-mini-target-headcount.svg"
+                            src={'https://quotify.b-cdn.net/icon-mini-target-headcount.svg'}
                             width={15}
                             height={15}
                             alt=""
@@ -65,7 +65,7 @@ export default function Form({ isEdit, project }: { isEdit: boolean, project: an
                 <li className="font-latolight pb-2 mb-3">
                     <div className="flex pb-1">
                         <Image
-                            src="/images/icon-mini-workspace.svg"
+                            src={'https://quotify.b-cdn.net/icon-mini-workspace.svg'}
                             width={15}
                             height={15}
                             alt=""
@@ -78,7 +78,7 @@ export default function Form({ isEdit, project }: { isEdit: boolean, project: an
                 <li className="font-latolight pb-2 mb-3">
                     <div className="flex pb-1">
                         <Image
-                            src="/images/icon-mini-staff.svg"
+                            src={'https://quotify.b-cdn.net/icon-mini-staff.svg'}
                             width={15}
                             height={15}
                             alt=""

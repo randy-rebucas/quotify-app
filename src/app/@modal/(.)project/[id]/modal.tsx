@@ -25,7 +25,7 @@ export function Modal({ children }: { children: React.ReactNode }) {
             <div className="close-btn opacity-1 absolute top-0 right-0 flex flex-col items-end p-30 z-30">
                 <Link href="#" className="js-close-results" onClick={() => dialogRef.current && router.back()}>
                     <Image
-                        src="/images/icon-close.svg"
+                        src={'https://quotify.b-cdn.net/icon-close.svg'}
                         width={0}
                         height={0}
                         sizes="100vw"

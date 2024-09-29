@@ -61,7 +61,7 @@ export function Projects({ projects }: { projects: any[] }) {
                                 <div className="flex flex-col justify-start relative z-10">
                                     <Link href={`/project/${project._id}`} className="absolute js-open-results right-0" >
                                         <Image
-                                            src="/images/icon-settings.svg"
+                                            src={'https://quotify.b-cdn.net/icon-settings.svg'}
                                             width="0"
                                             height="0"
                                             sizes="100vw"
@@ -71,7 +71,7 @@ export function Projects({ projects }: { projects: any[] }) {
                                     </Link>
                                     <div className="file-content text-black">
                                         <Image
-                                            src="/images/icon-file.svg"
+                                            src={'https://quotify.b-cdn.net/icon-file.svg'}
                                             width="0"
                                             height="0"
                                             sizes="100vw"

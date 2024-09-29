@@ -30,7 +30,7 @@ export default async function Page() {
 
         <div className="lg:col-start-2 lg:col-span-3 col-span-12">
 
-          <VideoWrapper src="https://quotify.mmoser.app/src/videos/flowbite.mp4" />
+          <VideoWrapper src={'https://quotify.b-cdn.net/flowbite.mp4'} />
 
           <Columns columns={columns} />
 

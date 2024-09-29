@@ -8,7 +8,7 @@ export default function NavButton() {
     return (
         <Link href="/projects">
             <Image
-                src="/images/icon-submit.png"
+                src={'https://quotify.b-cdn.net/icon-submit.png'}
                 width={0}
                 height={0}
                 sizes="100vw"
