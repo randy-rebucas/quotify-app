@@ -6,20 +6,16 @@ import { FormEvent, useEffect, useState } from "react";
 import { PieChartPresentation } from "../pie-chart-presentation";
 
 import PieChartData from "../pie-chart-data";
-import { usePathname, useRouter } from "next/navigation";
-import Image from "next/image";
+import { useRouter } from "next/navigation";
 import Tooltip from "@/components/tooltip";
 import { useAppStore } from "@/lib/store/appStore";
 import { common } from "@/lib/mock";
-import {
-    EmailShareButton,
-    EmailIcon,
-} from 'next-share'
 import Link from "next/link";
-import { ProjectAreaDefination } from "../refinement/form";
 import { useAreaBreakdownStore } from "@/lib/store/areaBreakdownStore";
-import PieChartDataPrint from "../pie-chart-data-print";
 import { IProject } from "@/models/Project";
+
+// import { GoogleMapsEmbed } from '@next/third-parties/google'
+
 export default function Form({ project, amenities, customeSpaces, selectedAmenities, selectedCustomSpaces }: {
     project: any;
     amenities: any;
@@ -147,6 +143,13 @@ export default function Form({ project, amenities, customeSpaces, selectedAmenit
 
                                     </div>
                                     <div className="col-span-1 flex flex-col justify-end h-full">
+                                        {/* <GoogleMapsEmbed 
+                                                apiKey={process.env.NEXT_PUBLIC_MAPS_API_KEY as string} 
+                                                height={200}
+                                                width="100%;"
+                                                mode="place"
+                                                q="Brooklyn+Bridge,New+York,NY" 
+                                            /> */}
                                         <iframe src={`https://maps.google.com/maps?q=${project.address}&z=13&ie=UTF8&iwloc=&output=embed`} loading="lazy"
                                             referrerPolicy="no-referrer-when-downgrade" className="w-[228px] h-[152px]" style={{ border: 0 }} allowFullScreen={true} aria-hidden="false"
                                             tabIndex={0}></iframe>

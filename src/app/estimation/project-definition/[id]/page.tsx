@@ -7,13 +7,13 @@ import PageWrapper from "@/components/page-wrapper";
 import StaggerCover from "@/components/stagger-cover";
 import { notFound } from "next/navigation";
 
-
 export default async function ProjectDefinitionPage({ params }: { params: { id: string } }) {
     const id = params.id;
 
     if (!id) {
         notFound();
     }
+    
     // Get project detaail
     const project = await fetchProject(id);
     // Get all Amenities 
