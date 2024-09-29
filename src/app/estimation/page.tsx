@@ -8,18 +8,35 @@ import PageWrapper from "@/components/page-wrapper";
 
 import StaggerCover from "@/components/stagger-cover";
 import { lato } from "../fonts";
+import { getImageProps } from "next/image";
 
 export const metadata: Metadata = {
     title: 'Estimation'
 };
 
+function getBackgroundImage(srcSet = '') {
+    const imageSet = srcSet
+        .split(', ')
+        .map((str) => {
+            const [url, dpi] = str.split(' ')
+            return `url("${url}") ${dpi}`
+        })
+        .join(', ')
+    return `image-set(${imageSet})`
+}
+
 export default function EstimationPage() {
+    const {
+        props: { srcSet },
+    } = getImageProps({ alt: '', width: 800, height: 800, src: 'https://quotify.b-cdn.net/87b9f42fb3d0a1130d1b.png' })
+    const backgroundImage = getBackgroundImage(srcSet)
+    const style = { height: '100vh', width: '100vw', backgroundImage }
 
     const colors: string[] = ['bg-gray1', 'bg-gray2', 'bg-gray3', 'bg-gray4', 'bg-gray5']
 
     return (
         <div
-            style={{ backgroundImage: 'url(../87b9f42fb3d0a1130d1b.png)' }}
+            style={style}
             className="js-wrapper wrapper bg-fixed bg-cover">
 
             <NavButton />
