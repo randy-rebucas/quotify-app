@@ -6,21 +6,26 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const { rid } = req.query;
-  const { estimateId } = req.body;
-  connect();
+  if (req.method === "POST") {
+    const { rid } = req.query;
+    const { estimateId } = req.body;
+    connect();
 
-  try {
-    const estimateRequirement = await EstimateRequirement.findOne({
-      requirement: rid,
-      estimate: estimateId,
-    })
-      .populate("requirement")
-      .populate("requirementLevel")
-      .exec();
+    try {
+      const estimateRequirement = await EstimateRequirement.findOne({
+        requirement: rid,
+        estimate: estimateId,
+      })
+        .populate("requirement")
+        .populate("requirementLevel")
+        .exec();
 
-    res.status(200).json(estimateRequirement);
-  } catch (err) {
-    res.status(500).json(err);
+      res.status(200).json(estimateRequirement);
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  } else {
+    res.setHeader("Allow", ["POST"]);
+    res.status(405).end(`Method ${req.method} Not Allowed`);
   }
 }

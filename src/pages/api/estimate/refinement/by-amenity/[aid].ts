@@ -12,30 +12,34 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const { aid } = req.query;
-  const { estimateId, refinementId } = req.body;
-  connect();
+  if (req.method === "POST") {
+    const { aid } = req.query;
+    const { estimateId, refinementId } = req.body;
+    connect();
 
-  try {
-    const estimateProjectAmenity = await EstimateAmenityRefinementLevel.findOne(
-      {
-        projectAmenity: aid,
-        estimate: estimateId,
-        refinement: refinementId,
-      }
-    )
-      .populate("refinementLevel")
-      .populate({
-        path: "projectAmenity",
-        populate: {
-          path: "amenity",
-          populate: { path: "category", select: "_id name" },
-        },
-      })
-      .exec();
+    try {
+      const estimateProjectAmenity =
+        await EstimateAmenityRefinementLevel.findOne({
+          projectAmenity: aid,
+          estimate: estimateId,
+          refinement: refinementId,
+        })
+          .populate("refinementLevel")
+          .populate({
+            path: "projectAmenity",
+            populate: {
+              path: "amenity",
+              populate: { path: "category", select: "_id name" },
+            },
+          })
+          .exec();
 
-    res.status(200).json(estimateProjectAmenity);
-  } catch (err) {
-    res.status(500).json(err);
+      res.status(200).json(estimateProjectAmenity);
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  } else {
+    res.setHeader("Allow", ["POST"]);
+    res.status(405).end(`Method ${req.method} Not Allowed`);
   }
 }
