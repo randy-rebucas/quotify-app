@@ -15,7 +15,7 @@ export default function Count({ projectId }: Props) {
             const response = await fetch(`/api/estimate/by-property/${projectId}`, {
                 method: 'GET',
                 headers: {
-                    'Accept': 'application/json',
+                    Accept: 'application/json',
                     'Content-Type': 'application/json',
                 }
             });
