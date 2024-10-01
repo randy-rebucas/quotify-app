@@ -22,7 +22,7 @@ export const useEstimateSummaryStore = create<State & Actions>()(
       estimateRefinements: [],
       getProjectEstimates: async (filter: string) => {
         const response = await fetch(`/api/estimate/by-property/${filter}`, {
-          method: "POST",
+          method: "GET",
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
@@ -43,7 +43,7 @@ export const useEstimateSummaryStore = create<State & Actions>()(
       },
       getProjectEstimateRequirements: async (filter: string) => {
         const response = await fetch(`/api/requirement/by-estimate/${filter}`, {
-          method: "POST",
+          method: "GET",
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",

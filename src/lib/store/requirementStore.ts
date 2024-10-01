@@ -48,7 +48,7 @@ export const useRequirementStore = create<State & Actions>()(
       activeTab: 0,
       getRequirementByName: async (filter: string) => {
         const response = await fetch(`/api/requirement/by-name/${filter}`, {
-          method: "POST",
+          method: "GET",
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
@@ -61,7 +61,7 @@ export const useRequirementStore = create<State & Actions>()(
       },
       getRequirement: async (filter: string) => {
         const response = await fetch(`/api/requirement/${filter}`, {
-          method: "POST",
+          method: "GET",
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",

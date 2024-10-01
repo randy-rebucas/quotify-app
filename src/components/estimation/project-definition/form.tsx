@@ -84,7 +84,7 @@ export default function Form({ project, amenities, customeSpaces, selectedAmenit
                 const response = await fetch(
                     `/api/project/amenities/by-project/${id}`,
                     {
-                        method: "POST",
+                        method: "GET",
                         headers: {
                             Accept: "application/json",
                             "Content-Type": "application/json",

@@ -20,7 +20,7 @@ export default function Indicator({
         const getRequirementLabel = async (id?: string) => {
             if (id) {
                 const response = await fetch(`/api/requirement-level/${id}`, {
-                    method: "POST",
+                    method: "GET",
                     headers: {
                         Accept: "application/json",
                         "Content-Type": "application/json",

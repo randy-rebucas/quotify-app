@@ -12,9 +12,9 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  if (req.method === "POST") {
+  if (req.method === "GET") {
     const { eid } = req.query;
-    const { estimateId, refinementId } = req.body;
+
     connect();
 
     try {
@@ -36,7 +36,7 @@ export default async function handler(
       res.status(500).json(err);
     }
   } else {
-    res.setHeader("Allow", ["POST"]);
+    res.setHeader("Allow", ["GET"]);
     res.status(405).end(`Method ${req.method} Not Allowed`);
   }
 }

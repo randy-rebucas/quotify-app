@@ -63,7 +63,7 @@ export default function Form({
             const response = await fetch('/api/project/definition', {
                 method: 'POST',
                 headers: {
-                    'Accept': 'application/json',
+                    Accept: 'application/json',
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(form_data),

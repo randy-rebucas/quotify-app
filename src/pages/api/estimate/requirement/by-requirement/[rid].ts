@@ -6,10 +6,10 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
+  connect();
   if (req.method === "POST") {
     const { rid } = req.query;
     const { estimateId } = req.body;
-    connect();
 
     try {
       const estimateRequirement = await EstimateRequirement.findOne({

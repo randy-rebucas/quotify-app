@@ -24,7 +24,7 @@ export const useRefinementLevelStore = create<State & Actions>()(
         const response = await fetch(
           `/api/refinement-level/by-refinement/${id}`,
           {
-            method: "POST",
+            method: "GET",
             headers: {
               Accept: "application/json",
               "Content-Type": "application/json",

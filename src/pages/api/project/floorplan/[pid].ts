@@ -9,19 +9,23 @@ export default async function handler(
   res: NextApiResponse
 ) {
   connect();
+  if (req.method === "GET") {
+    const { pid } = req.query;
 
-  const { pid } = req.query;
+    try {
+      const floorplan = await FloorPlan.findOne({ project: pid }).exec();
 
-  try {
-    const floorplan = await FloorPlan.findOne({ project: pid }).exec();
+      const transformData = {
+        _id: floorplan._id.toString(), // project amenity id
+        path: floorplan.path,
+      };
 
-    const transformData = {
-      _id: floorplan._id.toString(), // project amenity id
-      path: floorplan.path,
-    };
-
-    res.status(200).json(transformData);
-  } catch (err) {
-    res.status(500).json(err);
+      res.status(200).json(transformData);
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  } else {
+    res.setHeader("Allow", ["GET"]);
+    res.status(405).end(`Method ${req.method} Not Allowed`);
   }
 }

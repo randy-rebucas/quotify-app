@@ -25,7 +25,7 @@ export default function Option({
       const response = await fetch(
         `/api/requirement-level/by-requirement/${id}`,
         {
-          method: "POST",
+          method: "GET",
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",

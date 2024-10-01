@@ -45,7 +45,7 @@ export const useRefinementStore = create<State & Actions>()(
       activeTab: 0,
       getRefinementIdByName: async (filter: string) => {
         const response = await fetch(`/api/refinement/by-name/${filter}`, {
-          method: "POST",
+          method: "GET",
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
@@ -58,7 +58,7 @@ export const useRefinementStore = create<State & Actions>()(
       },
       getRefinement: async (filter: string) => {
         const response = await fetch(`/api/refinement/${filter}`, {
-          method: "POST",
+          method: "GET",
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",

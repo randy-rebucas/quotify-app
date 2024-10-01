@@ -12,10 +12,10 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
+  connect();
   if (req.method === "POST") {
     const { aid } = req.query;
     const { estimateId, refinementId } = req.body;
-    connect();
 
     try {
       const estimateProjectAmenity =

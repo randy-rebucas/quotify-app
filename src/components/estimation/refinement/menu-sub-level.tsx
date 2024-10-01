@@ -33,7 +33,7 @@ export default function MenuSubLevel({
                 const response = await fetch(
                     `/api/project/amenities/by-project/${id}`,
                     {
-                        method: "POST",
+                        method: "GET",
                         headers: {
                             Accept: "application/json",
                             "Content-Type": "application/json",
@@ -51,7 +51,7 @@ export default function MenuSubLevel({
             const response = await fetch(
                 `/api/project/custom-space/by-project/${id}`,
                 {
-                    method: "POST",
+                    method: "GET",
                     headers: {
                         Accept: "application/json",
                         "Content-Type": "application/json",

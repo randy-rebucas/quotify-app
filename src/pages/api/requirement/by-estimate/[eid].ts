@@ -6,19 +6,24 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const { eid } = req.query;
   connect();
+  if (req.method === "GET") {
+    const { eid } = req.query;
 
-  try {
-    const requirement = await EstimateRequirement.find({
-      estimate: eid,
-    })
-      .populate("requirement")
-      .populate("requirementLevel")
-      .exec();
+    try {
+      const requirement = await EstimateRequirement.find({
+        estimate: eid,
+      })
+        .populate("requirement")
+        .populate("requirementLevel")
+        .exec();
 
-    res.status(200).json(requirement);
-  } catch (err) {
-    res.status(500).json(err);
+      res.status(200).json(requirement);
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  } else {
+    res.setHeader("Allow", ["GET"]);
+    res.status(405).end(`Method ${req.method} Not Allowed`);
   }
 }

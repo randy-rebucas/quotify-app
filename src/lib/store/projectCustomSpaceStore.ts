@@ -20,7 +20,7 @@ export const useProjectCustomSpaceStore = create<State & Actions>()(
         const response = await fetch(
           `/api/project/custom-space/by-project/${id}`,
           {
-            method: "POST",
+            method: "GET",
             headers: {
               Accept: "application/json",
               "Content-Type": "application/json",

@@ -13,7 +13,7 @@ export default function Count({ projectId }: Props) {
     useEffect(() => {
         const getEstimateByProperty = async (projectId: string) => {
             const response = await fetch(`/api/estimate/by-property/${projectId}`, {
-                method: 'POST',
+                method: 'GET',
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',

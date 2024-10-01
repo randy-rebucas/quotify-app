@@ -8,24 +8,30 @@ export default async function handler(
   res: NextApiResponse
 ) {
   connect();
+  if (req.method === "GET") {
+    const { pid } = req.query;
 
-  const { pid } = req.query;
+    try {
+      const project_customspaces = await ProjectCustomSpace.find({
+        project: pid,
+      })
+        .populate("customSpace")
+        .exec();
 
-  try {
-    const project_customspaces = await ProjectCustomSpace.find({ project: pid })
-      .populate("customSpace")
-      .exec();
+      const transformData = project_customspaces.map((project_customspace) => {
+        return {
+          _id: project_customspace._id.toString(), // project amenity id
+          name: project_customspace.customSpace.customSpaceName, // amenity name
+          type: "customspace",
+        };
+      });
 
-    const transformData = project_customspaces.map((project_customspace) => {
-      return {
-        _id: project_customspace._id.toString(),                                            // project amenity id
-        name: project_customspace.customSpace.customSpaceName,                               // amenity name
-        type: 'customspace'
-      };
-    });
-
-    res.status(200).json(transformData);
-  } catch (err) {
-    res.status(500).json(err);
+      res.status(200).json(transformData);
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  } else {
+    res.setHeader("Allow", ["GET"]);
+    res.status(405).end(`Method ${req.method} Not Allowed`);
   }
 }

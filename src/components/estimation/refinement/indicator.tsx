@@ -21,7 +21,7 @@ export default function Indicator({
     const getRequirementLabel = async (refinementLevelId?: string) => {
       if (id) {
         const response = await fetch(`/api/refinement-level/${refinementLevelId}`, {
-          method: "POST",
+          method: "GET",
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
