@@ -10,42 +10,46 @@ export default async function handler(
   res: NextApiResponse
 ) {
   connect();
+  if (req.method === "POST") {
+    const { selectedAmenityIds, selectedCustomSpaces, projectId } = req.body;
 
-  const { selectedAmenityIds, selectedCustomSpaces, projectId } = req.body;
-
-  try {
-    selectedAmenityIds.map(async (selectedAmenityId: any) => {
-      const projectAminity = new ProjectAmenity({
-        project: projectId,
-        amenity: selectedAmenityId,
-      });
-      await projectAminity.save();
-    });
-
-    selectedCustomSpaces.map(
-      async (selectedCustomSpace: {
-        id: number;
-        space: string;
-        quantity: number;
-      }) => {
-        const projectCustomSpace = new ProjectCustomSpace({
+    try {
+      selectedAmenityIds.map(async (selectedAmenityId: any) => {
+        const projectAminity = new ProjectAmenity({
           project: projectId,
-          customSpace: selectedCustomSpace.space,
-          quantity: selectedCustomSpace.quantity,
+          amenity: selectedAmenityId,
         });
-        await projectCustomSpace.save();
-      }
-    );
+        await projectAminity.save();
+      });
 
-    const update = { lastUri: "project-definition" };
+      selectedCustomSpaces.map(
+        async (selectedCustomSpace: {
+          id: number;
+          space: string;
+          quantity: number;
+        }) => {
+          const projectCustomSpace = new ProjectCustomSpace({
+            project: projectId,
+            customSpace: selectedCustomSpace.space,
+            quantity: selectedCustomSpace.quantity,
+          });
+          await projectCustomSpace.save();
+        }
+      );
 
-    const filterProject = { _id: projectId };
+      const update = { lastUri: "project-definition" };
 
-    await Project.findOneAndUpdate(filterProject, update);
+      const filterProject = { _id: projectId };
 
-    //
-    res.status(200).json({ id: projectId });
-  } catch (err) {
-    res.status(500).json(err);
+      await Project.findOneAndUpdate(filterProject, update);
+
+      //
+      res.status(200).json({ id: projectId });
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  } else {
+    res.setHeader("Allow", ["POST"]);
+    res.status(405).end(`Method ${req.method} Not Allowed`);
   }
 }
