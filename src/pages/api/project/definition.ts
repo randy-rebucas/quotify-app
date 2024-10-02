@@ -11,7 +11,9 @@ export default async function handler(
 ) {
   connect();
   if (req.method === "POST") {
-    const { selectedAmenityIds, selectedCustomSpaces, projectId } = req.body;
+    const { selectedAmenityIds, selectedCustomSpaces, projectId } = JSON.parse(
+      req.body
+    );
 
     try {
       selectedAmenityIds.map(async (selectedAmenityId: any) => {
