@@ -31,7 +31,7 @@ export default function HeadCount() {
                                     <p>what is your target headcount?</p>
 
                                     <div className="custom-input flex flex-col justify-start mt-[5.556vh]">
-                                        <input className="bg-transparent focus:outline-none border-b-2 border-blue" type="number"
+                                        <input className="bg-transparent focus:outline-none border-b-2 border-blue" type="number" name="target-head-count"
                                             value={project.targetHeadCount} onChange={e => updateFields({ targetHeadCount: e.target.value })} />
                                         <div className="mt-[20px] font-latobold text-[30px]">people</div>
                                     </div>
@@ -52,7 +52,7 @@ export default function HeadCount() {
                                     <p>for the remaning headcount, what is the average attendance per week?</p>
 
                                     <div className="custom-input flex flex-col justify-start mt-[5.556vh]">
-                                        <input className="bg-transparent focus:outline-none border-b-2 border-blue" type="number"
+                                        <input className="bg-transparent focus:outline-none border-b-2 border-blue" type="number" name="average-attendance"
                                             value={project.averageAttendance} onChange={e => updateFields({ averageAttendance: e.target.value })} />
                                         <div className="mt-[20px] font-latobold text-[30px]">people</div>
                                     </div>
@@ -74,7 +74,7 @@ export default function HeadCount() {
 
                                     <div className="flex flex-col items-start justify-center w-full">
                                         <div className="custom-range-slider mt-[5.556vh] relative w-full">
-                                            <input id="small-range" type="range"
+                                            <input id="small-range" type="range" name="assigned-seat"
                                                 min={0}
                                                 max={100}
                                                 step={10}

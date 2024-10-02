@@ -66,18 +66,20 @@ export default function Address() {
 
                             <div className="mt-[15px] w-full">
 
-                                <input id="map-search" ref={placeAutoCompleteRef}
+                                <input id="map-search" name="map-search" ref={placeAutoCompleteRef}
                                     className="block border-b border-0 bg-transparent py-1 text-darkblue border-darkblue w-full outline-none "
-                                    placeholder="enter building address here" type="text"/>
+                                    placeholder="enter building address here" type="text" />
 
                                 <CustomMap />
 
                                 <div className="custom-checkbox mb-4 mt-10">
-                                    <input id="tmp-4" type="checkbox" className="promoted-input-checkbox" value={1} checked={hasAddress} onChange={e => updateHasAddress(e.target.checked)} />
-                                    <svg>
-                                        <use href="#checkmark-4" xlinkHref="#checkmark-4" />
-                                    </svg>
-                                    <label htmlFor="tmp-4">I don’t have an adress for my project</label>
+                                    <label htmlFor="has-address">
+                                        <input id="has-address" type="checkbox" name="has-address" className="promoted-input-checkbox" value={1} checked={hasAddress} onChange={e => updateHasAddress(e.target.checked)} />
+                                        <svg>
+                                            <use href="#checkmark-4" xlinkHref="#checkmark-4" />
+                                        </svg>
+                                        I don’t have an adress for my project
+                                    </label>
                                     <svg xmlns="http://www.w3.org/2000/svg" style={{
                                         display: 'none'
                                     }}>

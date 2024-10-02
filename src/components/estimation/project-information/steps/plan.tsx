@@ -32,7 +32,7 @@ export default function Plan() {
 
                                 <input
                                     className="block border-b border-0 bg-transparent py-1 text-darkblue border-darkblue w-full outline-none "
-                                    placeholder="give you a space name" type="text" value={project?.spaceName} onChange={e => updateFields({ spaceName: e.target.value })} autoFocus required />
+                                    placeholder="give you a space name" type="text" name="space-name" id="space-name" value={project?.spaceName} onChange={e => updateFields({ spaceName: e.target.value })} autoFocus required />
 
                                 <p className="pt-[5.926vh]">To be able to define areas and square
                                     footage in future sections, start by uploading your floorplans.</p>
@@ -40,11 +40,13 @@ export default function Plan() {
                                 <Upload onChange={handleChange} />
 
                                 <div className="custom-checkbox mb-4 mt-2">
-                                    <input id="tmp-1" type="checkbox" className="promoted-input-checkbox" value={1} checked={hasFloorPlan} onChange={e => updateHasFloorPlan(e.target.checked)} />
-                                    <svg>
-                                        <use href="#checkmark-1" xlinkHref="#checkmark-1" />
-                                    </svg>
-                                    <label htmlFor="tmp-1">I dont have a floorplan for my project</label>
+                                    <label htmlFor="has-floorplan">
+                                        <input id="has-floorplan" type="checkbox" name="has-floorplan" className="promoted-input-checkbox" value={1} checked={hasFloorPlan} onChange={e => updateHasFloorPlan(e.target.checked)} />
+                                        <svg>
+                                            <use href="#checkmark-1" xlinkHref="#checkmark-1" />
+                                        </svg>
+                                        I dont have a floorplan for my project
+                                    </label>
                                     <svg xmlns="http://www.w3.org/2000/svg" style={{
                                         display: 'none'
                                     }}>

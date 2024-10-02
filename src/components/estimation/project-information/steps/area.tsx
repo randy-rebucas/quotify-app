@@ -27,7 +27,7 @@ export default function Area() {
                                     <div className="flex flex-col items-start justify-center w-full">
                                         <div className="custom-range-slider mt-[5.556vh] relative w-full">
                                             {/* value="3000" */}
-                                            <input id="small-range" type="range"
+                                            <input id="small-range" name="approximate-size" type="range"
                                                 min={1000}
                                                 max={300000}
                                                 step={1000}
@@ -44,11 +44,13 @@ export default function Area() {
                                     </div>
 
                                     <div className="custom-checkbox mb-4 mt-[21.204vh]">
-                                        <input id="tmp-5" type="checkbox" className="promoted-input-checkbox" value={1} checked={isBaseOnHeadCount} onChange={e => updateIsBaseOnHeadCount(e.target.checked)} />
-                                        <svg>
-                                            <use href="#checkmark-5" xlinkHref="#checkmark-5" />
-                                        </svg>
-                                        <label htmlFor="tmp-5">base the size of my space on headcount</label>
+                                        <label htmlFor="base-to-headcount">
+                                            <input id="base-to-headcount" type="checkbox" name="base-to-headcount" className="promoted-input-checkbox" value={1} checked={isBaseOnHeadCount} onChange={e => updateIsBaseOnHeadCount(e.target.checked)} />
+                                            <svg>
+                                                <use href="#checkmark-5" xlinkHref="#checkmark-5" />
+                                            </svg>
+                                            base the size of my space on headcount
+                                        </label>
                                         <svg xmlns="http://www.w3.org/2000/svg" style={{
                                             display: 'none'
                                         }}>
@@ -77,7 +79,7 @@ export default function Area() {
                         <div className="flex flex-col items-start justify-center w-full">
                             <div className="custom-range-slider mt-[5.556vh] relative w-full">
                                 {/* value="3000" */}
-                                <input id="small-range" type="range"
+                                <input id="small-range" name="rentable-area" type="range"
                                     min={1000}
                                     max={300000}
                                     step={1000}
