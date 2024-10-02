@@ -10,7 +10,7 @@ export default async function handler(
   res: NextApiResponse
 ) {
   connect();
-  if (req.method === "POST") {
+
     const { selectedAmenityIds, selectedCustomSpaces, projectId } = JSON.parse(
       req.body
     );
@@ -50,8 +50,5 @@ export default async function handler(
     } catch (err) {
       res.status(500).json(err);
     }
-  } else {
-    res.setHeader("Allow", ["POST"]);
-    res.status(405).end(`Method ${req.method} Not Allowed`);
-  }
+
 }
