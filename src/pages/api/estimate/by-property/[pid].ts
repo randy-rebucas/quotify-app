@@ -9,11 +9,12 @@ export default async function handler(
   connect();
   if (req.method === "GET") {
     const { pid } = req.query;
+    console.log(pid)
     try {
       const estimate = await Estimate.find({
         project: pid,
       })
-        .populate("project")
+        // .populate("project")
         .exec();
 
       res.status(200).json(estimate);
