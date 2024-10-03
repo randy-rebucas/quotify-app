@@ -16,7 +16,7 @@ type FileProps = {
   file: File;
 };
 
-export async function POST(request: NextApiRequest) {
+export async function POST(request: any) {
   connect();
 
   const files: FileProps[] = [];
