@@ -18,46 +18,42 @@ export default async function handler(
   res: NextApiResponse
 ) {
   connect();
-  if (req.method === "POST") {
-    const { estimates, projectId, section } = req.body;
 
-    try {
-      estimates.map(async (item: StimateData) => {
-        const estimate = new Estimate({
-          name: item.name,
-          section: section,
-          project: projectId,
-        });
+  const { estimates, projectId, section } = req.body;
 
-        let estimateId = await estimate.save();
-
-        item.requirement.map(
-          async (requirement: {
-            requirementId: string;
-            requirementLevelId: string;
-          }) => {
-            const data = new EstimateRequirement({
-              requirement: requirement.requirementId,
-              requirementLevel: requirement.requirementLevelId,
-              estimate: estimateId,
-            });
-            await data.save();
-          }
-        );
+  try {
+    estimates.map(async (item: StimateData) => {
+      const estimate = new Estimate({
+        name: item.name,
+        section: section,
+        project: projectId,
       });
 
-      const update = { lastUri: "refinement" };
+      let estimateId = await estimate.save();
 
-      const filterProject = { _id: projectId };
+      item.requirement.map(
+        async (requirement: {
+          requirementId: string;
+          requirementLevelId: string;
+        }) => {
+          const data = new EstimateRequirement({
+            requirement: requirement.requirementId,
+            requirementLevel: requirement.requirementLevelId,
+            estimate: estimateId,
+          });
+          await data.save();
+        }
+      );
+    });
 
-      await Project.findOneAndUpdate(filterProject, update);
+    const update = { lastUri: "refinement" };
 
-      res.status(200).json({ id: projectId });
-    } catch (err) {
-      res.status(500).json(err);
-    }
-  } else {
-    res.setHeader("Allow", ["POST"]);
-    res.status(405).end(`Method ${req.method} Not Allowed`);
+    const filterProject = { _id: projectId };
+
+    await Project.findOneAndUpdate(filterProject, update);
+
+    res.status(200).json({ id: projectId });
+  } catch (err) {
+    res.status(500).json(err);
   }
 }

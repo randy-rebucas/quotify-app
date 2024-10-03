@@ -28,20 +28,21 @@ export default function EditOfficeForm({
         <div className="mb-4">
           <label htmlFor="location" className="mb-2 block text-sm font-medium">
             Location
-          </label>
-          <div className="relative mt-2 rounded-md">
-            <div className="relative">
-              <input
-                id="location"
-                name="location"
-                type="text"
-                defaultValue={office.location}
-                placeholder="Enter location"
-                className="peer block w-full rounded-md border border-gray-200 py-2 pl-3 text-sm outline-2 placeholder:text-gray-500"
-              />
-              {state?.errors?.location && <div>{state.errors.location}</div>}
+
+            <div className="relative mt-2 rounded-md">
+              <div className="relative">
+                <input
+                  id="location"
+                  name="location"
+                  type="text"
+                  defaultValue={office.location}
+                  placeholder="Enter location"
+                  className="peer block w-full rounded-md border border-gray-200 py-2 pl-3 text-sm outline-2 placeholder:text-gray-500"
+                />
+                {state?.errors?.location && <div>{state.errors.location}</div>}
+              </div>
             </div>
-          </div>
+          </label>
         </div>
 
         <fieldset>

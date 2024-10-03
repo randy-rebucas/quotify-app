@@ -36,36 +36,38 @@ export default function EditMediaForm({
         <div className="mb-4">
           <label htmlFor="title" className="mb-2 block text-sm font-medium">
             Title
-          </label>
-          <div className="relative mt-2 rounded-md">
-            <div className="relative">
-              <input
-                id="title"
-                name="title"
-                type="text"
-                defaultValue={media.title}
-                placeholder="Enter title"
-                className="peer block w-full rounded-md border border-gray-200 py-2 pl-3 text-sm outline-2 placeholder:text-gray-500"
-              />
+
+            <div className="relative mt-2 rounded-md">
+              <div className="relative">
+                <input
+                  id="title"
+                  name="title"
+                  type="text"
+                  defaultValue={media.title}
+                  placeholder="Enter title"
+                  className="peer block w-full rounded-md border border-gray-200 py-2 pl-3 text-sm outline-2 placeholder:text-gray-500"
+                />
+              </div>
             </div>
-          </div>
+          </label>
         </div>
         <div className="mb-4">
           <label htmlFor="alternativeText" className="mb-2 block text-sm font-medium">
             Alternative Text
-          </label>
-          <div className="relative mt-2 rounded-md">
-            <div className="relative">
-              <input
-                id="alternativeText"
-                name="alternativeText"
-                type="text"
-                defaultValue={media.alternativeText}
-                placeholder="Enter alternativeText"
-                className="peer block w-full rounded-md border border-gray-200 py-2 pl-3 text-sm outline-2 placeholder:text-gray-500"
-              />
+
+            <div className="relative mt-2 rounded-md">
+              <div className="relative">
+                <input
+                  id="alternativeText"
+                  name="alternativeText"
+                  type="text"
+                  defaultValue={media.alternativeText}
+                  placeholder="Enter alternativeText"
+                  className="peer block w-full rounded-md border border-gray-200 py-2 pl-3 text-sm outline-2 placeholder:text-gray-500"
+                />
+              </div>
             </div>
-          </div>
+          </label>
         </div>
         <div className="mt-6 flex justify-end gap-4">
           <Link

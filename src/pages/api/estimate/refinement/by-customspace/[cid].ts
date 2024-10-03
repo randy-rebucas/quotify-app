@@ -13,32 +13,28 @@ export default async function handler(
   res: NextApiResponse
 ) {
   connect();
-  if (req.method === "POST") {
-    const { cid } = req.query;
-    const { estimateId, refinementId } = req.body;
 
-    try {
-      const estimateProjectCustomSpace =
-        await EstimateCustomSpaceRefinementLevel.findOne({
-          projectCustomSpace: cid,
-          estimate: estimateId,
-          refinement: refinementId,
+  const { cid } = req.query;
+  const { estimateId, refinementId } = req.body;
+
+  try {
+    const estimateProjectCustomSpace =
+      await EstimateCustomSpaceRefinementLevel.findOne({
+        projectCustomSpace: cid,
+        estimate: estimateId,
+        refinement: refinementId,
+      })
+        .populate("refinementLevel")
+        .populate({
+          path: "projectCustomSpace",
+          populate: {
+            path: "customSpace",
+          },
         })
-          .populate("refinementLevel")
-          .populate({
-            path: "projectCustomSpace",
-            populate: {
-              path: "customSpace",
-            },
-          })
-          .exec();
+        .exec();
 
-      res.status(200).json(estimateProjectCustomSpace);
-    } catch (err) {
-      res.status(500).json(err);
-    }
-  } else {
-    res.setHeader("Allow", ["POST"]);
-    res.status(405).end(`Method ${req.method} Not Allowed`);
+    res.status(200).json(estimateProjectCustomSpace);
+  } catch (err) {
+    res.status(500).json(err);
   }
 }

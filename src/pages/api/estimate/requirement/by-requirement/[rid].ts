@@ -7,25 +7,21 @@ export default async function handler(
   res: NextApiResponse
 ) {
   connect();
-  if (req.method === "POST") {
-    const { rid } = req.query;
-    const { estimateId } = req.body;
 
-    try {
-      const estimateRequirement = await EstimateRequirement.findOne({
-        requirement: rid,
-        estimate: estimateId,
-      })
-        .populate("requirement")
-        .populate("requirementLevel")
-        .exec();
+  const { rid } = req.query;
+  const { estimateId } = req.body;
 
-      res.status(200).json(estimateRequirement);
-    } catch (err) {
-      res.status(500).json(err);
-    }
-  } else {
-    res.setHeader("Allow", ["POST"]);
-    res.status(405).end(`Method ${req.method} Not Allowed`);
+  try {
+    const estimateRequirement = await EstimateRequirement.findOne({
+      requirement: rid,
+      estimate: estimateId,
+    })
+      .populate("requirement")
+      .populate("requirementLevel")
+      .exec();
+
+    res.status(200).json(estimateRequirement);
+  } catch (err) {
+    res.status(500).json(err);
   }
 }

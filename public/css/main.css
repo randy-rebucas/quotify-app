@@ -9337,8 +9337,6 @@ table {
   height: 0;
   width: var(--size);
   position: absolute;
-  left: 0;
-  top: 0;
   stroke-dasharray: 33;
 }
 

@@ -23,20 +23,20 @@ export default function EditAmenityCategoryForm({
         <div className="mb-4">
           <label htmlFor="name" className="mb-2 block text-sm font-medium">
             Name
-          </label>
-          <div className="relative mt-2 rounded-md">
-            <div className="relative">
-              <input
-                id="name"
-                name="name"
-                type="text"
-                defaultValue={category.name}
-                placeholder="Enter name"
-                className="peer block w-full rounded-md border border-gray-200 py-2 pl-3 text-sm outline-2 placeholder:text-gray-500"
-              />
-              {state?.errors?.name && <div>{state.errors.name}</div>}
+            <div className="relative mt-2 rounded-md">
+              <div className="relative">
+                <input
+                  id="name"
+                  name="name"
+                  type="text"
+                  defaultValue={category.name}
+                  placeholder="Enter name"
+                  className="peer block w-full rounded-md border border-gray-200 py-2 pl-3 text-sm outline-2 placeholder:text-gray-500"
+                />
+                {state?.errors?.name && <div>{state.errors.name}</div>}
+              </div>
             </div>
-          </div>
+          </label>
         </div>
       </div>
 

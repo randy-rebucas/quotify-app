@@ -28,21 +28,21 @@ export default function Form() {
       {/* User Title */}
 
       <div className="mb-4">
-        <label htmlFor="name" className="mb-2 block text-sm font-medium">
+        <label htmlFor="image" className="mb-2 block text-sm font-medium">
           Upload Image
-        </label>
-        <div className="relative mt-2 rounded-md">
-          <div className="relative">
-            <input
-              id="image"
-              name="image"
-              type="file"
-              onChange={handleOnChange}
-              className="peer block w-full rounded-md border border-gray-200 py-2 pl-3 text-sm outline-2 placeholder:text-gray-500"
-            />
-            {state?.errors?.image && <div>{state.errors.image}</div>}
+          <div className="relative mt-2 rounded-md">
+            <div className="relative">
+              <input
+                id="image"
+                name="image"
+                type="file"
+                onChange={handleOnChange}
+                className="peer block w-full rounded-md border border-gray-200 py-2 pl-3 text-sm outline-2 placeholder:text-gray-500"
+              />
+              {state?.errors?.image && <div>{state.errors.image}</div>}
+            </div>
           </div>
-        </div>
+        </label>
       </div>
       {file &&
         <p className="mb-5">

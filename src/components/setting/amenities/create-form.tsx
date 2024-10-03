@@ -19,41 +19,41 @@ export default function Form({ categories }: { categories: any[] }) {
         <div className="mb-4">
           <label htmlFor="amenity_name" className="mb-2 block text-sm font-medium">
             Amenity Name
-          </label>
-          <div className="relative mt-2 rounded-md">
-            <div className="relative">
-              <input
-                id="amenity_name"
-                name="amenity_name"
-                type="text"
-                placeholder="Enter amenity name"
-                className="peer block w-full rounded-md border border-gray-200 py-2 pl-3 text-sm outline-2 placeholder:text-gray-500"
-              />
+            <div className="relative mt-2 rounded-md">
+              <div className="relative">
+                <input
+                  id="amenity_name"
+                  name="amenity_name"
+                  type="text"
+                  placeholder="Enter amenity name"
+                  className="peer block w-full rounded-md border border-gray-200 py-2 pl-3 text-sm outline-2 placeholder:text-gray-500"
+                />
 
+              </div>
             </div>
-          </div>
+          </label>
         </div>
         <div className="mb-4">
-          <label htmlFor="category" className="mb-2 block text-sm font-medium">
+          <label htmlFor="categoryId" className="mb-2 block text-sm font-medium">
             Choose category
-          </label>
-          <div className="relative">
-            <select
-              id="category"
-              name="categoryId"
-              className="peer block w-full cursor-pointer rounded-md border border-gray-200 py-2 pl-2 text-sm outline-2 placeholder:text-gray-500"
-              defaultValue=""
-            >
-              <option value="" disabled>
-                Select a category
-              </option>
-              {categories.map((category) => (
-                <option key={category._id} value={category._id}>
-                  {category.name}
+            <div className="relative">
+              <select
+                id="categoryId"
+                name="categoryId"
+                className="peer block w-full cursor-pointer rounded-md border border-gray-200 py-2 pl-2 text-sm outline-2 placeholder:text-gray-500"
+                defaultValue=""
+              >
+                <option value="" disabled>
+                  Select a category
                 </option>
-              ))}
-            </select>
-          </div>
+                {categories.map((category) => (
+                  <option key={category._id} value={category._id}>
+                    {category.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </label>
         </div>
       </div>
       <div className="mt-6 flex justify-end gap-4">

@@ -39,11 +39,11 @@ export default function Form() {
                     className="bg-transparent font-latothin leading-tight placeholder-white appearance-none border-t-0 border-l-0 border-r-0 border-b w-full text-white focus:outline-none"
                     id="inline-password" type="password" name="password" placeholder="password" />
             </div>
-            <label className="md:w-full block text-white pb-4">
+            <p className="md:w-full block text-white pb-4">
                 <span className="text-sm">
                     don&apos;t have an account? <Link className="font-bold" href="/signup">sign up</Link>
                 </span>
-            </label>
+            </p>
             <div className="w-full flex justify-end md:items-end">
                 <LoginpButton />
             </div>

@@ -24,43 +24,45 @@ export default function EditUserForm({
         <div className="mb-4">
           <label htmlFor="email" className="mb-2 block text-sm font-medium">
             Email
-          </label>
-          <div className="relative mt-2 rounded-md">
-            <div className="relative">
-              <input
-                id="email"
-                name="email"
-                type="email"
-                defaultValue={user.email}
-                placeholder="Enter email"
-                className="peer block w-full rounded-md border border-gray-200 py-2 pl-3 text-sm outline-2 placeholder:text-gray-500"
-              />
-              
+
+            <div className="relative mt-2 rounded-md">
+              <div className="relative">
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  defaultValue={user.email}
+                  placeholder="Enter email"
+                  className="peer block w-full rounded-md border border-gray-200 py-2 pl-3 text-sm outline-2 placeholder:text-gray-500"
+                />
+
+              </div>
             </div>
-          </div>
-        </div>
-        
-        <div className="mb-4">
-          <label htmlFor="office" className="mb-2 block text-sm font-medium">
-            Choose office
           </label>
-          <div className="relative">
-            <select
-              id="office"
-              name="officeId"
-              className="peer block w-full cursor-pointer rounded-md border border-gray-200 py-2 pl-2 text-sm outline-2 placeholder:text-gray-500"
-              defaultValue={user.office_id}
-            >
-              <option value="" disabled>
-                Select a office
-              </option>
-              {offices.map((office) => (
-                <option key={office._id} value={office._id}>
-                  {office.location}
+        </div>
+
+        <div className="mb-4">
+          <label htmlFor="officeId" className="mb-2 block text-sm font-medium">
+            Choose office
+
+            <div className="relative">
+              <select
+                id="officeId"
+                name="officeId"
+                className="peer block w-full cursor-pointer rounded-md border border-gray-200 py-2 pl-2 text-sm outline-2 placeholder:text-gray-500"
+                defaultValue={user.office_id}
+              >
+                <option value="" disabled>
+                  Select a office
                 </option>
-              ))}
-            </select>
-          </div>
+                {offices.map((office) => (
+                  <option key={office._id} value={office._id}>
+                    {office.location}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </label>
         </div>
       </div>
       <div className="mt-6 flex justify-end gap-4">

@@ -12,7 +12,7 @@ export default function Upload({ onChange }: {
 
     return (
         <div className="custom-upload mt-5">
-            <label className="w-full">
+            <label htmlFor="floorplan" className="w-full">
                 <div
                     className="px-30 flex flex-col items-start justify-end w-full h-64 border-2 border-dashed cursor-pointer">
                     <div className="flex flex-col items-start justify-start pt-5 pb-6">
@@ -24,6 +24,8 @@ export default function Upload({ onChange }: {
                         </svg>
                     </div>
                     <input
+                        name="floorplan"
+                        id="floorplan"
                         placeholder="fileInput"
                         className="hidden"
                         ref={inputRef}

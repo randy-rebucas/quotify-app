@@ -8,23 +8,19 @@ export default async function handler(
   res: NextApiResponse
 ) {
   connect();
-  if (req.method === "POST") {
-    const { projectId } = req.body;
 
-    try {
-      const update = { lastUri: "requirement" };
+  const { projectId } = req.body;
 
-      const filterProject = { _id: projectId };
+  try {
+    const update = { lastUri: "requirement" };
 
-      await Project.findOneAndUpdate(filterProject, update);
+    const filterProject = { _id: projectId };
 
-      //
-      res.status(200).json({ id: projectId });
-    } catch (err) {
-      res.status(500).json(err);
-    }
-  } else {
-    res.setHeader("Allow", ["POST"]);
-    res.status(405).end(`Method ${req.method} Not Allowed`);
+    await Project.findOneAndUpdate(filterProject, update);
+
+    //
+    res.status(200).json({ id: projectId });
+  } catch (err) {
+    res.status(500).json(err);
   }
 }

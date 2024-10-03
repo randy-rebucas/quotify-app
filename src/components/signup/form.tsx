@@ -16,19 +16,19 @@ export default function Form() {
             <div className="md:w-full pb-4">
                 <input
                     className="bg-transparent font-latothin leading-tight placeholder-white appearance-none border-t-0 border-l-0 border-r-0 border-b w-full text-white focus:outline-none"
-                    id="inline-name" type="text" name="name" placeholder="name" />
+                    id="name" type="text" name="name" placeholder="name" />
                 {state?.errors?.name && <p>{state.errors.name}</p>}
             </div>
             <div className="md:w-full pb-4">
                 <input
                     className="bg-transparent font-latothin leading-tight placeholder-white appearance-none border-t-0 border-l-0 border-r-0 border-b w-full text-white focus:outline-none"
-                    id="inline-email" type="email" name="email" placeholder="email" />
+                    id="email" type="email" name="email" placeholder="email" />
                 {state?.errors?.email && <p>{state.errors.email}</p>}
             </div>
             <div className="md:w-full pb-4">
                 <input
                     className="bg-transparent font-latothin  leading-tight placeholder-white appearance-none border-t-0 border-l-0 border-r-0 border-b w-full text-white focus:outline-none"
-                    id="inline-password" type="password" name="password" placeholder="password" />
+                    id="password" type="password" name="password" placeholder="password" />
                 {state?.errors?.password && (
                     <div>
                         <p>Password must:</p>
@@ -43,14 +43,14 @@ export default function Form() {
             <div className="md:w-full pb-4">
                 <input
                     className="bg-transparent font-latothin leading-tight placeholder-white appearance-none border-t-0 border-l-0 border-r-0 border-b w-full text-white focus:outline-none"
-                    id="inline-confirm-password" type="password" name="confirm_password" placeholder="confirm password" />
+                    id="confirm-password" type="password" name="confirm_password" placeholder="confirm password" />
                 {state?.errors?.confirm_password && <p>{state.errors.confirm_password}</p>}
             </div>
-            <label className="md:w-full block text-white pb-4">
+            <p className="md:w-full block text-white pb-4">
                 <span className="text-sm">
                     already have an account? <Link className="font-bold" href="/login">sign in</Link>
                 </span>
-            </label>
+            </p>
             <div className="w-full flex justify-end md:items-end">
                 <SignupButton />
             </div>

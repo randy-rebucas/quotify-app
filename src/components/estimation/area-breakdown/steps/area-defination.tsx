@@ -89,13 +89,15 @@ export function AmenitySelections({ amenities }: { amenities: any }) {
             <p className="mt-[11.111vh] mb-[1.852vh]">select your amenity spaces</p>
             {amenities.map((amenity: any, index: any) => (
                 <div className="custom-checkbox mb-4" key={amenity.amenityName}>
-                    <input id={`tmp-${amenity._id}`} type="checkbox" className="promoted-input-checkbox"
-                        value={`${amenity._id}`} checked={areaBreakdown.selectedAmenityIds.includes(amenity._id)} onChange={e => handleCheckboxChange(e)}
-                    />
-                    <svg>
-                        <use xlinkHref={`#checkmark-${index}`}></use>
-                    </svg>
-                    <label htmlFor={`tmp-${amenity._id}`}>{amenity.amenityName}</label>
+                    <label htmlFor={`tmp-${amenity._id}`}>
+                        <input id={`tmp-${amenity._id}`} type="checkbox" className="promoted-input-checkbox"
+                            value={`${amenity._id}`} checked={areaBreakdown.selectedAmenityIds.includes(amenity._id)} onChange={e => handleCheckboxChange(e)}
+                        />
+                        <svg>
+                            <use xlinkHref={`#checkmark-${index}`}></use>
+                        </svg>
+                        {amenity.amenityName}
+                    </label>
                     <svg xmlns="http://www.w3.org/2000/svg" style={{ display: 'none' }} >
                         <symbol id={`checkmark-${index}`} viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeMiterlimit="10" fill="none" d="M22.9 3.7l-15.2 16.6-6.6-7.1">

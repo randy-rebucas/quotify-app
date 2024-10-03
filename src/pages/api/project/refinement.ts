@@ -13,61 +13,56 @@ export default async function handler(
   res: NextApiResponse
 ) {
   connect();
-  if (req.method === "POST") {
-    const { estimates, projectId, section } = req.body;
 
-    try {
-      estimates.map(async (item: StimateData) => {
-        const estimate = new Estimate({
-          name: item.name,
-          section: section,
-          project: projectId,
-        });
+  const { estimates, projectId, section } = req.body;
 
-        let estimateId = await estimate.save();
-
-        item.refinement.map(
-          async (refinement: {
-            refinementId: string;
-            refinementLevelId: string;
-            id: string;
-            type: string;
-          }) => {
-            if (refinement.type == "amenity") {
-              const estimateRefinementLevel =
-                new EstimateAmenityRefinementLevel({
-                  estimate: estimateId,
-                  refinement: refinement.refinementId,
-                  refinementLevel: refinement.refinementLevelId,
-                  projectAmenity: refinement.id,
-                });
-              await estimateRefinementLevel.save();
-            } else {
-              const estimateRefinementLevel =
-                new EstimateCustomSpaceRefinementLevel({
-                  estimate: estimateId,
-                  refinement: refinement.refinementId,
-                  refinementLevel: refinement.refinementLevelId,
-                  projectCustomSpace: refinement.id,
-                });
-              await estimateRefinementLevel.save();
-            }
-          }
-        );
+  try {
+    estimates.map(async (item: StimateData) => {
+      const estimate = new Estimate({
+        name: item.name,
+        section: section,
+        project: projectId,
       });
 
-      const update = { lastUri: "estimate-summary" };
+      let estimateId = await estimate.save();
 
-      const filterProject = { _id: projectId };
+      item.refinement.map(
+        async (refinement: {
+          refinementId: string;
+          refinementLevelId: string;
+          id: string;
+          type: string;
+        }) => {
+          if (refinement.type == "amenity") {
+            const estimateRefinementLevel = new EstimateAmenityRefinementLevel({
+              estimate: estimateId,
+              refinement: refinement.refinementId,
+              refinementLevel: refinement.refinementLevelId,
+              projectAmenity: refinement.id,
+            });
+            await estimateRefinementLevel.save();
+          } else {
+            const estimateRefinementLevel =
+              new EstimateCustomSpaceRefinementLevel({
+                estimate: estimateId,
+                refinement: refinement.refinementId,
+                refinementLevel: refinement.refinementLevelId,
+                projectCustomSpace: refinement.id,
+              });
+            await estimateRefinementLevel.save();
+          }
+        }
+      );
+    });
 
-      await Project.findOneAndUpdate(filterProject, update);
+    const update = { lastUri: "estimate-summary" };
 
-      res.status(200).json({ id: projectId });
-    } catch (err) {
-      res.status(500).json(err);
-    }
-  } else {
-    res.setHeader("Allow", ["POST"]);
-    res.status(405).end(`Method ${req.method} Not Allowed`);
+    const filterProject = { _id: projectId };
+
+    await Project.findOneAndUpdate(filterProject, update);
+
+    res.status(200).json({ id: projectId });
+  } catch (err) {
+    res.status(500).json(err);
   }
 }
