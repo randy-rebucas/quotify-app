@@ -11,44 +11,44 @@ export default async function handler(
 ) {
   connect();
 
-    const { selectedAmenityIds, selectedCustomSpaces, projectId } = JSON.parse(
-      req.body
+  console.log(req.method)
+  const { selectedAmenityIds, selectedCustomSpaces, projectId } = JSON.parse(
+    req.body
+  );
+
+  try {
+    selectedAmenityIds.map(async (selectedAmenityId: any) => {
+      const projectAminity = new ProjectAmenity({
+        project: projectId,
+        amenity: selectedAmenityId,
+      });
+      await projectAminity.save();
+    });
+
+    selectedCustomSpaces.map(
+      async (selectedCustomSpace: {
+        id: number;
+        space: string;
+        quantity: number;
+      }) => {
+        const projectCustomSpace = new ProjectCustomSpace({
+          project: projectId,
+          customSpace: selectedCustomSpace.space,
+          quantity: selectedCustomSpace.quantity,
+        });
+        await projectCustomSpace.save();
+      }
     );
 
-    try {
-      selectedAmenityIds.map(async (selectedAmenityId: any) => {
-        const projectAminity = new ProjectAmenity({
-          project: projectId,
-          amenity: selectedAmenityId,
-        });
-        await projectAminity.save();
-      });
+    const update = { lastUri: "project-definition" };
 
-      selectedCustomSpaces.map(
-        async (selectedCustomSpace: {
-          id: number;
-          space: string;
-          quantity: number;
-        }) => {
-          const projectCustomSpace = new ProjectCustomSpace({
-            project: projectId,
-            customSpace: selectedCustomSpace.space,
-            quantity: selectedCustomSpace.quantity,
-          });
-          await projectCustomSpace.save();
-        }
-      );
+    const filterProject = { _id: projectId };
 
-      const update = { lastUri: "project-definition" };
+    await Project.findOneAndUpdate(filterProject, update);
 
-      const filterProject = { _id: projectId };
-
-      await Project.findOneAndUpdate(filterProject, update);
-
-      //
-      res.status(200).json({ id: projectId });
-    } catch (err) {
-      res.status(500).json(err);
-    }
-
+    //
+    res.status(200).json({ id: projectId });
+  } catch (err) {
+    res.status(500).json(err);
+  }
 }
