@@ -2,9 +2,8 @@ import Project from "@/models/Project";
 import ProjectAmenity from "@/models/ProjectAmenity";
 import ProjectCustomSpace from "@/models/ProjectCustomSpace";
 import connect from "@/utils/db";
-import { NextRequest, NextResponse } from "next/server";
 
-export async function POST(request: NextRequest) {
+export async function POST(request: Request) {
   connect();
   const data = await request.json();
   console.log(data);
@@ -41,14 +40,14 @@ export async function POST(request: NextRequest) {
 
     await Project.findOneAndUpdate(filterProject, update);
 
-    return NextResponse.json(
+    return Response.json(
       { id: projectId },
       {
         status: 200,
       }
     );
   } catch (err) {
-    return NextResponse.json(err, {
+    return Response.json(err, {
       status: 500,
     });
   }
