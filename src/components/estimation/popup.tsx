@@ -10,14 +10,14 @@ import { useAppStore } from "@/lib/store/appStore";
 
 export default function Popup() {
     const router = useRouter();
-    const resetProjectInformation = useProjectInformationStore(state => state.reset);
+    const reset = useProjectInformationStore(state => state.reset);
 
     const isClose = useAppStore(state => state.isClose);
     const setIsClose = useAppStore(state => state.setIsClose);
 
     const handleCloseClick = () => {
         // reset all state
-        resetProjectInformation();
+        reset();
         router.push(`/`)
     }
 

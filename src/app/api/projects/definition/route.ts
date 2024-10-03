@@ -2,19 +2,14 @@ import Project from "@/models/Project";
 import ProjectAmenity from "@/models/ProjectAmenity";
 import ProjectCustomSpace from "@/models/ProjectCustomSpace";
 import connect from "@/utils/db";
+import { NextRequest, NextResponse } from "next/server";
 
-import type { NextApiRequest, NextApiResponse } from "next";
-
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
+export async function POST(request: NextRequest) {
   connect();
-
-  console.log(req.method)
-  const { selectedAmenityIds, selectedCustomSpaces, projectId } = JSON.parse(
-    req.body
-  );
+  const data = await request.json();
+  console.log(data);
+  const { selectedAmenityIds, selectedCustomSpaces, projectId } =
+    JSON.parse(data);
 
   try {
     selectedAmenityIds.map(async (selectedAmenityId: any) => {
@@ -46,9 +41,15 @@ export default async function handler(
 
     await Project.findOneAndUpdate(filterProject, update);
 
-    //
-    res.status(200).json({ id: projectId });
+    return NextResponse.json(
+      { id: projectId },
+      {
+        status: 200,
+      }
+    );
   } catch (err) {
-    res.status(500).json(err);
+    return NextResponse.json(err, {
+      status: 500,
+    });
   }
 }
