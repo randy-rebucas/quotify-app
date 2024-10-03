@@ -3,12 +3,18 @@ import ProjectAmenity from "@/models/ProjectAmenity";
 import ProjectCustomSpace from "@/models/ProjectCustomSpace";
 import connect from "@/utils/db";
 
-export async function POST(request: Request) {
+import type { NextApiRequest, NextApiResponse } from "next";
+
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
   connect();
-  const data = await request.json();
-  console.log(data);
-  const { selectedAmenityIds, selectedCustomSpaces, projectId } =
-    JSON.parse(data);
+
+  console.log(req.method)
+  const { selectedAmenityIds, selectedCustomSpaces, projectId } = JSON.parse(
+    req.body
+  );
 
   try {
     selectedAmenityIds.map(async (selectedAmenityId: any) => {
@@ -40,15 +46,9 @@ export async function POST(request: Request) {
 
     await Project.findOneAndUpdate(filterProject, update);
 
-    return Response.json(
-      { id: projectId },
-      {
-        status: 200,
-      }
-    );
+    //
+    res.status(200).json({ id: projectId });
   } catch (err) {
-    return Response.json(err, {
-      status: 500,
-    });
+    res.status(500).json(err);
   }
 }

@@ -9,10 +9,10 @@ export default async function handler(
 ) {
   connect();
   if (req.method === "GET") {
-    const { ids } = req.query;
+    const { id } = req.query;
 
     try {
-      const project = await Project.findById(ids).exec();
+      const project = await Project.findById(id).exec();
       const transformData = {
         _id: project._id.toString(),
         spaceName: project.spaceName,
