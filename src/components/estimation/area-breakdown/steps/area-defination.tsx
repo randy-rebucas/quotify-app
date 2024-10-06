@@ -176,7 +176,7 @@ export function SelectOptions({ index, space, customSpaces }: { index: number, s
         <select name="space" id={`space-${index}`}
             defaultValue={space}
             onChange={(event) => handleSelectChange(index, event)}
-            className="border-[#005A92] border-b-[1px] border-solid focus:outline-none inline-flex items-center justify-end min-w-[263px] mr-[50px] px-0 py-1 text-black text-left">
+            className="border-[#005A92] border-b-[1px] border-solid focus:outline-none inline-flex items-center justify-end px-0 py-1 text-black text-left">
             <option key={`option-group-X`}>Select</option>
             {customSpaces.map((customSpace: any, index: number) => (
                 <optgroup key={`option-group-${index}`} className="py-3 text-gray-700 dark:text-gray-700" label={customSpace._id}>
