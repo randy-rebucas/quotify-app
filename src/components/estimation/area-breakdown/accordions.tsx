@@ -46,7 +46,7 @@ export default function Accordions({
         setBreakdowns(Object.entries(newAmenities.reduce(groupItemRestById, {})));
 
     }, [amenities, areaBreakdown])
-    console.log(breakdowns);
+
     useEffect(() => {
         setSlice(100 / areaBreakdown.selectedAmenityIds.length);
     }, [areaBreakdown]);
