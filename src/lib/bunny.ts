@@ -52,7 +52,4 @@ export const delete_file = async (filename: string, folder?: string) => {
     options
   );
   return response.json();
-  //   .then(response => response.json())
-  //   .then(response => console.log(response))
-  //   .catch(err => console.error(err));
 };

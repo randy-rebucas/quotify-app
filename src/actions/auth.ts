@@ -90,9 +90,7 @@ export async function signup(state: SignupFormState, formData: FormData) {
     if (isRedirectError(error)) {
       // Redirect error handle here
       throw error; // You have to throw the redirect error
-    } else {
-      console.log("other error");
-    }
+    } else { }
     return;
   }
 }
@@ -141,9 +139,7 @@ export async function login(state: LoginFormState, formData: FormData) {
     if (isRedirectError(error)) {
       // Redirect error handle here
       throw error; // You have to throw the redirect error
-    } else {
-      console.log("other error");
-    }
+    } else { }
     return;
   }
 }

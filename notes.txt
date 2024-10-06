@@ -1,5 +1,0 @@
-https://stackoverflow.com/questions/16235161/save-current-google-map-as-image
-
-https://developers.google.com/maps/documentation/maps-static/start
-
-https://maps.googleapis.com/maps/api/staticmap?center=Berkeley,CA&zoom=14&size=400x400&key=YOUR_API_KEY&signature=YOUR_SIGNATURE

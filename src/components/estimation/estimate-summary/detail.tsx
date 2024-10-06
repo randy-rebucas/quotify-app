@@ -26,7 +26,7 @@ export default function Detail({ project }: { project: any }) {
                 </div>
 
                 <div className="text-white mt-2 pt-[44px]">
-                    <Form project={project} isEdit={edit} />
+                    <Form project={project} isEdit={edit} setEdit={setEdit}/>
                 </div>
             </div>
             <Actions isEdit={edit} projectId={project._id} onClickEdit={handleClickEdit} />

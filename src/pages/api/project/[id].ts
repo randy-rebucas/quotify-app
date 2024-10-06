@@ -8,9 +8,9 @@ export default async function handler(
   res: NextApiResponse
 ) {
   connect();
-  if (req.method === "GET") {
-    const { id } = req.query;
+  const { id } = req.query;
 
+  if (req.method === "GET") {
     try {
       const project = await Project.findById(id).exec();
       const transformData = {
@@ -28,6 +28,24 @@ export default async function handler(
     } catch (err) {
       res.status(500).json(err);
     }
+  } else if (req.method === "POST") {
+    const {
+      approximateSize,
+      rentableArea,
+      targetHeadcount,
+      seatingPercentage,
+    } = JSON.parse(req.body);
+
+    const update = {
+      spaceSize: approximateSize,
+      rentableArea: rentableArea,
+      headCount: targetHeadcount,
+      seatingPercentage: seatingPercentage,
+    };
+
+    await Project.findOneAndUpdate({ _id: id }, update);
+
+    res.status(200).json({ message: "update" });
   } else {
     res.setHeader("Allow", ["GET"]);
     res.status(405).end(`Method ${req.method} Not Allowed`);

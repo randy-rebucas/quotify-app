@@ -12,7 +12,7 @@ export default function Form({ offices }: { offices: any[] }) {
 
   const [state, dispatch] = useFormState(createUser, undefined);
   const { pending } = useFormStatus()
-  console.log(state?.errors)
+
   return (
     <form action={dispatch}>
       <div className="rounded-md bg-gray-50 p-4 md:p-6">

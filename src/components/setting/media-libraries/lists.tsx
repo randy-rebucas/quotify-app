@@ -13,7 +13,6 @@ export default function Lists() {
                 const response = await fetch(`/api/bunnies`, {
                     method: "GET"
                 });
-                console.log(response);
             } catch (error) {
                 console.error(error)
             }
@@ -23,6 +22,6 @@ export default function Lists() {
     }, [])
 
     return (
-        <>{ bunnyFiles }</>
+        <>{bunnyFiles}</>
     )
 }

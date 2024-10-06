@@ -11,7 +11,6 @@ export default async function handler(
 ) {
   connect();
 
-  console.log(req.method)
   const { selectedAmenityIds, selectedCustomSpaces, projectId } = JSON.parse(
     req.body
   );

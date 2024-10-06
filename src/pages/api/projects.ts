@@ -39,7 +39,6 @@ export default async function handler(
     multiples: true,
     keepExtensions: true,
   });
-  form.once("error", console.error);
   form
     .on("fileBegin", (name, file) => {})
     .on("field", (fieldName, value) => {
