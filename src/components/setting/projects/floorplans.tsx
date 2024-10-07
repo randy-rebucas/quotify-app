@@ -28,5 +28,10 @@ export default function Floorplans({ projectId }: { projectId: string }) {
         }
     }, [projectId])
 
-    return <Link href={floorplan} target="_blank">View</Link>;
+    if (!floorplan) {
+        return <p>--</p>
+    }
+    return <>
+        {floorplan && <Link href={floorplan} target="_blank">View</Link>}
+    </>
 }

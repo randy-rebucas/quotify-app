@@ -131,6 +131,9 @@ export const CustomSpaceFormSchema = z.object({
   custom_space_name: z.string({
     invalid_type_error: "Please enter a custom space name.",
   }),
+  categoryId: z.string({
+    invalid_type_error: "Please select a category.",
+  }),
   custom_space_group_name: z.string().trim(),
   capacity: z.string().trim(),
 });
@@ -139,6 +142,7 @@ export type CustomSpaceFormState =
   | {
       errors?: {
         custom_space_name?: string[];
+        categoryId?: string[];
         custom_space_group_name?: string[];
         capacity?: string[];
       };

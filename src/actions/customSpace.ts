@@ -3,10 +3,7 @@
 import CustomSpace from "@/models/CustomSpace";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
-import {
-  CustomSpaceFormSchema,
-  CustomSpaceFormState,
-} from "@/lib/definitions";
+import { CustomSpaceFormSchema, CustomSpaceFormState } from "@/lib/definitions";
 
 const CustomSpaceSchema = CustomSpaceFormSchema.omit({ id: true });
 
@@ -17,6 +14,7 @@ export async function updateCustomSpace(
 ) {
   const validatedFields = CustomSpaceSchema.safeParse({
     custom_space_name: formData.get("custom_space_name"),
+    categoryId: formData.get("categoryId"),
     custom_space_group_name: formData.get("custom_space_group_name"),
     capacity: formData.get("capacity"),
   });
@@ -27,11 +25,12 @@ export async function updateCustomSpace(
     };
   }
 
-  const { custom_space_name, custom_space_group_name, capacity } =
+  const { custom_space_name, custom_space_group_name, capacity, categoryId } =
     validatedFields.data;
 
   const update = {
     customSpaceName: custom_space_name,
+    category: categoryId,
     customSpaceGroupName: custom_space_group_name,
     capacity: capacity,
   };
@@ -50,6 +49,7 @@ export async function createCustomSpace(
   // Validate form using Zod
   const validatedFields = CustomSpaceSchema.safeParse({
     custom_space_name: formData.get("custom_space_name"),
+    categoryId: formData.get("categoryId"),
     custom_space_group_name: formData.get("custom_space_group_name"),
     capacity: formData.get("capacity"),
   });
@@ -61,11 +61,12 @@ export async function createCustomSpace(
     };
   }
 
-  const { custom_space_name, custom_space_group_name, capacity } =
+  const { custom_space_name, custom_space_group_name, capacity, categoryId } =
     validatedFields.data;
 
   const custom_space = new CustomSpace({
     customSpaceName: custom_space_name,
+    category: categoryId,
     customSpaceGroupName: custom_space_group_name,
     capacity: capacity,
   });

@@ -6,8 +6,7 @@ import { useFormState } from 'react-dom';
 import { ICustomSpace } from '@/models/CustomSpace';
 import { createCustomSpace } from '@/actions/customSpace';
 
-
-export default function Form({ custom_spaces }: { custom_spaces: any[] }) {
+export default function Form({ custom_spaces, categories }: { custom_spaces: any[]; categories: any[] }) {
 
   const [state, dispatch] = useFormState(createCustomSpace, undefined);
 
@@ -33,7 +32,28 @@ export default function Form({ custom_spaces }: { custom_spaces: any[] }) {
             </div>
           </label>
         </div>
-
+        <div className="mb-4">
+          <label htmlFor="categoryId" className="mb-2 block text-sm font-medium">
+            Choose category
+            <div className="relative">
+              <select
+                id="categoryId"
+                name="categoryId"
+                className="peer block w-full cursor-pointer rounded-md border border-gray-200 py-2 pl-2 text-sm outline-2 placeholder:text-gray-500"
+                defaultValue=""
+              >
+                <option value="" disabled>
+                  Select a category
+                </option>
+                {categories.map((category) => (
+                  <option key={category._id} value={category._id}>
+                    {category.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </label>
+        </div>
         {/* Custom Space Group Name */}
         <div className="mb-4">
           <label htmlFor="custom_space_group_name" className="mb-2 block text-sm font-medium">

@@ -280,12 +280,12 @@ export async function fetchCustomSpaces() {
 
   connect();
 
-  const custom_spaces = await CustomSpace.find({}).exec();
-
+  const custom_spaces = await CustomSpace.find({}).populate('category').exec();
   const transformData = custom_spaces.map((custom_space) => {
     return {
       _id: custom_space._id.toString(),
       customSpaceName: custom_space.customSpaceName,
+      category: custom_space.category?.name,
       customSpaceGroupName: custom_space.customSpaceGroupName,
       capacity: custom_space.capacity,
     };
@@ -304,6 +304,7 @@ export async function fetchCustomSpaceById(id: string) {
   const transformData = {
     _id: custom_space._id.toString(),
     custom_space_name: custom_space.customSpaceName,
+    category: custom_space.category,
     custom_space_group_name: custom_space.customSpaceGroupName,
     capacity: custom_space.capacity,
   };

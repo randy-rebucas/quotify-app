@@ -1,7 +1,7 @@
 import Form from '@/components/setting/custom-space/edit-form';
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
-import { fetchCustomSpaceById, fetchCustomSpaces } from '@/lib/data';
+import { fetchAmenityCategories, fetchCustomSpaceById, fetchCustomSpaces } from '@/lib/data';
 import Breadcrumbs from '@/components/breadcrumbs';
 
 
@@ -13,6 +13,7 @@ export default async function CustomspaceEditPage({ params }: { params: { id: st
 
     const custom_space = await fetchCustomSpaceById(id);
     const custom_spaces = await fetchCustomSpaces();
+    const categories = await fetchAmenityCategories();
 
     if (!custom_space) {
         notFound();
@@ -30,7 +31,7 @@ export default async function CustomspaceEditPage({ params }: { params: { id: st
                     },
                 ]}
             />
-            <Form custom_space={custom_space} custom_spaces={custom_spaces}/>
+            <Form custom_space={custom_space} custom_spaces={custom_spaces} categories={categories} />
         </main>
     );
 }

@@ -1,8 +1,10 @@
 import mongoose, { Schema, Types } from "mongoose";
+import { IAmenityCategory } from "./AmenityCategory";
 
 // 1. Create an interface representing a document in MongoDB.
 export interface ICustomSpace {
   customSpaceName: string;
+  category?: Types.ObjectId | IAmenityCategory;
   // extra
   customSpaceGroupName?: string;
   capacity?: string;
@@ -23,6 +25,7 @@ export interface ITransformCustomSpaceData {
 // 2. Create a Schema corresponding to the document interface.
 const customSpaceSchema = new Schema<ICustomSpace>({
   customSpaceName: { type: String, unique: true, required: true },
+  category: { type: Schema.Types.ObjectId, ref: "AmenityCategories", required: true },
   // extra
   customSpaceGroupName: { type: String },
   capacity: { type: String },
