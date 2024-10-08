@@ -15,10 +15,9 @@ export default function Accordions({
     customSpaces
 }: {
     amenities: IAmenity[],
-    customSpaces: ICustomSpace[]
+    customSpaces: any[]
 }) {
     const areaBreakdown = useAreaBreakdownStore(state => state.areaBreakdown);
-
     const [slice, setSlice] = useState<number>(0);
     const [breakdowns, setBreakdowns] = useState<any[]>([]);
     const [activeIndex, setActiveIndex] = useState(null);
@@ -28,12 +27,10 @@ export default function Accordions({
     };
 
     useEffect(() => {
-        let newAmenities: (IAmenity | undefined)[] = [];
+        const amenity = areaBreakdown.selectedAmenityIds.map((selectedAmenity: any) => amenities.find(item => item._id === selectedAmenity))
+        const customSpace = areaBreakdown.selectedCustomSpaces.map((selectedCustomSpace: any) => customSpaces.find(item => item._id === selectedCustomSpace.space))
 
-        areaBreakdown.selectedAmenityIds.map((selectedAmenity: any) => {
-            const foundAmenity = amenities.find(item => item._id === selectedAmenity);
-            newAmenities.push(foundAmenity);
-        })
+        const breakdownGroup = [...amenity, ...customSpace];
 
         const groupItemRestById = (collector: any, item: any) => {
             const { categoryName, ...rest } = item;
@@ -43,14 +40,14 @@ export default function Accordions({
 
             return collector;
         }
-        setBreakdowns(Object.entries(newAmenities.reduce(groupItemRestById, {})));
+        setBreakdowns(Object.entries(breakdownGroup.reduce(groupItemRestById, {})));
 
-    }, [amenities, areaBreakdown])
+    }, [amenities, areaBreakdown, customSpaces])
 
     useEffect(() => {
-        setSlice(100 / areaBreakdown.selectedAmenityIds.length);
+        setSlice(100 / areaBreakdown.selectedAmenityIds.length + areaBreakdown.selectedCustomSpaces.length);
     }, [areaBreakdown]);
-
+    console.log(breakdowns)
     return (
         <>
             {/* <div className="mt-[5.556vh] text-[#505050] flex text-[12px] items-center justify-end border-b-gray-100">
@@ -85,7 +82,7 @@ export function Accordion({ title, amenities, isOpen, amenityPercentage, onClick
     const [percentage, setPercentage] = useState<number>(0);
 
     useMemo(() => {
-        setPercentage(amenityPercentage * amenities.length)
+        setPercentage(Math.round(amenityPercentage) * amenities.length)
     }, [amenities.length, amenityPercentage])
 
     return (
@@ -95,12 +92,12 @@ export function Accordion({ title, amenities, isOpen, amenityPercentage, onClick
                     <div className="custom-accordion__header">
                         <div className="w-[170px] text-[18px]">
                             <div className="flex">
-                                <div className="text-[24px] font-latobold mr-[30px]">{Math.round(percentage)}%</div>
+                                <div className="text-[24px] font-latobold mr-[30px]">{Math.round(amenityPercentage)}%</div>
                                 <div className="text-[12px] font-light">3,000 sqft</div>
                             </div>
                             <div className="text-left text-[18px] leading-[18px]">{title}</div>
                         </div>
-                        <ProgressBar percentage={percentage} amenity={title}/>
+                        <ProgressBar percentage={percentage} amenity={title} />
 
                         <svg xmlns="http://www.w3.org/2000/svg" width="12" height="13" viewBox="0 0 12 13" fill="none">
                             <path d="M10 5.41667V3.25C10 1.45546 8.20867 0 6 0C3.79133 0 2 1.45546 2 3.25V5.41667H0V13H12V5.41667H10ZM3.33333 5.41667V3.25C3.33333 2.05508 4.52933 1.08333 6 1.08333C7.47067 1.08333 8.66667 2.05508 8.66667 3.25V5.41667H3.33333Z" fill="#2C2B2B"></path>
@@ -121,7 +118,7 @@ export function Accordion({ title, amenities, isOpen, amenityPercentage, onClick
                 <div className="pt-0 py-[40px] border-b border-gray-200 dark:border-gray-700">
                     <ul className="ps-[40px] list-none">
                         {amenities.map((amenity: any, index: number) => (
-                            <li key={index}><span>{Math.round(amenityPercentage)}%</span> - {amenity.amenityName}</li>
+                            <li key={index}><span>{Math.ceil(amenityPercentage / amenities.length)}%</span> - {amenity.amenityName ?? amenity.customSpaceName}</li>
                         ))}
                     </ul>
                 </div>

@@ -7,17 +7,18 @@ import { v4 as uuid } from 'uuid'
 import Form from "./form";
 
 export default function FormWrapper({
-    menus, amenities, customSpaces, projectId
+    menus, amenities, groupCustomSpaces, customSpaces, projectId
 }: {
     menus: any[];
     amenities: any[];
+    groupCustomSpaces: any[],
     customSpaces: any[],
     projectId: string
 }) {
 
     const { steps, currentStepIndex, step, isFirstStep, isLastStep, back, next } =
         useMultistepForm([
-            <AreaDefination amenities={amenities} customSpaces={customSpaces} key={uuid()} />,
+            <AreaDefination amenities={amenities} customSpaces={groupCustomSpaces} key={uuid()} />,
             <ProportionBreakdown amenities={amenities} customSpaces={customSpaces} key={uuid()} />
         ])
     return (

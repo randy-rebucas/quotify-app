@@ -1,4 +1,4 @@
-import { fetchAmenities, fetchCustomSpacesByGroup, fetchMenuByPageHandled } from "@/lib/data";
+import { fetchAmenities, fetchCustomSpaces, fetchCustomSpacesByGroup, fetchMenuByPageHandled } from "@/lib/data";
 import FormWrapper from "@/components/estimation/area-breakdown/form-wrapper";
 import Intro from "@/components/estimation/area-breakdown/intro";
 import IntroWrapper from "@/components/estimation/intro-wrapper";
@@ -22,8 +22,9 @@ export default async function AreaBreakdownCreatePage({ params }: { params: { id
 
     const amenities = await fetchAmenities();
 
-    const custom_spaces = await fetchCustomSpacesByGroup();
-
+    const groupCustomSpaces = await fetchCustomSpacesByGroup();
+    const customSpaces = await fetchCustomSpaces();
+    
     const introductionColors: string[] = ['bg-blue1', 'bg-blue2', 'bg-blue3', 'bg-blue4', 'bg-blue5'];
 
     const mainColors: string[] = ['bg-blue2', 'bg-gray4A', 'bg-gray4A', 'bg-white', 'bg-white'];
@@ -41,7 +42,7 @@ export default async function AreaBreakdownCreatePage({ params }: { params: { id
 
                 <MainWrapper>
                     <Suspense fallback={<p>Loading ...</p>}>
-                        <FormWrapper menus={menus} amenities={amenities} customSpaces={custom_spaces} projectId={id} />
+                        <FormWrapper menus={menus} amenities={amenities} groupCustomSpaces={groupCustomSpaces} customSpaces={customSpaces} projectId={id} />
                     </Suspense>
                 </MainWrapper>
 

@@ -285,7 +285,7 @@ export async function fetchCustomSpaces() {
     return {
       _id: custom_space._id.toString(),
       customSpaceName: custom_space.customSpaceName,
-      category: custom_space.category?.name,
+      categoryName: custom_space.category?.name,
       customSpaceGroupName: custom_space.customSpaceGroupName,
       capacity: custom_space.capacity,
     };
