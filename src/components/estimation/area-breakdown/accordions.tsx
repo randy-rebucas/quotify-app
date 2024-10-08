@@ -27,10 +27,15 @@ export default function Accordions({
     };
 
     useEffect(() => {
-        const amenity = areaBreakdown.selectedAmenityIds.map((selectedAmenity: any) => amenities.find(item => item._id === selectedAmenity))
-        const customSpace = areaBreakdown.selectedCustomSpaces.map((selectedCustomSpace: any) => customSpaces.find(item => item._id === selectedCustomSpace.space))
+        let newAmenities: (IAmenity | undefined)[] = [];
+        areaBreakdown.selectedAmenityIds.map((selectedAmenity: any) => {
+            const foundAmenity = amenities.find(item => item._id === selectedAmenity);
+            newAmenities.push(foundAmenity);
+        })
+        // const amenity = areaBreakdown.selectedAmenityIds.map((selectedAmenity: any) => amenities.find(item => item._id === selectedAmenity))
+        // const customSpace = areaBreakdown.selectedCustomSpaces.map((selectedCustomSpace: any) => customSpaces.find(item => item._id === selectedCustomSpace.space))
 
-        const breakdownGroup = [...amenity, ...customSpace];
+        // const breakdownGroup = [...amenity, ...customSpace];
 
         const groupItemRestById = (collector: any, item: any) => {
             const { categoryName, ...rest } = item;
@@ -40,12 +45,14 @@ export default function Accordions({
 
             return collector;
         }
-        setBreakdowns(Object.entries(breakdownGroup.reduce(groupItemRestById, {})));
+        setBreakdowns(Object.entries(newAmenities.reduce(groupItemRestById, {})));
+        // setBreakdowns(Object.entries(breakdownGroup.reduce(groupItemRestById, {})));
 
-    }, [amenities, areaBreakdown, customSpaces])
+    }, [amenities, areaBreakdown]) // , customSpaces
 
+    // + areaBreakdown.selectedCustomSpaces.length
     useEffect(() => {
-        setSlice(100 / areaBreakdown.selectedAmenityIds.length + areaBreakdown.selectedCustomSpaces.length);
+        setSlice(100 / areaBreakdown.selectedAmenityIds.length);
     }, [areaBreakdown]);
     console.log(breakdowns)
     return (
@@ -82,7 +89,8 @@ export function Accordion({ title, amenities, isOpen, slice, onClick }: Accordio
     const [percentage, setPercentage] = useState<number>(0);
 
     useMemo(() => {
-        setPercentage(Math.round(slice) * amenities.length)
+        setPercentage(slice * amenities.length)
+        // setPercentage(Math.round(slice) * amenities.length)
     }, [amenities, slice])
 
     return (
@@ -92,7 +100,7 @@ export function Accordion({ title, amenities, isOpen, slice, onClick }: Accordio
                     <div className="custom-accordion__header">
                         <div className="w-[170px] text-[18px]">
                             <div className="flex">
-                                <div className="text-[24px] font-latobold mr-[30px]">{Math.round(slice)}%</div>
+                                <div className="text-[24px] font-latobold mr-[30px]">{Math.round(percentage)}%</div>
                                 <div className="text-[12px] font-light">3,000 sqft</div>
                             </div>
                             <div className="text-left text-[18px] leading-[18px]">{title}</div>
@@ -118,7 +126,8 @@ export function Accordion({ title, amenities, isOpen, slice, onClick }: Accordio
                 <div className="pt-0 py-[40px] border-b border-gray-200 dark:border-gray-700">
                     <ul className="ps-[40px] list-none">
                         {amenities.map((amenity: any, index: number) => (
-                            <li key={index}><span>{Math.ceil(slice / amenities.length)}%</span> - {amenity.amenityName ?? amenity.customSpaceName}</li>
+                            <li key={index}><span>{Math.round(slice)}%</span> - {amenity.amenityName}</li>
+                            // <li key={index}><span>{Math.ceil(slice / amenities.length)}%</span> - {amenity.amenityName ?? amenity.customSpaceName}</li>
                         ))}
                     </ul>
                 </div>
