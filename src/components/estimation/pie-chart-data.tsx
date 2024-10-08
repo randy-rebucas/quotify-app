@@ -1,15 +1,16 @@
 import { useEffect, useState } from "react";
 import { colorMapping } from "./pie-chart-presentation";
 
-export default function PieChartData({ breakdowns, selectedAmenities }: {
+export default function PieChartData({ breakdowns, selectedAmenities, selectedCustomSpaces }: {
     breakdowns: any[];
     selectedAmenities: any[],
+    selectedCustomSpaces: any[]
 }) {
     const [slice, setSlice] = useState<number>(0);
 
     useEffect(() => {
-        setSlice(100 / selectedAmenities.length);
-    }, [selectedAmenities]);
+        setSlice(100 / selectedAmenities.length + selectedCustomSpaces.length);
+    }, [selectedAmenities, selectedCustomSpaces]);
 
     // const color = (roundPercentage: number) => {
     //     let hex;

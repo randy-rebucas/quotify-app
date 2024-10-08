@@ -65,7 +65,7 @@ export default function Form({ project, amenities, customeSpaces, selectedAmenit
     }, [project])
 
     useEffect(() => {
-
+        const breakdownGroup = [...selectedAmenities, ...selectedCustomSpaces];
         const groupItemRestById = (collector: any, item: any) => {
             const { categoryName, ...rest } = item;
             const groupList = collector[categoryName] || (collector[categoryName] = []);
@@ -74,9 +74,9 @@ export default function Form({ project, amenities, customeSpaces, selectedAmenit
 
             return collector;
         }
-        setBreakdowns(Object.entries(selectedAmenities.reduce(groupItemRestById, {})));
+        setBreakdowns(Object.entries(breakdownGroup.reduce(groupItemRestById, {})));
 
-    }, [selectedAmenities])
+    }, [selectedAmenities, selectedCustomSpaces])
 
     useEffect(() => {
         const getProjectAmenities = async (id?: string) => {
@@ -100,7 +100,7 @@ export default function Form({ project, amenities, customeSpaces, selectedAmenit
         getProjectAmenities(project._id);
 
     }, [project, updateFields]);
-
+    console.log(breakdowns);
     return (
         <form onSubmit={onSubmit} className="col-span-4 row-span-2 h-full w-full overflow-y-scroll overflow-x-hidden">
             <div className="grid grid-cols-4 h-full ">
@@ -139,7 +139,7 @@ export default function Form({ project, amenities, customeSpaces, selectedAmenit
                                             <PieChartPresentation width={280} height={280} breakdowns={breakdowns} />
                                         </div>
 
-                                        <PieChartData breakdowns={breakdowns} selectedAmenities={selectedAmenities} />
+                                        <PieChartData breakdowns={breakdowns} selectedAmenities={selectedAmenities} selectedCustomSpaces={selectedCustomSpaces} />
 
                                     </div>
                                     <div className="col-span-1 flex flex-col justify-end h-full">

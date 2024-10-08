@@ -61,7 +61,7 @@ export default function Accordions({
                         amenities={breakdown[1]}
                         key={index}
                         isOpen={activeIndex === index}
-                        amenityPercentage={slice}
+                        slice={slice}
                         onClick={() => handleItemClick(index)}
                     />
                 ))}
@@ -74,16 +74,16 @@ type AccordionProps = {
     title: string;
     amenities: any[];
     isOpen: boolean;
-    amenityPercentage: number;
+    slice: number;
     onClick: MouseEventHandler<HTMLButtonElement>
 };
 
-export function Accordion({ title, amenities, isOpen, amenityPercentage, onClick }: AccordionProps) {
+export function Accordion({ title, amenities, isOpen, slice, onClick }: AccordionProps) {
     const [percentage, setPercentage] = useState<number>(0);
 
     useMemo(() => {
-        setPercentage(Math.round(amenityPercentage) * amenities.length)
-    }, [amenities.length, amenityPercentage])
+        setPercentage(Math.round(slice) * amenities.length)
+    }, [amenities, slice])
 
     return (
         <>
@@ -92,7 +92,7 @@ export function Accordion({ title, amenities, isOpen, amenityPercentage, onClick
                     <div className="custom-accordion__header">
                         <div className="w-[170px] text-[18px]">
                             <div className="flex">
-                                <div className="text-[24px] font-latobold mr-[30px]">{Math.round(amenityPercentage)}%</div>
+                                <div className="text-[24px] font-latobold mr-[30px]">{Math.round(slice)}%</div>
                                 <div className="text-[12px] font-light">3,000 sqft</div>
                             </div>
                             <div className="text-left text-[18px] leading-[18px]">{title}</div>
@@ -118,7 +118,7 @@ export function Accordion({ title, amenities, isOpen, amenityPercentage, onClick
                 <div className="pt-0 py-[40px] border-b border-gray-200 dark:border-gray-700">
                     <ul className="ps-[40px] list-none">
                         {amenities.map((amenity: any, index: number) => (
-                            <li key={index}><span>{Math.ceil(amenityPercentage / amenities.length)}%</span> - {amenity.amenityName ?? amenity.customSpaceName}</li>
+                            <li key={index}><span>{Math.ceil(slice / amenities.length)}%</span> - {amenity.amenityName ?? amenity.customSpaceName}</li>
                         ))}
                     </ul>
                 </div>

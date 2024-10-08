@@ -258,9 +258,13 @@ export async function fetchProjectCustomSpacesByProject(id: string) {
   connect();
 
   const projectCustomSpaces = await ProjectCustomSpace.find({ project: id })
-    .populate("customSpace")
+    // .populate("customSpace")
+    .populate({
+      path: "customSpace",
+      populate: { path: "category", select: "_id name" },
+    })
     .exec();
-
+  
   const transformData = projectCustomSpaces.map((projectCustomSpace) => {
     return {
       _id: projectCustomSpace._id.toString(),
@@ -269,9 +273,10 @@ export async function fetchProjectCustomSpacesByProject(id: string) {
       customSpaceName: projectCustomSpace.customSpace.customSpaceName,
       customSpaceGroupName: projectCustomSpace.customSpace.customSpaceGroupName,
       customSpaceCapacity: projectCustomSpace.customSpace.capacity,
+      categoryName: projectCustomSpace.customSpace.category.name,
     };
   });
-
+ 
   return transformData;
 }
 
