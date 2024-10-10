@@ -17,14 +17,18 @@ export default function ProportionBreakdown({
 }: Props) {
     const areaBreakdown = useAreaBreakdownStore(state => state.areaBreakdown);
     const [breakdowns, setBreakdowns] = useState<any[]>([]);
+    const [totalBreakdowns, setTotalBreakdowns] = useState<number>(0);
 
     useEffect(() => {
         let newAmenities: (IAmenity | undefined)[] = [];
-
-        areaBreakdown.selectedAmenityIds.map((selectedAmenity: any) => {
-            const foundAmenity = amenities.find((item: any) => item._id === selectedAmenity);
-            newAmenities.push(foundAmenity);
-        })
+        const amenity = areaBreakdown.selectedAmenityIds.map((selectedAmenity: any) => amenities.find((item: any) => item._id === selectedAmenity))
+        const customSpace = areaBreakdown.selectedCustomSpaces.map((selectedCustomSpace: any) => customSpaces.find((item: any) => item._id === selectedCustomSpace.space))
+        const breakdownGroup = [...amenity, ...customSpace];
+        setTotalBreakdowns(breakdownGroup.length);
+        // areaBreakdown.selectedAmenityIds.map((selectedAmenity: any) => {
+        //     const foundAmenity = amenities.find((item: any) => item._id === selectedAmenity);
+        //     newAmenities.push(foundAmenity);
+        // })
 
         const groupItemRestById = (collector: any, item: any) => {
             const { categoryName, ...rest } = item;
@@ -34,10 +38,11 @@ export default function ProportionBreakdown({
 
             return collector;
         }
-        setBreakdowns(Object.entries(newAmenities.reduce(groupItemRestById, {})));
+        setBreakdowns(Object.entries(breakdownGroup.reduce(groupItemRestById, {})));
 
-    }, [amenities, areaBreakdown])
-
+    }, [amenities, areaBreakdown, customSpaces])
+    console.log(breakdowns);
+    console.log(totalBreakdowns);
     return (
         <>
             <div className="lg:col-span-2 col-span-12 flex flex-col justify-start items-start w-full h-full">
@@ -57,7 +62,7 @@ export default function ProportionBreakdown({
                                         adjust the percentages to freflect your specific spaces.</p>
                                 </div>
 
-                                <Accordions amenities={amenities} customSpaces={customSpaces} />
+                                <Accordions breakdowns={breakdowns} totalBreakdowns={totalBreakdowns}/>
 
                             </div>
                         </div>
@@ -72,7 +77,7 @@ export default function ProportionBreakdown({
                     <div className="pt-[100px] px-30 w-full flex items-center justify-center">
                         {/* <!--pie chart--> */}
                         <div id="pie-example-1" className="py-[60px] w-[500px] flex items-center justify-center">
-                            <PieChartPresentation width={480} height={480} breakdowns={breakdowns} />
+                            <PieChartPresentation width={480} height={480} breakdowns={breakdowns} totalBreakdowns={totalBreakdowns}/>
                         </div>
                     </div>
                 </div>

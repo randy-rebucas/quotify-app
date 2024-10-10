@@ -11,15 +11,13 @@ import ProgressBar from "@/components/progress-bar";
 export const colors: string[] = ['#005A92', '#3179A6', '#6298BA', '#93B7CD', '#C4D6E1'];
 
 export default function Accordions({
-    amenities,
-    customSpaces
+    breakdowns,
+    totalBreakdowns
 }: {
-    amenities: IAmenity[],
-    customSpaces: any[]
+    breakdowns: any[]
+    totalBreakdowns: number
 }) {
-    const areaBreakdown = useAreaBreakdownStore(state => state.areaBreakdown);
     const [slice, setSlice] = useState<number>(0);
-    const [breakdowns, setBreakdowns] = useState<any[]>([]);
     const [activeIndex, setActiveIndex] = useState(null);
 
     const handleItemClick = (index: any) => {
@@ -27,34 +25,9 @@ export default function Accordions({
     };
 
     useEffect(() => {
-        let newAmenities: (IAmenity | undefined)[] = [];
-        areaBreakdown.selectedAmenityIds.map((selectedAmenity: any) => {
-            const foundAmenity = amenities.find(item => item._id === selectedAmenity);
-            newAmenities.push(foundAmenity);
-        })
-        // const amenity = areaBreakdown.selectedAmenityIds.map((selectedAmenity: any) => amenities.find(item => item._id === selectedAmenity))
-        // const customSpace = areaBreakdown.selectedCustomSpaces.map((selectedCustomSpace: any) => customSpaces.find(item => item._id === selectedCustomSpace.space))
+        setSlice(100 / totalBreakdowns);
+    }, [totalBreakdowns]);
 
-        // const breakdownGroup = [...amenity, ...customSpace];
-
-        const groupItemRestById = (collector: any, item: any) => {
-            const { categoryName, ...rest } = item;
-            const groupList = collector[categoryName] || (collector[categoryName] = []);
-
-            groupList.push(rest);
-
-            return collector;
-        }
-        setBreakdowns(Object.entries(newAmenities.reduce(groupItemRestById, {})));
-        // setBreakdowns(Object.entries(breakdownGroup.reduce(groupItemRestById, {})));
-
-    }, [amenities, areaBreakdown]) // , customSpaces
-
-    // + areaBreakdown.selectedCustomSpaces.length
-    useEffect(() => {
-        setSlice(100 / areaBreakdown.selectedAmenityIds.length);
-    }, [areaBreakdown]);
-    console.log(breakdowns)
     return (
         <>
             {/* <div className="mt-[5.556vh] text-[#505050] flex text-[12px] items-center justify-end border-b-gray-100">
@@ -90,7 +63,6 @@ export function Accordion({ title, amenities, isOpen, slice, onClick }: Accordio
 
     useMemo(() => {
         setPercentage(slice * amenities.length)
-        // setPercentage(Math.round(slice) * amenities.length)
     }, [amenities, slice])
 
     return (
@@ -126,8 +98,7 @@ export function Accordion({ title, amenities, isOpen, slice, onClick }: Accordio
                 <div className="pt-0 py-[40px] border-b border-gray-200 dark:border-gray-700">
                     <ul className="ps-[40px] list-none">
                         {amenities.map((amenity: any, index: number) => (
-                            <li key={index}><span>{Math.round(slice)}%</span> - {amenity.amenityName}</li>
-                            // <li key={index}><span>{Math.ceil(slice / amenities.length)}%</span> - {amenity.amenityName ?? amenity.customSpaceName}</li>
+                            <li key={index}><span>{Math.round(slice)}%</span> - {amenity.amenityName ?? amenity.customSpaceName}</li>
                         ))}
                     </ul>
                 </div>
