@@ -20,15 +20,11 @@ export default function ProportionBreakdown({
     const [totalBreakdowns, setTotalBreakdowns] = useState<number>(0);
 
     useEffect(() => {
-        let newAmenities: (IAmenity | undefined)[] = [];
+
         const amenity = areaBreakdown.selectedAmenityIds.map((selectedAmenity: any) => amenities.find((item: any) => item._id === selectedAmenity))
         const customSpace = areaBreakdown.selectedCustomSpaces.map((selectedCustomSpace: any) => customSpaces.find((item: any) => item._id === selectedCustomSpace.space))
         const breakdownGroup = [...amenity, ...customSpace];
         setTotalBreakdowns(breakdownGroup.length);
-        // areaBreakdown.selectedAmenityIds.map((selectedAmenity: any) => {
-        //     const foundAmenity = amenities.find((item: any) => item._id === selectedAmenity);
-        //     newAmenities.push(foundAmenity);
-        // })
 
         const groupItemRestById = (collector: any, item: any) => {
             const { categoryName, ...rest } = item;
@@ -41,8 +37,7 @@ export default function ProportionBreakdown({
         setBreakdowns(Object.entries(breakdownGroup.reduce(groupItemRestById, {})));
 
     }, [amenities, areaBreakdown, customSpaces])
-    console.log(breakdowns);
-    console.log(totalBreakdowns);
+
     return (
         <>
             <div className="lg:col-span-2 col-span-12 flex flex-col justify-start items-start w-full h-full">
