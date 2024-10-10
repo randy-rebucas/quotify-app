@@ -36,7 +36,7 @@ export default async function ProjectDefinitionPage({ params }: { params: { id: 
                 <PageWrapper >
                     <Menu />
 
-                    <Form project={project} amenities={amenities} customeSpaces={custom_spaces} selectedAmenities={selected_amenities} selectedCustomSpaces={selected_custom_spaces} />
+                    <Form project={project} selectedAmenities={selected_amenities} selectedCustomSpaces={selected_custom_spaces} />
                 </PageWrapper>
 
                 <StaggerCover colors={colors} target={2} className="opacity-1" />

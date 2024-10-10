@@ -16,10 +16,8 @@ import { IProject } from "@/models/Project";
 
 // import { GoogleMapsEmbed } from '@next/third-parties/google'
 
-export default function Form({ project, amenities, customeSpaces, selectedAmenities, selectedCustomSpaces }: {
+export default function Form({ project, selectedAmenities, selectedCustomSpaces }: {
     project: any;
-    amenities: any;
-    customeSpaces: any;
     selectedAmenities: any[],
     selectedCustomSpaces: any[]
 }) {
@@ -28,6 +26,7 @@ export default function Form({ project, amenities, customeSpaces, selectedAmenit
     const [workspaceAssigned, setWorkspanceAssigned] = useState<number>(0);
     const [staffWorkingRemotely, setStaffWorkingRemotely] = useState<number>(0);
     const [breakdowns, setBreakdowns] = useState<any[]>([]);
+    const [totalBreakdowns, setTotalBreakdowns] = useState<number>(0);
     const isLoading = useAppStore(state => state.isLoading);
     const setIsLoading = useAppStore(state => state.setIsLoading);
     const updateFields = useAreaBreakdownStore(state => state.updateFields)
@@ -66,6 +65,7 @@ export default function Form({ project, amenities, customeSpaces, selectedAmenit
 
     useEffect(() => {
         const breakdownGroup = [...selectedAmenities, ...selectedCustomSpaces];
+        setTotalBreakdowns(breakdownGroup.length);
         const groupItemRestById = (collector: any, item: any) => {
             const { categoryName, ...rest } = item;
             const groupList = collector[categoryName] || (collector[categoryName] = []);
@@ -100,7 +100,7 @@ export default function Form({ project, amenities, customeSpaces, selectedAmenit
         getProjectAmenities(project._id);
 
     }, [project, updateFields]);
-    console.log(breakdowns);
+
     return (
         <form onSubmit={onSubmit} className="col-span-4 row-span-2 h-full w-full overflow-y-scroll overflow-x-hidden">
             <div className="grid grid-cols-4 h-full ">
@@ -136,10 +136,10 @@ export default function Form({ project, amenities, customeSpaces, selectedAmenit
                                         <h3 className="font-light show-on-print">Area Distribution</h3>
 
                                         <div id="pie" className="flex gap-2 w-full">
-                                            <PieChartPresentation width={280} height={280} breakdowns={breakdowns} />
+                                            <PieChartPresentation width={280} height={280} breakdowns={breakdowns} totalBreakdowns={totalBreakdowns} />
                                         </div>
 
-                                        <PieChartData breakdowns={breakdowns} selectedAmenities={selectedAmenities} selectedCustomSpaces={selectedCustomSpaces} />
+                                        <PieChartData breakdowns={breakdowns} totalBreakdowns={totalBreakdowns} selectedAmenities={selectedAmenities} selectedCustomSpaces={selectedCustomSpaces} />
 
                                     </div>
                                     <div className="col-span-1 flex flex-col justify-end h-full">
