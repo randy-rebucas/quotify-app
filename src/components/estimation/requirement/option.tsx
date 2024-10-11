@@ -66,6 +66,7 @@ export default function Option({
                   selectedRequirement.requirementLevelId ===
                   requirementLevel._id.toString()
                 }
+                required
               />
               <label htmlFor={`requirement-${requirementName}-${index + 1}`}>
                 <Image
