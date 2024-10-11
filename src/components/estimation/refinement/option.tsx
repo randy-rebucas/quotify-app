@@ -68,6 +68,7 @@ export default function Option({
                   selectedRefinement.refinementLevelId ===
                   refinementLevel._id.toString()
                 }
+                required
               />
               <label htmlFor={`refinement-${amenityName}-${index + 1}`}>
                 <Image
