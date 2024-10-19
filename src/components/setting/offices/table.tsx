@@ -1,9 +1,11 @@
+import { getSession } from "@/actions/session";
 import { DeleteOffice, UpdateOffice } from "./buttons";
 import { IOffice } from "@/models/Office";
 
 
-export default function Table({ offices }: { offices: IOffice[] }) {
-
+export default async function Table({ offices }: { offices: IOffice[] }) {
+    const session = await getSession();
+    
     return (
         <div className="flex flex-col">
             <div className="-m-1.5 overflow-x-auto">
@@ -24,8 +26,12 @@ export default function Table({ offices }: { offices: IOffice[] }) {
                                         <td className="whitespace-nowrap py-1 pl-6 pr-3">
                                             <div className="flex justify-end gap-3">
                                                 <UpdateOffice id={office._id.toString()} />
-                                                <DeleteOffice id={office._id.toString()} />
+                                                {index !== 0 && <>
+                                                    <DeleteOffice id={office._id.toString()} />
+                                                </>
+                                                }
                                             </div>
+                                            
                                         </td>
                                     </tr>
                                 ))}

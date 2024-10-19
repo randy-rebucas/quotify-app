@@ -1,6 +1,5 @@
 "use server";
 
-
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { AmenityFormState, AmenityFormSchema } from "@/lib/definitions";
@@ -33,6 +32,12 @@ export async function updateAmenity(
 
   revalidatePath("/setting/amenities");
   redirect("/setting/amenities");
+}
+
+export async function checkInUsedCategory(categoryId: string) {
+  const amenity = await Amenity.find({ category: categoryId }).exec();
+
+  return amenity.length === 0 ? false : true;
 }
 
 export async function createAmenity(

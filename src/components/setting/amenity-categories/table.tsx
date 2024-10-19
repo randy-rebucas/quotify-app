@@ -1,5 +1,6 @@
 import { IAmenityCategory } from "@/models/AmenityCategory";
 import { DeleteAmenityCategory, UpdateAmenityCategory } from "./buttons";
+import { checkInUsedCategory } from "@/actions/amenity";
 
 
 export default function Table({ categories }: { categories: IAmenityCategory[] }) {
@@ -24,7 +25,8 @@ export default function Table({ categories }: { categories: IAmenityCategory[] }
                                         <td className="whitespace-nowrap py-1 pl-6 pr-3">
                                             <div className="flex justify-end gap-3">
                                                 <UpdateAmenityCategory id={category._id.toString()} />
-                                                <DeleteAmenityCategory id={category._id.toString()} />
+
+                                                <DeleteAction categoryId={category._id.toString()} />
                                             </div>
                                         </td>
                                     </tr>
@@ -35,5 +37,15 @@ export default function Table({ categories }: { categories: IAmenityCategory[] }
                 </div>
             </div>
         </div>
+    )
+}
+
+export async function DeleteAction({ categoryId }: { categoryId: string }) {
+    const inUsed = await checkInUsedCategory(categoryId);
+
+    return (
+        <>
+            {!inUsed && <DeleteAmenityCategory id={categoryId} />}
+        </>
     )
 }
